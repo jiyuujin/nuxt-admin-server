@@ -35,6 +35,15 @@ export function flights (state) {
 }
 
 /**
+ * フライトログ数を取得する
+ * @param state
+ * @returns {*}
+ */
+export function count (state) {
+  return state.count
+}
+
+/**
  * Image情報を取得する
  * @param state
  * @returns {T[]}

@@ -34,6 +34,15 @@ export function setDialog (state, payload) {
 }
 
 /**
+ * フライトログ数を設定する
+ * @param state
+ * @param payload
+ */
+export function setCount (state, payload) {
+  state.count = payload
+}
+
+/**
  * Qiita情報を設定する
  * @param state
  * @param payload

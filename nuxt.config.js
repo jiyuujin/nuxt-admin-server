@@ -35,6 +35,12 @@ module.exports = {
   ],
 
   plugins: [
+    '~plugins/axios',
+    '~plugins/firebase',
+    {
+      src: '~plugins/vue-chartjs',
+      ssr: false
+    },
     '~plugins/vuetify'
   ],
 

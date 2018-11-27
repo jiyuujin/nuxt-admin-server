@@ -4,7 +4,7 @@
     <v-container
       class="site"
     >
-      <StatusList
+      <Status
         :list="images"
       />
       <Loading />
@@ -20,7 +20,7 @@
 import { mapGetters } from 'vuex'
 import ImageList from '~/components/molecules/upload/List'
 import NewImage from '~/components/molecules/upload/New'
-import StatusList from '~/components/molecules/upload/StatusList'
+import Status from '~/components/molecules/upload/Status'
 import LeftMenu from '~/components/molecules/layout/LeftMenu'
 import Loading from '~/components/organisms/Loading'
 export default {
@@ -28,7 +28,7 @@ export default {
   components: {
     ImageList,
     NewImage,
-    StatusList,
+    Status,
     LeftMenu,
     Loading
   },

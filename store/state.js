@@ -7,6 +7,7 @@ export default {
   tips: [],
   qiitas: [],
   flights: [],
+  count: [],
   images: [],
   sites: []
 }

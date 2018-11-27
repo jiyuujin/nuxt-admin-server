@@ -4,7 +4,7 @@
     <v-container
       class="site"
     >
-      <StatusList />
+      <Status />
       <Loading />
       <List
         :list="sites"
@@ -16,14 +16,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import List from '~/components/molecules/setting/List'
-import StatusList from '~/components/molecules/setting/StatusList'
+import Status from '~/components/molecules/setting/Status'
 import LeftMenu from '~/components/molecules/layout/LeftMenu'
 import Loading from '~/components/organisms/Loading'
 export default {
   middleware: 'auth',
   components: {
     List,
-    StatusList,
+    Status,
     LeftMenu,
     Loading
   },

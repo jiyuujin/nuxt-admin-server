@@ -4,8 +4,8 @@
     <v-container
       class="site"
     >
-      <StatusList
-        :list="flights"
+      <Status
+        :list="count"
       />
       <Loading />
       <FlightList
@@ -27,7 +27,7 @@ import { mapGetters, mapState } from 'vuex'
 import FlightList from '~/components/molecules/flight/List'
 import NewFlight from '~/components/molecules/flight/New'
 import EditFlight from '~/components/molecules/flight/Edit'
-import StatusList from '~/components/molecules/flight/StatusList'
+import Status from '~/components/molecules/flight/Status'
 import LeftMenu from '~/components/molecules/layout/LeftMenu'
 import Loading from '~/components/organisms/Loading'
 export default {
@@ -36,7 +36,7 @@ export default {
     FlightList,
     NewFlight,
     EditFlight,
-    StatusList,
+    Status,
     LeftMenu,
     Loading
   },
@@ -57,7 +57,7 @@ export default {
     this.flights.length ? Promise.resolve() : this.$store.dispatch('initFlights')
   },
   computed: {
-    ...mapGetters(['userStatus', 'flights']),
+    ...mapGetters(['userStatus', 'flights', 'count']),
     ...mapState(['dialog'])
   },
   methods: {

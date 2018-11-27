@@ -11,6 +11,8 @@ const flightsRef = adminDB.ref('/flights');
 // imagesデータベース
 const imagesRef = adminDB.ref('/images');
 
+const YEAR = ['2019', '2018', '2017', '2016', '2015'];
+
 // Qiita Basic URL
 const BASE_URL = 'https://qiita.com/api/v2/tags/';
 
@@ -166,6 +168,14 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
 
   // Sort by time
   bindFirebaseRef('flights', flightsRef.orderByChild('time'))
+
+  let counts = []
+  YEAR.forEach(y => {
+    flightsRef.orderByChild('time').startAt(y).endAt(y + '\uf8ff').once("value", function(snap) {
+      counts.push(snap.numChildren())
+    })
+  })
+  commit('setCount', counts)
 
   // ローディングを終了する
   commit('setLoading', false)

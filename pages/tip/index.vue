@@ -4,11 +4,11 @@
     <v-container
       class="site"
     >
-      <StatusList
+      <Status
         :list="tips"
       />
       <Loading />
-      <Input
+      <InputForm
         :data="search"
         column="タイトル"
         @form-data="applyTitle"
@@ -30,21 +30,21 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import moment from 'moment'
-import Input from '~/components/atoms/Input'
+import InputForm from '~/components/atoms/Input'
 import TipList from '~/components/molecules/tip/List'
 import NewTip from '~/components/molecules/tip/New'
 import EditTip from '~/components/molecules/tip/Edit'
-import StatusList from '~/components/molecules/tip/StatusList'
+import Status from '~/components/molecules/tip/Status'
 import LeftMenu from '~/components/molecules/layout/LeftMenu'
 import Loading from '~/components/organisms/Loading'
 export default {
   middleware: 'auth',
   components: {
-    Input,
+    InputForm,
     TipList,
     NewTip,
     EditTip,
-    StatusList,
+    Status,
     LeftMenu,
     Loading
   },

@@ -4,7 +4,7 @@
     <v-container
       class="site"
     >
-      <StatusList
+      <Status
         :list="qiitas"
         :tag="params.tag"
       />
@@ -38,7 +38,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import QiitaList from '~/components/molecules/qiita/List'
-import StatusList from '~/components/molecules/qiita/StatusList'
+import Status from '~/components/molecules/qiita/Status'
 import InputForm from '~/components/atoms/Input'
 import SingleSelectForm from '~/components/atoms/SingleStringSelect'
 import LeftMenu from '~/components/molecules/layout/LeftMenu'
@@ -49,7 +49,7 @@ export default {
   middleware: 'auth',
   components: {
     QiitaList,
-    StatusList,
+    Status,
     InputForm,
     SingleSelectForm,
     LeftMenu,
