@@ -26,9 +26,9 @@
           column="タグ"
           @form-data="applyTags"
         />
-        <SingleSelectNumberForm
+        <SingleSelectForm
           :option="events"
-          :data="editedForm.event"
+          :number="editedForm.event"
           column="イベント"
           @form-data="applyEvent"
         />
@@ -60,7 +60,7 @@
 <script>
 import { mapState } from 'vuex'
 import InputForm from '../../atoms/InputForm'
-import SingleSelectNumberForm from '../../atoms/SingleSelectNumberForm'
+import SingleSelectForm from '../../atoms/SingleSelectForm'
 import MultipleSelectForm from '../../atoms/MultipleSelectForm'
 import { CATEGORIES } from '~/utils/categories'
 import { EVENT_LIST } from '../../../utils/events'
@@ -77,7 +77,7 @@ export default {
   },
   components: {
     InputForm,
-    SingleSelectNumberForm,
+    SingleSelectForm,
     MultipleSelectForm
   },
   data() {

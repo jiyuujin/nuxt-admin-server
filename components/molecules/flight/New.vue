@@ -4,27 +4,27 @@
       :data="form.time"
       @form-data="applyDateTime"
     />
-    <SingleSelectNumberForm
+    <SingleSelectForm
       :option="airports"
-      :data="form.departure"
+      :number="form.departure"
       column="出発"
       @form-data="applyDeparture"
     />
-    <SingleSelectNumberForm
+    <SingleSelectForm
       :option="airports"
-      :data="form.arrival"
+      :number="form.arrival"
       column="到着"
       @form-data="applyArrival"
     />
-    <SingleSelectNumberForm
+    <SingleSelectForm
       :option="airlines"
-      :data="form.airline"
+      :number="form.airline"
       column="航空会社"
       @form-data="applyAirline"
     />
-    <SingleSelectNumberForm
+    <SingleSelectForm
       :option="boardingTypes"
-      :data="form.boardingType"
+      :number="form.boardingType"
       column="搭乗機材"
       @form-data="applyBoardingType"
     />
@@ -42,7 +42,7 @@
 <script>
 import moment from 'moment'
 import InputForm from '../../atoms/InputForm'
-import SingleSelectNumberForm from '../../atoms/SingleSelectNumberForm'
+import SingleSelectForm from '../../atoms/SingleSelectForm'
 import DateTimeForm from '../../atoms/DateTimeForm'
 import Validation from '~/utils/validation'
 import { AIRPORT_LIST } from '../../../utils/airports'
@@ -51,7 +51,7 @@ import { BOARDING_TYPE_LIST } from '../../../utils/boardingTypes'
 export default {
   components: {
     InputForm,
-    SingleSelectNumberForm,
+    SingleSelectForm,
     DateTimeForm
   },
   data () {

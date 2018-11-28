@@ -21,9 +21,9 @@
       column="タグ"
       @form-data="applyTags"
     />
-    <SingleSelectNumberForm
+    <SingleSelectForm
       :option="events"
-      :data="form.event"
+      :number="form.event"
       column="イベント"
       @form-data="applyEvent"
     />
@@ -37,7 +37,7 @@
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 import InputForm from '../../atoms/InputForm'
-import SingleSelectNumberForm from '../../atoms/SingleSelectNumberForm'
+import SingleSelectForm from '../../atoms/SingleSelectForm'
 import MultipleSelectForm from '../../atoms/MultipleSelectForm'
 import { CATEGORIES } from '~/utils/categories'
 import { EVENT_LIST } from '../../../utils/events'
@@ -45,7 +45,7 @@ import Validation from '~/utils/validation'
 export default {
   components: {
     InputForm,
-    SingleSelectNumberForm,
+    SingleSelectForm,
     MultipleSelectForm
   },
   data () {

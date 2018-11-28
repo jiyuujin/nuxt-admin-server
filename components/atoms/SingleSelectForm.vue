@@ -18,9 +18,11 @@ export default {
       type: Array,
       required: true
     },
-    data: {
-      type: String,
-      required: true
+    text: {
+      type: String
+    },
+    number: {
+      type: Number
     },
     column: {
       type: String,
@@ -30,7 +32,8 @@ export default {
   computed: {
     newVal: {
       get () {
-        return this.data
+        if (this.text) return this.text
+        else return this.number
       },
       set (value) {
         this.$emit('form-data', value)
@@ -39,7 +42,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
