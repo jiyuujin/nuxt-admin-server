@@ -1,28 +1,28 @@
 <template>
   <v-card-text>
-    <DateTime
+    <DateTimeForm
       :data="form.time"
       @form-data="applyDateTime"
     />
-    <SingleSelect
+    <SingleSelectNumberForm
       :option="airports"
       :data="form.departure"
       column="出発"
       @form-data="applyDeparture"
     />
-    <SingleSelect
+    <SingleSelectNumberForm
       :option="airports"
       :data="form.arrival"
       column="到着"
       @form-data="applyArrival"
     />
-    <SingleSelect
+    <SingleSelectNumberForm
       :option="airlines"
       :data="form.airline"
       column="航空会社"
       @form-data="applyAirline"
     />
-    <SingleSelect
+    <SingleSelectNumberForm
       :option="boardingTypes"
       :data="form.boardingType"
       column="搭乗機材"
@@ -41,9 +41,9 @@
 
 <script>
 import moment from 'moment'
-import InputForm from '../../atoms/Input'
-import SingleSelect from '../../atoms/SingleNumberSelect'
-import DateTime from '../../atoms/DateTime'
+import InputForm from '../../atoms/InputForm'
+import SingleSelectNumberForm from '../../atoms/SingleSelectNumberForm'
+import DateTimeForm from '../../atoms/DateTimeForm'
 import Validation from '~/utils/validation'
 import { AIRPORT_LIST } from '../../../utils/airports'
 import { AIRLINE_LIST } from '../../../utils/airlines'
@@ -51,8 +51,8 @@ import { BOARDING_TYPE_LIST } from '../../../utils/boardingTypes'
 export default {
   components: {
     InputForm,
-    SingleSelect,
-    DateTime
+    SingleSelectNumberForm,
+    DateTimeForm
   },
   data () {
     return {

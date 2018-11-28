@@ -30,7 +30,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import moment from 'moment'
-import InputForm from '~/components/atoms/Input'
+import InputForm from '~/components/atoms/InputForm'
 import TipList from '~/components/molecules/tip/List'
 import NewTip from '~/components/molecules/tip/New'
 import EditTip from '~/components/molecules/tip/Edit'

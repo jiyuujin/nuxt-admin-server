@@ -9,7 +9,7 @@
         :tag="params.tag"
       />
       <Loading />
-      <SingleSelectForm
+      <SingleSelectTextForm
         :option="categories"
         :data="params.tag"
         column="タグ"
@@ -39,8 +39,8 @@
 import { mapGetters } from 'vuex'
 import QiitaList from '~/components/molecules/qiita/List'
 import Status from '~/components/molecules/qiita/Status'
-import InputForm from '~/components/atoms/Input'
-import SingleSelectForm from '~/components/atoms/SingleStringSelect'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectTextForm from '~/components/atoms/SingleSelectTextForm'
 import LeftMenu from '~/components/molecules/layout/LeftMenu'
 import Loading from '~/components/organisms/Loading'
 import Pagination from '~/components/atoms/Pagination'
@@ -51,7 +51,7 @@ export default {
     QiitaList,
     Status,
     InputForm,
-    SingleSelectForm,
+    SingleSelectTextForm,
     LeftMenu,
     Loading,
     Pagination

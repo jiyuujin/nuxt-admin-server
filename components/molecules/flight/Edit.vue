@@ -5,25 +5,25 @@
   >
     <v-card>
       <v-card-text>
-        <SingleSelect
+        <SingleSelectNumberForm
           :option="airports"
           :data="editedForm.departure"
           column="出発"
           @form-data="applyDeparture"
         />
-        <SingleSelect
+        <SingleSelectNumberForm
           :option="airports"
           :data="editedForm.arrival"
           column="到着"
           @form-data="applyArrival"
         />
-        <SingleSelect
+        <SingleSelectNumberForm
           :option="airlines"
           :data="editedForm.airline"
           column="航空会社"
           @form-data="applyAirline"
         />
-        <SingleSelect
+        <SingleSelectNumberForm
           :option="boardingTypes"
           :data="editedForm.boardingType"
           column="搭乗機材"
@@ -61,8 +61,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import InputForm from '../../atoms/Input'
-import SingleSelect from '../../atoms/SingleNumberSelect'
+import InputForm from '../../atoms/InputForm'
+import SingleSelectNumberForm from '../../atoms/SingleSelectNumberForm'
 import { AIRPORT_LIST } from '../../../utils/airports'
 import { AIRLINE_LIST } from '../../../utils/airlines'
 import { BOARDING_TYPE_LIST } from '../../../utils/boardingTypes'
@@ -79,7 +79,7 @@ export default {
   },
   components: {
     InputForm,
-    SingleSelect
+    SingleSelectNumberForm
   },
   data() {
     return {
