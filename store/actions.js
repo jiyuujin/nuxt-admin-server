@@ -10,6 +10,8 @@ const tipsRef = adminDB.ref('/tips');
 const flightsRef = adminDB.ref('/flights');
 // imagesデータベース
 const imagesRef = adminDB.ref('/images');
+// videosデータベース
+const videosRef = adminDB.ref('/videos');
 
 const YEAR = ['2019', '2018', '2017', '2016', '2015'];
 
@@ -249,6 +251,36 @@ export const addImage = firebaseAction((ctx, { time, title, imagePath }) => {
     time,
     title: title,
     imagePath: imagePath
+  })
+});
+
+/**
+ * Video情報を取得する
+ * @type {(context: ActionContext<any, any>, payload: any) => any}
+ */
+export const initVideos = firebaseAction(({ bindFirebaseRef, commit }) => {
+  // ローディングを開始する
+  commit('setLoading', true)
+
+  // Sort by time
+  bindFirebaseRef('videos', videosRef.orderByChild('title'))
+
+  // ローディングを終了する
+  commit('setLoading', false)
+});
+
+/**
+ * Video情報を追加する
+ * @type {(context: ActionContext<any, any>, payload: any) => any}
+ */
+export const addVideo = firebaseAction((ctx, { title, event, videoPath }) => {
+  // 正規表現を使ってIDだけ取り出す
+  const result = videoPath.match(/([^?v=]+)/g)
+
+  videosRef.push({
+    title: title,
+    event: event,
+    videoID: result[result.length - 1]
   })
 });
 

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <LeftMenu />
+    <MainTemplate
+      :loading="loading"
+    />
     <v-container
       class="site"
     >
@@ -8,7 +10,6 @@
         :list="qiitas"
         :tag="params.tag"
       />
-      <Loading />
       <SingleSelectForm
         :option="categories"
         :text="params.tag"
@@ -36,24 +37,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import QiitaList from '~/components/molecules/qiita/List'
-import Status from '~/components/molecules/qiita/Status'
+import { mapGetters, mapState } from 'vuex'
+import MainTemplate from '~/components/templates/MainTemplate';
+import QiitaList from '~/components/organisms/qiita/List'
+import Status from '~/components/organisms/qiita/Status'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import LeftMenu from '~/components/molecules/layout/LeftMenu'
-import Loading from '~/components/organisms/Loading'
 import Pagination from '~/components/atoms/Pagination'
 import { CATEGORIES } from '~/utils/categories'
 export default {
   middleware: 'auth',
   components: {
+    MainTemplate,
     QiitaList,
     Status,
     InputForm,
     SingleSelectForm,
-    LeftMenu,
-    Loading,
     Pagination
   },
   data () {
@@ -69,7 +68,8 @@ export default {
     categories () {
       return CATEGORIES.map(category => { return category.name })
     },
-    ...mapGetters(['userStatus', 'qiitas'])
+    ...mapGetters(['userStatus', 'qiitas']),
+    ...mapState(['loading'])
   },
   methods: {
     getQiitaByTag () {

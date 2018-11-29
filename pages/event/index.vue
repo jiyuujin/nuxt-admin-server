@@ -1,6 +1,8 @@
 <template>
   <div>
-    <LeftMenu />
+    <MainTemplate
+      :loading="loading"
+    />
     <v-container
       class="site"
     >
@@ -10,15 +12,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import LeftMenu from '~/components/molecules/layout/LeftMenu'
+import { mapGetters, mapState } from 'vuex'
+import MainTemplate from '~/components/templates/MainTemplate';
 export default {
   middleware: 'auth',
   components: {
-    LeftMenu
+    MainTemplate
   },
   computed: {
-    ...mapGetters(['userStatus'])
+    ...mapGetters(['userStatus']),
+    ...mapState(['loading'])
   }
 }
 </script>

@@ -1,13 +1,14 @@
 <template>
   <div>
-    <LeftMenu />
+    <MainTemplate
+      :loading="loading"
+    />
     <v-container
       class="site"
     >
       <Status
         :list="images"
       />
-      <Loading />
       <NewImage />
       <ImageList
         :list="images"
@@ -17,26 +18,25 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import ImageList from '~/components/molecules/upload/List'
-import NewImage from '~/components/molecules/upload/New'
-import Status from '~/components/molecules/upload/Status'
-import LeftMenu from '~/components/molecules/layout/LeftMenu'
-import Loading from '~/components/organisms/Loading'
+import { mapGetters, mapState } from 'vuex'
+import MainTemplate from '~/components/templates/MainTemplate';
+import ImageList from '~/components/organisms/upload/List'
+import NewImage from '~/components/organisms/upload/New'
+import Status from '~/components/organisms/upload/Status'
 export default {
   middleware: 'auth',
   components: {
+    MainTemplate,
     ImageList,
     NewImage,
-    Status,
-    LeftMenu,
-    Loading
+    Status
   },
   async mounted () {
     this.images.length ? Promise.resolve() : this.$store.dispatch('initImages')
   },
   computed: {
-    ...mapGetters(['userStatus', 'images'])
+    ...mapGetters(['userStatus', 'images']),
+    ...mapState(['loading'])
   }
 }
 </script>

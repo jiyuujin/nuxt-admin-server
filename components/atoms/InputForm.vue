@@ -3,6 +3,7 @@
     <v-text-field
       v-model="newVal"
       :label="column + '入力してください'"
+      :type="column === 'Password' ? 'password': ''"
       required
     ></v-text-field>
   </v-flex>

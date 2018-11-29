@@ -17,6 +17,15 @@ export function tips (state) {
 }
 
 /**
+ * Video情報を取得する
+ * @param state
+ * @returns {any[]}
+ */
+export function videos (state) {
+  return state.videos
+}
+
+/**
  * Qiita情報を取得する
  * @param state
  * @returns {null|*|Array}

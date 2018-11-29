@@ -1,29 +1,22 @@
 <template>
-  <v-container>
+  <v-container
+    align-center
+    justify-center
+    row
+    fill-height
+  >
     <v-card>
-      <v-toolbar
-        dark
-        color="primary"
-      >
-        <v-toolbar-title>
-          Login
-        </v-toolbar-title>
-      </v-toolbar>
       <v-card-text>
-        <v-form>
-          <v-text-field
-            prepend-icon="email"
-            label="Email"
-            type="text"
-            v-model="email"
-          />
-          <v-text-field
-            prepend-icon="lock"
-            label="Password"
-            type="password"
-            v-model="password"
-          />
-        </v-form>
+        <InputForm
+          :data="email"
+          column="Email"
+          @form-data="applyEmail"
+        />
+        <InputForm
+          :data="password"
+          column="Password"
+          @form-data="applyPassword"
+        />
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -40,14 +33,24 @@
 
 <script>
 import firebase from 'firebase'
+import InputForm from '~/components/atoms/InputForm'
 export default {
+  components: {
+    InputForm
+  },
   data () {
     return {
-      email: null,
-      password: null
+      email: '',
+      password: ''
     }
   },
   methods: {
+    applyEmail(val) {
+      this.email = val
+    },
+    applyPassword(val) {
+      this.password = val
+    },
     async login () {
       await firebase.auth()
         .signInWithEmailAndPassword(this.email, this.password)

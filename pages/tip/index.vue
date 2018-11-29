@@ -1,13 +1,14 @@
 <template>
   <div>
-    <LeftMenu />
+    <MainTemplate
+      :loading="loading"
+    />
     <v-container
       class="site"
     >
       <Status
         :list="tips"
       />
-      <Loading />
       <InputForm
         :data="search"
         column="タイトル"
@@ -23,30 +24,31 @@
         :edited-form="editedForm"
         :data-key="dataKey"
       />
+      <NewVideo />
     </v-container>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 import moment from 'moment'
+import { mapGetters, mapState } from 'vuex'
+import MainTemplate from '~/components/templates/MainTemplate';
 import InputForm from '~/components/atoms/InputForm'
-import TipList from '~/components/molecules/tip/List'
-import NewTip from '~/components/molecules/tip/New'
-import EditTip from '~/components/molecules/tip/Edit'
-import Status from '~/components/molecules/tip/Status'
-import LeftMenu from '~/components/molecules/layout/LeftMenu'
-import Loading from '~/components/organisms/Loading'
+import TipList from '~/components/organisms/tip/List'
+import NewTip from '~/components/organisms/tip/New'
+import EditTip from '~/components/organisms/tip/Edit'
+import Status from '~/components/organisms/tip/Status'
+import NewVideo from '~/components/organisms/video/New'
 export default {
   middleware: 'auth',
   components: {
+    MainTemplate,
     InputForm,
     TipList,
     NewTip,
     EditTip,
     Status,
-    LeftMenu,
-    Loading
+    NewVideo
   },
   async mounted () {
     this.tips.length ? Promise.resolve() : this.$store.dispatch('initTips')
@@ -67,7 +69,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userStatus', 'tips']),
-    ...mapState(['dialog'])
+    ...mapState(['dialog', 'loading'])
   },
   methods: {
     async startEdited() {

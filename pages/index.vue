@@ -1,25 +1,43 @@
 <template>
-  <v-layout column>
-    <Header />
-    <TopPageMenu />
-  </v-layout>
+  <div>
+    <MainTemplate
+      :loading="loading"
+    />
+    <v-container
+      class="site"
+    >
+      <Header />
+      <List
+        :list="videos"
+      />
+    </v-container>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Header from '~/components/molecules/layout/Header'
-import TopPageMenu from '~/components/molecules/layout/TopPageMenu'
+import { mapGetters, mapState } from 'vuex'
+import MainTemplate from '~/components/templates/MainTemplate'
+import List from '~/components/organisms/video/List'
+import Header from '~/components/molecules/Header'
 export default {
   middleware: 'auth',
   components: {
-    Header,
-    TopPageMenu
+    MainTemplate,
+    List,
+    Header
   },
   computed: {
-    ...mapGetters(['userStatus'])
+    ...mapGetters(['userStatus', 'videos']),
+    ...mapState(['loading'])
+  },
+  async mounted() {
+    await this.$store.dispatch('initVideos')
   }
 }
 </script>
 
 <style scoped>
+.site {
+  width: 95%;
+}
 </style>

@@ -1,13 +1,14 @@
 <template>
   <div>
-    <LeftMenu />
+    <MainTemplate
+      :loading="loading"
+    />
     <v-container
       class="site"
     >
       <Status
         :list="count"
       />
-      <Loading />
       <FlightList
         :list="flights"
         @form-data="applyEditedForm"
@@ -24,21 +25,19 @@
 <script>
 import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
-import FlightList from '~/components/molecules/flight/List'
-import NewFlight from '~/components/molecules/flight/New'
-import EditFlight from '~/components/molecules/flight/Edit'
-import Status from '~/components/molecules/flight/Status'
-import LeftMenu from '~/components/molecules/layout/LeftMenu'
-import Loading from '~/components/organisms/Loading'
+import MainTemplate from '~/components/templates/MainTemplate';
+import FlightList from '~/components/organisms/flight/List'
+import NewFlight from '~/components/organisms/flight/New'
+import EditFlight from '~/components/organisms/flight/Edit'
+import Status from '~/components/organisms/flight/Status'
 export default {
   middleware: 'auth',
   components: {
+    MainTemplate,
     FlightList,
     NewFlight,
     EditFlight,
-    Status,
-    LeftMenu,
-    Loading
+    Status
   },
   data() {
     return {
@@ -58,7 +57,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userStatus', 'flights', 'count']),
-    ...mapState(['dialog'])
+    ...mapState(['dialog', 'loading'])
   },
   methods: {
     async startEdited() {

@@ -1,11 +1,12 @@
 <template>
   <div>
-    <LeftMenu />
+    <MainTemplate
+      :loading="loading"
+    />
     <v-container
       class="site"
     >
       <Status />
-      <Loading />
       <List
         :list="sites"
       />
@@ -14,21 +15,20 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import List from '~/components/molecules/setting/List'
-import Status from '~/components/molecules/setting/Status'
-import LeftMenu from '~/components/molecules/layout/LeftMenu'
-import Loading from '~/components/organisms/Loading'
+import { mapGetters, mapState } from 'vuex'
+import MainTemplate from '~/components/templates/MainTemplate';
+import List from '~/components/organisms/setting/List'
+import Status from '~/components/organisms/setting/Status'
 export default {
   middleware: 'auth',
   components: {
+    MainTemplate,
     List,
-    Status,
-    LeftMenu,
-    Loading
+    Status
   },
   computed: {
-    ...mapGetters(['userStatus', 'sites'])
+    ...mapGetters(['userStatus', 'sites']),
+    ...mapState(['loading'])
   },
   async mounted() {
     this.$store.dispatch('initSites')

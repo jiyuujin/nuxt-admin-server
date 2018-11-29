@@ -5,6 +5,7 @@ export default {
   loading: null,
   dialog: false,
   tips: [],
+  videos: [],
   qiitas: [],
   flights: [],
   count: [],
