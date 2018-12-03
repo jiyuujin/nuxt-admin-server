@@ -6,8 +6,7 @@
     <v-container
       class="site"
     >
-      <Status />
-      <List
+      <Status
         :list="sites"
       />
     </v-container>
@@ -17,13 +16,11 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate';
-import List from '~/components/organisms/setting/List'
 import Status from '~/components/organisms/setting/Status'
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
-    List,
     Status
   },
   computed: {

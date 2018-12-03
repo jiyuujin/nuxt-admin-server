@@ -3,50 +3,43 @@
     <h3>
       Setting
     </h3>
-    <v-data-table
-      :headers="header"
-      :items="social"
-      hide-actions
-      class="elevation-1"
-      style="margin-top: 5px; margin-bottom: 5px;"
+    <div
+      v-for="item in list"
+      :key="item.name"
     >
-      <template slot="items" slot-scope="props">
-        <td>
-          <p class="social__name">
-            {{ props.item.name }}
-          </p>
-        </td>
-        <td>
-          <a
-            :href="props.item.url"
-            target="_blank"
+      <div
+        :style="item.error_message !== null ? 'background-color: #CC0000; color: #fff;' : null"
+      >
+        <p class="netlify__name">
+          {{ item.name }} - {{ item.build_settings.dir }} / {{ item.build_settings.cmd }}
+          <span
+            v-if="item.error_message"
+            class="netlify_error_message"
           >
-            <img
-              :src="'./' + props.item.name + '.png'"
-              :alt="props.item.name"
-            >
-          </a>
-        </td>
-      </template>
-    </v-data-table>
+            {{ item.error_message }}
+          </span>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { SOCIAL_MENU_LIST, SETTING_HEADER_LIST } from '../../../utils/menu'
 export default {
-  data() {
-    return {
-      social: SOCIAL_MENU_LIST,
-      header: SETTING_HEADER_LIST
+  props: {
+    list: {
+      type: Array,
+      required: true
     }
   }
 }
 </script>
 
 <style scoped>
-img {
-  width: 25px;
-  height: 25px;
+.netlify__name {
+  font-size: 12px;
+}
+.netlify_error_message {
+  font-size: 8px;
 }
 </style>
