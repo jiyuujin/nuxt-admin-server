@@ -4,6 +4,11 @@
     <Loading
       :loading="loading"
     />
+    <v-container
+      class="site"
+    >
+      <slot />
+    </v-container>
   </div>
 </template>
 
@@ -24,5 +29,7 @@ export default {
 </script>
 
 <style scoped>
-
+.site {
+  width: 95%;
+}
 </style>

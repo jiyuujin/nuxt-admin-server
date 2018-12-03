@@ -1,32 +1,27 @@
 <template>
-  <div>
-    <MainTemplate
-      :loading="loading"
+  <MainTemplate
+    :loading="loading"
+  >
+    <Status
+      :list="tips"
     />
-    <v-container
-      class="site"
-    >
-      <Status
-        :list="tips"
-      />
-      <InputForm
-        :data="search"
-        column="タイトル"
-        @form-data="applyTitle"
-      />
-      <TipList
-        :list="tips"
-        :search="search"
-        @form-data="applyEditedForm"
-      />
-      <NewTip />
-      <EditTip
-        :edited-form="editedForm"
-        :data-key="dataKey"
-      />
-      <NewVideo />
-    </v-container>
-  </div>
+    <InputForm
+      :data="search"
+      column="タイトル"
+      @form-data="applyTitle"
+    />
+    <TipList
+      :list="tips"
+      :search="search"
+      @form-data="applyEditedForm"
+    />
+    <NewTip />
+    <EditTip
+      :edited-form="editedForm"
+      :data-key="dataKey"
+    />
+    <NewVideo />
+  </MainTemplate>
 </template>
 
 <script>
@@ -88,7 +83,5 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 95%;
-}
+
 </style>

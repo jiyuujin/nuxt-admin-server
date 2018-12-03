@@ -1,25 +1,20 @@
 <template>
-  <div>
-    <MainTemplate
-      :loading="loading"
+  <MainTemplate
+    :loading="loading"
+  >
+    <Status
+      :list="count"
     />
-    <v-container
-      class="site"
-    >
-      <Status
-        :list="count"
-      />
-      <FlightList
-        :list="flights"
-        @form-data="applyEditedForm"
-      />
-      <NewFlight />
-      <EditFlight
-        :edited-form="editedForm"
-        :data-key="dataKey"
-      />
-    </v-container>
-  </div>
+    <FlightList
+      :list="flights"
+      @form-data="applyEditedForm"
+    />
+    <NewFlight />
+    <EditFlight
+      :edited-form="editedForm"
+      :data-key="dataKey"
+    />
+  </MainTemplate>
 </template>
 
 <script>
@@ -73,7 +68,5 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 95%;
-}
+
 </style>

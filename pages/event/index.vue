@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <MainTemplate
-      :loading="loading"
-    />
-    <v-container
-      class="site"
-    >
-      <h3>家計簿 (予定)</h3>
-    </v-container>
-  </div>
+  <MainTemplate
+    :loading="loading"
+  >
+    <h3>家計簿 (予定)</h3>
+  </MainTemplate>
 </template>
 
 <script>
@@ -27,7 +22,5 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 95%;
-}
+
 </style>

@@ -1,20 +1,15 @@
 <template>
-  <div>
-    <MainTemplate
-      :loading="loading"
+  <MainTemplate
+    :loading="loading"
+  >
+    <Status
+      :list="images"
     />
-    <v-container
-      class="site"
-    >
-      <Status
-        :list="images"
-      />
-      <NewImage />
-      <ImageList
-        :list="images"
-      />
-    </v-container>
-  </div>
+    <NewImage />
+    <ImageList
+      :list="images"
+    />
+  </MainTemplate>
 </template>
 
 <script>
@@ -42,7 +37,5 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 95%;
-}
+
 </style>

@@ -1,39 +1,34 @@
 <template>
-  <div>
-    <MainTemplate
-      :loading="loading"
+  <MainTemplate
+    :loading="loading"
+  >
+    <Status
+      :list="qiitas"
+      :tag="params.tag"
     />
-    <v-container
-      class="site"
-    >
-      <Status
-        :list="qiitas"
-        :tag="params.tag"
+    <SingleSelectForm
+      :option="categories"
+      :text="params.tag"
+      column="タグ"
+      @form-data="applyTag"
+    />
+    <InputForm
+      :data="params.search"
+      column="タイトル"
+      @form-data="applyTitle"
+    />
+    <QiitaList
+      :list="qiitas"
+      :search="params.search"
+    />
+    <div class="text-xs-center pt-2">
+      <Pagination
+        :current-page="params.page"
+        @form-data="applyPage"
+        class="text-xs-center pt-2"
       />
-      <SingleSelectForm
-        :option="categories"
-        :text="params.tag"
-        column="タグ"
-        @form-data="applyTag"
-      />
-      <InputForm
-        :data="params.search"
-        column="タイトル"
-        @form-data="applyTitle"
-      />
-      <QiitaList
-        :list="qiitas"
-        :search="params.search"
-      />
-      <div class="text-xs-center pt-2">
-        <Pagination
-          :current-page="params.page"
-          @form-data="applyPage"
-          class="text-xs-center pt-2"
-        />
-      </div>
-    </v-container>
-  </div>
+    </div>
+  </MainTemplate>
 </template>
 
 <script>
@@ -99,7 +94,5 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 95%;
-}
+
 </style>

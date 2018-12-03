@@ -1,16 +1,11 @@
 <template>
-  <div>
-    <MainTemplate
-      :loading="loading"
+  <MainTemplate
+    :loading="loading"
+  >
+    <Status
+      :list="sites"
     />
-    <v-container
-      class="site"
-    >
-      <Status
-        :list="sites"
-      />
-    </v-container>
-  </div>
+  </MainTemplate>
 </template>
 
 <script>
@@ -34,7 +29,5 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 95%;
-}
+
 </style>

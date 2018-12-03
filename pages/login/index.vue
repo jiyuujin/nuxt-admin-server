@@ -1,10 +1,5 @@
 <template>
-  <v-container
-    align-center
-    justify-center
-    row
-    fill-height
-  >
+  <AuthTemplate>
     <v-card>
       <v-card-text>
         <InputForm
@@ -28,14 +23,16 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-container>
+  </AuthTemplate>
 </template>
 
 <script>
 import firebase from 'firebase'
+import AuthTemplate from '~/components/templates/AuthTemplate'
 import InputForm from '~/components/atoms/InputForm'
 export default {
   components: {
+    AuthTemplate,
     InputForm
   },
   data () {
