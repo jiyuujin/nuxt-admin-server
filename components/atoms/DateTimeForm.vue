@@ -14,7 +14,7 @@
     >
       <v-text-field
         slot="activator"
-        v-model="dateFormatted"
+        v-model="newVal"
         label="Date"
         hint="選択してください"
         persistent-hint
@@ -32,9 +32,12 @@
 
 <script>
 export default {
-  props: [
-    'data'
-  ],
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       dateFormatted: null,
