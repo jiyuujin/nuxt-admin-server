@@ -21,13 +21,12 @@
       :list="qiitas"
       :search="params.search"
     />
-    <div class="text-xs-center pt-2">
-      <Pagination
-        :current-page="params.page"
-        @form-data="applyPage"
-        class="text-xs-center pt-2"
-      />
-    </div>
+    <Pagination
+      v-if="qiitas"
+      :page="params.page"
+      :max="Math.ceil(qiitas.length / 20)"
+      @form-data="applyPage"
+    />
   </MainTemplate>
 </template>
 
@@ -94,5 +93,12 @@ export default {
 </script>
 
 <style scoped>
-
+button {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 0;
+  text-decoration: none;
+  color: #67c5ff;
+}
 </style>

@@ -3,11 +3,20 @@
     :loading="loading"
   >
     <Status
-      :list="count"
+      v-if="flights"
+      :list="flights.item"
     />
     <FlightList
-      :list="flights"
+      v-if="flights"
+      :list="flights.item"
+      :number="params.page"
       @form-data="applyEditedForm"
+    />
+    <Pagination
+      v-if="flights"
+      :page="params.page"
+      :max="Math.ceil(flights.item.length / 20)"
+      @form-data="applyPage"
     />
     <NewFlight />
     <EditFlight
@@ -21,6 +30,7 @@
 import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate';
+import Pagination from '~/components/atoms/Pagination'
 import FlightList from '~/components/organisms/flight/List'
 import NewFlight from '~/components/organisms/flight/New'
 import EditFlight from '~/components/organisms/flight/Edit'
@@ -29,6 +39,7 @@ export default {
   middleware: 'auth',
   components: {
     MainTemplate,
+    Pagination,
     FlightList,
     NewFlight,
     EditFlight,
@@ -44,14 +55,17 @@ export default {
         boardingType: -1,
         registration: ''
       },
-      dataKey: ''
+      dataKey: '',
+      params: {
+        page: 1
+      }
     }
   },
   async mounted() {
-    this.flights.length ? Promise.resolve() : this.$store.dispatch('initFlights')
+    this.flights ? Promise.resolve() : this.$store.dispatch('initFlights')
   },
   computed: {
-    ...mapGetters(['userStatus', 'flights', 'count']),
+    ...mapGetters(['userStatus', 'flights']),
     ...mapState(['dialog', 'loading'])
   },
   methods: {
@@ -59,9 +73,12 @@ export default {
       await this.$store.dispatch('addDialog')
     },
     applyEditedForm(value) {
-      this.editedForm = value
-      this.dataKey = value['.key']
+      this.editedForm = value.data
+      this.dataKey = value.id
       this.startEdited()
+    },
+    applyPage(value) {
+      this.params.page = value
     }
   }
 }

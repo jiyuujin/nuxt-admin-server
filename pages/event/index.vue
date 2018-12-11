@@ -2,21 +2,32 @@
   <MainTemplate
     :loading="loading"
   >
-    <h3>家計簿 (予定)</h3>
+    <EventStatus
+      v-if="events"
+      :size="events.item.length"
+    />
+    <NewEvent />
   </MainTemplate>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate';
+import MainTemplate from '~/components/templates/MainTemplate'
+import EventStatus from '~/components/organisms/event/Status'
+import NewEvent from '~/components/organisms/event/New'
 export default {
   middleware: 'auth',
   components: {
-    MainTemplate
+    MainTemplate,
+    EventStatus,
+    NewEvent
   },
   computed: {
-    ...mapGetters(['userStatus']),
+    ...mapGetters(['userStatus', 'events']),
     ...mapState(['loading'])
+  },
+  async mounted() {
+    await this.$store.dispatch('initEvents')
   }
 }
 </script>

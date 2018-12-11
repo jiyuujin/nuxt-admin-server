@@ -1,62 +1,53 @@
 <template>
-  <v-data-table
-    :headers="header"
-    :items="list"
-    class="elevation-1"
-  >
-    <template slot="items" slot-scope="props">
-      <td>
-        {{ date.getTimeFormat(props.item.time) }}
-      </td>
-      <td>
-        <img
-          :src="airline(props.item.airline)"
-          :alt="props.item.airline"
-          width="50px"
-        >
-      </td>
-      <td>
-        {{ departure(props.item.departure) }} to {{ arrival(props.item.arrival) }}
-      </td>
-      <td>
-        {{ props.item.registration }} ({{ boardingType(props.item.boardingType) }})
-      </td>
-      <td>
-        <v-icon
-          small
-          class="mr-2"
-          @click="editItem(props.item)"
-        >
-          edit
-        </v-icon>
-        <v-icon
-          small
-          @click="deleteItem(props.item)"
-        >
-          delete
-        </v-icon>
-      </td>
-    </template>
-  </v-data-table>
+  <div>
+    <div
+      v-for="item in list"
+      :key="item.id"
+    >
+      <ul
+        v-if="item.page === number"
+      >
+        <li class="date">
+          {{ date.getTimeFormat(item.data.time) }}
+        </li>
+        <li class="airline">
+          <img
+            :src="airline(item.data.airline)"
+            :alt="item.data.airline"
+          >
+        </li>
+        <li class="airline__detail">
+          <p>
+            {{ departure(item.data.departure) }} to {{ arrival(item.data.arrival) }}
+          </p>
+          <p>
+            {{ item.data.registration }} ({{ boardingType(item.data.boardingType) }})
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
 import moment from 'moment'
 import Date from '~/utils/date'
-import { FLIGHT_HEADER_LIST } from '../../../utils/menu'
-import { getAirportName } from '../../../utils/airports'
-import { getAirlineName } from '../../../utils/airlines'
-import { getBoardingTypeName } from '../../../utils/boardingTypes'
+import { getAirportName } from '~/utils/airports'
+import { getAirlineName } from '~/utils/airlines'
+import { getBoardingTypeName } from '~/utils/boardingTypes'
 export default {
   props: {
     list: {
       type: Array,
       required: true
+    },
+    number: {
+      type: Number,
+      required: true
     }
   },
   data () {
     return {
-      header: FLIGHT_HEADER_LIST,
       date: Date
     }
   },
@@ -77,8 +68,8 @@ export default {
       this.$emit('form-data', Object.assign({}, item))
     },
     deleteItem (item) {
-      if (confirm(moment(item.time).format('YYYY年MM月DD日') + '\n' + item.registration + ' 削除しますか?')) {
-        this.delete(item['.key'])
+      if (confirm(moment(item.data.time).format('YYYY年MM月DD日') + '\n' + item.data.registration + ' 削除しますか?')) {
+        this.delete(item.id)
       }
     },
     async delete(key) {
@@ -92,5 +83,32 @@ export default {
 </script>
 
 <style scoped>
+ul {
+  font-size: 14px;
+  /*display: table;*/
+  /*table-layout: fixed;*/
+}
 
+ul li {
+  list-style: none;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+img {
+  width: 25px;
+}
+
+.date {
+  width: 20%;
+}
+
+.airline {
+  width: 20%;
+}
+
+.airline__detail {
+  width: 60%;
+}
 </style>

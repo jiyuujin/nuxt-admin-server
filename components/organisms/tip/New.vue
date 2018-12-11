@@ -22,7 +22,8 @@
       @form-data="applyTags"
     />
     <SingleSelectForm
-      :option="events"
+      v-if="events"
+      :option="events.item"
       :number="form.event"
       column="イベント"
       @form-data="applyEvent"
@@ -36,12 +37,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import moment from 'moment'
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import MultipleSelectForm from '../../atoms/MultipleSelectForm'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
+import MultipleSelectForm from '~/components/atoms/MultipleSelectForm'
 import { CATEGORIES } from '~/utils/categories'
-import { EVENT_LIST } from '../../../utils/events'
-import Validation from '~/utils/validation'
 export default {
   components: {
     InputForm,
@@ -56,16 +55,17 @@ export default {
         description: '',
         tags: [],
         event: 0
-      },
-      errorText: '',
-      events: EVENT_LIST
+      }
     }
   },
   computed: {
     categories () {
       return CATEGORIES.map(category => {return category.name})
     },
-    ...mapGetters(['tips'])
+    ...mapGetters(['events'])
+  },
+  async created () {
+    await this.$store.dispatch('initEvents')
   },
   methods: {
     applyTitle (value) {
@@ -88,22 +88,18 @@ export default {
       this.form.url = ''
       this.form.description = ''
       this.form.tags = []
+      this.form.event = 0
     },
     async postTip () {
-      this.errorText = ''
-      if (!Validation.isValid(this.form.title) && !Validation.isValidWithArray(this.form.tags)) {
-        await this.$store.dispatch('addTip', {
-          title: this.form.title,
-          url: this.form.url,
-          description: this.form.description,
-          tags: this.form.tags,
-          event: this.form.event,
-          time: moment().format('')
-        })
-        this.reset()
-      } else {
-        this.errorText = '正しく入力してください'
-      }
+      await this.$store.dispatch('addTip', {
+        title: this.form.title,
+        url: this.form.url,
+        description: this.form.description,
+        tags: this.form.tags,
+        event: this.form.event,
+        time: moment().format('')
+      })
+      this.reset()
     }
   }
 }

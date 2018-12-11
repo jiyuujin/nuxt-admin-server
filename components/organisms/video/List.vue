@@ -2,10 +2,10 @@
   <div>
     <span
       v-for="item in list"
-      :key="item.videoID"
+      :key="item.data.videoID"
     >
       <Video
-        :id="item.videoID"
+        :id="item.data.videoID"
       />
     </span>
   </div>

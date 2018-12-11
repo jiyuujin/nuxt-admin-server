@@ -41,13 +41,12 @@
 
 <script>
 import moment from 'moment'
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import DateTimeForm from '../../atoms/DateTimeForm'
-import Validation from '~/utils/validation'
-import { AIRPORT_LIST } from '../../../utils/airports'
-import { AIRLINE_LIST } from '../../../utils/airlines'
-import { BOARDING_TYPE_LIST } from '../../../utils/boardingTypes'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
+import DateTimeForm from '~/components/atoms/DateTimeForm'
+import { AIRPORT_LIST } from '~/utils/airports'
+import { AIRLINE_LIST } from '~/utils/airlines'
+import { BOARDING_TYPE_LIST } from '~/utils/boardingTypes'
 export default {
   components: {
     InputForm,
@@ -58,18 +57,15 @@ export default {
     return {
       form: {
         time: moment(),
-        departure: -1,
-        arrival: -1,
-        airline: -1,
-        boardingType: -1,
+        departure: 0,
+        arrival: 0,
+        airline: 0,
+        boardingType: 0,
         registration: ''
       },
-      errorText: '',
       airports: AIRPORT_LIST,
       airlines: AIRLINE_LIST,
-      boardingTypes: BOARDING_TYPE_LIST,
-      dateFormatted: null,
-      menu: false
+      boardingTypes: BOARDING_TYPE_LIST
     }
   },
   methods: {
@@ -92,27 +88,22 @@ export default {
       this.form.registration = value
     },
     reset () {
-      this.form.departure = -1
-      this.form.arrival = -1
-      this.form.airline = -1
-      this.form.boardingType = -1
+      this.form.departure = 0
+      this.form.arrival = 0
+      this.form.airline = 0
+      this.form.boardingType = 0
       this.form.registration = ''
     },
     async postFlight () {
-      this.errorText = ''
-      if (!Validation.isValid(this.form.departure) && !Validation.isValid(this.form.arrival) && !Validation.isValid(this.form.airline) && !Validation.isValid(this.form.boardingType) && !Validation.isValid(this.form.registration)) {
-        await this.$store.dispatch('addFlight', {
-          time: moment(this.form.time).format(''),
-          departure: this.form.departure,
-          arrival: this.form.arrival,
-          airline: this.form.airline,
-          boardingType: this.form.boardingType,
-          registration: this.form.registration
-        })
-        this.reset()
-      } else {
-        this.errorText = '正しく入力してください'
-      }
+      await this.$store.dispatch('addFlight', {
+        time: moment(this.form.time).format(),
+        departure: this.form.departure,
+        arrival: this.form.arrival,
+        airline: this.form.airline,
+        boardingType: this.form.boardingType,
+        registration: this.form.registration
+      })
+      this.reset()
     }
   }
 }

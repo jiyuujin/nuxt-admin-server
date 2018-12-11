@@ -1,19 +1,27 @@
-import Admin from '~/plugins/firebase'
+'use strict';
+
+import Firestore from '~/plugins/firebase'
 import { firebaseAction } from 'vuexfire'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import swal from 'sweetalert2'
+import { isValid, isValidWithArray } from '../utils/validation'
 
-const adminDB = Admin.database();
+const adminFirestore = Firestore.firestore();
+adminFirestore.settings({
+  timestampsInSnapshots: true
+});
+
+const PAGE_SIZE = 20
+
 // tipsデータベース
-const tipsRef = adminDB.ref('/tips');
-// flightsデータベース
-const flightsRef = adminDB.ref('/flights');
-// imagesデータベース
-const imagesRef = adminDB.ref('/images');
-// videosデータベース
-const videosRef = adminDB.ref('/videos');
+const tipsCollection = adminFirestore.collection('tips');
 
-const YEAR = ['2019', '2018', '2017', '2016', '2015'];
+// videosデータベース
+const videosCollection = adminFirestore.collection('videos')
+
+// eventsデータベース
+const eventsCollection = adminFirestore.collection('events')
 
 // Qiita Basic URL
 const BASE_URL = 'https://qiita.com/api/v2/tags/';
@@ -23,6 +31,9 @@ const qiitaOptions = {
     'Content-Type': 'application/json'
   }
 };
+
+// flightsデータベース
+const flightsCollection = adminFirestore.collection('flights')
 
 // Netlify Basic URL
 const NETLIFY_URL = 'https://api.netlify.com/api/v1/';
@@ -55,9 +66,8 @@ export const setUserStatus = firebaseAction (({ commit }, payload) => {
  * @type {Function}
  */
 export const addDialog = ({ commit }) => {
+  // ダイアログを追加する
   commit('setDialog', true)
-
-  // console.log('DIALOG TRUE')
 };
 
 /**
@@ -65,9 +75,8 @@ export const addDialog = ({ commit }) => {
  * @type {Function}
  */
 export const removeDialog = ({ commit }) => {
+  // ダイアログを削除する
   commit('setDialog', false)
-
-  // console.log('DIALOG FALSE')
 };
 
 /**
@@ -78,8 +87,33 @@ export const initTips = firebaseAction(({ bindFirebaseRef, commit }) => {
   // ローディングを開始する
   commit('setLoading', true)
 
-  // Sort by time
-  bindFirebaseRef('tips', tipsRef.orderByChild('time'))
+  tipsCollection.orderBy('time', 'desc').get()
+    .then(snapshot => {
+      let result = {
+        item: []
+      }
+      let i = 1
+      snapshot.forEach(doc => {
+        // console.log(doc.id + ' ' + doc.data())
+        result.item.push({
+          id: doc.id,
+          data: doc.data(),
+          page: Math.ceil(i / PAGE_SIZE)
+        })
+        i++
+      })
+
+      commit('setTips', result)
+    })
+    .catch(error => {
+      // console.log(error)
+      commit('setTips', null)
+
+      swal({
+        type: 'error',
+        title: '取得に失敗しました'
+      })
+    })
 
   // ローディングを終了する
   commit('setLoading', false)
@@ -90,13 +124,24 @@ export const initTips = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addTip = firebaseAction((ctx, { title, url, description, tags, event, time }) => {
-  tipsRef.push({
-    title,
-    url,
-    description,
-    tags,
-    event,
-    time
+  if (isValid(title) || isValid(url)) {
+    return swal({
+      type: 'error',
+      title: '入力してください'
+    })
+  }
+
+  tipsCollection.add({
+    'title': title,
+    'url': url,
+    'description': description,
+    'tags': tags,
+    'event': event,
+    'time': time
+  })
+
+  return swal({
+    title: `${title} 追加しました！`
   })
 });
 
@@ -105,17 +150,18 @@ export const addTip = firebaseAction((ctx, { title, url, description, tags, even
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const updateTip = firebaseAction((ctx, { key, data }) => {
-  let postData = {
+  tipsCollection.doc(key).set({
     title: data.title,
     url: data.url,
     description: data.description,
     tags: data.tags,
     event: data.event,
     time: data.time
-  }
-  let updates = {}
-  updates['/tips/' + key] = postData
-  adminDB.ref().update(updates)
+  })
+
+  swal({
+    title: `${title} 更新しました！`
+  })
 });
 
 /**
@@ -123,10 +169,11 @@ export const updateTip = firebaseAction((ctx, { key, data }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const removeTip = firebaseAction((ctx, { key, data }) => {
-  let updates = {}
-  // data には null が入ります
-  updates['/tips/' + key] = data
-  adminDB.ref().update(updates)
+  tipsCollection.doc(key).delete()
+
+  swal({
+    title: `${data.title} 削除しました！`
+  })
 });
 
 /**
@@ -153,6 +200,11 @@ export const initQiitas = ({ commit }, params) => {
     })
     .catch(error => {
       // console.log(error)
+
+      swal({
+        type: 'error',
+        title: '取得に失敗しました'
+      })
     })
     .finally(() => {
       // ローディングを終了する
@@ -168,16 +220,33 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
   // ローディングを開始する
   commit('setLoading', true)
 
-  // Sort by time
-  bindFirebaseRef('flights', flightsRef.orderByChild('time'))
+  flightsCollection.orderBy('time', 'desc').get()
+    .then(snapshot => {
+      let result = {
+        item: []
+      }
+      let i = 1
+      snapshot.forEach(doc => {
+        // console.log(doc.id + ' ' + doc.data())
+        result.item.push({
+          id: doc.id,
+          data: doc.data(),
+          page: Math.ceil(i / PAGE_SIZE)
+        })
+        i++
+      })
 
-  let counts = []
-  YEAR.forEach(y => {
-    flightsRef.orderByChild('time').startAt(y).endAt(y + '\uf8ff').once("value", function(snap) {
-      counts.push(snap.numChildren())
+      commit('setFlights', result)
     })
-  })
-  commit('setCount', counts)
+    .catch(error => {
+      // console.log(error)
+      commit('setFlights', null)
+
+      swal({
+        type: 'error',
+        title: '取得に失敗しました'
+      })
+    })
 
   // ローディングを終了する
   commit('setLoading', false)
@@ -188,13 +257,24 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addFlight = firebaseAction((ctx, { time, departure, arrival, airline, boardingType, registration }) => {
-  flightsRef.push({
-    time,
-    departure,
-    arrival,
-    airline,
-    boardingType,
-    registration
+  if (isValid(registration)) {
+    return swal({
+      type: 'error',
+      title: '入力してください'
+    })
+  }
+
+  flightsCollection.add({
+    time: time,
+    departure: departure,
+    arrival: arrival,
+    airline: airline,
+    boardingType: boardingType,
+    registration: registration
+  })
+
+  return swal({
+    title: `${registration} 追加しました！`
   })
 });
 
@@ -203,17 +283,18 @@ export const addFlight = firebaseAction((ctx, { time, departure, arrival, airlin
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const updateFlight = firebaseAction((ctx, { key, data }) => {
-  let postData = {
+  flightsCollection.doc(key).set({
     time: data.time,
     departure: data.departure,
     arrival: data.arrival,
     airline: data.airline,
     boardingType: data.boardingType,
     registration: data.registration
-  }
-  let updates = {}
-  updates['/flights/' + key] = postData
-  adminDB.ref().update(updates)
+  })
+
+  swal({
+    title: `${registration} 更新しました！`
+  })
 });
 
 /**
@@ -221,36 +302,10 @@ export const updateFlight = firebaseAction((ctx, { key, data }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const removeFlight = firebaseAction((ctx, { key, data }) => {
-  let updates = {}
-  // data には null が入ります
-  updates['/flights/' + key] = data
-  adminDB.ref().update(updates)
-});
+  flightsCollection.doc(key).delete()
 
-/**
- * Image情報を取得する
- * @type {(context: ActionContext<any, any>, payload: any) => any}
- */
-export const initImages = firebaseAction(({ bindFirebaseRef, commit }) => {
-  // ローディングを開始する
-  commit('setLoading', true)
-
-  // Sort by time
-  bindFirebaseRef('images', imagesRef.orderByChild('time'))
-
-  // ローディングを終了する
-  commit('setLoading', false)
-});
-
-/**
- * Image情報を追加する
- * @type {(context: ActionContext<any, any>, payload: any) => any}
- */
-export const addImage = firebaseAction((ctx, { time, title, imagePath }) => {
-  imagesRef.push({
-    time,
-    title: title,
-    imagePath: imagePath
+  swal({
+    title: `${data.registration} 削除しました！`
   })
 });
 
@@ -262,8 +317,31 @@ export const initVideos = firebaseAction(({ bindFirebaseRef, commit }) => {
   // ローディングを開始する
   commit('setLoading', true)
 
-  // Sort by time
-  bindFirebaseRef('videos', videosRef.orderByChild('title'))
+  videosCollection.get()
+    .then(snapshot => {
+      let result = {
+        item: []
+      }
+      let i = 0
+      snapshot.forEach(doc => {
+        // console.log(doc.id + ' ' + doc.data())
+        result.item.push({
+          id: doc.id,
+          data: doc.data(),
+          page: Math.ceil(i / PAGE_SIZE)
+        })
+      })
+      commit('setVideos', result)
+    })
+    .catch(error => {
+      // console.log(error)
+      commit('setVideos', null)
+
+      swal({
+        type: 'error',
+        title: '取得に失敗しました'
+      })
+    })
 
   // ローディングを終了する
   commit('setLoading', false)
@@ -274,13 +352,94 @@ export const initVideos = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addVideo = firebaseAction((ctx, { title, event, videoPath }) => {
+  if (isValid(title) || isValid(videoPath)) {
+    return swal({
+      type: 'error',
+      title: '入力してください'
+    })
+  }
+
   // 正規表現を使ってIDだけ取り出す
   const result = videoPath.match(/([^?v=]+)/g)
 
-  videosRef.push({
-    title: title,
-    event: event,
-    videoID: result[result.length - 1]
+  videosCollection.add({
+    'title': title,
+    'event': event,
+    'videoID': result[result.length - 1]
+  })
+
+  return swal({
+    title: `${title} 追加しました！`
+  })
+});
+
+/**
+ * Event情報を取得する
+ * @type {(context: ActionContext<any, any>, payload: any) => any}
+ */
+export const initEvents = firebaseAction(({ bindFirebaseRef, commit }) => {
+  // ローディングを開始する
+  commit('setLoading', true)
+
+  eventsCollection.orderBy('id', 'asc').get()
+    .then(snapshot => {
+      let result = {
+        item: []
+      }
+      snapshot.forEach(doc => {
+        // console.log(doc.id + ' ' + doc.data())
+        result.item.push({
+          value: doc.data().id,
+          text: doc.data().name
+        })
+      })
+
+      commit('setEvents', result)
+    })
+    .catch(error => {
+      // console.log(error)
+      commit('setEvents', null)
+
+      swal({
+        type: 'error',
+        title: '取得に失敗しました'
+      })
+    })
+
+  // ローディングを終了する
+  commit('setLoading', false)
+});
+
+/**
+ * Event情報を追加する
+ * @type {(context: ActionContext<any, any>, payload: any) => any}
+ */
+export const addEvent = firebaseAction(({ ctx, state }, { name, url, locale }) => {
+  if (isValid(name)) {
+    return swal({
+      type: 'error',
+      title: '名前を入力してください'
+    })
+  }
+
+  if (!state.events) {
+    swal({
+      type: 'error',
+      title: 'もう一度入力してください'
+    })
+  }
+
+  const next = state.events.item.length + 1
+
+  eventsCollection.add({
+    'id': next,
+    'name': name,
+    'url': url,
+    'locale': locale
+  })
+
+  return swal({
+    title: `${name} 追加しました！`
   })
 });
 

@@ -1,14 +1,14 @@
 <template>
   <h3>
-    Upload <span v-if="list">{{ list.length }} 件登録中</span>
+    Event <span v-if="size">{{ size }} 件登録中</span>
   </h3>
 </template>
 
 <script>
 export default {
   props: {
-    list: {
-      type: Array,
+    size: {
+      type: Number,
       required: true
     }
   }

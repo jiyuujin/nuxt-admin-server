@@ -2,7 +2,7 @@ export const MENU_LIST = [
   {
     title: 'tip',
     url: '/tip',
-    src: 'tip.png',
+    src: 'nyanko.png',
     flex: 3
   },
   {
@@ -18,27 +18,9 @@ export const MENU_LIST = [
     flex: 3
   },
   {
-    title: 'chara',
-    url: '/chara',
-    src: 'nyanko.png',
-    flex: 3
-  },
-  {
-    title: 'upload',
-    url: '/upload',
-    src: 'camera.png',
-    flex: 3
-  },
-  {
     title: 'event',
     url: '/event',
     src: 'event.png',
-    flex: 3
-  },
-  {
-    title: 'setting',
-    url: '/setting',
-    src: 'setting.png',
     flex: 3
   }
 ]

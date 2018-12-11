@@ -3,9 +3,11 @@
     <h3>
       Flight
     </h3>
+    <!--
     <Graph
       :data="list"
     />
+    -->
   </div>
 </template>
 

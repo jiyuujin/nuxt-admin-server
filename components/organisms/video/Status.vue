@@ -1,6 +1,6 @@
 <template>
   <h3>
-    Tip <span v-if="size">{{ size }} 件登録中</span>
+    Video <span v-if="size">{{ size }} 件登録中</span>
   </h3>
 </template>
 

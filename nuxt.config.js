@@ -54,6 +54,7 @@ module.exports = {
     API_KEY: firebase.API_KEY,
     AUTH_DOMAIN: firebase.AUTH_DOMAIN,
     DATABASE_URL: firebase.DATABASE_URL,
+    PROJECT_ID: firebase.PROJECT_ID,
     NETLIFY_TOKEN: netlify.NETLIFY_TOKEN
   },
 }
