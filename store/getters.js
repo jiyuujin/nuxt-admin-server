@@ -26,15 +26,6 @@ export function videos (state) {
 }
 
 /**
- * Event情報を取得する
- * @param state
- * @returns {null|string[]}
- */
-export function events (state) {
-  return state.events
-}
-
-/**
  * Qiita情報を取得する
  * @param state
  * @returns {null|*|Array}
@@ -50,6 +41,24 @@ export function qiitas (state) {
  */
 export function flights (state) {
   return state.flights
+}
+
+/**
+ * Event情報を取得する
+ * @param state
+ * @returns {null|string[]}
+ */
+export function events (state) {
+  return state.events
+}
+
+/**
+ * Survey情報を取得する
+ * @param state
+ * @returns {null|string[]}
+ */
+export function surveys (state) {
+  return state.surveys
 }
 
 /**

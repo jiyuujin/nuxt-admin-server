@@ -1,5 +1,6 @@
 <template>
   <MainTemplate
+    v-if="qiitas"
     :loading="loading"
   >
     <Status
@@ -22,7 +23,6 @@
       :search="params.search"
     />
     <Pagination
-      v-if="qiitas"
       :page="params.page"
       :max="Math.ceil(qiitas.length / 20)"
       @form-data="applyPage"

@@ -1,5 +1,6 @@
 <template>
   <MainTemplate
+    v-if="videos && sites"
     :loading="loading"
   >
     <Header />
@@ -7,11 +8,9 @@
       :list="sites"
     />
     <List
-      v-if="videos"
       :list="videos.item"
     />
     <Pagination
-      v-if="videos"
       :page="params.page"
       :max="Math.ceil(videos.item.length / 20)"
       @form-data="applyPage"

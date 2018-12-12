@@ -6,8 +6,9 @@ export default {
   dialog: false,
   tips: null,
   videos: null,
-  events: null,
   qiitas: [],
   flights: null,
+  events: null,
+  surveys: null,
   sites: []
 }

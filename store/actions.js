@@ -4,13 +4,14 @@ import Firestore from '~/plugins/firebase'
 import { firebaseAction } from 'vuexfire'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import swal from 'sweetalert2'
-import { isValid, isValidWithArray } from '../utils/validation'
+import { setDialog, isValidText, isValidNumber, isValidArray } from './utils'
 
 const adminFirestore = Firestore.firestore();
 adminFirestore.settings({
   timestampsInSnapshots: true
 });
+
+const ERROR_DIALOG = true
 
 const PAGE_SIZE = 20
 
@@ -22,6 +23,9 @@ const videosCollection = adminFirestore.collection('videos')
 
 // eventsデータベース
 const eventsCollection = adminFirestore.collection('events')
+
+// surveysデータベース
+const surveysCollection = adminFirestore.collection('surveys')
 
 // Qiita Basic URL
 const BASE_URL = 'https://qiita.com/api/v2/tags/';
@@ -83,9 +87,39 @@ export const removeDialog = ({ commit }) => {
  * Tip情報を取得する
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
-export const initTips = firebaseAction(({ bindFirebaseRef, commit }) => {
+export const initTips = firebaseAction(({ bindFirebaseRef, commit }, params) => {
   // ローディングを開始する
   commit('setLoading', true)
+
+  if (params) {
+    tipsCollection.where('event', '==', params.event).get()
+      .then(snapshot => {
+        let result = {
+          item: []
+        }
+        let i = 1
+        snapshot.forEach(doc => {
+          // console.log(doc.id + ' ' + doc.data())
+          result.item.push({
+            id: doc.id,
+            data: doc.data(),
+            page: Math.ceil(i / PAGE_SIZE)
+          })
+          i++
+        })
+
+        commit('setTips', result)
+      })
+      .catch(error => {
+        // console.log(error)
+        commit('setTips', null)
+
+        setDialog(ERROR_DIALOG, '取得に失敗しました')
+      })
+
+    // ローディングを終了する
+    return commit('setLoading', false)
+  }
 
   tipsCollection.orderBy('time', 'desc').get()
     .then(snapshot => {
@@ -109,14 +143,11 @@ export const initTips = firebaseAction(({ bindFirebaseRef, commit }) => {
       // console.log(error)
       commit('setTips', null)
 
-      swal({
-        type: 'error',
-        title: '取得に失敗しました'
-      })
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
     })
 
   // ローディングを終了する
-  commit('setLoading', false)
+  return commit('setLoading', false)
 });
 
 /**
@@ -124,11 +155,8 @@ export const initTips = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addTip = firebaseAction((ctx, { title, url, description, tags, event, time }) => {
-  if (isValid(title) || isValid(url)) {
-    return swal({
-      type: 'error',
-      title: '入力してください'
-    })
+  if (isValidText(title)) {
+    return setDialog(ERROR_DIALOG, '入力してください')
   }
 
   tipsCollection.add({
@@ -140,9 +168,7 @@ export const addTip = firebaseAction((ctx, { title, url, description, tags, even
     'time': time
   })
 
-  return swal({
-    title: `${title} 追加しました！`
-  })
+  return setDialog(!ERROR_DIALOG, title + '追加しました')
 });
 
 /**
@@ -159,9 +185,7 @@ export const updateTip = firebaseAction((ctx, { key, data }) => {
     time: data.time
   })
 
-  swal({
-    title: `${title} 更新しました！`
-  })
+  return setDialog(!ERROR_DIALOG, data.title + '更新しました')
 });
 
 /**
@@ -171,9 +195,7 @@ export const updateTip = firebaseAction((ctx, { key, data }) => {
 export const removeTip = firebaseAction((ctx, { key, data }) => {
   tipsCollection.doc(key).delete()
 
-  swal({
-    title: `${data.title} 削除しました！`
-  })
+  return setDialog(!ERROR_DIALOG, data.title + '削除しました')
 });
 
 /**
@@ -201,10 +223,7 @@ export const initQiitas = ({ commit }, params) => {
     .catch(error => {
       // console.log(error)
 
-      swal({
-        type: 'error',
-        title: '取得に失敗しました'
-      })
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
     })
     .finally(() => {
       // ローディングを終了する
@@ -242,10 +261,7 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
       // console.log(error)
       commit('setFlights', null)
 
-      swal({
-        type: 'error',
-        title: '取得に失敗しました'
-      })
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
     })
 
   // ローディングを終了する
@@ -257,11 +273,8 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addFlight = firebaseAction((ctx, { time, departure, arrival, airline, boardingType, registration }) => {
-  if (isValid(registration)) {
-    return swal({
-      type: 'error',
-      title: '入力してください'
-    })
+  if (isValidText(registration)) {
+    return setDialog(ERROR_DIALOG, '入力してください')
   }
 
   flightsCollection.add({
@@ -273,9 +286,7 @@ export const addFlight = firebaseAction((ctx, { time, departure, arrival, airlin
     registration: registration
   })
 
-  return swal({
-    title: `${registration} 追加しました！`
-  })
+  return setDialog(!ERROR_DIALOG, registration + '追加しました')
 });
 
 /**
@@ -292,9 +303,7 @@ export const updateFlight = firebaseAction((ctx, { key, data }) => {
     registration: data.registration
   })
 
-  swal({
-    title: `${registration} 更新しました！`
-  })
+  return setDialog(!ERROR_DIALOG, data.registration + '更新しました')
 });
 
 /**
@@ -304,9 +313,7 @@ export const updateFlight = firebaseAction((ctx, { key, data }) => {
 export const removeFlight = firebaseAction((ctx, { key, data }) => {
   flightsCollection.doc(key).delete()
 
-  swal({
-    title: `${data.registration} 削除しました！`
-  })
+  return setDialog(!ERROR_DIALOG, data.registration + '削除しました')
 });
 
 /**
@@ -337,10 +344,7 @@ export const initVideos = firebaseAction(({ bindFirebaseRef, commit }) => {
       // console.log(error)
       commit('setVideos', null)
 
-      swal({
-        type: 'error',
-        title: '取得に失敗しました'
-      })
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
     })
 
   // ローディングを終了する
@@ -352,11 +356,12 @@ export const initVideos = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addVideo = firebaseAction((ctx, { title, event, videoPath }) => {
-  if (isValid(title) || isValid(videoPath)) {
-    return swal({
-      type: 'error',
-      title: '入力してください'
-    })
+  if (isValidText(title)) {
+    return setDialog(ERROR_DIALOG, '入力してください')
+  }
+
+  if (isValidText(videoPath)) {
+    return setDialog(ERROR_DIALOG, 'イベントを設定ください')
   }
 
   // 正規表現を使ってIDだけ取り出す
@@ -368,9 +373,7 @@ export const addVideo = firebaseAction((ctx, { title, event, videoPath }) => {
     'videoID': result[result.length - 1]
   })
 
-  return swal({
-    title: `${title} 追加しました！`
-  })
+  return setDialog(!ERROR_DIALOG, title + '追加しました')
 });
 
 /**
@@ -400,10 +403,7 @@ export const initEvents = firebaseAction(({ bindFirebaseRef, commit }) => {
       // console.log(error)
       commit('setEvents', null)
 
-      swal({
-        type: 'error',
-        title: '取得に失敗しました'
-      })
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
     })
 
   // ローディングを終了する
@@ -415,18 +415,12 @@ export const initEvents = firebaseAction(({ bindFirebaseRef, commit }) => {
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
 export const addEvent = firebaseAction(({ ctx, state }, { name, url, locale }) => {
-  if (isValid(name)) {
-    return swal({
-      type: 'error',
-      title: '名前を入力してください'
-    })
+  if (isValidText(name)) {
+    return setDialog(ERROR_DIALOG, '入力してください')
   }
 
   if (!state.events) {
-    swal({
-      type: 'error',
-      title: 'もう一度入力してください'
-    })
+    return setDialog(ERROR_DIALOG, 'イベントを設定ください')
   }
 
   const next = state.events.item.length + 1
@@ -438,9 +432,74 @@ export const addEvent = firebaseAction(({ ctx, state }, { name, url, locale }) =
     'locale': locale
   })
 
-  return swal({
-    title: `${name} 追加しました！`
-  })
+  return setDialog(!ERROR_DIALOG, name + '追加しました')
+});
+
+/**
+ * Survey情報を取得する
+ * @type {(context: ActionContext<any, any>, payload: any) => any}
+ */
+export const initSurveys = firebaseAction(({ bindFirebaseRef, commit }, params) => {
+  // ローディングを開始する
+  commit('setLoading', true)
+
+  if (params) {
+    surveysCollection.where('type', '==', params.event).get()
+      .then(snapshot => {
+        let result = {
+          item: []
+        }
+        let i = 1
+        snapshot.forEach(doc => {
+          // console.log(doc.id + ' ' + doc.data())
+          result.item.push({
+            id: doc.id,
+            data: doc.data(),
+            page: Math.ceil(i / PAGE_SIZE)
+          })
+          i++
+        })
+
+        commit('setSurveys', result)
+      })
+      .catch(error => {
+        // console.log(error)
+        commit('setSurveys', null)
+
+        setDialog(ERROR_DIALOG, '取得に失敗しました')
+      })
+
+    // ローディングを終了する
+    return commit('setLoading', false)
+  }
+
+  surveysCollection.orderBy('time', 'desc').get()
+    .then(snapshot => {
+      let result = {
+        item: []
+      }
+      let i = 1
+      snapshot.forEach(doc => {
+        // console.log(doc.id + ' ' + doc.data())
+        result.item.push({
+          id: doc.id,
+          data: doc.data(),
+          page: Math.ceil(i / PAGE_SIZE)
+        })
+        i++
+      })
+
+      commit('setSurveys', result)
+    })
+    .catch(error => {
+      // console.log(error)
+      commit('setSurveys', null)
+
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
+    })
+
+  // ローディングを終了する
+  commit('setLoading', false)
 });
 
 /**

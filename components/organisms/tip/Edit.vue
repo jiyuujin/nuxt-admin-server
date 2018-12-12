@@ -1,5 +1,6 @@
 <template>
   <v-dialog
+    v-if="events"
     v-model="dialog"
     max-width="500px"
   >
@@ -27,7 +28,7 @@
           @form-data="applyTags"
         />
         <SingleSelectForm
-          :option="events"
+          :option="events.item"
           :number="editedForm.event"
           column="イベント"
           @form-data="applyEvent"
@@ -58,12 +59,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import InputForm from '../../atoms/InputForm'
 import SingleSelectForm from '../../atoms/SingleSelectForm'
 import MultipleSelectForm from '../../atoms/MultipleSelectForm'
 import { CATEGORIES } from '~/utils/categories'
-import { EVENT_LIST } from '../../../utils/events'
 export default {
   props: {
     editedForm: {
@@ -80,16 +80,15 @@ export default {
     SingleSelectForm,
     MultipleSelectForm
   },
-  data() {
-    return {
-      events: EVENT_LIST
-    }
-  },
   computed: {
     categories () {
       return CATEGORIES.map((category) => {return category.name})
     },
+    ...mapGetters(['events']),
     ...mapState(['dialog'])
+  },
+  async created () {
+    await this.$store.dispatch('initEvents')
   },
   methods: {
     applyTitle (value) {

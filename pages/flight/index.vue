@@ -1,19 +1,17 @@
 <template>
   <MainTemplate
+    v-if="flights"
     :loading="loading"
   >
     <Status
-      v-if="flights"
       :list="flights.item"
     />
     <FlightList
-      v-if="flights"
       :list="flights.item"
       :number="params.page"
       @form-data="applyEditedForm"
     />
     <Pagination
-      v-if="flights"
       :page="params.page"
       :max="Math.ceil(flights.item.length / 20)"
       @form-data="applyPage"

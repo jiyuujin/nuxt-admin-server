@@ -52,15 +52,6 @@ export function setVideos (state, payload) {
 }
 
 /**
- * Event情報を設定する
- * @param state
- * @param payload
- */
-export function setEvents (state, payload) {
-  state.events = payload
-}
-
-/**
  * Qiita情報を設定する
  * @param state
  * @param payload
@@ -76,6 +67,24 @@ export function setQiitas (state, payload) {
  */
 export function setFlights (state, payload) {
   state.flights = payload
+}
+
+/**
+ * Event情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setEvents (state, payload) {
+  state.events = payload
+}
+
+/**
+ * Survey情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setSurveys (state, payload) {
+  state.surveys = payload
 }
 
 /**

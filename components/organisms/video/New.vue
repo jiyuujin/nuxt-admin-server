@@ -1,12 +1,13 @@
 <template>
-  <v-card-text>
+  <v-card-text
+    v-if="events"
+  >
     <InputForm
       :data="form.title"
       column="タイトル"
       @form-data="applyTitle"
     />
     <SingleSelectForm
-      v-if="events"
       :option="events.item"
       :number="form.event"
       column="イベント"
@@ -27,7 +28,6 @@
 import { mapGetters } from 'vuex'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import { EVENT_LIST } from '~/utils/events'
 export default {
   components: {
     InputForm,

@@ -1,5 +1,7 @@
 <template>
-  <v-card-text>
+  <v-card-text
+    v-if="events"
+  >
     <InputForm
       :data="form.title"
       column="タイトル"
@@ -22,7 +24,6 @@
       @form-data="applyTags"
     />
     <SingleSelectForm
-      v-if="events"
       :option="events.item"
       :number="form.event"
       column="イベント"

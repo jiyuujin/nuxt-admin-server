@@ -1,9 +1,9 @@
 <template>
   <MainTemplate
+    v-if="tips && videos && events"
     :loading="loading"
   >
     <TipStatus
-      v-if="tips"
       :size="tips.item.length"
     />
     <InputForm
@@ -11,15 +11,19 @@
       column="タイトル"
       @form-data="applyTitle"
     />
+    <SingleSelectForm
+      :option="events.item"
+      :number="params.event"
+      column="イベント"
+      @form-data="applyEvent"
+    />
     <TipList
-      v-if="tips"
       :list="tips.item"
       :number="params.page"
       :search="search"
       @form-data="applyEditedForm"
     />
     <Pagination
-      v-if="tips"
       :page="params.page"
       :max="Math.ceil(tips.item.length / 20)"
       @form-data="applyPage"
@@ -30,7 +34,6 @@
       :data-key="dataKey"
     />
     <VideoStatus
-      v-if="videos"
       :size="videos.item.length"
     />
     <NewVideo />
@@ -48,6 +51,7 @@ import EditTip from '~/components/organisms/tip/Edit'
 import VideoStatus from '~/components/organisms/video/Status'
 import NewVideo from '~/components/organisms/video/New'
 import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
 export default {
   middleware: 'auth',
@@ -60,6 +64,7 @@ export default {
     VideoStatus,
     NewVideo,
     InputForm,
+    SingleSelectForm,
     Pagination
   },
   data () {
@@ -75,7 +80,8 @@ export default {
       },
       dataKey: '',
       params: {
-        page: 1
+        page: 1,
+        event: 0
       }
     }
   },
@@ -85,8 +91,9 @@ export default {
   },
   async created() {
     Promise.all([
-      this.tips ? Promise.resolve() : this.$store.dispatch('initTips'),
-      this.videos ? Promise.resolve() : this.$store.dispatch('initVideos')
+      this.tips ? Promise.resolve() : this.$store.dispatch('initTips', null),
+      this.videos ? Promise.resolve() : this.$store.dispatch('initVideos'),
+      this.events ? Promise.resolve() : this.$store.dispatch('initEvents')
     ])
   },
   methods: {
@@ -103,6 +110,12 @@ export default {
     },
     applyPage(value) {
       this.params.page = value
+    },
+    async applyEvent(value) {
+      this.params.event = value
+      await this.$store.dispatch('initTips', {
+        event: this.params.event
+      })
     }
   }
 }
