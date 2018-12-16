@@ -324,7 +324,7 @@ export const initVideos = firebaseAction(({ bindFirebaseRef, commit }) => {
   // ローディングを開始する
   commit('setLoading', true)
 
-  videosCollection.get()
+  videosCollection.orderBy('title', 'asc').get()
     .then(snapshot => {
       let result = {
         item: []

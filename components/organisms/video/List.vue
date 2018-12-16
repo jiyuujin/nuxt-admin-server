@@ -1,13 +1,18 @@
 <template>
   <div>
-    <span
+    <div
       v-for="item in list"
       :key="item.data.videoID"
+      class="box"
     >
       <Video
         :id="item.data.videoID"
+        class="video"
       />
-    </span>
+      <p>
+        {{ item.data.title }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -27,5 +32,23 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  height: auto;
+  /*margin: 0;*/
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
 
-</style>
+.box .video {
+  width: 25%;
+  float: left;
+  padding: 10px;
+}
+
+.box p {
+  width: 75%;
+  text-align: left;
+  overflow: hidden;
+  vertical-align: middle;
+}</style>
