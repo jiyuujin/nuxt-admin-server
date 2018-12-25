@@ -3,6 +3,7 @@
     <div
       v-for="item in list"
       :key="item.id"
+      class="flight"
     >
       <ul
         v-if="item.page === number"
@@ -83,10 +84,12 @@ export default {
 </script>
 
 <style scoped>
+.flight {
+  margin: 0 auto;
+}
+
 ul {
   font-size: 14px;
-  /*display: table;*/
-  /*table-layout: fixed;*/
 }
 
 ul li {

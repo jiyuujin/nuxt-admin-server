@@ -1,35 +1,48 @@
 <template>
-  <v-card-text
+  <div
     v-if="events"
   >
-    <InputForm
-      :data="form.title"
-      column="タイトル"
-      @form-data="applyTitle"
-    />
-    <SingleSelectForm
-      :option="events.item"
-      :number="form.event"
-      column="イベント"
-      @form-data="applyEvent"
-    />
-    <InputForm
-      :data="form.videoPath"
-      column="URL"
-      @form-data="applyVideoPath"
-    />
-    <v-btn @click="postVideo">
-      Videoを追加
-    </v-btn>
-  </v-card-text>
+    <FormTemplate>
+      <InputForm
+        :data="form.title"
+        column="タイトル"
+        @form-data="applyTitle"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="events.item"
+        :number="form.event"
+        column="イベント"
+        @form-data="applyEvent"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.videoPath"
+        column="URL"
+        @form-data="applyVideoPath"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <Button
+        action-name="Videoを追加"
+        @click="postVideo"
+      />
+    </FormTemplate>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 export default {
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm
   },

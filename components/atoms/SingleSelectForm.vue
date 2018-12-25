@@ -1,14 +1,24 @@
 <template>
-  <v-flex xs12>
-    <v-select
-      :items="option"
-      v-model="newVal"
-      label=""
-      single-line
-      :hint="column + '選択してください'"
-      persistent-hint
-    ></v-select>
-  </v-flex>
+  <div>
+    <div>
+      <label>
+        {{ column }}選択してください
+      </label>
+    </div>
+    <div>
+      <select
+        v-model="newVal"
+      >
+        <option
+          v-for="item in option"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ item.text }}
+        </option>
+      </select>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -42,3 +52,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+select {
+  width: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  border: solid 1px;
+  border-radius: 5px;
+  margin: 5px 10px 5px 0;
+  padding: 2px 6px 3px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  -webkit-font-smoothing: antialiased;
+}
+</style>

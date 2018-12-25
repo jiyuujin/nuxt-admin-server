@@ -1,49 +1,66 @@
 <template>
-  <v-card-text
+  <div
     v-if="events"
   >
-    <InputForm
-      :data="form.title"
-      column="タイトル"
-      @form-data="applyTitle"
-    />
-    <InputForm
-      :data="form.url"
-      column="URL"
-      @form-data="applyUrl"
-    />
-    <InputForm
-      :data="form.description"
-      column="詳細"
-      @form-data="applyDescription"
-    />
-    <MultipleSelectForm
-      :option="categories"
-      :data="form.tags"
-      column="タグ"
-      @form-data="applyTags"
-    />
-    <SingleSelectForm
-      :option="events.item"
-      :number="form.event"
-      column="イベント"
-      @form-data="applyEvent"
-    />
-    <v-btn @click="postTip">
-      Tipを追加
-    </v-btn>
-  </v-card-text>
+    <FormTemplate>
+      <InputForm
+        :data="form.title"
+        column="タイトル"
+        @form-data="applyTitle"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.url"
+        column="URL"
+        @form-data="applyUrl"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.description"
+        column="詳細"
+        @form-data="applyDescription"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <MultipleSelectForm
+        :option="categories"
+        :data="form.tags"
+        column="タグ"
+        @form-data="applyTags"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="events.item"
+        :number="form.event"
+        column="イベント"
+        @form-data="applyEvent"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <Button
+        action-name="Tipを追加"
+        @click="postTip"
+      />
+    </FormTemplate>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import moment from 'moment'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import MultipleSelectForm from '~/components/atoms/MultipleSelectForm'
 import { CATEGORIES } from '~/utils/categories'
 export default {
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm,
     MultipleSelectForm

@@ -2,6 +2,7 @@
   <MainTemplate
     v-if="qiitas"
     :loading="loading"
+    :status="userStatus"
   >
     <Status
       :list="qiitas"

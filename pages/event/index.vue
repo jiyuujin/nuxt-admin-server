@@ -2,6 +2,7 @@
   <MainTemplate
     v-if="events && surveys"
     :loading="loading"
+    :status="userStatus"
   >
     <SingleSelectForm
       :option="events.item"

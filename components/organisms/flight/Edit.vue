@@ -1,71 +1,70 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    max-width="500px"
+  <dialog
+    v-if="dialog"
   >
-    <v-card>
-      <v-card-text>
+    <div>
+      <FormTemplate>
         <SingleSelectForm
           :option="airports"
           :number="editedForm.departure"
           column="出発"
           @form-data="applyDeparture"
         />
+      </FormTemplate>
+      <FormTemplate>
         <SingleSelectForm
           :option="airports"
           :number="editedForm.arrival"
           column="到着"
           @form-data="applyArrival"
         />
+      </FormTemplate>
+      <FormTemplate>
         <SingleSelectForm
           :option="airlines"
           :number="editedForm.airline"
           column="航空会社"
           @form-data="applyAirline"
         />
+      </FormTemplate>
+      <FormTemplate>
         <SingleSelectForm
           :option="boardingTypes"
           :number="editedForm.boardingType"
           column="搭乗機材"
           @form-data="applyBoardingType"
         />
+      </FormTemplate>
+      <FormTemplate>
         <InputForm
           :data="editedForm.registration"
           column="レジ"
           @form-data="applyRegistration"
         />
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          flat
-          color="blue darken-1"
-          @click.native="close"
-        >
-          <v-icon dark left>
-            remove_circle
-          </v-icon>
-        </v-btn>
-        <v-btn
-          flat
-          color="blue darken-1"
-          @click.native="save"
-        >
-          <v-icon dark right>
-            check_circle
-          </v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+      </FormTemplate>
+      <FormTemplate>
+        <Button
+          action-name="Close"
+          @click="close"
+        />
+        <Button
+          action-name="Save"
+          @click="save"
+        />
+      </FormTemplate>
+    </div>
+  </dialog>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import { AIRPORT_LIST } from '../../../utils/airports'
-import { AIRLINE_LIST } from '../../../utils/airlines'
-import { BOARDING_TYPE_LIST } from '../../../utils/boardingTypes'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
+import { AIRPORT_LIST } from '~/utils/airports'
+import { AIRLINE_LIST } from '~/utils/airlines'
+import { BOARDING_TYPE_LIST } from '~/utils/boardingTypes'
 export default {
   props: {
     editedForm: {
@@ -78,6 +77,8 @@ export default {
     }
   },
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm
   },

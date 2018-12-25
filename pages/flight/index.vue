@@ -2,6 +2,7 @@
   <MainTemplate
     v-if="flights"
     :loading="loading"
+    :status="userStatus"
   >
     <Status
       :list="flights.item"

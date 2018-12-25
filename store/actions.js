@@ -4,6 +4,7 @@ import Firestore from '~/plugins/firebase'
 import { firebaseAction } from 'vuexfire'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import firebase from 'firebase'
 import { setDialog, isValidText, isValidNumber, isValidArray } from './utils'
 
 const adminFirestore = Firestore.firestore();
@@ -64,6 +65,19 @@ export const setUserStatus = firebaseAction (({ commit }, payload) => {
     Cookies.set('token', payload, { expires: 365 })
   }
 });
+
+export const logout = async ({ route }) => {
+  await firebase.auth()
+    .signOut()
+    .then(response => {
+      setUserStatus(false)
+      // this.$store.dispatch('setUserStatus', false)
+      route.push('/login')
+    })
+    .catch(error => {
+      // console.log(error)
+    })
+}
 
 /**
  * ダイアログを追加する

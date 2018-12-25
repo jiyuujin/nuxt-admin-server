@@ -1,29 +1,40 @@
 <template>
-  <v-card-text>
-    <InputForm
-      :data="form.name"
-      column="名前"
-      @form-data="applyName"
-    />
-    <InputForm
-      :data="form.url"
-      column="URL"
-      @form-data="applyUrl"
-    />
-    <SingleSelectForm
-      :option="locales"
-      :number="form.locale"
-      column="地域"
-      @form-data="applyLocale"
-    />
-    <v-btn @click="postEvent">
-      Eventを追加
-    </v-btn>
-  </v-card-text>
+  <div>
+    <FormTemplate>
+      <InputForm
+        :data="form.name"
+        column="名前"
+        @form-data="applyName"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.url"
+        column="URL"
+        @form-data="applyUrl"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="locales"
+        :number="form.locale"
+        column="地域"
+        @form-data="applyLocale"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <Button
+        action-name="Eventを追加"
+        @click="postEvent"
+      />
+    </FormTemplate>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 const LOCALES = [
@@ -46,6 +57,8 @@ const LOCALES = [
 ]
 export default {
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm
   },

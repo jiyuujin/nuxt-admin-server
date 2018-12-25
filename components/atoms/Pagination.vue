@@ -1,19 +1,19 @@
 <template>
-  <div class="text-xs-center pt-2">
-    <v-btn
-      v-model="newVal"
+  <div class="pagination">
+    <a
+      href="#"
       :disabled="newVal === 1 ? disabled : !disabled"
       @click="prev"
     >
       Prev
-    </v-btn>
-    <v-btn
-      v-model="newVal"
+    </a>
+    <a
+      href="#"
       :disabled="newVal === max ? disabled : !disabled"
       @click="next"
     >
       Next
-    </v-btn>
+    </a>
   </div>
 </template>
 
@@ -56,16 +56,21 @@ export default {
 </script>
 
 <style scoped>
-button {
+.pagination {
+  text-align: center;
+  margin: 0 auto;
+}
+
+a {
   position: relative;
   display: inline-block;
   font-weight: bold;
   padding: 0.25em 0;
   text-decoration: none;
-  color: #67c5ff;
+  color: #42b883;
 }
 
-button:before{
+a:before{
   position: absolute;
   content: '';
   width: 100%;
@@ -73,11 +78,11 @@ button:before{
   top:100%;
   left: 0;
   border-radius: 3px;
-  background:#67c5ff;
+  background: #42b883;
   transition: .2s;
 }
 
-button:hover:before {
+a:hover:before {
   top: -webkit-calc(100% - 3px);
   top: calc(100% - 3px);
 }

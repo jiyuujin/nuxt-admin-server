@@ -40,12 +40,10 @@ module.exports = {
     {
       src: '~plugins/vue-chartjs',
       ssr: false
-    },
-    '~plugins/vuetify'
+    }
   ],
 
   css: [
-    'vuetify/dist/vuetify.min.css',
     'material-design-icons-iconfont/dist/material-design-icons.css',
     '@mdi/font/css/materialdesignicons.css'
   ],

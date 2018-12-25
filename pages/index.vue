@@ -2,8 +2,13 @@
   <MainTemplate
     v-if="videos && sites"
     :loading="loading"
+    :status="userStatus"
   >
-    <Header />
+    <Button
+      action-name="logout"
+      style="text-align: right;"
+      @click="logout"
+    />
     <Status
       :list="sites"
     />
@@ -19,11 +24,12 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
 import List from '~/components/organisms/video/List'
 import Status from '~/components/organisms/netlify/Status'
-import Header from '~/components/molecules/Header'
+import Button from '~/components/atoms/Button'
 import Pagination from '~/components/atoms/Pagination'
 export default {
   middleware: 'auth',
@@ -31,7 +37,7 @@ export default {
     MainTemplate,
     List,
     Status,
-    Header,
+    Button,
     Pagination
   },
   data() {
@@ -54,6 +60,17 @@ export default {
   methods: {
     applyPage(value) {
       this.params.page = value
+    },
+    async logout() {
+      await firebase.auth()
+        .signOut()
+        .then(response => {
+          this.$store.dispatch('setUserStatus', false)
+          this.$router.push('/login')
+        })
+        .catch(error => {
+          // console.log(error)
+        })
     }
   }
 }

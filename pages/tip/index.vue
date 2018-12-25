@@ -2,6 +2,7 @@
   <MainTemplate
     v-if="tips && videos && events"
     :loading="loading"
+    :status="userStatus"
   >
     <TipStatus
       :size="tips.item.length"
