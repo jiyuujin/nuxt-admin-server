@@ -28,6 +28,9 @@ const eventsCollection = adminFirestore.collection('events')
 // surveysデータベース
 const surveysCollection = adminFirestore.collection('surveys')
 
+// contactsデータベース
+const contactsCollection = adminFirestore.collection('contacts')
+
 // Qiita Basic URL
 const BASE_URL = 'https://qiita.com/api/v2/tags/';
 
@@ -508,6 +511,73 @@ export const initSurveys = firebaseAction(({ bindFirebaseRef, commit }, params) 
     .catch(error => {
       // console.log(error)
       commit('setSurveys', null)
+
+      setDialog(ERROR_DIALOG, '取得に失敗しました')
+    })
+
+  // ローディングを終了する
+  commit('setLoading', false)
+});
+
+/**
+ * Contact情報を取得する
+ * @type {(context: ActionContext<any, any>, payload: any) => any}
+ */
+export const initContacts = firebaseAction(({ bindFirebaseRef, commit }, params) => {
+  // ローディングを開始する
+  commit('setLoading', true)
+
+  if (params) {
+    contactsCollection.where('category', '==', params.contactCategory).get()
+      .then(snapshot => {
+        let result = {
+          item: []
+        }
+        let i = 1
+        snapshot.forEach(doc => {
+          // console.log(doc.id + ' ' + doc.data())
+          result.item.push({
+            id: doc.id,
+            data: doc.data(),
+            page: Math.ceil(i / PAGE_SIZE)
+          })
+          i++
+        })
+
+        commit('setContacts', result)
+      })
+      .catch(error => {
+        // console.log(error)
+        commit('setContacts', null)
+
+        setDialog(ERROR_DIALOG, '取得に失敗しました')
+      })
+
+    // ローディングを終了する
+    return commit('setLoading', false)
+  }
+
+  contactsCollection.orderBy('time', 'desc').get()
+    .then(snapshot => {
+      let result = {
+        item: []
+      }
+      let i = 1
+      snapshot.forEach(doc => {
+        // console.log(doc.id + ' ' + doc.data())
+        result.item.push({
+          id: doc.id,
+          data: doc.data(),
+          page: Math.ceil(i / PAGE_SIZE)
+        })
+        i++
+      })
+
+      commit('setContacts', result)
+    })
+    .catch(error => {
+      // console.log(error)
+      commit('setContacts', null)
 
       setDialog(ERROR_DIALOG, '取得に失敗しました')
     })

@@ -10,5 +10,6 @@ export default {
   flights: null,
   events: null,
   surveys: null,
+  contacts: null,
   sites: []
 }

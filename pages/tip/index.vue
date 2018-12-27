@@ -114,9 +114,13 @@ export default {
     },
     async applyEvent(value) {
       this.params.event = value
-      await this.$store.dispatch('initTips', {
-        event: this.params.event
-      })
+      if (this.params.event !== 0) {
+        await this.$store.dispatch('initTips', {
+          event: this.params.event
+        })
+      } else {
+        await this.$store.dispatch('initTips')
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <MainTemplate
-    v-if="events && surveys"
+    v-if="events && surveys && contacts"
     :loading="loading"
     :status="userStatus"
   >
@@ -12,12 +12,27 @@
     />
     <SurveyList
       :list="surveys.item"
-      :number="params.page"
+      :number="params.page.survey"
     />
     <Pagination
-      :page="params.page"
+      :page="params.page.survey"
       :max="Math.ceil(surveys.item.length / 20)"
-      @form-data="applyPage"
+      @form-data="applyPageInSurvey"
+    />
+    <SingleSelectForm
+      :option="contactCategories"
+      :number="params.contactCategory"
+      column="カテゴリー"
+      @form-data="applyContactCategory"
+    />
+    <ContactList
+      :list="contacts.item"
+      :number="params.page.contact"
+    />
+    <Pagination
+      :page="params.page.contact"
+      :max="Math.ceil(contacts.item.length / 20)"
+      @form-data="applyPageInContact"
     />
     <EventStatus
       :size="events.item.length"
@@ -32,8 +47,23 @@ import MainTemplate from '~/components/templates/MainTemplate'
 import EventStatus from '~/components/organisms/event/Status'
 import NewEvent from '~/components/organisms/event/New'
 import SurveyList from '~/components/organisms/survey/List'
+import ContactList from '~/components/organisms/contact/List'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
+const ContactCategories = [
+  {
+    value: 1,
+    text: '仕事のご依頼'
+  },
+  {
+    value: 2,
+    text: '当ブログへのご提案'
+  },
+  {
+    value: 99,
+    text: 'その他'
+  }
+]
 export default {
   middleware: 'auth',
   components: {
@@ -41,35 +71,51 @@ export default {
     EventStatus,
     NewEvent,
     SurveyList,
+    ContactList,
     SingleSelectForm,
     Pagination
   },
   data() {
     return {
       params: {
-        page: 1,
-        event: 0
-      }
+        page: {
+          survey: 1,
+          contact: 1
+        },
+        event: 0,
+        contactCategory: 0
+      },
+      contactCategories: ContactCategories
     }
   },
   computed: {
-    ...mapGetters(['userStatus', 'events', 'surveys']),
+    ...mapGetters(['userStatus', 'events', 'surveys', 'contacts']),
     ...mapState(['loading'])
   },
   async created() {
     Promise.all([
       await this.$store.dispatch('initEvents', null),
-      await this.$store.dispatch('initSurveys')
+      await this.$store.dispatch('initSurveys'),
+      await this.$store.dispatch('initContacts')
     ])
   },
   methods: {
-    applyPage(value) {
-      this.params.page = value
+    applyPageInSurvey(value) {
+      this.params.page.survey = value
+    },
+    applyPageInContact(value) {
+      this.params.page.contact = value
     },
     async applyEvent(value) {
       this.params.event = value
       await this.$store.dispatch('initSurveys', {
         event: this.params.event
+      })
+    },
+    async applyContactCategory(value) {
+      this.params.contactCategory = value
+      await this.$store.dispatch('initContacts', {
+        contactCategory: this.params.contactCategory
       })
     }
   }

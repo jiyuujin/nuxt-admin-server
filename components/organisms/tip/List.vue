@@ -4,31 +4,33 @@
       v-for="item in list"
       :key="item.id"
     >
-      <h2
+      <div
         v-if="item.page === number"
       >
-        <a
-          :href="item.data.url"
-          target="_blank"
-        >
-          {{ item.data.title }}
-        </a>
-        <span>
+        <h2>
+          <a
+            :href="item.data.url"
+            target="_blank"
+          >
+            {{ item.data.title }}
+          </a>
+          <span>
           {{ date.getDiffTime(item.data.time) }}
         </span>
-      </h2>
+        </h2>
 
-      <Tag
-        :list="item.data.tags"
-        :categories="categories"
-        class="tag"
-      />
+        <Tag
+          :list="item.data.tags"
+          :categories="categories"
+          class="tag"
+        />
 
-      <div
-        v-if="item.data.description"
-        class="description"
-      >
-        {{ item.data.description }}
+        <div
+          v-if="item.data.description"
+          class="description"
+        >
+          {{ item.data.description }}
+        </div>
       </div>
     </div>
   </div>

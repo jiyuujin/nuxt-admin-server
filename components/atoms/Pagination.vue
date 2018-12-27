@@ -65,6 +65,7 @@ a {
   position: relative;
   display: inline-block;
   font-weight: bold;
+  margin: 25px;
   padding: 0.25em 0;
   text-decoration: none;
   color: #42b883;

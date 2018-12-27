@@ -62,6 +62,15 @@ export function surveys (state) {
 }
 
 /**
+ * Contact情報を取得する
+ * @param state
+ * @returns {null|string[]}
+ */
+export function contacts (state) {
+  return state.contacts
+}
+
+/**
  * Sites情報を取得する
  * @param state
  * @returns {Array}

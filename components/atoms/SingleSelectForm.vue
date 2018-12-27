@@ -1,23 +1,23 @@
 <template>
   <div>
-    <div>
-      <label>
-        {{ column }}選択してください
-      </label>
-    </div>
-    <div>
-      <select
-        v-model="newVal"
+    <select
+      v-model="newVal"
+    >
+      <option
+        :value="defautValue"
+        selected
+        style="display: block;"
       >
-        <option
-          v-for="item in option"
-          :key="item.value"
-          :value="item.value"
-        >
-          {{ item.text }}
-        </option>
-      </select>
-    </div>
+        {{ column }}選択してください
+      </option>
+      <option
+        v-for="item in option"
+        :key="item.value"
+        :value="item.value"
+      >
+        {{ item.text }}
+      </option>
+    </select>
   </div>
 </template>
 
@@ -37,6 +37,11 @@ export default {
     column: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      defautValue: 0
     }
   },
   computed: {

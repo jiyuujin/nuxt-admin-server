@@ -88,6 +88,15 @@ export function setSurveys (state, payload) {
 }
 
 /**
+ * Survey情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setContacts (state, payload) {
+  state.contacts = payload
+}
+
+/**
  * サイト情報を設定する
  * @param state
  * @param payload
