@@ -10,7 +10,7 @@
     />
     <SingleSelectForm
       :option="categories"
-      :text="params.tag"
+      :number="params.tag"
       column="タグ"
       @form-data="applyTag"
     />
@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       params: {
-        tag: 'Web',
+        tag: 1,
         search: '',
         page: 1
       }
@@ -61,7 +61,9 @@ export default {
   },
   computed: {
     categories () {
-      return CATEGORIES.map(category => { return category.name })
+      return CATEGORIES.map(category => {
+        return category
+      })
     },
     ...mapGetters(['userStatus', 'qiitas']),
     ...mapState(['loading'])
@@ -69,7 +71,7 @@ export default {
   methods: {
     getQiitaByTag () {
       this.$store.dispatch('initQiitas', {
-        'tag': this.params.tag.toLowerCase(),
+        'tag': this.params.tag,
         'search': this.params.search,
         'page': this.params.page
       })
@@ -88,18 +90,11 @@ export default {
     }
   },
   async mounted() {
-    this.getQiitaByTag()
+    await this.getQiitaByTag()
   }
 }
 </script>
 
 <style scoped>
-button {
-  position: relative;
-  display: inline-block;
-  font-weight: bold;
-  padding: 0.25em 0;
-  text-decoration: none;
-  color: #67c5ff;
-}
+
 </style>

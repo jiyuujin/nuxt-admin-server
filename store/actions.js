@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import firebase from 'firebase'
 import { setDialog, isValidText, isValidNumber, isValidArray } from './utils'
+import { CATEGORIES } from '../utils/categories';
 
 const adminFirestore = Firestore.firestore();
 adminFirestore.settings({
@@ -224,7 +225,13 @@ export const initQiitas = ({ commit }, params) => {
   // ローディングを開始する
   commit('setLoading', true)
 
-  axios.get(BASE_URL + params.tag + '/items?page=' + params.page, qiitaOptions)
+  const tagName = CATEGORIES.find(category => {
+    if (category.value === params.tag) {
+      return category
+    }
+  }).text
+
+  axios.get(BASE_URL + tagName + '/items?page=' + params.page, qiitaOptions)
     .then(response => {
       if (params.search !== '') {
         // 検索している時
