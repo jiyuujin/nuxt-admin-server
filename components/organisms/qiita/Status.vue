@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { CATEGORIES } from '../../../utils/categories'
+import { CATEGORIES } from '~/utils/index'
 export default {
   props: {
     list: {

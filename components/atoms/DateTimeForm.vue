@@ -34,9 +34,6 @@ export default {
       }
     }
   },
-  async mounted() {
-    console.log(moment(this.data).format('YYYY'))
-  },
   methods: {
     formatDate (date) {
       const y = moment(date).format('YYYY')

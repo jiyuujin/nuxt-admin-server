@@ -62,9 +62,7 @@ import FormTemplate from '~/components/templates/FormTemplate'
 import Button from '~/components/atoms/Button'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import { AIRPORT_LIST } from '~/utils/airports'
-import { AIRLINE_LIST } from '~/utils/airlines'
-import { BOARDING_TYPE_LIST } from '~/utils/boardingTypes'
+import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
 export default {
   props: {
     editedForm: {

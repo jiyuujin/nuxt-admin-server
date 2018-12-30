@@ -15,7 +15,7 @@
             {{ item.data.title }}
           </a>
           <span>
-          {{ date.getDiffTime(item.data.time) }}
+          {{ diffTime(item.data.time) }}
         </span>
         </h2>
 
@@ -38,8 +38,7 @@
 
 <script>
 import Tag from '~/components/atoms/Tag'
-import Date from '~/utils/date'
-import { CATEGORIES } from '~/utils/categories'
+import { CATEGORIES, getDiffTime } from '~/utils/index'
 export default {
   props: {
     list: {
@@ -60,11 +59,13 @@ export default {
   },
   data () {
     return {
-      date: Date,
       categories: CATEGORIES
     }
   },
   methods: {
+    diffTime(t) {
+      return getDiffTime(t)
+    },
     editItem (item) {
       this.$emit('form-data', Object.assign({}, item))
     },

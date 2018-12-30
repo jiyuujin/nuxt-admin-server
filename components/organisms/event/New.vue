@@ -37,24 +37,7 @@ import FormTemplate from '~/components/templates/FormTemplate'
 import Button from '~/components/atoms/Button'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-const LOCALES = [
-  {
-    value: 0,
-    text: '指定無し'
-  },
-  {
-    value: 1,
-    text: '東京'
-  },
-  {
-    value: 2,
-    text: '大阪'
-  },
-  {
-    value: 3,
-    text: 'その他'
-  }
-]
+import { LOCALES } from '~/utils/index'
 export default {
   components: {
     FormTemplate,

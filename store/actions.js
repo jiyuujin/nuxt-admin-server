@@ -4,21 +4,22 @@ import Firestore from '~/plugins/firebase'
 import { firebaseAction } from 'vuexfire'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import moment from 'moment'
 import firebase from 'firebase'
 import { setDialog, isValidText, isValidNumber, isValidArray } from './utils'
-import { CATEGORIES } from '../utils/categories';
+import { CATEGORIES } from '~/utils/index'
 
-const adminFirestore = Firestore.firestore();
+const adminFirestore = Firestore.firestore()
 adminFirestore.settings({
   timestampsInSnapshots: true
-});
+})
 
 const ERROR_DIALOG = true
 
 const PAGE_SIZE = 20
 
 // tipsデータベース
-const tipsCollection = adminFirestore.collection('tips');
+const tipsCollection = adminFirestore.collection('tips')
 
 // videosデータベース
 const videosCollection = adminFirestore.collection('videos')
@@ -259,9 +260,39 @@ export const initQiitas = ({ commit }, params) => {
  * Flight情報を取得する
  * @type {(context: ActionContext<any, any>, payload: any) => any}
  */
-export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
+export const initFlights = firebaseAction(({ bindFirebaseRef, commit }, params) => {
   // ローディングを開始する
   commit('setLoading', true)
+
+  if (params.boardingType !== 0) {
+    flightsCollection.where('boardingType', '==', params.boardingType).get()
+      .then(snapshot => {
+        let result = {
+          item: []
+        }
+        let i = 1
+        snapshot.forEach(doc => {
+          // console.log(doc.id + ' ' + doc.data())
+          result.item.push({
+            id: doc.id,
+            data: doc.data(),
+            page: Math.ceil(i / PAGE_SIZE)
+          })
+          i++
+        })
+
+        commit('setFlights', result)
+      })
+      .catch(error => {
+        // console.log(error)
+        commit('setFlights', null)
+
+        setDialog(ERROR_DIALOG, '取得に失敗しました')
+      })
+
+    // ローディングを終了する
+    return commit('setLoading', false)
+  }
 
   flightsCollection.orderBy('time', 'desc').get()
     .then(snapshot => {
@@ -269,15 +300,40 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
         item: []
       }
       let i = 1
-      snapshot.forEach(doc => {
-        // console.log(doc.id + ' ' + doc.data())
-        result.item.push({
-          id: doc.id,
-          data: doc.data(),
-          page: Math.ceil(i / PAGE_SIZE)
+
+      // snapshot.forEach(doc => {
+      //   // console.log(doc.id + ' ' + doc.data())
+      //   result.item.push({
+      //     id: doc.id,
+      //     data: doc.data(),
+      //     page: Math.ceil(i / PAGE_SIZE)
+      //   })
+      //   i++
+      // })
+
+      if (params.year === 0) {
+        snapshot.forEach(doc => {
+          // console.log(doc.id + ' ' + doc.data())
+          result.item.push({
+            id: doc.id,
+            data: doc.data(),
+            page: Math.ceil(i / PAGE_SIZE)
+          })
+          i++
         })
-        i++
-      })
+      } else {
+        snapshot.forEach(doc => {
+          // console.log(doc.id + ' ' + doc.data())
+          if (moment(doc.data().time).format('YYYY') == params.year) {
+            result.item.push({
+              id: doc.id,
+              data: doc.data(),
+              page: Math.ceil(i / PAGE_SIZE)
+            })
+            i++
+          }
+        })
+      }
 
       commit('setFlights', result)
     })
@@ -287,9 +343,10 @@ export const initFlights = firebaseAction(({ bindFirebaseRef, commit }) => {
 
       setDialog(ERROR_DIALOG, '取得に失敗しました')
     })
-
-  // ローディングを終了する
-  commit('setLoading', false)
+    .finally(() => {
+      // ローディングを終了する
+      commit('setLoading', false)
+    })
 });
 
 /**

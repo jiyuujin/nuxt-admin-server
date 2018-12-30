@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { MENU_LIST } from '~/utils/menu'
+import { MENU_LIST } from '~/utils/index'
 export default {
   data () {
     return {

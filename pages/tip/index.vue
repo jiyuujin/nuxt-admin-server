@@ -44,7 +44,7 @@
 <script>
 import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate';
+import MainTemplate from '~/components/templates/MainTemplate'
 import TipList from '~/components/organisms/tip/List'
 import TipStatus from '~/components/organisms/tip/Status'
 import NewTip from '~/components/organisms/tip/New'

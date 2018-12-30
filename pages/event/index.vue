@@ -50,20 +50,7 @@ import SurveyList from '~/components/organisms/survey/List'
 import ContactList from '~/components/organisms/contact/List'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
-const ContactCategories = [
-  {
-    value: 1,
-    text: '仕事のご依頼'
-  },
-  {
-    value: 2,
-    text: '当ブログへのご提案'
-  },
-  {
-    value: 99,
-    text: 'その他'
-  }
-]
+import { CONTACT_CATEGORIES } from '~/utils/index'
 export default {
   middleware: 'auth',
   components: {
@@ -85,7 +72,7 @@ export default {
         event: 0,
         contactCategory: 0
       },
-      contactCategories: ContactCategories
+      contactCategories: CONTACT_CATEGORIES
     }
   },
   computed: {

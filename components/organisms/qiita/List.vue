@@ -12,7 +12,7 @@
           {{ item.title }}
         </a>
         <span>
-          {{ date.getDiffTime(item.updated_at) }}
+          {{ diffTime(item.updated_at) }}
         </span>
       </h2>
 
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Date from '~/utils/date'
+import { getDiffTime } from '~/utils/index'
 export default {
   props: {
     list: {
@@ -46,9 +46,9 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      date: Date,
+  methods: {
+    diffTime(t) {
+      return getDiffTime(t)
     }
   }
 }

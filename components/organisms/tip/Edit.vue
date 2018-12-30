@@ -61,7 +61,7 @@ import Button from '~/components/atoms/Button'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import MultipleSelectForm from '~/components/atoms/MultipleSelectForm'
-import { CATEGORIES } from '~/utils/categories'
+import { CATEGORIES } from '~/utils/index'
 export default {
   props: {
     editedForm: {

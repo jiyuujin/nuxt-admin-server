@@ -39,7 +39,7 @@ import Status from '~/components/organisms/qiita/Status'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
-import { CATEGORIES } from '~/utils/categories'
+import { CATEGORIES } from '~/utils/index'
 export default {
   middleware: 'auth',
   components: {

@@ -9,7 +9,7 @@
         v-if="item.page === number"
       >
         <li class="date">
-          {{ date.getTimeFormat(item.data.time) }}
+          {{ timeFormat(item.data.time) }}
         </li>
         <li class="airline">
           <img
@@ -17,13 +17,17 @@
             :alt="item.data.airline"
           >
         </li>
-        <li class="airline__detail">
-          <p>
-            {{ departure(item.data.departure) }} to {{ arrival(item.data.arrival) }}
-          </p>
-          <p>
-            {{ item.data.registration }} ({{ boardingType(item.data.boardingType) }})
-          </p>
+        <li class="departure">
+          {{ departure(item.data.departure) }}
+        </li>
+        <li class="arrival">
+          {{ arrival(item.data.arrival) }}
+        </li>
+        <li class="registration">
+          {{ item.data.registration }}
+        </li>
+        <li class="boarding-type">
+          ({{ boardingType(item.data.boardingType) }})
         </li>
       </ul>
     </div>
@@ -32,10 +36,7 @@
 
 <script>
 import moment from 'moment'
-import Date from '~/utils/date'
-import { getAirportName } from '~/utils/airports'
-import { getAirlineName } from '~/utils/airlines'
-import { getBoardingTypeName } from '~/utils/boardingTypes'
+import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils/index'
 export default {
   props: {
     list: {
@@ -47,12 +48,10 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      date: Date
-    }
-  },
   methods: {
+    timeFormat(t) {
+      return getTimeFormat(t)
+    },
     airline(id) {
       return getAirlineName(id)
     },
@@ -89,7 +88,9 @@ export default {
 }
 
 ul {
-  font-size: 14px;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 ul li {
@@ -107,11 +108,19 @@ img {
   width: 20%;
 }
 
-.airline {
+.departure {
   width: 20%;
 }
 
-.airline__detail {
-  width: 60%;
+.arrival {
+  width: 20%;
+}
+
+.registration {
+  width: 20%;
+}
+
+.boarding-type {
+  width: 20%;
 }
 </style>

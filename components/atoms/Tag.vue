@@ -26,12 +26,12 @@ export default {
   methods: {
     getBackgroundColor(name) {
       return this.categories.find((category) => {
-        if (category.name === name) return category
+        if (category.text === name) return category
       }).backgroundColor
     },
     getColor(name) {
       return this.categories.find((category) => {
-        if (category.name === name) return category
+        if (category.text === name) return category
       }).color
     }
   }
