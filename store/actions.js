@@ -592,7 +592,7 @@ export const initContacts = firebaseAction(({ bindFirebaseRef, commit }, params)
   commit('setLoading', true)
 
   if (params) {
-    contactsCollection.where('category', '==', params.contactCategory).get()
+    contactsCollection.where('category.value', '==', params.contactCategory).get()
       .then(snapshot => {
         let result = {
           item: []

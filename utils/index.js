@@ -166,6 +166,10 @@ export const CONTACT_CATEGORIES = [
     text: '当ブログへのご提案'
   },
   {
+    value: 10,
+    text: 'ブログ記事全般'
+  },
+  {
     value: 99,
     text: 'その他'
   }

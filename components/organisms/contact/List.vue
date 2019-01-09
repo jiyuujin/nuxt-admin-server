@@ -7,6 +7,10 @@
       <h2
         v-if="item.page === number"
       >
+        <span>
+          {{ item.data.category.text }}
+        </span>
+        ・
         {{ item.data.title }}
       </h2>
 
