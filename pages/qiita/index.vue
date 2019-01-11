@@ -65,8 +65,8 @@ export default {
         return category
       })
     },
-    ...mapGetters(['userStatus', 'qiitas']),
-    ...mapState(['loading'])
+    ...mapGetters(['qiitas']),
+    ...mapState(['userStatus', 'loading'])
   },
   methods: {
     getQiitaByTag () {

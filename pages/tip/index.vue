@@ -87,8 +87,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userStatus', 'tips', 'videos', 'events']),
-    ...mapState(['dialog', 'loading'])
+    ...mapGetters(['tips', 'videos', 'events']),
+    ...mapState(['userStatus', 'dialog', 'loading'])
   },
   async created() {
     Promise.all([

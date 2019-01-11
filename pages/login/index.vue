@@ -28,7 +28,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import firebase from 'firebase'
 import MainTemplate from '~/components/templates/MainTemplate'
 import FormTemplate from '~/components/templates/FormTemplate'
 import Button from '~/components/atoms/Button'
@@ -57,15 +56,14 @@ export default {
       this.password = val
     },
     async login () {
-      await firebase.auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(res => {
-          this.$store.dispatch('setUserStatus', true)
-          this.$router.push('/')
-        })
-        .catch(err => {
-          // console.log('error')
-        })
+      await this.$store.dispatch('signIn', {
+        email: this.email,
+        password: this.password
+      })
+
+      if (this.$store.state.userStatus) {
+        this.$router.push('/')
+      }
     }
   }
 }

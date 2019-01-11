@@ -86,8 +86,8 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['userStatus', 'flights']),
-    ...mapState(['dialog', 'loading'])
+    ...mapGetters(['flights']),
+    ...mapState(['userStatus', 'dialog', 'loading'])
   },
   methods: {
     async startEdited() {

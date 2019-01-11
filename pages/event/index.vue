@@ -76,8 +76,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userStatus', 'events', 'surveys', 'contacts']),
-    ...mapState(['loading'])
+    ...mapGetters(['events', 'surveys', 'contacts']),
+    ...mapState(['userStatus', 'loading'])
   },
   async created() {
     Promise.all([

@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
 import List from '~/components/organisms/video/List'
@@ -48,8 +47,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userStatus', 'videos', 'sites']),
-    ...mapState(['loading'])
+    ...mapGetters(['videos', 'sites']),
+    ...mapState(['userStatus', 'loading'])
   },
   async mounted() {
     Promise.all([
@@ -62,15 +61,11 @@ export default {
       this.params.page = value
     },
     async logout() {
-      await firebase.auth()
-        .signOut()
-        .then(response => {
-          this.$store.dispatch('setUserStatus', false)
-          this.$router.push('/login')
-        })
-        .catch(error => {
-          // console.log(error)
-        })
+      await this.$store.dispatch('signOut')
+
+      if (!this.$store.state.userStatus) {
+        this.$router.push('/login')
+      }
     }
   }
 }
