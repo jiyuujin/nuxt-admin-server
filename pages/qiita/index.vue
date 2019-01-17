@@ -4,10 +4,6 @@
     :loading="loading"
     :status="userStatus"
   >
-    <Status
-      :list="qiitas"
-      :tag="params.tag"
-    />
     <SingleSelectForm
       :option="categories"
       :number="params.tag"
@@ -22,6 +18,7 @@
     <QiitaList
       :list="qiitas"
       :search="params.search"
+      :tag="params.tag"
     />
     <Pagination
       :page="params.page"
@@ -35,7 +32,6 @@
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate';
 import QiitaList from '~/components/organisms/qiita/List'
-import Status from '~/components/organisms/qiita/Status'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
@@ -45,7 +41,6 @@ export default {
   components: {
     MainTemplate,
     QiitaList,
-    Status,
     InputForm,
     SingleSelectForm,
     Pagination

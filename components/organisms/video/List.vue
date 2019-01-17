@@ -1,5 +1,11 @@
 <template>
   <div>
+    <h3>
+      Video
+      <span>
+        {{ list.length }} 件登録中
+      </span>
+    </h3>
     <div
       v-for="item in list"
       :key="item.data.videoID"

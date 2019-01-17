@@ -4,9 +4,6 @@
     :loading="loading"
     :status="userStatus"
   >
-    <Status
-      :list="flights.item"
-    />
     <SingleSelectForm
       :option="years"
       :number="params.year"
@@ -46,7 +43,6 @@ import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import FlightList from '~/components/organisms/flight/List'
 import NewFlight from '~/components/organisms/flight/New'
 import EditFlight from '~/components/organisms/flight/Edit'
-import Status from '~/components/organisms/flight/Status'
 import { BOARDING_TYPE_LIST, YEARS } from '~/utils/index'
 export default {
   middleware: 'auth',
@@ -56,8 +52,7 @@ export default {
     SingleSelectForm,
     FlightList,
     NewFlight,
-    EditFlight,
-    Status
+    EditFlight
   },
   data() {
     return {

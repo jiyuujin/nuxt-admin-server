@@ -1,5 +1,14 @@
 <template>
   <div>
+    <h3>
+      Flight
+      <span>
+        {{ list.length }} レグ搭乗中
+      </span>
+    </h3>
+    <FlightChart
+      :chart-data="getChartDataset(list)"
+    />
     <div
       v-for="item in list"
       :key="item.id"
@@ -36,7 +45,21 @@
 
 <script>
 import moment from 'moment'
+import FlightChart from './FlightChart'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils/index'
+
+const YEARS = [
+  2015,
+  2016,
+  2017,
+  2018,
+  2019
+];
+
+const LABEL_TEXT = 'Flights';
+
+const COLOR_TEXT = '#42b883';
+
 export default {
   props: {
     list: {
@@ -47,6 +70,9 @@ export default {
       type: Number,
       required: true
     }
+  },
+  components: {
+    FlightChart
   },
   methods: {
     timeFormat(t) {
@@ -77,6 +103,28 @@ export default {
         'key': key,
         'data': []
       })
+    },
+    getChartDataset(items) {
+      let dataset = []
+      for (let yearIndex = 0; yearIndex < YEARS.length; yearIndex++) {
+        const size = items.filter(item => {
+          return item.data.time.includes(YEARS[yearIndex]) === true
+        }) || 0
+
+        // console.log(YEARS[yearIndex] + ' : ' + size.length)
+        dataset.push(size.length)
+      }
+
+      return {
+        labels: YEARS,
+        datasets: [
+          {
+            label: LABEL_TEXT,
+            backgroundColor: COLOR_TEXT,
+            data: dataset
+          }
+        ]
+      }
     }
   }
 }

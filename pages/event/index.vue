@@ -4,6 +4,7 @@
     :loading="loading"
     :status="userStatus"
   >
+    <!--
     <SingleSelectForm
       :option="events.item"
       :number="params.event"
@@ -19,6 +20,7 @@
       :max="Math.ceil(surveys.item.length / 20)"
       @form-data="applyPageInSurvey"
     />
+    -->
     <SingleSelectForm
       :option="contactCategories"
       :number="params.contactCategory"
@@ -34,9 +36,6 @@
       :max="Math.ceil(contacts.item.length / 20)"
       @form-data="applyPageInContact"
     />
-    <EventStatus
-      :size="events.item.length"
-    />
     <NewEvent />
   </MainTemplate>
 </template>
@@ -44,10 +43,9 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
-import EventStatus from '~/components/organisms/event/Status'
-import NewEvent from '~/components/organisms/event/New'
-import SurveyList from '~/components/organisms/survey/List'
+// import SurveyList from '~/components/organisms/survey/List'
 import ContactList from '~/components/organisms/contact/List'
+import NewEvent from '~/components/organisms/event/New'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
 import { CONTACT_CATEGORIES } from '~/utils/index'
@@ -55,9 +53,8 @@ export default {
   middleware: 'auth',
   components: {
     MainTemplate,
-    EventStatus,
     NewEvent,
-    SurveyList,
+    // SurveyList,
     ContactList,
     SingleSelectForm,
     Pagination
@@ -87,9 +84,9 @@ export default {
     ])
   },
   methods: {
-    applyPageInSurvey(value) {
-      this.params.page.survey = value
-    },
+    // applyPageInSurvey(value) {
+    //   this.params.page.survey = value
+    // },
     applyPageInContact(value) {
       this.params.page.contact = value
     },

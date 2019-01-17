@@ -4,9 +4,6 @@
     :loading="loading"
     :status="userStatus"
   >
-    <TipStatus
-      :size="tips.item.length"
-    />
     <InputForm
       :data="search"
       column="タイトル"
@@ -34,9 +31,6 @@
       :edited-form="editedForm"
       :data-key="dataKey"
     />
-    <VideoStatus
-      :size="videos.item.length"
-    />
     <NewVideo />
   </MainTemplate>
 </template>
@@ -46,10 +40,8 @@ import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
 import TipList from '~/components/organisms/tip/List'
-import TipStatus from '~/components/organisms/tip/Status'
 import NewTip from '~/components/organisms/tip/New'
 import EditTip from '~/components/organisms/tip/Edit'
-import VideoStatus from '~/components/organisms/video/Status'
 import NewVideo from '~/components/organisms/video/New'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
@@ -59,10 +51,8 @@ export default {
   components: {
     MainTemplate,
     TipList,
-    TipStatus,
     NewTip,
     EditTip,
-    VideoStatus,
     NewVideo,
     InputForm,
     SingleSelectForm,

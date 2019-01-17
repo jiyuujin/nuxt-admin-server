@@ -1,5 +1,11 @@
 <template>
   <div>
+    <h3>
+      Qiita
+      <span>
+        [{{ categoryText(tag) }}] {{ list.length }} 件登録中
+      </span>
+    </h3>
     <div
       v-for="item in list"
       :key="item.title"
@@ -34,7 +40,7 @@
 </template>
 
 <script>
-import { getDiffTime } from '~/utils/index'
+import { getDiffTime, CATEGORIES } from '~/utils/index'
 export default {
   props: {
     list: {
@@ -44,11 +50,22 @@ export default {
     search: {
       type: String,
       required: true
+    },
+    tag: {
+      type: Number,
+      required: true
     }
   },
   methods: {
     diffTime(t) {
       return getDiffTime(t)
+    },
+    categoryText(id) {
+      return CATEGORIES.find(category => {
+        if (category.value === id) {
+          return category
+        }
+      }).text
     }
   }
 }
