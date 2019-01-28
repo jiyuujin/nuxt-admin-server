@@ -1,7 +1,7 @@
 {
   "name": "nuxt-admin-server",
   "version": "1.0.0",
-  "description": "Nuxt.js project",
+  "description": "A Nuxt.js project",
   "author": "yuukit <yuma.kitamura@ponos.co.jp>",
   "private": true,
   "scripts": {
@@ -13,14 +13,11 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@grpc/proto-loader": "^0.3.0",
     "@mdi/font": "^2.7.94",
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/pwa": "^2.0.8",
     "chart.js": "^2.7.3",
-    "dotenv": "^6.0.0",
     "firebase": "^5.7.0-2",
-    "grpc": "^1.16.1",
     "js-cookie": "^2.2.0",
     "material-design-icons-iconfont": "^3.0.3",
     "moment": "^2.22.2",
@@ -36,6 +33,7 @@
     "vuexfire": "^2.3.0"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.3.0",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",

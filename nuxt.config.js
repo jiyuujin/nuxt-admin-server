@@ -1,13 +1,10 @@
-const firebase = require('./.firebase.json')
-const netlify = require('./.netlify.json')
-
 module.exports = {
   head: {
     title: 'nuxt-admin-server',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: '' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'https://s3-ap-northeast-1.amazonaws.com/jiyuujinlab/bakeneko.png' }
@@ -31,7 +28,8 @@ module.exports = {
 
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
   ],
 
   plugins: [
@@ -49,10 +47,9 @@ module.exports = {
   ],
 
   env: {
-    API_KEY: firebase.API_KEY,
-    AUTH_DOMAIN: firebase.AUTH_DOMAIN,
-    DATABASE_URL: firebase.DATABASE_URL,
-    PROJECT_ID: firebase.PROJECT_ID,
-    NETLIFY_TOKEN: netlify.NETLIFY_TOKEN
+    API_KEY: process.env.API_KEY,
+    AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+    PROJECT_ID: process.env.PROJECT_ID,
+    NETLIFY_TOKEN: process.env.NETLIFY_TOKEN
   },
 }
