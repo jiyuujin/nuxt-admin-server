@@ -11,6 +11,7 @@ npm-debug.log
 dist
 
 package-lock.json
+yarn.lock
 
 .idea
 

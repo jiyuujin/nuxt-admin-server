@@ -34,12 +34,21 @@ export function setDialog (state, payload) {
 }
 
 /**
- * フライトログ数を設定する
+ * Tip情報を設定する
  * @param state
  * @param payload
  */
-export function setCount (state, payload) {
-  state.count = payload
+export function setTips (state, payload) {
+  state.tips = payload
+}
+
+/**
+ * Video情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setVideos (state, payload) {
+  state.videos = payload
 }
 
 /**
@@ -49,6 +58,42 @@ export function setCount (state, payload) {
  */
 export function setQiitas (state, payload) {
   state.qiitas = payload
+}
+
+/**
+ * Flight情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setFlights (state, payload) {
+  state.flights = payload
+}
+
+/**
+ * Event情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setEvents (state, payload) {
+  state.events = payload
+}
+
+/**
+ * Survey情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setSurveys (state, payload) {
+  state.surveys = payload
+}
+
+/**
+ * Survey情報を設定する
+ * @param state
+ * @param payload
+ */
+export function setContacts (state, payload) {
+  state.contacts = payload
 }
 
 /**

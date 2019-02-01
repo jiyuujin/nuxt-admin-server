@@ -6,7 +6,7 @@
       :style="'background-color: ' + getBackgroundColor(item) + '; color: ' + getColor(item) + ';'"
       class="tag-text"
     >
-      {{ item }}
+      {{ getText(item) }}
     </span>
   </div>
 </template>
@@ -24,14 +24,19 @@ export default {
     }
   },
   methods: {
-    getBackgroundColor(name) {
+    getText(id) {
       return this.categories.find((category) => {
-        if (category.name === name) return category
+        if (category.value === id) return category
+      }).text
+    },
+    getBackgroundColor(id) {
+      return this.categories.find((category) => {
+        if (category.value === id) return category
       }).backgroundColor
     },
-    getColor(name) {
+    getColor(id) {
       return this.categories.find((category) => {
-        if (category.name === name) return category
+        if (category.value === id) return category
       }).color
     }
   }

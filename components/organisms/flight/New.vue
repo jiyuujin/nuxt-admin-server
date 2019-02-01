@@ -1,55 +1,71 @@
 <template>
-  <v-card-text>
-    <DateTimeForm
-      :data="form.time"
-      @form-data="applyDateTime"
-    />
-    <SingleSelectForm
-      :option="airports"
-      :number="form.departure"
-      column="出発"
-      @form-data="applyDeparture"
-    />
-    <SingleSelectForm
-      :option="airports"
-      :number="form.arrival"
-      column="到着"
-      @form-data="applyArrival"
-    />
-    <SingleSelectForm
-      :option="airlines"
-      :number="form.airline"
-      column="航空会社"
-      @form-data="applyAirline"
-    />
-    <SingleSelectForm
-      :option="boardingTypes"
-      :number="form.boardingType"
-      column="搭乗機材"
-      @form-data="applyBoardingType"
-    />
-    <InputForm
-      :data="form.registration"
-      column="レジ"
-      @form-data="applyRegistration"
-    />
-    <v-btn @click="postFlight">
-      フライトを追加
-    </v-btn>
-  </v-card-text>
+  <div>
+    <FormTemplate>
+      <DateTimeForm
+        :data="form.time"
+        @form-data="applyDateTime"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="airports"
+        :number="form.departure"
+        column="出発"
+        @form-data="applyDeparture"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="airports"
+        :number="form.arrival"
+        column="到着"
+        @form-data="applyArrival"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="airlines"
+        :number="form.airline"
+        column="航空会社"
+        @form-data="applyAirline"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="boardingTypes"
+        :number="form.boardingType"
+        column="搭乗機材"
+        @form-data="applyBoardingType"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.registration"
+        column="レジ"
+        @form-data="applyRegistration"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <Button
+        action-name="フライトを追加"
+        @click="postFlight"
+      />
+    </FormTemplate>
+  </div>
 </template>
 
 <script>
 import moment from 'moment'
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import DateTimeForm from '../../atoms/DateTimeForm'
-import Validation from '~/utils/validation'
-import { AIRPORT_LIST } from '../../../utils/airports'
-import { AIRLINE_LIST } from '../../../utils/airlines'
-import { BOARDING_TYPE_LIST } from '../../../utils/boardingTypes'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
+import DateTimeForm from '~/components/atoms/DateTimeForm'
+import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
 export default {
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm,
     DateTimeForm
@@ -58,18 +74,15 @@ export default {
     return {
       form: {
         time: moment(),
-        departure: -1,
-        arrival: -1,
-        airline: -1,
-        boardingType: -1,
+        departure: 0,
+        arrival: 0,
+        airline: 0,
+        boardingType: 0,
         registration: ''
       },
-      errorText: '',
       airports: AIRPORT_LIST,
       airlines: AIRLINE_LIST,
-      boardingTypes: BOARDING_TYPE_LIST,
-      dateFormatted: null,
-      menu: false
+      boardingTypes: BOARDING_TYPE_LIST
     }
   },
   methods: {
@@ -92,27 +105,22 @@ export default {
       this.form.registration = value
     },
     reset () {
-      this.form.departure = -1
-      this.form.arrival = -1
-      this.form.airline = -1
-      this.form.boardingType = -1
+      this.form.departure = 0
+      this.form.arrival = 0
+      this.form.airline = 0
+      this.form.boardingType = 0
       this.form.registration = ''
     },
     async postFlight () {
-      this.errorText = ''
-      if (!Validation.isValid(this.form.departure) && !Validation.isValid(this.form.arrival) && !Validation.isValid(this.form.airline) && !Validation.isValid(this.form.boardingType) && !Validation.isValid(this.form.registration)) {
-        await this.$store.dispatch('addFlight', {
-          time: moment(this.form.time).format(''),
-          departure: this.form.departure,
-          arrival: this.form.arrival,
-          airline: this.form.airline,
-          boardingType: this.form.boardingType,
-          registration: this.form.registration
-        })
-        this.reset()
-      } else {
-        this.errorText = '正しく入力してください'
-      }
+      await this.$store.dispatch('addFlight', {
+        time: moment(this.form.time).format(),
+        departure: this.form.departure,
+        arrival: this.form.arrival,
+        airline: this.form.airline,
+        boardingType: this.form.boardingType,
+        registration: this.form.registration
+      })
+      this.reset()
     }
   }
 }

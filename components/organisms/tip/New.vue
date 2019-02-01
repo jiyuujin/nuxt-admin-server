@@ -1,49 +1,66 @@
 <template>
-  <v-card-text>
-    <InputForm
-      :data="form.title"
-      column="タイトル"
-      @form-data="applyTitle"
-    />
-    <InputForm
-      :data="form.url"
-      column="URL"
-      @form-data="applyUrl"
-    />
-    <InputForm
-      :data="form.description"
-      column="詳細"
-      @form-data="applyDescription"
-    />
-    <MultipleSelectForm
-      :option="categories"
-      :data="form.tags"
-      column="タグ"
-      @form-data="applyTags"
-    />
-    <SingleSelectForm
-      :option="events"
-      :number="form.event"
-      column="イベント"
-      @form-data="applyEvent"
-    />
-    <v-btn @click="postTip">
-      Tipを追加
-    </v-btn>
-  </v-card-text>
+  <div
+    v-if="events"
+  >
+    <FormTemplate>
+      <InputForm
+        :data="form.title"
+        column="タイトル"
+        @form-data="applyTitle"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.url"
+        column="URL"
+        @form-data="applyUrl"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.description"
+        column="詳細"
+        @form-data="applyDescription"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <MultipleSelectForm
+        :option="categories"
+        :data="form.tags"
+        column="タグ"
+        @form-data="applyTags"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="events.item"
+        :number="form.event"
+        column="イベント"
+        @form-data="applyEvent"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <Button
+        action-name="Tipを追加"
+        @click="postTip"
+      />
+    </FormTemplate>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import moment from 'moment'
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import MultipleSelectForm from '../../atoms/MultipleSelectForm'
-import { CATEGORIES } from '~/utils/categories'
-import { EVENT_LIST } from '../../../utils/events'
-import Validation from '~/utils/validation'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
+import MultipleSelectForm from '~/components/atoms/MultipleSelectForm'
+import { CATEGORIES } from '~/utils/index'
 export default {
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm,
     MultipleSelectForm
@@ -56,16 +73,17 @@ export default {
         description: '',
         tags: [],
         event: 0
-      },
-      errorText: '',
-      events: EVENT_LIST
+      }
     }
   },
   computed: {
     categories () {
-      return CATEGORIES.map(category => {return category.name})
+      return CATEGORIES
     },
-    ...mapGetters(['tips'])
+    ...mapGetters(['events'])
+  },
+  async created () {
+    await this.$store.dispatch('initEvents')
   },
   methods: {
     applyTitle (value) {
@@ -88,22 +106,18 @@ export default {
       this.form.url = ''
       this.form.description = ''
       this.form.tags = []
+      this.form.event = 0
     },
     async postTip () {
-      this.errorText = ''
-      if (!Validation.isValid(this.form.title) && !Validation.isValidWithArray(this.form.tags)) {
-        await this.$store.dispatch('addTip', {
-          title: this.form.title,
-          url: this.form.url,
-          description: this.form.description,
-          tags: this.form.tags,
-          event: this.form.event,
-          time: moment().format('')
-        })
-        this.reset()
-      } else {
-        this.errorText = '正しく入力してください'
-      }
+      await this.$store.dispatch('addTip', {
+        title: this.form.title,
+        url: this.form.url,
+        description: this.form.description,
+        tags: this.form.tags,
+        event: this.form.event,
+        time: moment().format('')
+      })
+      this.reset()
     }
   }
 }

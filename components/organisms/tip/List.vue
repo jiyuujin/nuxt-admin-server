@@ -1,78 +1,58 @@
 <template>
-  <v-data-table
-    :headers="header"
-    :items="list"
-    :search="search"
-    class="elevation-1"
-  >
-    <template slot="items" slot-scope="props">
-      <td class="text-xs-left">
-        <a
-          :href="props.item.url"
-          v-if="props.item.url"
-          class="link-text"
-          target="_blank"
+  <div>
+    <h3>
+      Tip
+      <span>
+        {{ list.length }} 件登録中
+      </span>
+    </h3>
+    <div
+      v-for="item in list"
+      :key="item.id"
+    >
+      <div
+        v-if="item.page === number"
+      >
+        <h2>
+          <a
+            :href="item.data.url"
+            target="_blank"
+          >
+            {{ item.data.title }}
+          </a>
+          <span>
+          {{ diffTime(item.data.time) }}
+        </span>
+        </h2>
+
+        <Tag
+          :list="item.data.tags"
+          :categories="categories"
+          class="tag"
+        />
+
+        <div
+          v-if="item.data.description"
+          class="description"
         >
-          <div style="text-align: left;">
-            <div class="title-text">
-              <span v-if="props.item.event !== 0">
-                <v-chip
-                  label
-                  color="pink"
-                  text-color="white"
-                >
-                  <v-icon left>label</v-icon>{{ event(props.item.event) }}
-                </v-chip>
-              </span>
-              {{ props.item.title }}
-            </div>
-            <div
-              v-if="props.item.description"
-              class="description-text"
-            >
-              {{ props.item.description }}
-            </div>
-            <div>
-              <Tag
-                :list="props.item.tags"
-                :categories="categories"
-              />
-            </div>
-          </div>
-          <div style="float: right;">
-            {{ date.getDiffTime(props.item.time) }}
-          </div>
-        </a>
-      </td>
-      <td class="justify-center layout px-0">
-        <v-icon
-          small
-          class="mr-2"
-          @click="editItem(props.item)"
-        >
-          edit
-        </v-icon>
-        <v-icon
-          small
-          @click="deleteItem(props.item)"
-        >
-          delete
-        </v-icon>
-      </td>
-    </template>
-  </v-data-table>
+          {{ item.data.description }}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Tag from '~/components/atoms/Tag'
-import Date from '~/utils/date'
-import { TIP_HEADER_LIST } from '../../../utils/menu'
-import { CATEGORIES } from '~/utils/categories'
-import { getEventName } from '../../../utils/events'
+import { CATEGORIES, getDiffTime } from '~/utils/index'
 export default {
   props: {
     list: {
       type: Array,
+      required: true
+    },
+    number: {
+      type: Number,
       required: true
     },
     search: {
@@ -85,26 +65,19 @@ export default {
   },
   data () {
     return {
-      header: TIP_HEADER_LIST,
-      date: Date,
       categories: CATEGORIES
     }
   },
-  // computed: {
-  //   categories () {
-  //     return CATEGORIES.map((category) => {return category.name})
-  //   }
-  // },
   methods: {
-    event(id) {
-      return getEventName(id)
+    diffTime(t) {
+      return getDiffTime(t)
     },
     editItem (item) {
       this.$emit('form-data', Object.assign({}, item))
     },
     deleteItem (item) {
-      if (confirm(item.title + ' 削除しますか?')) {
-        this.delete(item['.key'])
+      if (confirm(item.data.title + ' 削除しますか?')) {
+        this.delete(item.id)
       }
     },
     async delete(key) {
@@ -118,19 +91,26 @@ export default {
 </script>
 
 <style scoped>
-.link-text{
-  width: 100%;
-  height: 100%;
-  display: block;
+h2 {
+  font-size: 18px;
+}
+
+h2 a {
+  color: #808080;
   text-decoration: none;
 }
 
-.title-text {
-  font-size: 18px;
-  color: gray;
+h2 span {
+  float: right;
 }
-.description-text {
+
+.tag {
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 20px;
   font-size: 12px;
-  color: darkblue;
+  color: #00008b;
 }
 </style>

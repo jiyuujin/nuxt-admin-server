@@ -1,8 +1,8 @@
 <template>
-  <v-app>
+  <div>
     <nuxt/>
     <CookieFooter />
-  </v-app>
+  </div>
 </template>
 
 <script>

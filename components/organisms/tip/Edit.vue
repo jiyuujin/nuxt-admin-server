@@ -1,69 +1,67 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    max-width="500px"
+  <dialog
+    v-if="events && dialog"
   >
-    <v-card>
-      <v-card-text>
+    <div>
+      <FormTemplate>
         <InputForm
           :data="editedForm.title"
           column="タイトル"
           @form-data="applyTitle"
         />
+      </FormTemplate>
+      <FormTemplate>
         <InputForm
           :data="editedForm.url"
           column="URL"
           @form-data="appluUrl"
         />
+      </FormTemplate>
+      <FormTemplate>
         <InputForm
           :data="editedForm.description"
           column="タイトル"
           @form-data="applyDescription"
         />
+      </FormTemplate>
+      <FormTemplate>
         <MultipleSelectForm
           :option="categories"
           :data="editedForm.tags"
           column="タグ"
           @form-data="applyTags"
         />
+      </FormTemplate>
+      <FormTemplate>
         <SingleSelectForm
-          :option="events"
+          :option="events.item"
           :number="editedForm.event"
           column="イベント"
           @form-data="applyEvent"
         />
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          flat
-          color="blue darken-1"
-          @click.native="close"
-        >
-          <v-icon dark left>
-            remove_circle
-          </v-icon>
-        </v-btn>
-        <v-btn
-          flat
-          color="blue darken-1"
-          @click.native="save"
-        >
-          <v-icon dark right>
-            check_circle
-          </v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+      </FormTemplate>
+      <FormTemplate>
+        <Button
+          action-name="削除する"
+          @click="close"
+        />
+        <Button
+          action-name="保存する"
+          @click="save"
+        />
+      </FormTemplate>
+    </div>
+  </dialog>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import MultipleSelectForm from '../../atoms/MultipleSelectForm'
-import { CATEGORIES } from '~/utils/categories'
-import { EVENT_LIST } from '../../../utils/events'
+import { mapGetters, mapState } from 'vuex'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
+import MultipleSelectForm from '~/components/atoms/MultipleSelectForm'
+import { CATEGORIES } from '~/utils/index'
 export default {
   props: {
     editedForm: {
@@ -76,20 +74,21 @@ export default {
     }
   },
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm,
     MultipleSelectForm
-  },
-  data() {
-    return {
-      events: EVENT_LIST
-    }
   },
   computed: {
     categories () {
       return CATEGORIES.map((category) => {return category.name})
     },
+    ...mapGetters(['events']),
     ...mapState(['dialog'])
+  },
+  async created () {
+    await this.$store.dispatch('initEvents')
   },
   methods: {
     applyTitle (value) {

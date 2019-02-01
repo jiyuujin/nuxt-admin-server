@@ -1,34 +1,48 @@
 <template>
-  <v-card-text>
-    <InputForm
-      :data="form.title"
-      column="タイトル"
-      @form-data="applyTitle"
-    />
-    <SingleSelectForm
-      :option="events"
-      :number="form.event"
-      column="イベント"
-      @form-data="applyEvent"
-    />
-    <InputForm
-      :data="form.videoPath"
-      column="URL"
-      @form-data="applyVideoPath"
-    />
-    <v-btn @click="postVideo">
-      Videoを追加
-    </v-btn>
-  </v-card-text>
+  <div
+    v-if="events"
+  >
+    <FormTemplate>
+      <InputForm
+        :data="form.title"
+        column="タイトル"
+        @form-data="applyTitle"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <SingleSelectForm
+        :option="events.item"
+        :number="form.event"
+        column="イベント"
+        @form-data="applyEvent"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <InputForm
+        :data="form.videoPath"
+        column="URL"
+        @form-data="applyVideoPath"
+      />
+    </FormTemplate>
+    <FormTemplate>
+      <Button
+        action-name="Videoを追加"
+        @click="postVideo"
+      />
+    </FormTemplate>
+  </div>
 </template>
 
 <script>
-import InputForm from '../../atoms/InputForm'
-import SingleSelectForm from '../../atoms/SingleSelectForm'
-import { EVENT_LIST } from '../../../utils/events'
-import Validation from '~/utils/validation'
+import { mapGetters } from 'vuex'
+import FormTemplate from '~/components/templates/FormTemplate'
+import Button from '~/components/atoms/Button'
+import InputForm from '~/components/atoms/InputForm'
+import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 export default {
   components: {
+    FormTemplate,
+    Button,
     InputForm,
     SingleSelectForm
   },
@@ -38,10 +52,14 @@ export default {
         title: '',
         videoPath: '',
         event: 0
-      },
-      errorText: '',
-      events: EVENT_LIST
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['events'])
+  },
+  async created () {
+    await this.$store.dispatch('initEvents')
   },
   methods: {
     applyTitle (value) {
@@ -59,17 +77,12 @@ export default {
       this.form.videoPath = ''
     },
     async postVideo () {
-      this.errorText = ''
-      if (!Validation.isValid(this.form.title)) {
-        await this.$store.dispatch('addVideo', {
-          title: this.form.title,
-          event: this.form.event,
-          videoPath: this.form.videoPath
-        })
-        this.reset()
-      } else {
-        this.errorText = '正しく入力してください'
-      }
+      await this.$store.dispatch('addVideo', {
+        title: this.form.title,
+        event: this.form.event,
+        videoPath: this.form.videoPath
+      })
+      this.reset()
     }
   }
 }

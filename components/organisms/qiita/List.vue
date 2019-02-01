@@ -1,68 +1,46 @@
 <template>
-  <v-data-table
-    :headers="header"
-    :items="list"
-    :search="search"
-    hide-actions
-    class="elevation-1"
-  >
-    <template slot="items" slot-scope="props">
-      <td class="text-xs-left">
+  <div>
+    <h3>
+      Qiita
+      <span>
+        [{{ categoryText(tag) }}] {{ list.length }} 件登録中
+      </span>
+    </h3>
+    <div
+      v-for="item in list"
+      :key="item.title"
+    >
+      <h2>
         <a
-          :href="props.item.url"
-          class="link-text"
+          :href="item.url"
           target="_blank"
         >
-          <div style="text-align: left;">
-            <div class="title-text">
-              {{ props.item.title }}
-            </div>
-            <div
-              v-if="props.item.user"
-              class="user-text"
-            >
-              <img
-                :src="props.item.user['profile_image_url']"
-                v-if="props.item.user['profile_image_url']"
-                width="30px"
-                style="vertical-align: middle;"
-              >
-              {{ props.item.user['id'] }}
-              <span v-if="props.item.user['location']">
-                @{{ props.item.user['location'] }}
-              </span>
-            </div>
-            <div class="tags-text">
-                <span
-                  v-for="(value, key) in props.item.tags"
-                  :key="key"
-                >
-                  <v-chip label outline color="red">
-                    {{ value.name }}
-                  </v-chip>
-                </span>
-            </div>
-          </div>
-          <div style="float: right;">
-            {{ date.getDiffTime(props.item.updated_at) }}
-          </div>
+          {{ item.title }}
         </a>
-      </td>
-      <td class="text-xs-center">
-        <v-chip color="orange" text-color="white">
-          <v-icon right>
-            star
-          </v-icon>
-          {{ props.item.likes_count }}
-        </v-chip>
-      </td>
-    </template>
-  </v-data-table>
+        <span>
+          {{ diffTime(item.updated_at) }}
+        </span>
+      </h2>
+
+      <div
+        v-if="item.user"
+        class="user"
+      >
+        <img
+          v-if="item.user['profile_image_url']"
+          :src="item.user['profile_image_url']"
+        >
+        {{ item.user['id'] }}
+        <span v-if="item.user['location']">
+          @{{ item.user['location'] }}
+        </span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Date from '~/utils/date'
-import { QIITA_HEADER_LIST } from '../../../utils/menu'
+import { getDiffTime, CATEGORIES } from '~/utils/index'
 export default {
   props: {
     list: {
@@ -72,35 +50,47 @@ export default {
     search: {
       type: String,
       required: true
+    },
+    tag: {
+      type: Number,
+      required: true
     }
   },
-  data () {
-    return {
-      date: Date,
-      header: QIITA_HEADER_LIST
+  methods: {
+    diffTime(t) {
+      return getDiffTime(t)
+    },
+    categoryText(id) {
+      return CATEGORIES.find(category => {
+        if (category.value === id) {
+          return category
+        }
+      }).text
     }
   }
 }
 </script>
 
 <style scoped>
-.link-text{
-  width: 100%;
-  height: 100%;
-  display: block;
+h2 {
+  font-size: 18px;
+}
+
+h2 a {
+  color: #808080;
   text-decoration: none;
 }
 
-.title-text {
-  font-size: 18px;
-  color: gray;
+h2 span {
+  float: right;
 }
-.user-text {
-  font-size: 12px;
-  color: darkblue;
+
+.user {
+  font-size: 14px;
+  margin-bottom: 20px;
 }
-.tags-text {
-  font-size: 12px;
-  color: red;
+
+.user img {
+  width: 12px;
 }
 </style>

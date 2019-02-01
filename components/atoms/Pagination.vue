@@ -1,40 +1,90 @@
 <template>
-  <v-pagination
-    v-model="pagination.page"
-    :length="pages"
-  />
+  <div class="pagination">
+    <a
+      href="#"
+      :disabled="newVal === 1 ? disabled : !disabled"
+      @click="prev"
+    >
+      Prev
+    </a>
+    <a
+      href="#"
+      :disabled="newVal === max ? disabled : !disabled"
+      @click="next"
+    >
+      Next
+    </a>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    currentPage: {
+    page: {
+      type: Number,
+      required: true
+    },
+    max: {
       type: Number,
       required: true
     }
   },
   data() {
     return {
-      pagination: {
-        page: this.currentPage
-      }
+      disabled: true
     }
   },
   computed: {
-    pages () {
-      if (this.pagination.rowsPerPage == null || this.pagination.totalItems == null) return 0;
-      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
+    newVal: {
+      get () {
+        return this.page
+      },
+      set (value) {
+        this.$emit('form-data', value)
+      }
     }
   },
-  watch: {
-    'pagination.page'(newVal) {
-      this.pagination.page = newVal
-      this.$emit('form-data', newVal)
+  methods: {
+    prev() {
+      this.newVal--
+    },
+    next() {
+      this.newVal++
     }
   }
 }
 </script>
 
 <style scoped>
+.pagination {
+  text-align: center;
+  margin: 0 auto;
+}
 
+a {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  margin: 25px;
+  padding: 0.25em 0;
+  text-decoration: none;
+  color: #42b883;
+}
+
+a:before{
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 4px;
+  top:100%;
+  left: 0;
+  border-radius: 3px;
+  background: #42b883;
+  transition: .2s;
+}
+
+a:hover:before {
+  top: -webkit-calc(100% - 3px);
+  top: calc(100% - 3px);
+}
 </style>

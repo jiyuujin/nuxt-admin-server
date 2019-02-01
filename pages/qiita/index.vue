@@ -1,14 +1,12 @@
 <template>
   <MainTemplate
+    v-if="qiitas"
     :loading="loading"
+    :status="userStatus"
   >
-    <Status
-      :list="qiitas"
-      :tag="params.tag"
-    />
     <SingleSelectForm
       :option="categories"
-      :text="params.tag"
+      :number="params.tag"
       column="タグ"
       @form-data="applyTag"
     />
@@ -20,14 +18,13 @@
     <QiitaList
       :list="qiitas"
       :search="params.search"
+      :tag="params.tag"
     />
-    <div class="text-xs-center pt-2">
-      <Pagination
-        :current-page="params.page"
-        @form-data="applyPage"
-        class="text-xs-center pt-2"
-      />
-    </div>
+    <Pagination
+      :page="params.page"
+      :max="Math.ceil(qiitas.length / 20)"
+      @form-data="applyPage"
+    />
   </MainTemplate>
 </template>
 
@@ -35,17 +32,15 @@
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate';
 import QiitaList from '~/components/organisms/qiita/List'
-import Status from '~/components/organisms/qiita/Status'
 import InputForm from '~/components/atoms/InputForm'
 import SingleSelectForm from '~/components/atoms/SingleSelectForm'
 import Pagination from '~/components/atoms/Pagination'
-import { CATEGORIES } from '~/utils/categories'
+import { CATEGORIES } from '~/utils/index'
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
     QiitaList,
-    Status,
     InputForm,
     SingleSelectForm,
     Pagination
@@ -53,7 +48,7 @@ export default {
   data () {
     return {
       params: {
-        tag: 'Web',
+        tag: 1,
         search: '',
         page: 1
       }
@@ -61,15 +56,17 @@ export default {
   },
   computed: {
     categories () {
-      return CATEGORIES.map(category => { return category.name })
+      return CATEGORIES.map(category => {
+        return category
+      })
     },
-    ...mapGetters(['userStatus', 'qiitas']),
-    ...mapState(['loading'])
+    ...mapGetters(['qiitas']),
+    ...mapState(['userStatus', 'loading'])
   },
   methods: {
     getQiitaByTag () {
       this.$store.dispatch('initQiitas', {
-        'tag': this.params.tag.toLowerCase(),
+        'tag': this.params.tag,
         'search': this.params.search,
         'page': this.params.page
       })
@@ -88,7 +85,7 @@ export default {
     }
   },
   async mounted() {
-    this.getQiitaByTag()
+    await this.getQiitaByTag()
   }
 }
 </script>

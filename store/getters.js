@@ -44,21 +44,30 @@ export function flights (state) {
 }
 
 /**
- * フライトログ数を取得する
+ * Event情報を取得する
  * @param state
- * @returns {*}
+ * @returns {null|string[]}
  */
-export function count (state) {
-  return state.count
+export function events (state) {
+  return state.events
 }
 
 /**
- * Image情報を取得する
+ * Survey情報を取得する
  * @param state
- * @returns {T[]}
+ * @returns {null|string[]}
  */
-export function images (state) {
-  return state.images
+export function surveys (state) {
+  return state.surveys
+}
+
+/**
+ * Contact情報を取得する
+ * @param state
+ * @returns {null|string[]}
+ */
+export function contacts (state) {
+  return state.contacts
 }
 
 /**

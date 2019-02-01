@@ -1,23 +1,29 @@
 <template>
   <div>
-    <LeftMenu />
+    <LeftMenu
+      v-if="status"
+    />
     <Loading
       :loading="loading"
+      v-if="status"
     />
-    <v-container
+    <div
       class="site"
     >
       <slot />
-    </v-container>
+    </div>
   </div>
 </template>
 
 <script>
-import LeftMenu from '~/components/molecules/LeftMenu'
-import Loading from '~/components/molecules/Loading'
+import LeftMenu from '~/components/organisms/layout/LeftMenu'
+import Loading from '~/components/organisms/layout/Loading'
 export default {
   props: {
     loading: {
+      type: Boolean
+    },
+    status: {
       type: Boolean
     }
   },
@@ -30,6 +36,7 @@ export default {
 
 <style scoped>
 .site {
-  width: 95%;
+  width: 80%;
+  margin: 0 auto;
 }
 </style>

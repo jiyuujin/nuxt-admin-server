@@ -4,11 +4,12 @@ export default {
   token: null,
   loading: null,
   dialog: false,
-  tips: [],
-  videos: [],
+  tips: null,
+  videos: null,
   qiitas: [],
-  flights: [],
-  count: [],
-  images: [],
+  flights: null,
+  events: null,
+  surveys: null,
+  contacts: null,
   sites: []
 }
