@@ -99,7 +99,7 @@ export default {
       }
     },
     async delete(key) {
-      await this.$store.dispatch('removeFlight', {
+      await this.$store.dispatch('product/removeFlight', {
         'key': key,
         'data': []
       })

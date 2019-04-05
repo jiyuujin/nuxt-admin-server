@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import FormTemplate from '~/components/templates/FormTemplate'
 
 import StoryInput from '~/components/atoms/Input'
@@ -57,15 +57,17 @@ export default {
   computed: {
     eventOptions() {
       let array = []
-      this.$store.getters.events.item.forEach((item) => {
+      this.$store.state.product.events.item.forEach((item) => {
         array.push(item.text)
       })
       return array
     },
-    ...mapGetters(['events'])
+    ...mapState({
+      events: state => state.product.events
+    })
   },
   async created () {
-    await this.$store.dispatch('initEvents')
+    await this.$store.dispatch('product/initEvents')
   },
   methods: {
     reset () {
@@ -74,7 +76,7 @@ export default {
       this.form.videoPath = ''
     },
     async postVideo () {
-      await this.$store.dispatch('addVideo', {
+      await this.$store.dispatch('product/addVideo', {
         title: this.form.title,
         event: this.form.event,
         videoPath: this.form.videoPath

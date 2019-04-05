@@ -1,26 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { firebaseMutations } from 'vuexfire'
 
-// Vuex - State
-import state from './state'
-// Vuex - Mutations
-import * as mutations from './mutations'
-// Vuex - Actions
-import * as actions from './actions'
-// Vuex - Getters
-import * as getters from './getters'
+// Modules
+import { productModule } from './product'
 
 Vue.use(Vuex);
 
-const store = () => new Vuex.Store({
-  state,
-  mutations: {
-    ...firebaseMutations,
-    ...mutations
-  },
-  actions,
-  getters
+export const store = new Vuex.Store({
+  modules: {
+    namespaced: true,
+    product: productModule
+  }
 });
 
-export default store
+// export default store

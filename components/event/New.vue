@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import FormTemplate from '~/components/templates/FormTemplate'
 import { LOCALES } from '~/utils/index'
 
@@ -63,7 +63,9 @@ export default {
       })
       return array
     },
-    ...mapGetters(['events'])
+    ...mapState({
+      events: state => state.product.events
+    })
   },
   methods: {
     reset () {
@@ -72,7 +74,7 @@ export default {
       this.form.locale = 0
     },
     async postEvent () {
-      await this.$store.dispatch('addEvent', {
+      await this.$store.dispatch('product/addEvent', {
         name: this.form.name,
         url: this.form.url,
         locale: this.form.locale

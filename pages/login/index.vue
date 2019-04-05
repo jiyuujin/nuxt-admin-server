@@ -46,23 +46,19 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userStatus'])
+    ...mapState({
+      userStatus: state => state.product.userStatus
+    })
   },
   methods: {
-    applyEmail(val) {
-      this.email = val
-    },
-    applyPassword(val) {
-      this.password = val
-    },
     async login () {
-      await this.$store.dispatch('signIn', {
+      await this.$store.dispatch('product/signIn', {
         email: this.email,
         password: this.password
       })
 
-      if (this.$store.state.userStatus) {
-        this.$router.push('/')
+      if (this.$store.state.product.userStatus) {
+        await this.$router.push('/')
       }
     }
   }

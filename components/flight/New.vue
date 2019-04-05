@@ -107,9 +107,6 @@ export default {
     },
   },
   methods: {
-    applyDateTime (value) {
-      this.form.time = value
-    },
     reset () {
       this.form.departure = 0
       this.form.arrival = 0
@@ -118,7 +115,7 @@ export default {
       this.form.registration = ''
     },
     async postFlight () {
-      await this.$store.dispatch('addFlight', {
+      await this.$store.dispatch('product/addFlight', {
         time: moment(this.form.time).format(),
         departure: this.form.departure,
         arrival: this.form.arrival,

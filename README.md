@@ -25,8 +25,7 @@ yarn add node-sass sass-loader pug pug-loader -D
 4. flight
 5. contact
 6. event
-7. survey
-8. layout
+7. layout
 
 ### テンプレートコンポーネントをtemplatesに設定
 1. main-template

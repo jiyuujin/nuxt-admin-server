@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import { CATEGORIES } from '~/utils/index'
 
 import MainTemplate from '~/components/templates/MainTemplate'
@@ -70,12 +70,15 @@ export default {
       })
       return array
     },
-    ...mapGetters(['qiitas']),
-    ...mapState(['userStatus', 'loading'])
+    ...mapState({
+      userStatus: state => state.product.userStatus,
+      loading: state => state.product.loading,
+      qiitas: state =>state.product.qiitas
+    })
   },
   methods: {
     getQiitaByTag () {
-      this.$store.dispatch('initQiitas', {
+      this.$store.dispatch('product/initQiitas', {
         'tag': this.params.tag,
         'search': this.params.search,
         'page': this.params.page

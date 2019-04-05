@@ -39,7 +39,7 @@
 
 <script>
 import moment from 'moment'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
 import FormTemplate from '~/components/templates/FormTemplate'
 
@@ -87,24 +87,30 @@ export default {
   computed: {
     eventOptions() {
       let array = []
-      this.$store.getters.events.item.forEach((item) => {
+      this.$store.state.product.events.item.forEach((item) => {
         array.push(item.text)
       })
       return array
     },
-    ...mapGetters(['tips', 'videos', 'events']),
-    ...mapState(['userStatus', 'dialog', 'loading'])
+    ...mapState({
+      userStatus: state => state.product.userStatus,
+      loading: state => state.product.loading,
+      dialog: state => state.product.dialog,
+      tips: state => state.product.tips,
+      videos: state => state.product.videos,
+      events: state => state.product.events
+    })
   },
   async created() {
     Promise.all([
-      this.tips ? Promise.resolve() : this.$store.dispatch('initTips', null),
-      this.videos ? Promise.resolve() : this.$store.dispatch('initVideos'),
-      this.events ? Promise.resolve() : this.$store.dispatch('initEvents')
+      this.tips ? Promise.resolve() : this.$store.dispatch('product/initTips', null),
+      this.videos ? Promise.resolve() : this.$store.dispatch('product/initVideos'),
+      this.events ? Promise.resolve() : this.$store.dispatch('product/initEvents')
     ])
   },
   methods: {
     async startEdited() {
-      await this.$store.dispatch('addDialog')
+      await this.$store.dispatch('product/addDialog')
     },
     applyEditedForm(value) {
       this.editedForm = value.data
@@ -117,11 +123,11 @@ export default {
     async applyEvent(value) {
       this.params.event = value
       if (this.params.event !== 0) {
-        await this.$store.dispatch('initTips', {
+        await this.$store.dispatch('product/initTips', {
           event: this.params.event
         })
       } else {
-        await this.$store.dispatch('initTips')
+        await this.$store.dispatch('product/initTips')
       }
     }
   }

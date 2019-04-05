@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import FormTemplate from '~/components/templates/FormTemplate'
 import { CATEGORIES } from '~/utils/index'
 
@@ -89,26 +89,28 @@ export default {
     },
     eventOptions() {
       let array = []
-      this.$store.getters.events.item.forEach((item) => {
+      this.$store.state.product.events.item.forEach((item) => {
         array.push(item.text)
       })
       return array
     },
-    ...mapGetters(['events']),
-    ...mapState(['dialog'])
+    ...mapState({
+      dialog: state => state.product.dialog,
+      events: state => state.product.events
+    })
   },
   async created () {
-    await this.$store.dispatch('initEvents')
+    await this.$store.dispatch('product/initEvents')
   },
   methods: {
     applyTags (value) {
       this.editedForm.tags = value
     },
     async close () {
-      await this.$store.dispatch('removeDialog')
+      await this.$store.dispatch('product/removeDialog')
     },
     async save () {
-      await this.$store.dispatch('updateTip', {
+      await this.$store.dispatch('product/updateTip', {
         'key': this.dataKey,
         'data': this.editedForm
       })
