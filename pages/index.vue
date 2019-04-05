@@ -1,42 +1,40 @@
 <template>
-  <MainTemplate
+  <main-template
     v-if="videos && sites"
     :loading="loading"
     :status="userStatus"
   >
-    <Button
-      action-name="logout"
-      style="text-align: right;"
+    <story-button
+      text="logout"
       @click="logout"
     />
-    <Status
-      :list="sites"
-    />
-    <List
+    <list
       :list="videos.item"
     />
-    <Pagination
+    <pagination
       :page="params.page"
       :max="Math.ceil(videos.item.length / 20)"
       @form-data="applyPage"
     />
-  </MainTemplate>
+  </main-template>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+
 import MainTemplate from '~/components/templates/MainTemplate'
-import List from '~/components/organisms/video/List'
-import Status from '~/components/organisms/netlify/Status'
-import Button from '~/components/atoms/Button'
-import Pagination from '~/components/atoms/Pagination'
+
+import List from '~/components/video/List'
+import Pagination from '~/components/layout/Pagination'
+
+import StoryButton from '~/components/atoms/Button'
+
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
     List,
-    Status,
-    Button,
+    StoryButton,
     Pagination
   },
   data() {

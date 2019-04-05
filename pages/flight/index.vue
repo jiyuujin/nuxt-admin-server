@@ -1,21 +1,23 @@
 <template>
-  <MainTemplate
+  <main-template
     v-if="flights"
     :loading="loading"
     :status="userStatus"
   >
-    <SingleSelectForm
-      :option="years"
-      :number="params.year"
-      column="年"
-      @form-data="applyYear"
-    />
-    <SingleSelectForm
-      :option="boardingTypes"
-      :number="params.boardingType"
-      column="搭乗機材"
-      @form-data="applyBoardingType"
-    />
+    <form-template>
+      <story-select
+        :options="yearOptions"
+        v-model="params.year"
+        name="年"
+      />
+    </form-template>
+    <form-template>
+      <story-select
+        :options="boardingTypeOptions"
+        v-model="params.boardingType"
+        name="搭乗機材"
+      />
+    </form-template>
     <FlightList
       :list="flights.item"
       :number="params.page"
@@ -26,33 +28,39 @@
       :max="Math.ceil(flights.item.length / 20)"
       @form-data="applyPage"
     />
-    <NewFlight />
-    <EditFlight
+    <new-flight />
+    <edit-flight
       :edited-form="editedForm"
       :data-key="dataKey"
     />
-  </MainTemplate>
+  </main-template>
 </template>
 
 <script>
 import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate';
-import Pagination from '~/components/atoms/Pagination'
-import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import FlightList from '~/components/organisms/flight/List'
-import NewFlight from '~/components/organisms/flight/New'
-import EditFlight from '~/components/organisms/flight/Edit'
 import { BOARDING_TYPE_LIST, YEARS } from '~/utils/index'
+
+import MainTemplate from '~/components/templates/MainTemplate'
+import FormTemplate from '~/components/templates/FormTemplate'
+
+import FlightList from '~/components/flight/List'
+import NewFlight from '~/components/flight/New'
+import EditFlight from '~/components/flight/Edit'
+import Pagination from '~/components/layout/Pagination'
+
+import StorySelect from '~/components/atoms/Select'
+
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
+    FormTemplate,
     Pagination,
-    SingleSelectForm,
     FlightList,
     NewFlight,
-    EditFlight
+    EditFlight,
+    StorySelect
   },
   data() {
     return {
@@ -81,6 +89,20 @@ export default {
     })
   },
   computed: {
+    yearOptions () {
+      let array = []
+      YEARS.forEach(category => {
+        array.push(category.text)
+      })
+      return array
+    },
+    boardingTypeOptions () {
+      let array = []
+      BOARDING_TYPE_LIST.forEach(category => {
+        array.push(category.text)
+      })
+      return array
+    },
     ...mapGetters(['flights']),
     ...mapState(['userStatus', 'dialog', 'loading'])
   },
@@ -95,20 +117,6 @@ export default {
     },
     applyPage(value) {
       this.params.page = value
-    },
-    async applyBoardingType(value) {
-      this.params.boardingType = value
-      await this.$store.dispatch('initFlights', {
-        boardingType: this.params.boardingType,
-        year: this.params.year
-      })
-    },
-    async applyYear(value) {
-      this.params.year = value
-      await this.$store.dispatch('initFlights', {
-        boardingType: this.params.boardingType,
-        year: this.params.year
-      })
     }
   }
 }

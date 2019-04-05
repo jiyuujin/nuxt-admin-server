@@ -1,54 +1,48 @@
 <template>
-  <div>
-    <a
-      href="#"
-      @click="handle"
-    >
-      {{ actionName }}
-    </a>
-  </div>
+  <button @click="handleClick">
+    {{ text }}
+  </button>
 </template>
 
 <script>
 export default {
   props: {
-    actionName: {
-      type: String,
-      default: ''
-    }
+    text: String
   },
   methods: {
-    handle (e) {
-      this.$emit('click', e)
+    handleClick (event) {
+      this.$emit('click', event)
     }
   }
 }
 </script>
 
-<style scoped>
-a {
-  position: relative;
-  display: inline-block;
+<style lang="scss" scoped>
+@import '../../assets/main';
+
+button {
+  border-radius: 4px;
+  overflow: hidden;
   font-weight: bold;
-  padding: 0.25em 0;
-  text-decoration: none;
-  color: #42b883;
-}
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  letter-spacing: 0;
+  line-height: 0;
+  font-size: 0.875rem;
+  padding: 0 1.5rem;
+  height: 40px;
+  color: $white-color;
+  background: $brand-color;
+  border-color: $brand-color;
 
-a:before{
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 4px;
-  top:100%;
-  left: 0;
-  border-radius: 3px;
-  background: #42b883;
-  transition: .2s;
-}
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
 
-a:hover:before {
-  top: -webkit-calc(100% - 3px);
-  top: calc(100% - 3px);
+  &:focus {
+    box-shadow: 0 0 0 0.2em rgba($brand-color, 0.2);
+    outline: none;
+  }
 }
 </style>

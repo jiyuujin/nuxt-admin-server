@@ -10,8 +10,7 @@ export default {}
 
 <style scoped>
 .form {
-  width: 80%;
   margin: 0 auto;
-  padding: 30px;
+  padding-bottom: 10px;
 }
 </style>

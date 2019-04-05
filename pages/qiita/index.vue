@@ -1,49 +1,57 @@
 <template>
-  <MainTemplate
+  <main-template
     v-if="qiitas"
     :loading="loading"
     :status="userStatus"
   >
-    <SingleSelectForm
-      :option="categories"
-      :number="params.tag"
-      column="タグ"
-      @form-data="applyTag"
-    />
-    <InputForm
-      :data="params.search"
-      column="タイトル"
-      @form-data="applyTitle"
-    />
-    <QiitaList
+    <form-template>
+      <story-select
+        :options="categoryOptions"
+        v-model="params.tag"
+        name="カテゴリー"
+      />
+    </form-template>
+    <form-template>
+      <story-input
+        v-model="params.search"
+        placeholder="タイトル"
+      />
+    </form-template>
+    <qiita-list
       :list="qiitas"
       :search="params.search"
       :tag="params.tag"
     />
-    <Pagination
+    <pagination
       :page="params.page"
       :max="Math.ceil(qiitas.length / 20)"
       @form-data="applyPage"
     />
-  </MainTemplate>
+  </main-template>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate';
-import QiitaList from '~/components/organisms/qiita/List'
-import InputForm from '~/components/atoms/InputForm'
-import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import Pagination from '~/components/atoms/Pagination'
 import { CATEGORIES } from '~/utils/index'
+
+import MainTemplate from '~/components/templates/MainTemplate'
+import FormTemplate from '~/components/templates/FormTemplate'
+
+import QiitaList from '~/components/qiita/List'
+import Pagination from '~/components/layout/Pagination'
+
+import StoryInput from '~/components/atoms/Input'
+import StorySelect from '~/components/atoms/Select'
+
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
+    FormTemplate,
     QiitaList,
-    InputForm,
-    SingleSelectForm,
-    Pagination
+    Pagination,
+    StoryInput,
+    StorySelect
   },
   data () {
     return {
@@ -55,10 +63,12 @@ export default {
     }
   },
   computed: {
-    categories () {
-      return CATEGORIES.map(category => {
-        return category
+    categoryOptions () {
+      let array = []
+      CATEGORIES.forEach(category => {
+        array.push(category.text)
       })
+      return array
     },
     ...mapGetters(['qiitas']),
     ...mapState(['userStatus', 'loading'])
@@ -70,14 +80,6 @@ export default {
         'search': this.params.search,
         'page': this.params.page
       })
-    },
-    applyTitle(value) {
-      this.params.search = value
-      this.getQiitaByTag()
-    },
-    applyTag(value) {
-      this.params.tag = value
-      this.getQiitaByTag()
     },
     applyPage(value) {
       this.params.page = value

@@ -1,10 +1,7 @@
 <template>
   <div>
     <h3>
-      Tip
-      <span>
-        {{ list.length }} 件登録中
-      </span>
+      Tip <span>{{ list.length }} 件登録中</span>
     </h3>
     <div
       v-for="item in list"
@@ -12,6 +9,7 @@
     >
       <div
         v-if="item.page === number"
+        style="margin-bottom: 10px;"
       >
         <h2>
           <a
@@ -25,11 +23,12 @@
         </span>
         </h2>
 
-        <Tag
-          :list="item.data.tags"
-          :categories="categories"
-          class="tag"
-        />
+        <span
+          v-for="(tag, index) in item.data.tags"
+          :key="index"
+        >
+          <story-label :text="getText(tag)" />
+        </span>
 
         <div
           v-if="item.data.description"
@@ -43,8 +42,10 @@
 </template>
 
 <script>
-import Tag from '~/components/atoms/Tag'
 import { CATEGORIES, getDiffTime } from '~/utils/index'
+
+import StoryLabel from '~/components/atoms/Label'
+
 export default {
   props: {
     list: {
@@ -61,7 +62,7 @@ export default {
     }
   },
   components: {
-    Tag
+    StoryLabel
   },
   data () {
     return {
@@ -80,11 +81,16 @@ export default {
         this.delete(item.id)
       }
     },
-    async delete(key) {
+    async delete (key) {
       await this.$store.dispatch('removeTip', {
         key: key,
         data: []
       })
+    },
+    getText (id) {
+      return CATEGORIES.find((category) => {
+        if (category.value === id) return category
+      }).text
     }
   }
 }
@@ -102,10 +108,6 @@ h2 a {
 
 h2 span {
   float: right;
-}
-
-.tag {
-  margin-bottom: 10px;
 }
 
 .description {

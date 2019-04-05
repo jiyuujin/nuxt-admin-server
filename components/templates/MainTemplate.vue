@@ -1,23 +1,20 @@
 <template>
   <div>
-    <LeftMenu
-      v-if="status"
-    />
+    <LeftMenu v-if="status" />
     <Loading
-      :loading="loading"
       v-if="status"
+      :loading="loading"
     />
-    <div
-      class="site"
-    >
+    <div class="main">
       <slot />
     </div>
   </div>
 </template>
 
 <script>
-import LeftMenu from '~/components/organisms/layout/LeftMenu'
-import Loading from '~/components/organisms/layout/Loading'
+import LeftMenu from '~/components/layout/LeftMenu'
+import Loading from '~/components/layout/Loading'
+
 export default {
   props: {
     loading: {
@@ -35,8 +32,7 @@ export default {
 </script>
 
 <style scoped>
-.site {
-  width: 80%;
-  margin: 0 auto;
+.main {
+  margin: 0 10%;
 }
 </style>

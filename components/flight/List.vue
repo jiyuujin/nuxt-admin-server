@@ -6,7 +6,7 @@
         {{ list.length }} レグ搭乗中
       </span>
     </h3>
-    <FlightChart
+    <flight-chart
       :chart-data="getChartDataset(list)"
     />
     <div
