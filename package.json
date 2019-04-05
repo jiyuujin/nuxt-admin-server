@@ -24,6 +24,7 @@
     "js-cookie": "^2.2.0",
     "material-design-icons-iconfont": "^3.0.3",
     "moment": "^2.22.2",
+    "node-fetch": "^2.3.0",
     "nuxt": "^2.6.1",
     "pug-plain-loader": "^1.0.0",
     "sweetalert2": "^7.29.0",
