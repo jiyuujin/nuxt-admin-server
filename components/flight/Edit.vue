@@ -85,10 +85,10 @@ export default {
   },
   methods: {
     async close () {
-      await this.$store.dispatch('removeDialog')
+      await this.$store.dispatch('product/removeDialog')
     },
     async save () {
-      await this.$store.dispatch('updateFlight', {
+      await this.$store.dispatch('product/updateFlight', {
         'key': this.dataKey,
         'data': this.editedForm
       })

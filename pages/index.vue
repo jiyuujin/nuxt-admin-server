@@ -1,6 +1,6 @@
 <template>
   <main-template
-    v-if="videos && sites"
+    v-if="videos"
     :loading="loading"
     :status="userStatus"
   >
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 import MainTemplate from '~/components/templates/MainTemplate'
 
@@ -45,23 +45,23 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['videos', 'sites']),
-    ...mapState(['userStatus', 'loading'])
+    ...mapState({
+      userStatus: state => state.product.userStatus,
+      loading: state => state.product.loading,
+      videos: state => state.product.videos
+    })
   },
-  async mounted() {
-    Promise.all([
-      await this.$store.dispatch('initVideos'),
-      await this.$store.dispatch('initSites')
-    ])
+  async created() {
+    await this.$store.dispatch('product/initVideos')
   },
   methods: {
     applyPage(value) {
       this.params.page = value
     },
     async logout() {
-      await this.$store.dispatch('signOut')
+      await this.$store.dispatch('product/signOut')
 
-      if (!this.$store.state.userStatus) {
+      if (!this.$store.state.product.userStatus) {
         this.$router.push('/login')
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <main-template
-    v-if="events && surveys && contacts"
+    v-if="events && contacts"
     :loading="loading"
     :status="userStatus"
   >
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import { CONTACT_CATEGORIES } from '~/utils/index'
 
 import MainTemplate from '~/components/templates/MainTemplate'
@@ -68,14 +68,17 @@ export default {
       })
       return array
     },
-    ...mapGetters(['events', 'surveys', 'contacts']),
-    ...mapState(['userStatus', 'loading'])
+    ...mapState({
+      userStatus: state => state.product.userStatus,
+      loading: state => state.product.loading,
+      events: state => state.product.events,
+      contacts: state => state.product.contacts
+    })
   },
   async created() {
     Promise.all([
-      await this.$store.dispatch('initEvents', null),
-      await this.$store.dispatch('initSurveys'),
-      await this.$store.dispatch('initContacts')
+      await this.$store.dispatch('product/initEvents', null),
+      await this.$store.dispatch('product/initContacts')
     ])
   },
   methods: {
@@ -84,9 +87,6 @@ export default {
     },
     async applyEvent(value) {
       this.params.event = value
-      await this.$store.dispatch('initSurveys', {
-        event: this.params.event
-      })
     }
   }
 }

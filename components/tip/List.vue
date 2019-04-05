@@ -82,7 +82,7 @@ export default {
       }
     },
     async delete (key) {
-      await this.$store.dispatch('removeTip', {
+      await this.$store.dispatch('product/removeTip', {
         key: key,
         data: []
       })

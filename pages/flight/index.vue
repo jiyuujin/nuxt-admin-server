@@ -38,7 +38,7 @@
 
 <script>
 import moment from 'moment'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import { BOARDING_TYPE_LIST, YEARS } from '~/utils/index'
 
 import MainTemplate from '~/components/templates/MainTemplate'
@@ -83,7 +83,7 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('initFlights', {
+    await this.$store.dispatch('product/initFlights', {
       boardingType: this.params.boardingType,
       year: this.params.year
     })
@@ -103,12 +103,16 @@ export default {
       })
       return array
     },
-    ...mapGetters(['flights']),
-    ...mapState(['userStatus', 'dialog', 'loading'])
+    ...mapState({
+      userStatus: state => state.product.userStatus,
+      loading: state => state.product.loading,
+      dialog: state => state.product.dialog,
+      flights: state => state.product.flights
+    })
   },
   methods: {
     async startEdited() {
-      await this.$store.dispatch('addDialog')
+      await this.$store.dispatch('product/addDialog')
     },
     applyEditedForm(value) {
       this.editedForm = value.data

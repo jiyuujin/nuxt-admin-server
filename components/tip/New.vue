@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import moment from 'moment'
 import FormTemplate from '~/components/templates/FormTemplate'
 import { CATEGORIES } from '~/utils/index'
@@ -82,15 +82,17 @@ export default {
     },
     eventOptions() {
       let array = []
-      this.$store.getters.events.item.forEach((item) => {
+      this.$store.state.product.events.item.forEach((item) => {
         array.push(item.text)
       })
       return array
     },
-    ...mapGetters(['events'])
+    ...mapState({
+      events: state => state.product.events
+    })
   },
   async created () {
-    await this.$store.dispatch('initEvents')
+    await this.$store.dispatch('product/initEvents')
   },
   methods: {
     applyTags (value) {
@@ -104,7 +106,7 @@ export default {
       this.form.event = 0
     },
     async postTip () {
-      await this.$store.dispatch('addTip', {
+      await this.$store.dispatch('product/addTip', {
         title: this.form.title,
         url: this.form.url,
         description: this.form.description,
