@@ -1,43 +1,43 @@
 <template>
-  <MainTemplate
+  <main-template
     :status="userStatus"
     class="login"
   >
-    <FormTemplate>
-      <InputForm
-        :data="email"
-        column="Email"
-        @form-data="applyEmail"
+    <form-template>
+      <story-input
+        v-model="email"
+        placeholder="Email"
       />
-    </FormTemplate>
-    <FormTemplate>
-      <InputForm
-        :data="password"
-        column="Password"
-        @form-data="applyPassword"
+    </form-template>
+    <form-template>
+      <story-input
+        v-model="password"
+        placeholder="Password"
       />
-    </FormTemplate>
-    <FormTemplate>
-      <Button
-        action-name="login"
+    </form-template>
+    <form-template>
+      <story-button
+        text="login"
         @click="login"
       />
-    </FormTemplate>
-  </MainTemplate>
+    </form-template>
+  </main-template>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
 import FormTemplate from '~/components/templates/FormTemplate'
-import Button from '~/components/atoms/Button'
-import InputForm from '~/components/atoms/InputForm'
+
+import StoryInput from '~/components/atoms/Input'
+import StoryButton from '~/components/atoms/Button.vue'
+
 export default {
   components: {
     MainTemplate,
     FormTemplate,
-    Button,
-    InputForm
+    StoryInput,
+    StoryButton
   },
   data () {
     return {

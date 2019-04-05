@@ -38,6 +38,10 @@ module.exports = {
     {
       src: '~plugins/vue-chartjs',
       ssr: false
+    },
+    {
+      src: '~plugins/stylebook.js',
+      ssr: false
     }
   ],
 

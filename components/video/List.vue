@@ -11,10 +11,15 @@
       :key="item.data.videoID"
       class="box"
     >
-      <Video
-        :id="item.data.videoID"
-        class="video"
-      />
+      <a
+        :href="baseVideoUrl + id"
+        target="_blank"
+      >
+        <img
+          :src="baseImageUrl + id + '/0.jpg'"
+          :alt="id"
+        >
+      </a>
       <p>
         {{ item.data.title }}
       </p>
@@ -23,7 +28,6 @@
 </template>
 
 <script>
-import Video from '~/components/atoms/Video'
 export default {
   props: {
     list: {
@@ -31,8 +35,11 @@ export default {
       required: true
     }
   },
-  components: {
-    Video
+  data() {
+    return {
+      baseImageUrl: 'https://img.youtube.com/vi/',
+      baseVideoUrl: 'https://www.youtube.com/watch?v='
+    }
   }
 }
 </script>

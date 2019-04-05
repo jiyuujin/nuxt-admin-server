@@ -1,62 +1,70 @@
 <template>
-  <MainTemplate
+  <main-template
     v-if="tips && videos && events"
     :loading="loading"
     :status="userStatus"
   >
-    <InputForm
-      :data="search"
-      column="タイトル"
-      @form-data="applyTitle"
-    />
-    <SingleSelectForm
-      :option="events.item"
-      :number="params.event"
-      column="イベント"
-      @form-data="applyEvent"
-    />
-    <TipList
+    <form-template>
+      <story-input
+        v-model="search"
+        placeholder="タイトル"
+      />
+    </form-template>
+    <form-template>
+      <story-select
+        :options="eventOptions"
+        v-model="params.event"
+        name="イベント"
+      />
+    </form-template>
+    <tip-list
       :list="tips.item"
       :number="params.page"
       :search="search"
       @form-data="applyEditedForm"
     />
-    <Pagination
+    <pagination
       :page="params.page"
       :max="Math.ceil(tips.item.length / 20)"
       @form-data="applyPage"
     />
-    <NewTip />
-    <EditTip
+    <new-tip />
+    <edit-tip
       :edited-form="editedForm"
       :data-key="dataKey"
     />
     <NewVideo />
-  </MainTemplate>
+  </main-template>
 </template>
 
 <script>
 import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
 import MainTemplate from '~/components/templates/MainTemplate'
-import TipList from '~/components/organisms/tip/List'
-import NewTip from '~/components/organisms/tip/New'
-import EditTip from '~/components/organisms/tip/Edit'
-import NewVideo from '~/components/organisms/video/New'
-import InputForm from '~/components/atoms/InputForm'
-import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import Pagination from '~/components/atoms/Pagination'
+import FormTemplate from '~/components/templates/FormTemplate'
+
+import TipList from '~/components/tip/List'
+import NewTip from '~/components/tip/New'
+import EditTip from '~/components/tip/Edit'
+import NewVideo from '~/components/video/New'
+
+import Pagination from '~/components/layout/Pagination'
+
+import StoryInput from '~/components/atoms/Input'
+import StorySelect from '~/components/atoms/Select'
+
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
+    FormTemplate,
     TipList,
     NewTip,
     EditTip,
     NewVideo,
-    InputForm,
-    SingleSelectForm,
-    Pagination
+    Pagination,
+    StoryInput,
+    StorySelect
   },
   data () {
     return {
@@ -77,6 +85,13 @@ export default {
     }
   },
   computed: {
+    eventOptions() {
+      let array = []
+      this.$store.getters.events.item.forEach((item) => {
+        array.push(item.text)
+      })
+      return array
+    },
     ...mapGetters(['tips', 'videos', 'events']),
     ...mapState(['userStatus', 'dialog', 'loading'])
   },
@@ -95,9 +110,6 @@ export default {
       this.editedForm = value.data
       this.dataKey = value.id
       this.startEdited()
-    },
-    applyTitle(value) {
-      this.search = value
     },
     applyPage(value) {
       this.params.page = value

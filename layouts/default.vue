@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import CookieFooter from '~/components/atoms/CookieFooter'
+import CookieFooter from '~/components/layout/CookieFooter'
+
 export default {
   components: {
     CookieFooter

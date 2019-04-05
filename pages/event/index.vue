@@ -1,63 +1,51 @@
 <template>
-  <MainTemplate
+  <main-template
     v-if="events && surveys && contacts"
     :loading="loading"
     :status="userStatus"
   >
-    <!--
-    <SingleSelectForm
-      :option="events.item"
-      :number="params.event"
-      column="イベント"
-      @form-data="applyEvent"
-    />
-    <SurveyList
-      :list="surveys.item"
-      :number="params.page.survey"
-    />
-    <Pagination
-      :page="params.page.survey"
-      :max="Math.ceil(surveys.item.length / 20)"
-      @form-data="applyPageInSurvey"
-    />
-    -->
-    <SingleSelectForm
-      :option="contactCategories"
-      :number="params.contactCategory"
-      column="カテゴリー"
-      @form-data="applyContactCategory"
-    />
-    <ContactList
+    <form-template>
+      <story-select
+        :options="contactCategoryOptions"
+        v-model="params.contactCategory"
+        name="カテゴリー"
+      />
+    </form-template>
+    <contact-list
       :list="contacts.item"
       :number="params.page.contact"
     />
-    <Pagination
+    <pagination
       :page="params.page.contact"
       :max="Math.ceil(contacts.item.length / 20)"
       @form-data="applyPageInContact"
     />
     <NewEvent />
-  </MainTemplate>
+  </main-template>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate'
-// import SurveyList from '~/components/organisms/survey/List'
-import ContactList from '~/components/organisms/contact/List'
-import NewEvent from '~/components/organisms/event/New'
-import SingleSelectForm from '~/components/atoms/SingleSelectForm'
-import Pagination from '~/components/atoms/Pagination'
 import { CONTACT_CATEGORIES } from '~/utils/index'
+
+import MainTemplate from '~/components/templates/MainTemplate'
+import FormTemplate from '~/components/templates/FormTemplate'
+
+import ContactList from '~/components/contact/List'
+import NewEvent from '~/components/event/New'
+import Pagination from '~/components/layout/Pagination'
+
+import StorySelect from '~/components/atoms/Select'
+
 export default {
   middleware: 'auth',
   components: {
     MainTemplate,
+    FormTemplate,
     NewEvent,
-    // SurveyList,
     ContactList,
-    SingleSelectForm,
-    Pagination
+    Pagination,
+    StorySelect
   },
   data() {
     return {
@@ -73,6 +61,13 @@ export default {
     }
   },
   computed: {
+    contactCategoryOptions () {
+      let array = []
+      CONTACT_CATEGORIES.forEach(category => {
+        array.push(category.text)
+      })
+      return array
+    },
     ...mapGetters(['events', 'surveys', 'contacts']),
     ...mapState(['userStatus', 'loading'])
   },
@@ -84,9 +79,6 @@ export default {
     ])
   },
   methods: {
-    // applyPageInSurvey(value) {
-    //   this.params.page.survey = value
-    // },
     applyPageInContact(value) {
       this.params.page.contact = value
     },
@@ -94,12 +86,6 @@ export default {
       this.params.event = value
       await this.$store.dispatch('initSurveys', {
         event: this.params.event
-      })
-    },
-    async applyContactCategory(value) {
-      this.params.contactCategory = value
-      await this.$store.dispatch('initContacts', {
-        contactCategory: this.params.contactCategory
       })
     }
   }

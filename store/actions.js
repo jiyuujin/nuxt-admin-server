@@ -12,9 +12,9 @@ import { setDialog, isValidText, isValidNumber, isValidArray } from './utils';
 import { CATEGORIES } from '~/utils/index';
 
 const adminFirestore = Firestore.firestore();
-adminFirestore.settings({
-  timestampsInSnapshots: true
-});
+// adminFirestore.settings({
+//   timestampsInSnapshots: true
+// });
 
 // Firestore Collections
 const CONTACT_COLLECTION = 'contacts';
