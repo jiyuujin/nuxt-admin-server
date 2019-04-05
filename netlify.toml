@@ -1,3 +1,9 @@
-[build]
+[context.production]
+  command = "npm run generate"
+  publish = "dist"
+  environment = { API_KEY = "AIzaSyAV7kCXzIPqtKeFnaNz-ywA3NEBUBw7S24", AUTH_DOMAIN = "nuxtadmin-4a9e0.firebaseapp.com", PROJECT_ID = "nuxt-admin-tokyo", NETLIFY_TOKEN = "16022113ffa2032c7afe76b1b42358f47c76438267c7bf5f802e0bccc19bf6e1" }
+
+
+[context.storydev]
   command = "npm run build-storybook"
   publish = "storybook-static"
