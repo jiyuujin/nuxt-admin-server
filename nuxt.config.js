@@ -23,6 +23,9 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+      config.node = {
+        fs: 'empty'
+      }
     }
   },
 
@@ -46,6 +49,7 @@ module.exports = {
   ],
 
   css: [
+    '~/assets/main.scss',
     'material-design-icons-iconfont/dist/material-design-icons.css',
     '@mdi/font/css/materialdesignicons.css'
   ],

@@ -13,6 +13,10 @@ storiesOf('Select', module)
         hoge: {{hoge}}
         <j-select :options="options" v-model="hoge" />
       </div>
+      <div>
+        hoge: {{hoge}}
+        <j-select :options="options" :multiple="multiple" v-model="hoge" />
+      </div>
     </div>
   `,
   data () {
@@ -26,6 +30,7 @@ storiesOf('Select', module)
         6: 'Option6',
       },
       hoge: 1,
+      multiple: true,
     }
   }
 }))

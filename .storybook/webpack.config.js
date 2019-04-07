@@ -14,11 +14,11 @@ module.exports = {
     rules: [
       {
         test: /\.css?$/,
-        loaders: ['style-loader', 'css-loader']
+        loaders: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       },
       {
         test: /\.pug$/,
@@ -41,5 +41,8 @@ module.exports = {
         }
       }
     ]
+  },
+  node: {
+    fs: 'empty',
   }
 }
