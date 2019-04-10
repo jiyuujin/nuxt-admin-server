@@ -32,32 +32,6 @@ yarn add tailwindcss
 ./node_modules/.bin/tailwind init tailwind.js
 ```
 
-`fs` 関連のエラーが発生(下記を参照してください)、チェックしたIssueはこちら。
-
-https://github.com/storybooks/storybook/issues/4082
-
-```bash
-Module not found: Error: Can't resolve 'fs' in
-```
-
-`.storybook/webpack.config.js` に以下設定を追加すると上記のエラーは解決される模様。
-
-```js
-module.exports = {
-  node: {
-    fs: 'empty'
-  }
-}
-```
-
-Nuxtでも `fs` 関連のエラーが発生(下記を参照してください)、チェックしたIssueはこちら。
-
-https://github.com/nuxt-community/dotenv-module/issues/11
-
-```bash
-fs dependency not found
-```
-
 ### 各エンティティを設定、小〜中規模程度のコンポーネントを準備
 1. tip
 2. video

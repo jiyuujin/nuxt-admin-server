@@ -14,6 +14,7 @@ module.exports = {
   loading: { color: '#3B8070' },
 
   build: {
+    extractCSS: true,
     extend(config) {
       if (process.server && process.browser) {
         config.module.rules.push({
@@ -22,9 +23,6 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
-      }
-      config.node = {
-        fs: 'empty'
       }
     }
   },
