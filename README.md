@@ -5,6 +5,16 @@
 $ npm run dev
 ```
 
+## Admin 本番環境
+`master` ブランチからデプロイ
+
+https://nuxtadmin.netlify.com/
+
+### Storybook 開発環境
+`storydev` ブランチからデプロイ
+
+https://stylebook.netlify.com/
+
 ## 設計原則
 
 ### 最小単位コンポーネントをatomsに設定
@@ -12,21 +22,16 @@ Storybookで運用する
 
 ```bash
 yarn add @storybook/vue @storybook/addon-actions @storybook/addon-links -D
-```
-
-```bash
 yarn add node-sass sass-loader pug pug-loader -D
 ```
 
-#### Use tailwindcss
-
-`tailwindcss` をインストール。
+tailwindcssをインストール。
 
 ```bash
 yarn add tailwindcss
 ```
 
-インストール後、 `tailwindcss.js` を準備する。
+インストール後 `tailwindcss.js` を準備する。
 
 ```bash
 ./node_modules/.bin/tailwind init tailwind.js
