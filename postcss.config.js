@@ -14,7 +14,8 @@ module.exports = {
         './components/**/*.vue'
       ],
       whitelist: ['html', 'body'],
-      whitelistPatterns: [/nuxt-/]
+      whitelistPatterns: [/nuxt-/],
+      exclude: /extract-css-chunks-webpack-plugin[^]*Conflicting order between:/,
     })
   ]
 }
