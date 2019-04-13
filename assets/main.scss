@@ -2,6 +2,10 @@
 
 //@import "~element-ui/packages/theme-chalk/src/index";
 
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
 /* colors */
 $white-color: #FFFFFF;
 $brand-color: #35495e;

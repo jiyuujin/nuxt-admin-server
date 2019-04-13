@@ -2,8 +2,7 @@ import { storiesOf } from '@storybook/vue'
 
 import Button from '~/components/atoms/Button.vue'
 
-storiesOf('Button', module)
-.add('list', () => ({
+storiesOf('Button', module).add('list', () => ({
   components: {
     'j-button': Button
   },

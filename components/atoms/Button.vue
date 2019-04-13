@@ -1,5 +1,8 @@
 <template>
-  <button @click="handleClick">
+  <button
+    class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+    @click="handleClick"
+  >
     {{ text }}
   </button>
 </template>
@@ -18,31 +21,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/main';
+.btn-blue {
+  @apply bg-blue text-white font-bold py-2 px-4 rounded;
+}
 
-button {
-  border-radius: 4px;
-  overflow: hidden;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
-  letter-spacing: 0;
-  line-height: 0;
-  font-size: 0.875rem;
-  padding: 0 1.5rem;
-  height: 40px;
-  color: $white-color;
-  background: $brand-color;
-  border-color: $brand-color;
-
-  &:hover,
-  &:focus {
-    opacity: 0.8;
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 0.2em rgba($brand-color, 0.2);
-    outline: none;
-  }
+.btn-blue:hover {
+  @apply bg-blue-dark;
 }
 </style>

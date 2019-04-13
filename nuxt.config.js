@@ -14,8 +14,9 @@ module.exports = {
   loading: { color: '#3B8070' },
 
   build: {
-    extend(config) {
-      if (process.server && process.browser) {
+    extractCSS: true,
+    extend (config, { isDev }) {
+      if (isDev && process.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -29,7 +30,8 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'nuxt-purgecss'
   ],
 
   plugins: [
@@ -45,15 +47,17 @@ module.exports = {
     }
   ],
 
+  purgeCSS: {
+    //
+  },
+
   css: [
-    'material-design-icons-iconfont/dist/material-design-icons.css',
-    '@mdi/font/css/materialdesignicons.css'
+    '~/assets/main.scss',
   ],
 
   env: {
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,
     PROJECT_ID: process.env.PROJECT_ID,
-    NETLIFY_TOKEN: process.env.NETLIFY_TOKEN
   },
 }

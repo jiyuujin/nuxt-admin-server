@@ -34,7 +34,6 @@ import { LOCALES } from '~/utils/index'
 
 import StoryInput from '~/components/atoms/Input'
 import StorySelect from '~/components/atoms/Select'
-import StoryTextarea from '~/components/atoms/Textarea'
 import StoryButton from '~/components/atoms/Button'
 
 export default {
@@ -42,7 +41,6 @@ export default {
     FormTemplate,
     StoryInput,
     StorySelect,
-    StoryTextarea,
     StoryButton
   },
   data () {
