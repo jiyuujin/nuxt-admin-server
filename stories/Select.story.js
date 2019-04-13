@@ -2,8 +2,7 @@ import { storiesOf } from '@storybook/vue'
 
 import Select from '~/components/atoms/Select.vue'
 
-storiesOf('Select', module)
-.add('list', () => ({
+storiesOf('Select', module).add('list', () => ({
   components: {
     'j-select': Select
   },

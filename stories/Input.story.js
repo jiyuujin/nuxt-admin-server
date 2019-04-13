@@ -2,8 +2,7 @@ import { storiesOf } from '@storybook/vue'
 
 import Input from '~/components/atoms/Input.vue'
 
-storiesOf('Input', module)
-.add('list', () => ({
+storiesOf('Input', module).add('list', () => ({
   components: {
     'j-input': Input
   },

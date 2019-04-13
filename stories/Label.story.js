@@ -2,8 +2,7 @@ import { storiesOf } from '@storybook/vue'
 
 import Label from '~/components/atoms/Label.vue'
 
-storiesOf('Label', module)
-.add('list', () => ({
+storiesOf('Label', module).add('list', () => ({
   components: {
     'j-label': Label
   },

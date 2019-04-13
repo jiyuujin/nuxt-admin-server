@@ -21,8 +21,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/main';
-
 .btn-blue {
   @apply bg-blue text-white font-bold py-2 px-4 rounded;
 }

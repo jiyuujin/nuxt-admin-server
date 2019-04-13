@@ -15,8 +15,8 @@ module.exports = {
 
   build: {
     extractCSS: true,
-    extend(config) {
-      if (process.server && process.browser) {
+    extend (config, { isDev }) {
+      if (isDev && process.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -30,7 +30,8 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'nuxt-purgecss'
   ],
 
   plugins: [
@@ -46,16 +47,17 @@ module.exports = {
     }
   ],
 
+  purgeCSS: {
+    //
+  },
+
   css: [
     '~/assets/main.scss',
-    'material-design-icons-iconfont/dist/material-design-icons.css',
-    '@mdi/font/css/materialdesignicons.css'
   ],
 
   env: {
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,
     PROJECT_ID: process.env.PROJECT_ID,
-    NETLIFY_TOKEN: process.env.NETLIFY_TOKEN
   },
 }
