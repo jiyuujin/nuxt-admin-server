@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     updateInput (event) {
-      console.log(event.target.selectedIndex)
       this.$emit('input', event.target.selectedIndex)
     }
   }
