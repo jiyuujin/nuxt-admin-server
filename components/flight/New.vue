@@ -1,8 +1,9 @@
 <template>
   <div>
     <form-template>
-      <story-picker
+      <flat-pickr
         v-model="form.time"
+        :config="config"
         name="搭乗日"
         placeholder="搭乗日"
       />
@@ -51,6 +52,9 @@
 </template>
 
 <script>
+import FlatPickr from 'vue-flatpickr-component'
+import { Japanese } from 'flatpickr/dist/l10n/ja'
+import 'flatpickr/dist/flatpickr.css'
 import moment from 'moment'
 import FormTemplate from '~/components/templates/FormTemplate'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
@@ -58,15 +62,14 @@ import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
 import StoryInput from '~/components/atoms/Input'
 import StorySelect from '~/components/atoms/Select'
 import StoryButton from '~/components/atoms/Button'
-import StoryPicker from '~/components/atoms/Picker'
 
 export default {
   components: {
+    FlatPickr,
     FormTemplate,
     StoryInput,
     StorySelect,
-    StoryButton,
-    StoryPicker
+    StoryButton
   },
   data () {
     return {
@@ -78,12 +81,28 @@ export default {
         boardingType: 0,
         registration: ''
       },
+      config: {
+        locale: Japanese,
+        static: true,
+        altInput: true,
+        altFormat: 'n/j(D)',
+        minDate: moment().subtract(2, 'years').format('YYYY-MM-DD'),
+        maxDate: 'today'
+      },
       airports: AIRPORT_LIST,
       airlines: AIRLINE_LIST,
       boardingTypes: BOARDING_TYPE_LIST
     }
   },
   computed: {
+    'form.time': {
+      get () {
+        return this.form.time || null
+      },
+      set (value) {
+        // console.log(value)
+      }
+    },
     airportOptions () {
       let array = []
       AIRPORT_LIST.forEach(category => {
