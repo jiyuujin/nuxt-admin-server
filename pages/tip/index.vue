@@ -29,19 +29,16 @@
       @form-data="applyPage"
     />
     <new-tip />
-    <!--
     <edit-tip
       :edited-form="editedForm"
-      :data-key="key"
+      :data-key="dataKey"
     />
-    -->
   </main-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import { TipForm } from '~/types/database.types'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const TipList = () => import('~/components/tip/List.vue')
@@ -63,11 +60,9 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     StoryInput,
     StorySelect
   },
-  async asyncData({ store }) {
-    await Promise.all([
-      store.dispatch('product/initTips', null),
-      store.dispatch('product/initEvents')
-    ])
+  async fetch({ store }) {
+    await store.dispatch('product/initTips', null)
+    await store.dispatch('product/initEvents')
   },
   computed: {
     eventOptions() {
@@ -87,8 +82,15 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
   },
 })
 export default class TipPage extends Vue {
-  editedForm: TipForm;
-  key: string = '';
+  editedForm = {
+    title : '',
+    url: '',
+    description: '',
+    tags: [],
+    event: 0,
+    time: ''
+  };
+  dataKey: string = '';
   page: number = 1;
   inputSearch: string = '';
   selectedEvent: number = 0;
@@ -99,7 +101,7 @@ export default class TipPage extends Vue {
 
   applyEditedForm(value) {
     this.editedForm = value.data
-    this.key = value.id
+    this.dataKey = value.id
     this.startEdited()
   }
 

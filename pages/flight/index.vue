@@ -29,19 +29,16 @@
       @form-data="applyPage"
     />
     <new-flight />
-    <!--
     <edit-flight
       :edited-form="editedForm"
-      :data-key="key"
+      :data-key="dataKey"
     />
-    -->
   </main-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import { FlightForm } from '~/types/database.types'
 import { BOARDING_TYPE_LIST, YEARS } from '~/utils/index'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
@@ -62,7 +59,7 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     EditFlight,
     StorySelect
   },
-  async asyncData({ store }) {
+  async fetch({ store }) {
     await store.dispatch('product/initFlights', {
       boardingType: 0,
       year: 0
@@ -92,8 +89,15 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
   },
 })
 export default class FlightPage extends Vue {
-  editedForm: FlightForm;
-  key: string = '';
+  editedForm = {
+    departure: 0,
+    arrival: 0,
+    airline: 0,
+    boardingType: 0,
+    registration: '',
+    time: ''
+  };
+  dataKey: string = '';
   page: number = 1;
   selectedYaer: number = 2019;
   selectedBoardingType: number = 0;
@@ -104,7 +108,7 @@ export default class FlightPage extends Vue {
 
   applyEditedForm(value) {
     this.editedForm = value.data
-    this.key = value.id
+    this.dataKey = value.id
     this.startEdited()
   }
 

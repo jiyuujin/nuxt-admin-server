@@ -46,7 +46,6 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 import moment from 'moment'
-import { TipForm } from '~/types/database.types'
 import { CATEGORIES } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')

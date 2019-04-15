@@ -91,7 +91,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
 })
 export default class TipEdit extends Vue {
   @Prop() editedForm: object;
-  @Prop() key: string;
+  @Prop() dataKey: string;
 
   applyTags (value) {
     this.editedForm.tags = value
@@ -103,7 +103,7 @@ export default class TipEdit extends Vue {
 
   async save () {
     await this.$store.dispatch('product/updateTip', {
-      'key': this.key,
+      'key': this.dataKey,
       'data': this.editedForm
     })
     this.close()
