@@ -474,9 +474,6 @@ export const actions: RootActionTree<State, RootState> = {
 }
 
 export interface RootActionTree<State, RootState> extends ActionTree<State, RootState> {
-  nuxtServerInit(
-    context: ActionContext<State, RootState>,
-  ): Promise<void>;
   signIn(
     { commit }, params
   ): void;

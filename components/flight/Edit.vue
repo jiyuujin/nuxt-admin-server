@@ -69,7 +69,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
 })
 export default class FlightEdit extends Vue {
   @Prop() editedForm: object;
-  @Prop() key: string;
+  @Prop() dataKey: string;
   airports = AIRPORT_LIST;
   airlines = AIRLINE_LIST;
   boardingTypes = BOARDING_TYPE_LIST;
@@ -80,7 +80,7 @@ export default class FlightEdit extends Vue {
 
   async save () {
     await this.$store.dispatch('product/updateFlight', {
-      'key': this.key,
+      'key': this.dataKey,
       'data': this.editedForm
     })
     this.close()

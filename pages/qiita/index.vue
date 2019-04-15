@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 import { CATEGORIES } from '~/utils/index'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
@@ -74,17 +74,17 @@ export default class Index extends Vue {
   search: string = '';
   page: number = 1;
 
-  getQiitaByTag () {
-    this.$store.dispatch('product/initQiitas', {
+  async getQiitaByTag () {
+    await this.$store.dispatch('product/initQiitas', {
       'tag': this.tag,
       'search': this.search,
       'page': this.page
     })
   }
 
-  applyPage(value) {
+  async applyPage(value) {
     this.page = value
-    this.getQiitaByTag()
+    await this.getQiitaByTag()
   }
 }
 </script>

@@ -45,11 +45,9 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     Pagination,
     StorySelect
   },
-  async asyncData({ store }) {
-    await Promise.all([
-      store.dispatch('product/initEvents', null),
-      store.dispatch('product/initContacts')
-    ])
+  async fetch({ store }) {
+    await store.dispatch('product/initEvents', null)
+    await store.dispatch('product/initContacts')
   },
   computed: {
     contactCategoryOptions () {

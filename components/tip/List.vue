@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--
     <h3>
       Tip <span>{{ list.length }} 件登録中</span>
     </h3>
@@ -39,7 +38,6 @@
         </div>
       </div>
     </div>
-    -->
   </div>
 </template>
 
@@ -54,22 +52,22 @@ const StoryLabel = () => import('~/components/atoms/Label.vue')
   },
 })
 export default class TipList extends Vue {
+  @Prop() list: Array;
   @Prop() type: string[];
   @Prop() number: number;
   @Prop() search: string;
-  categories = CATEGORIES;
 
   diffTime(t) {
     return getDiffTime(t)
   }
 
-  editItem (item) {
-    this.$emit('form-data', Object.assign({}, item))
+  async editItem (item) {
+    await this.$emit('form-data', Object.assign({}, item))
   }
 
-  deleteItem (item) {
+  async deleteItem (item) {
     if (confirm(item.data.title + ' 削除しますか?')) {
-      this.delete(item.id)
+      await this.delete(item.id)
     }
   }
 

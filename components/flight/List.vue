@@ -90,13 +90,13 @@ export default class FlightList extends Vue {
     return getBoardingTypeName(id)
   }
 
-  editItem (item) {
-    this.$emit('form-data', Object.assign({}, item))
+  async editItem (item) {
+    await this.$emit('form-data', Object.assign({}, item))
   }
 
-  deleteItem (item) {
+  async deleteItem (item) {
     if (confirm(moment(item.data.time).format('YYYY年MM月DD日') + '\n' + item.data.registration + ' 削除しますか?')) {
-      this.delete(item.id)
+      await this.delete(item.id)
     }
   }
 
