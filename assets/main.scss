@@ -2,7 +2,7 @@
 
 //@import "~element-ui/packages/theme-chalk/src/index";
 
-@import '~flatpickr/dist/flatpickr.min.css';
+@import '../node_modules/flatpickr/dist/flatpickr.min.css';
 
 @tailwind preflight;
 @tailwind components;
