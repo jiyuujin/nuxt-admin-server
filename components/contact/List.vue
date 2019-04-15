@@ -21,18 +21,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    list: {
-      type: Array,
-      required: true
-    },
-    number: {
-      type: Number,
-      required: true
-    }
-  }
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component({})
+export default class ContactList extends Vue {
+  @Prop() list: Array;
+  @Prop() number: number;
 }
 </script>
 

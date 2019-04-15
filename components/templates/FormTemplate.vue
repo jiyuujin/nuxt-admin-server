@@ -4,8 +4,11 @@
   </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({})
+export default class FormTemplate extends Vue {}
 </script>
 
 <style scoped>

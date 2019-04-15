@@ -1,10 +1,34 @@
 import moment from 'moment'
 
+interface List {
+  value: number,
+  text: string
+}
+
+interface TagList {
+  value: number,
+  text: string,
+  backgroundColor: string,
+  color: string
+}
+
+interface UrlList {
+  name: string,
+  url: string
+}
+
+interface MenuList {
+  title: string,
+  url: string,
+  src: string,
+  flex: number
+}
+
 /**
  * 空港
  * @type {*[]}
  */
-export const AIRPORT_LIST = [
+export const AIRPORT_LIST: List[] = [
   {value: 0, text: '東京羽田 / HND'},
   {value: 1, text: '東京成田 / NRT'},
   {value: 2, text: '大阪伊丹 / ITM'},
@@ -24,7 +48,7 @@ export const AIRPORT_LIST = [
  * 航空会社
  * @type {*[]}
  */
-export const AIRLINE_LIST = [
+export const AIRLINE_LIST: List[] = [
   {value: 0, text: 'JAL'},
   {value: 1, text: 'ANA'},
   {value: 2, text: 'Skymark'},
@@ -43,7 +67,7 @@ export const AIRLINE_LIST = [
  * 搭乗機材
  * @type {*[]}
  */
-export const BOARDING_TYPE_LIST = [
+export const BOARDING_TYPE_LIST: List[] = [
   {value: 0, text: 'Boeing787-9'},
   {value: 1, text: 'Boeing787-8'},
   {value: 2, text: 'Boeing777-3'},
@@ -67,7 +91,7 @@ export const BOARDING_TYPE_LIST = [
  * 年
  * @type {number[]}
  */
-export const YEARS = [
+export const YEARS: List[] = [
   {
     value: 0,
     text: '2019'
@@ -94,7 +118,7 @@ export const YEARS = [
  * 技術カテゴリー
  * @type {*[]}
  */
-export const CATEGORIES = [
+export const CATEGORIES: TagList[] = [
   {value: 0, text: 'Web', backgroundColor: '#0033ff', color: '#fff'},
   {value: 1, text: 'HTML5', backgroundColor: '#0099ff', color: '#000'},
   {value: 2, text: 'CSS', backgroundColor: '#00ff99', color: '#000'},
@@ -133,7 +157,7 @@ export const CATEGORIES = [
  * イベント地域
  * @type {*[]}
  */
-export const LOCALES = [
+export const LOCALES: List[] = [
   {
     value: 0,
     text: '指定無し'
@@ -156,7 +180,7 @@ export const LOCALES = [
  * お問い合わせカテゴリー
  * @type {*[]}
  */
-export const CONTACT_CATEGORIES = [
+export const CONTACT_CATEGORIES: List[] = [
   {
     value: 1,
     text: '仕事のご依頼'
@@ -179,7 +203,7 @@ export const CONTACT_CATEGORIES = [
  * メニュー
  * @type {*[]}
  */
-export const MENU_LIST = [
+export const MENU_LIST: MenuList[] = [
   {
     title: 'tip',
     url: '/tip',
@@ -210,7 +234,7 @@ export const MENU_LIST = [
  * ソーシャル
  * @type {*[]}
  */
-export const SOCIAL_LIST = [
+export const SOCIAL_LIST: UrlList[] = [
   {
     name: 'slack',
     url: 'https://jiyuujinjs.slack.com/'
@@ -232,14 +256,16 @@ export const SOCIAL_LIST = [
 /**
  * 空港の名前を取得する
  * @param id
- * @returns {*}
+ * @returns {string}
  */
 export function getAirportName(id) {
-  return AIRPORT_LIST.find((airport) => {
+  let text: string = ''
+  AIRPORT_LIST.forEach(airport => {
     if (airport.value === id) {
-      return airport.text
+      text = airport.text
     }
-  }).text
+  })
+  return text
 }
 
 /**
@@ -248,11 +274,13 @@ export function getAirportName(id) {
  * @returns {string}
  */
 export function getAirlineName(id) {
-  return './' + AIRLINE_LIST.find(airline => {
+  let text: string = ''
+  AIRLINE_LIST.forEach(airline => {
     if (airline.value === id) {
-      return airline.text
+      text = airline.text
     }
-  }).text.toLowerCase() + '.png'
+  })
+  return './' + text.toLowerCase() + '.png'
 }
 
 /**
@@ -261,11 +289,13 @@ export function getAirlineName(id) {
  * @returns {*}
  */
 export function getBoardingTypeName(id) {
-  return BOARDING_TYPE_LIST.find((boardingType) => {
+  let text: string = ''
+  BOARDING_TYPE_LIST.forEach(boardingType => {
     if (boardingType.value === id) {
-      return boardingType.text
+      text = boardingType.text
     }
-  }).text
+  })
+  return text
 }
 
 /**

@@ -1,7 +1,5 @@
 <template>
-  <dialog
-    v-if="events && dialog"
-  >
+  <dialog v-if="events && dialog">
     <div>
       <form-template>
         <story-input
@@ -51,26 +49,16 @@
   </dialog>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import FormTemplate from '~/components/templates/FormTemplate'
 import { CATEGORIES } from '~/utils/index'
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
+const StoryButton = () => import('~/components/atoms/Button.vue')
 
-import StoryInput from '~/components/atoms/Input'
-import StorySelect from '~/components/atoms/Select'
-import StoryButton from '~/components/atoms/Button'
-
-export default {
-  props: {
-    editedForm: {
-      type: Object,
-      required: true
-    },
-    dataKey: {
-      type: String,
-      reuired: true
-    }
-  },
+@Component({
   components: {
     FormTemplate,
     StoryInput,
@@ -100,20 +88,25 @@ export default {
   async created () {
     await this.$store.dispatch('product/initEvents')
   },
-  methods: {
-    applyTags (value) {
-      this.editedForm.tags = value
-    },
-    async close () {
-      await this.$store.dispatch('product/removeDialog')
-    },
-    async save () {
-      await this.$store.dispatch('product/updateTip', {
-        'key': this.dataKey,
-        'data': this.editedForm
-      })
-      this.close()
-    }
+})
+export default class TipEdit extends Vue {
+  @Prop() editedForm: object;
+  @Prop() key: string;
+
+  applyTags (value) {
+    this.editedForm.tags = value
+  }
+
+  async close () {
+    await this.$store.dispatch('product/removeDialog')
+  }
+
+  async save () {
+    await this.$store.dispatch('product/updateTip', {
+      'key': this.key,
+      'data': this.editedForm
+    })
+    this.close()
   }
 }
 </script>

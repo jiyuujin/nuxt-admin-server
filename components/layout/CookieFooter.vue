@@ -14,16 +14,16 @@
   </footer>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import CookieLaw from 'vue-cookie-law'
-export default {
+
+@Component({
   components: {
     CookieLaw
   },
-  data () {
-    return {
-      message: 'Nuxt Adminを利用すると、Cookieの使用に同意したことになります。jiyuujin LAB.とそのパートナーは、アナリティクス、カスタマイズ、広告目的も含めて、世界中でサービスを提供しCookieを使用します。'
-    }
-  }
+})
+export default class CookieFooter extends Vue {
+  message: string = 'Nuxt Adminを利用すると、Cookieの使用に同意したことになります。jiyuujin LAB.とそのパートナーは、アナリティクス、カスタマイズ、広告目的も含めて、世界中でサービスを提供しCookieを使用します。'
 }
 </script>

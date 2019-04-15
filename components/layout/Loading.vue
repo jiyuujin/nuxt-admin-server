@@ -9,13 +9,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    loading: {
-      type: Boolean
-    }
-  }
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component({})
+export default class Loading extends Vue {
+  @Prop() loading: boolean;
 }
 </script>
 

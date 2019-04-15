@@ -1,59 +1,57 @@
 <template>
   <main-template
-    v-if="tips && videos && events"
+    v-if="tips && events"
     :loading="loading"
     :status="userStatus"
   >
     <form-template>
       <story-input
-        v-model="search"
+        v-model="inputSearch"
         placeholder="タイトル"
       />
     </form-template>
     <form-template>
       <story-select
         :options="eventOptions"
-        v-model="params.event"
+        v-model="selectedEvent"
         name="イベント"
       />
     </form-template>
     <tip-list
       :list="tips.item"
-      :number="params.page"
-      :search="search"
+      :number="page"
+      :search="inputSearch"
       @form-data="applyEditedForm"
     />
     <pagination
-      :page="params.page"
+      :page="page"
       :max="Math.ceil(tips.item.length / 20)"
       @form-data="applyPage"
     />
     <new-tip />
+    <!--
     <edit-tip
       :edited-form="editedForm"
-      :data-key="dataKey"
+      :data-key="key"
     />
-    <NewVideo />
+    -->
   </main-template>
 </template>
 
-<script>
-import moment from 'moment'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate'
-import FormTemplate from '~/components/templates/FormTemplate'
+import { TipForm } from '~/types/database.types'
+const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const TipList = () => import('~/components/tip/List.vue')
+const NewTip = () => import('~/components/tip/New.vue')
+const EditTip = () => import('~/components/tip/Edit.vue')
+const Pagination = () => import('~/components/layout/Pagination.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
 
-import TipList from '~/components/tip/List'
-import NewTip from '~/components/tip/New'
-import EditTip from '~/components/tip/Edit'
-import NewVideo from '~/components/video/New'
-
-import Pagination from '~/components/layout/Pagination'
-
-import StoryInput from '~/components/atoms/Input'
-import StorySelect from '~/components/atoms/Select'
-
-export default {
+@Component({
   middleware: 'auth',
   components: {
     MainTemplate,
@@ -61,28 +59,15 @@ export default {
     TipList,
     NewTip,
     EditTip,
-    NewVideo,
     Pagination,
     StoryInput,
     StorySelect
   },
-  data () {
-    return {
-      search: '',
-      editedForm: {
-        title: '',
-        url: '',
-        description: '',
-        tags: [],
-        event: 0,
-        time: moment()
-      },
-      dataKey: '',
-      params: {
-        page: 1,
-        event: 0
-      }
-    }
+  async asyncData({ store }) {
+    await Promise.all([
+      store.dispatch('product/initTips', null),
+      store.dispatch('product/initEvents')
+    ])
   },
   computed: {
     eventOptions() {
@@ -97,39 +82,29 @@ export default {
       loading: state => state.product.loading,
       dialog: state => state.product.dialog,
       tips: state => state.product.tips,
-      videos: state => state.product.videos,
       events: state => state.product.events
     })
   },
-  async created() {
-    Promise.all([
-      this.tips ? Promise.resolve() : this.$store.dispatch('product/initTips', null),
-      this.videos ? Promise.resolve() : this.$store.dispatch('product/initVideos'),
-      this.events ? Promise.resolve() : this.$store.dispatch('product/initEvents')
-    ])
-  },
-  methods: {
-    async startEdited() {
-      await this.$store.dispatch('product/addDialog')
-    },
-    applyEditedForm(value) {
-      this.editedForm = value.data
-      this.dataKey = value.id
-      this.startEdited()
-    },
-    applyPage(value) {
-      this.params.page = value
-    },
-    async applyEvent(value) {
-      this.params.event = value
-      if (this.params.event !== 0) {
-        await this.$store.dispatch('product/initTips', {
-          event: this.params.event
-        })
-      } else {
-        await this.$store.dispatch('product/initTips')
-      }
-    }
+})
+export default class TipPage extends Vue {
+  editedForm: TipForm;
+  key: string = '';
+  page: number = 1;
+  inputSearch: string = '';
+  selectedEvent: number = 0;
+
+  async startEdited() {
+    await this.$store.dispatch('product/addDialog')
+  }
+
+  applyEditedForm(value) {
+    this.editedForm = value.data
+    this.key = value.id
+    this.startEdited()
+  }
+
+  applyPage(value) {
+    this.page = value
   }
 }
 </script>

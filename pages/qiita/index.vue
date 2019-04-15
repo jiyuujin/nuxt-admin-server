@@ -7,43 +7,41 @@
     <form-template>
       <story-select
         :options="categoryOptions"
-        v-model="params.tag"
+        v-model="tag"
         name="カテゴリー"
       />
     </form-template>
     <form-template>
       <story-input
-        v-model="params.search"
+        v-model="search"
         placeholder="タイトル"
       />
     </form-template>
     <qiita-list
       :list="qiitas"
-      :search="params.search"
-      :tag="params.tag"
+      :search="search"
+      :tag="tag"
     />
     <pagination
-      :page="params.page"
+      :page="page"
       :max="Math.ceil(qiitas.length / 20)"
       @form-data="applyPage"
     />
   </main-template>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 import { CATEGORIES } from '~/utils/index'
+const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const QiitaList = () => import('~/components/qiita/List.vue')
+const Pagination = () => import('~/components/layout/Pagination.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
 
-import MainTemplate from '~/components/templates/MainTemplate'
-import FormTemplate from '~/components/templates/FormTemplate'
-
-import QiitaList from '~/components/qiita/List'
-import Pagination from '~/components/layout/Pagination'
-
-import StoryInput from '~/components/atoms/Input'
-import StorySelect from '~/components/atoms/Select'
-
-export default {
+@Component({
   middleware: 'auth',
   components: {
     MainTemplate,
@@ -52,15 +50,6 @@ export default {
     Pagination,
     StoryInput,
     StorySelect
-  },
-  data () {
-    return {
-      params: {
-        tag: 1,
-        search: '',
-        page: 1
-      }
-    }
   },
   computed: {
     categoryOptions () {
@@ -76,21 +65,26 @@ export default {
       qiitas: state =>state.product.qiitas
     })
   },
-  methods: {
-    getQiitaByTag () {
-      this.$store.dispatch('product/initQiitas', {
-        'tag': this.params.tag,
-        'search': this.params.search,
-        'page': this.params.page
-      })
-    },
-    applyPage(value) {
-      this.params.page = value
-      this.getQiitaByTag()
-    }
-  },
   async mounted() {
     await this.getQiitaByTag()
+  }
+})
+export default class Index extends Vue {
+  tag: number = 1;
+  search: string = '';
+  page: number = 1;
+
+  getQiitaByTag () {
+    this.$store.dispatch('product/initQiitas', {
+      'tag': this.tag,
+      'search': this.search,
+      'page': this.page
+    })
+  }
+
+  applyPage(value) {
+    this.page = value
+    this.getQiitaByTag()
   }
 }
 </script>

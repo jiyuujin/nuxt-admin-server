@@ -11,23 +11,20 @@
   </div>
 </template>
 
-<script>
-import LeftMenu from '~/components/layout/LeftMenu'
-import Loading from '~/components/layout/Loading'
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+const LeftMenu = () => import('~/components/layout/LeftMenu.vue')
+const Loading = () => import('~/components/layout/Loading.vue')
 
-export default {
-  props: {
-    loading: {
-      type: Boolean
-    },
-    status: {
-      type: Boolean
-    }
-  },
+@Component({
   components: {
     LeftMenu,
     Loading
   }
+})
+export default class MainTemplate extends Vue {
+  @Prop() loading: boolean;
+  @Prop() status: boolean;
 }
 </script>
 

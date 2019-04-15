@@ -16,15 +16,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { MENU_LIST } from '~/utils/index'
-export default {
-  data () {
-    return {
-      menu: MENU_LIST,
-      iconImage: '/bakeneko.png'
-    }
-  }
+
+@Component({})
+export default class LeftMenu extends Vue {
+  menu = MENU_LIST;
 }
 </script>
 

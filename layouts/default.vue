@@ -1,18 +1,20 @@
 <template>
   <div class="container mx-auto">
     <nuxt/>
-    <CookieFooter />
+    <cookie-footer />
   </div>
 </template>
 
-<script>
-import CookieFooter from '~/components/layout/CookieFooter'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+const CookieFooter = () => import('~/components/layout/CookieFooter.vue')
 
-export default {
+@Component({
   components: {
     CookieFooter
   }
-}
+})
+export default class Default extends Vue {}
 </script>
 
 <style>

@@ -15,31 +15,18 @@
   </select>
 </template>
 
-<script>
-export default {
-  props: {
-    name: String,
-    value: {
-      validator () {
-        return true
-      }
-    },
-    options: {
-      required: true,
-      validator () {
-        return true
-      }
-    },
-    multiple: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
-  },
-  methods: {
-    updateInput (event) {
-      this.$emit('input', event.target.selectedIndex)
-    }
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component({})
+export default class Select extends Vue {
+  @Prop() name: string;
+  @Prop() value: string;
+  @Prop() options: string[];
+  @Prop() multiple: boolean;
+
+  updateInput (event) {
+    this.$emit('input', event.target.selectedIndex)
   }
 }
 </script>
