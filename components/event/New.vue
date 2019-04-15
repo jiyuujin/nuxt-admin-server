@@ -27,31 +27,27 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import FormTemplate from '~/components/templates/FormTemplate'
 import { LOCALES } from '~/utils/index'
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
+const StoryButton = () => import('~/components/atoms/Button.vue')
 
-import StoryInput from '~/components/atoms/Input'
-import StorySelect from '~/components/atoms/Select'
-import StoryButton from '~/components/atoms/Button'
+interface EventForm {
+  name: string,
+  url: string;
+  locale: number
+}
 
-export default {
+@Component({
   components: {
     FormTemplate,
     StoryInput,
     StorySelect,
     StoryButton
-  },
-  data () {
-    return {
-      locales: LOCALES,
-      form: {
-        name: '',
-        url: '',
-        locale: 0
-      }
-    }
   },
   computed: {
     localeOptions () {
@@ -65,20 +61,27 @@ export default {
       events: state => state.product.events
     })
   },
-  methods: {
-    reset () {
-      this.form.name = ''
-      this.form.url = ''
-      this.form.locale = 0
-    },
-    async postEvent () {
-      await this.$store.dispatch('product/addEvent', {
-        name: this.form.name,
-        url: this.form.url,
-        locale: this.form.locale
-      })
-      this.reset()
-    }
+})
+export default class EventNew extends Vue {
+  form: EventForm = {
+    name: '',
+    url: '',
+    locale: 0
+  };
+
+  reset () {
+    this.form.name = ''
+    this.form.url = ''
+    this.form.locale = 0
+  }
+
+  async postEvent () {
+    await this.$store.dispatch('product/addEvent', {
+      name: this.form.name,
+      url: this.form.url,
+      locale: this.form.locale
+    })
+    this.reset()
   }
 }
 </script>

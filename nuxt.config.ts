@@ -1,4 +1,7 @@
-module.exports = {
+import { Configuration } from 'webpack';
+import { Context } from '@nuxt/vue-app';
+
+export default {
   head: {
     title: 'nuxt-admin-server',
     meta: [
@@ -15,15 +18,13 @@ module.exports = {
 
   build: {
     extractCSS: true,
-    extend (config, { isDev }) {
-      if (isDev && process.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
+    extend (config: Configuration, { isClient }: Context) {
+      if (isClient) {
+        config.devtool = '#source-map'
       }
+    },
+    typescript: {
+      typeCheck: false // or ForkTsChecker options
     }
   },
 
@@ -35,10 +36,10 @@ module.exports = {
   ],
 
   plugins: [
-    '~plugins/axios',
-    '~plugins/firebase',
+    '~plugins/axios.ts',
+    '~plugins/firebase.ts',
     {
-      src: '~plugins/vue-chartjs',
+      src: '~plugins/vue-chartjs.ts',
       ssr: false
     }
   ],

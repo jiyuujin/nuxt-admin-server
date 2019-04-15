@@ -9,22 +9,18 @@
   >
 </template>
 
-<script>
-export default {
-  props: {
-    name: String,
-    placeholder: String,
-    value: String,
-    inputType: {
-      type: String,
-      required: false,
-      default: 'text'
-    }
-  },
-  methods: {
-    updateInput (event) {
-      this.$emit('input', event.target.value)
-    }
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component({})
+export default class Input extends Vue {
+  @Prop() name: string;
+  @Prop() placeholder: string;
+  @Prop() value: string;
+  @Prop() inputType: string;
+
+  updateInput (event) {
+    this.$emit('input', event.target.value)
   }
 }
 </script>

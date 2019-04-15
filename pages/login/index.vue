@@ -24,42 +24,39 @@
   </main-template>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import MainTemplate from '~/components/templates/MainTemplate'
-import FormTemplate from '~/components/templates/FormTemplate'
+const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StoryButton = () => import('~/components/atoms/Button.vue')
 
-import StoryInput from '~/components/atoms/Input'
-import StoryButton from '~/components/atoms/Button.vue'
-
-export default {
+@Component({
   components: {
     MainTemplate,
     FormTemplate,
     StoryInput,
     StoryButton
   },
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },
   computed: {
     ...mapState({
       userStatus: state => state.product.userStatus
     })
   },
-  methods: {
-    async login () {
-      await this.$store.dispatch('product/signIn', {
-        email: this.email,
-        password: this.password
-      })
+})
+export default class LoginPage extends Vue {
+  email: string = '';
+  password: string = '';
 
-      if (this.$store.state.product.userStatus) {
-        await this.$router.push('/')
-      }
+  async login () {
+    await this.$store.dispatch('product/signIn', {
+      email: this.email,
+      password: this.password
+    })
+
+    if (this.$store.state.product.userStatus) {
+      await this.$router.push('/')
     }
   }
 }

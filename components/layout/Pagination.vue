@@ -1,90 +1,78 @@
 <template>
-  <div class="pagination">
-    <a
-      href="#"
-      :disabled="newVal === 1 ? disabled : !disabled"
-      @click="prev"
-    >
-      Prev
-    </a>
-    <a
-      href="#"
-      :disabled="newVal === max ? disabled : !disabled"
-      @click="next"
-    >
-      Next
-    </a>
+  <div class="pager">
+    <div class="pagination">
+      <a
+        :class="page === 1 ? 'disabled' : ''"
+        :style="page === 1 ? 'opacity: 0.5;' : 'opacity: 1;'"
+        href="#"
+        @click="prev(page)"
+      >
+        &laquo;
+      </a>
+      <a
+        :class="page === max ? 'disabled' : ''"
+        href="#"
+        @click="next(page)"
+      >
+        &raquo;
+      </a>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    page: {
-      type: Number,
-      required: true
-    },
-    max: {
-      type: Number,
-      required: true
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component({})
+export default class Pagination extends Vue {
+  @Prop() page: number;
+  @Prop() max: number;
+
+  disabled: boolean = true;
+
+  prev(newVal: number) {
+    if (this.page !== 1) {
+      this.$emit('page-data', newVal - 1)
     }
-  },
-  data() {
-    return {
-      disabled: true
-    }
-  },
-  computed: {
-    newVal: {
-      get () {
-        return this.page
-      },
-      set (value) {
-        this.$emit('form-data', value)
-      }
-    }
-  },
-  methods: {
-    prev() {
-      this.newVal--
-    },
-    next() {
-      this.newVal++
+  }
+  next(newVal: number) {
+    if (this.page !== this.max) {
+      this.$emit('page-data', newVal + 1)
     }
   }
 }
 </script>
 
 <style scoped>
-.pagination {
-  text-align: center;
+.pager {
   margin: 0 auto;
 }
 
-a {
-  position: relative;
+.pagination {
   display: inline-block;
-  font-weight: bold;
-  margin: 25px;
-  padding: 0.25em 0;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
   text-decoration: none;
-  color: #42b883;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
 }
 
-a:before{
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 4px;
-  top:100%;
-  left: 0;
-  border-radius: 3px;
-  background: #42b883;
-  transition: .2s;
+.pagination a.active {
+  background-color: #42b883;
+  color: white;
+  border: 1px solid #42b883;
 }
 
-a:hover:before {
-  top: -webkit-calc(100% - 3px);
-  top: calc(100% - 3px);
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.disabled {
+  pointer-events: none;
 }
 </style>

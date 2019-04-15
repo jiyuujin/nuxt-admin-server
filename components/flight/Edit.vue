@@ -1,7 +1,5 @@
 <template>
-  <dialog
-    v-if="dialog"
-  >
+  <dialog v-if="dialog">
     <div>
       <form-template>
         <story-select
@@ -47,53 +45,45 @@
   </dialog>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import FormTemplate from '~/components/templates/FormTemplate'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
+const StoryButton = () => import('~/components/atoms/Button.vue')
 
-import StoryInput from '~/components/atoms/Input'
-import StorySelect from '~/components/atoms/Select'
-import StoryButton from '~/components/atoms/Button'
-
-export default {
-  props: {
-    editedForm: {
-      type: Object,
-      required: true
-    },
-    dataKey: {
-      type: String,
-      reuired: true
-    }
-  },
+@Component({
   components: {
     FormTemplate,
     StoryInput,
     StorySelect,
     StoryButton
   },
-  data() {
-    return {
-      airports: AIRPORT_LIST,
-      airlines: AIRLINE_LIST,
-      boardingTypes: BOARDING_TYPE_LIST
-    }
-  },
   computed: {
-    ...mapState(['dialog'])
+    ...mapState({
+      dialog: state => state.product.dialog
+    })
   },
-  methods: {
-    async close () {
-      await this.$store.dispatch('product/removeDialog')
-    },
-    async save () {
-      await this.$store.dispatch('product/updateFlight', {
-        'key': this.dataKey,
-        'data': this.editedForm
-      })
-      this.close()
-    }
+})
+export default class FlightEdit extends Vue {
+  @Prop() editedForm: object;
+  @Prop() dataKey: string;
+  airports = AIRPORT_LIST;
+  airlines = AIRLINE_LIST;
+  boardingTypes = BOARDING_TYPE_LIST;
+
+  async close () {
+    await this.$store.dispatch('product/removeDialog')
+  }
+
+  async save () {
+    await this.$store.dispatch('product/updateFlight', {
+      'key': this.dataKey,
+      'data': this.editedForm
+    })
+    this.close()
   }
 }
 </script>

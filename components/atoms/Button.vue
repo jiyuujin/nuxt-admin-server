@@ -7,15 +7,15 @@
   </button>
 </template>
 
-<script>
-export default {
-  props: {
-    text: String
-  },
-  methods: {
-    handleClick (event) {
-      this.$emit('click', event)
-    }
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+@Component({})
+export default class Button extends Vue {
+  @Prop() text: string;
+
+  handleClick (event) {
+    this.$emit('click', event)
   }
 }
 </script>

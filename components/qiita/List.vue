@@ -39,34 +39,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { getDiffTime, CATEGORIES } from '~/utils/index'
-export default {
-  props: {
-    list: {
-      type: Array,
-      required: true
-    },
-    search: {
-      type: String,
-      required: true
-    },
-    tag: {
-      type: Number,
-      required: true
-    }
-  },
-  methods: {
-    diffTime(t) {
-      return getDiffTime(t)
-    },
-    categoryText(id) {
-      return CATEGORIES.find(category => {
-        if (category.value === id) {
-          return category
-        }
-      }).text
-    }
+
+@Component({})
+export default class QiitaList extends Vue {
+  @Prop() list: Array;
+  @Prop() search: string;
+  @Prop() tag: number;
+
+  diffTime(t) {
+    return getDiffTime(t)
+  }
+
+  categoryText(id) {
+    return CATEGORIES.find(category => {
+      if (category.value === id) {
+        return category
+      }
+    }).text
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div>
     <form-template>
       <flat-pickr
-        v-model="form.time"
+        v-model="time"
         :config="config"
         name="搭乗日"
         placeholder="搭乗日"
@@ -11,34 +11,34 @@
     <form-template>
       <story-select
         :options="airportOptions"
-        v-model="form.departure"
+        v-model="departure"
         name="出発"
       />
     </form-template>
     <form-template>
       <story-select
         :options="airportOptions"
-        v-model="form.arrival"
+        v-model="arrival"
         name="到着"
       />
     </form-template>
     <form-template>
       <story-select
         :options="airlineOptions"
-        v-model="form.airline"
+        v-model="airline"
         name="航空会社"
       />
     </form-template>
     <form-template>
       <story-select
         :options="boardingTypeOptions"
-        v-model="form.boardingType"
+        v-model="boardingType"
         name="搭乗機材"
       />
     </form-template>
     <form-template>
       <story-input
-        v-model="form.registration"
+        v-model="registration"
         placeholder="レジ"
       />
     </form-template>
@@ -51,19 +51,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+import moment from 'moment'
 import FlatPickr from 'vue-flatpickr-component'
 import { Japanese } from 'flatpickr/dist/l10n/ja'
 import 'flatpickr/dist/flatpickr.css'
-import moment from 'moment'
-import FormTemplate from '~/components/templates/FormTemplate'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const StoryInput = () => import('~/components/atoms/Input.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
+const StoryButton = () => import('~/components/atoms/Button.vue')
 
-import StoryInput from '~/components/atoms/Input'
-import StorySelect from '~/components/atoms/Select'
-import StoryButton from '~/components/atoms/Button'
+const FLATPICKR_CONFIG: object = {
+  locale: Japanese,
+  static: true,
+  altInput: true,
+  altFormat: 'n/j(D)',
+  minDate: moment().subtract(2, 'years').format('YYYY-MM-DD'),
+  maxDate: 'today'
+};
 
-export default {
+@Component({
   components: {
     FlatPickr,
     FormTemplate,
@@ -71,33 +80,10 @@ export default {
     StorySelect,
     StoryButton
   },
-  data () {
-    return {
-      form: {
-        time: moment(),
-        departure: 0,
-        arrival: 0,
-        airline: 0,
-        boardingType: 0,
-        registration: ''
-      },
-      config: {
-        locale: Japanese,
-        static: true,
-        altInput: true,
-        altFormat: 'n/j(D)',
-        minDate: moment().subtract(2, 'years').format('YYYY-MM-DD'),
-        maxDate: 'today'
-      },
-      airports: AIRPORT_LIST,
-      airlines: AIRLINE_LIST,
-      boardingTypes: BOARDING_TYPE_LIST
-    }
-  },
   computed: {
     'form.time': {
       get () {
-        return this.form.time || null
+        return this.time || null
       },
       set (value) {
         // console.log(value)
@@ -125,25 +111,34 @@ export default {
       return array
     },
   },
-  methods: {
-    reset () {
-      this.form.departure = 0
-      this.form.arrival = 0
-      this.form.airline = 0
-      this.form.boardingType = 0
-      this.form.registration = ''
-    },
-    async postFlight () {
-      await this.$store.dispatch('product/addFlight', {
-        time: moment(this.form.time).format(),
-        departure: this.form.departure,
-        arrival: this.form.arrival,
-        airline: this.form.airline,
-        boardingType: this.form.boardingType,
-        registration: this.form.registration
-      })
-      this.reset()
-    }
+})
+export default class FlightNew extends Vue {
+  time: string = moment().format();
+  departure: number = 0;
+  arrival: number = 0;
+  airline: number = 0;
+  boardingType: number = 0;
+  registration: string = '';
+  config = FLATPICKR_CONFIG;
+
+  reset () {
+    this.departure = 0
+    this.arrival = 0
+    this.airline = 0
+    this.boardingType = 0
+    this.registration = ''
+  }
+
+  async postFlight () {
+    await this.$store.dispatch('product/addFlight', {
+      time: moment(this.time).format(),
+      departure: this.departure,
+      arrival: this.arrival,
+      airline: this.airline,
+      boardingType: this.boardingType,
+      registration: this.registration
+    })
+    this.reset()
   }
 }
 </script>

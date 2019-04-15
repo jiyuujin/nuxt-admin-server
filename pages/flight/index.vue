@@ -7,24 +7,24 @@
     <form-template>
       <story-select
         :options="yearOptions"
-        v-model="params.year"
+        v-model="selectedYaer"
         name="年"
       />
     </form-template>
     <form-template>
       <story-select
         :options="boardingTypeOptions"
-        v-model="params.boardingType"
+        v-model="selectedBoardingType"
         name="搭乗機材"
       />
     </form-template>
-    <FlightList
+    <flight-list
       :list="flights.item"
-      :number="params.page"
+      :number="page"
       @form-data="applyEditedForm"
     />
-    <Pagination
-      :page="params.page"
+    <pagination
+      :page="page"
       :max="Math.ceil(flights.item.length / 20)"
       @form-data="applyPage"
     />
@@ -36,22 +36,19 @@
   </main-template>
 </template>
 
-<script>
-import moment from 'moment'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 import { BOARDING_TYPE_LIST, YEARS } from '~/utils/index'
+const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const FlightList = () => import('~/components/flight/List.vue')
+const NewFlight = () => import('~/components/flight/New.vue')
+const EditFlight = () => import('~/components/flight/Edit.vue')
+const Pagination = () => import('~/components/layout/Pagination.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
 
-import MainTemplate from '~/components/templates/MainTemplate'
-import FormTemplate from '~/components/templates/FormTemplate'
-
-import FlightList from '~/components/flight/List'
-import NewFlight from '~/components/flight/New'
-import EditFlight from '~/components/flight/Edit'
-import Pagination from '~/components/layout/Pagination'
-
-import StorySelect from '~/components/atoms/Select'
-
-export default {
+@Component({
   middleware: 'auth',
   components: {
     MainTemplate,
@@ -62,30 +59,10 @@ export default {
     EditFlight,
     StorySelect
   },
-  data() {
-    return {
-      editedForm: {
-        time: moment(),
-        departure: -1,
-        arrival: -1,
-        airline: -1,
-        boardingType: -1,
-        registration: ''
-      },
-      dataKey: '',
-      params: {
-        page: 1,
-        year: 0,
-        boardingType: 0
-      },
-      boardingTypes: BOARDING_TYPE_LIST,
-      years: YEARS
-    }
-  },
-  async mounted() {
-    await this.$store.dispatch('product/initFlights', {
-      boardingType: this.params.boardingType,
-      year: this.params.year
+  async fetch({ store }) {
+    await store.dispatch('product/initFlights', {
+      boardingType: 0,
+      year: 0
     })
   },
   computed: {
@@ -110,18 +87,33 @@ export default {
       flights: state => state.product.flights
     })
   },
-  methods: {
-    async startEdited() {
-      await this.$store.dispatch('product/addDialog')
-    },
-    applyEditedForm(value) {
-      this.editedForm = value.data
-      this.dataKey = value.id
-      this.startEdited()
-    },
-    applyPage(value) {
-      this.params.page = value
-    }
+})
+export default class FlightPage extends Vue {
+  editedForm = {
+    departure: 0,
+    arrival: 0,
+    airline: 0,
+    boardingType: 0,
+    registration: '',
+    time: ''
+  };
+  dataKey: string = '';
+  page: number = 1;
+  selectedYaer: number = 2019;
+  selectedBoardingType: number = 0;
+
+  async startEdited() {
+    await this.$store.dispatch('product/addDialog')
+  }
+
+  applyEditedForm(value) {
+    this.editedForm = value.data
+    this.dataKey = value.id
+    this.startEdited()
+  }
+
+  applyPage(value) {
+    this.page = value
   }
 }
 </script>

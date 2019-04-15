@@ -11,11 +11,7 @@ export default ({ $axios, store }) => {
   })
 
   $axios.onResponse(response => response, error => {
-    const { status } = error.response || {}
-
-    console.log('Status: ' + status)
-
-    if (status >= 500) {
+    if (error.response >= 500) {
       swal({
         type: 'error',
         title: 'Error!'

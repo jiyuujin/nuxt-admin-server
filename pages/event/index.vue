@@ -7,16 +7,16 @@
     <form-template>
       <story-select
         :options="contactCategoryOptions"
-        v-model="params.contactCategory"
+        v-model="contactCategory"
         name="カテゴリー"
       />
     </form-template>
     <contact-list
       :list="contacts.item"
-      :number="params.page.contact"
+      :number="contact"
     />
     <pagination
-      :page="params.page.contact"
+      :page="contact"
       :max="Math.ceil(contacts.item.length / 20)"
       @form-data="applyPageInContact"
     />
@@ -24,20 +24,18 @@
   </main-template>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 import { CONTACT_CATEGORIES } from '~/utils/index'
+const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
+const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const ContactList = () => import('~/components/contact/List.vue')
+const NewEvent = () => import('~/components/event/New.vue')
+const Pagination = () => import('~/components/layout/Pagination.vue')
+const StorySelect = () => import('~/components/atoms/Select.vue')
 
-import MainTemplate from '~/components/templates/MainTemplate'
-import FormTemplate from '~/components/templates/FormTemplate'
-
-import ContactList from '~/components/contact/List'
-import NewEvent from '~/components/event/New'
-import Pagination from '~/components/layout/Pagination'
-
-import StorySelect from '~/components/atoms/Select'
-
-export default {
+@Component({
   middleware: 'auth',
   components: {
     MainTemplate,
@@ -47,18 +45,9 @@ export default {
     Pagination,
     StorySelect
   },
-  data() {
-    return {
-      params: {
-        page: {
-          survey: 1,
-          contact: 1
-        },
-        event: 0,
-        contactCategory: 0
-      },
-      contactCategories: CONTACT_CATEGORIES
-    }
+  async fetch({ store }) {
+    await store.dispatch('product/initEvents', null)
+    await store.dispatch('product/initContacts')
   },
   computed: {
     contactCategoryOptions () {
@@ -75,19 +64,14 @@ export default {
       contacts: state => state.product.contacts
     })
   },
-  async created() {
-    Promise.all([
-      await this.$store.dispatch('product/initEvents', null),
-      await this.$store.dispatch('product/initContacts')
-    ])
-  },
-  methods: {
-    applyPageInContact(value) {
-      this.params.page.contact = value
-    },
-    async applyEvent(value) {
-      this.params.event = value
-    }
+})
+export default class EventPage extends Vue {
+  event: number = 0;
+  contact: number = 1;
+  contactCategory: number = 0;
+
+  applyPageInContact(value) {
+    this.contact = value
   }
 }
 </script>

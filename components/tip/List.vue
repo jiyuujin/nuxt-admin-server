@@ -41,57 +41,47 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { CATEGORIES, getDiffTime } from '~/utils/index'
+const StoryLabel = () => import('~/components/atoms/Label.vue')
 
-import StoryLabel from '~/components/atoms/Label'
-
-export default {
-  props: {
-    list: {
-      type: Array,
-      required: true
-    },
-    number: {
-      type: Number,
-      required: true
-    },
-    search: {
-      type: String,
-      required: true
-    }
-  },
+@Component({
   components: {
     StoryLabel
   },
-  data () {
-    return {
-      categories: CATEGORIES
+})
+export default class TipList extends Vue {
+  @Prop() list: Array;
+  @Prop() type: string[];
+  @Prop() number: number;
+  @Prop() search: string;
+
+  diffTime(t) {
+    return getDiffTime(t)
+  }
+
+  async editItem (item) {
+    await this.$emit('form-data', Object.assign({}, item))
+  }
+
+  async deleteItem (item) {
+    if (confirm(item.data.title + ' 削除しますか?')) {
+      await this.delete(item.id)
     }
-  },
-  methods: {
-    diffTime(t) {
-      return getDiffTime(t)
-    },
-    editItem (item) {
-      this.$emit('form-data', Object.assign({}, item))
-    },
-    deleteItem (item) {
-      if (confirm(item.data.title + ' 削除しますか?')) {
-        this.delete(item.id)
-      }
-    },
-    async delete (key) {
-      await this.$store.dispatch('product/removeTip', {
-        key: key,
-        data: []
-      })
-    },
-    getText (id) {
-      return CATEGORIES.find((category) => {
-        if (category.value === id) return category
-      }).text
-    }
+  }
+
+  async delete (key) {
+    await this.$store.dispatch('product/removeTip', {
+      key: key,
+      data: []
+    })
+  }
+
+  getText (id) {
+    return CATEGORIES.find((category) => {
+      if (category.value === id) return category
+    }).text
   }
 }
 </script>

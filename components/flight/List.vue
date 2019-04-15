@@ -43,12 +43,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import moment from 'moment'
-import FlightChart from './FlightChart'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils/index'
+const FlightChart = () => import('./FlightChart.vue')
 
-const YEARS = [
+const YEARS: number[] = [
   2015,
   2016,
   2017,
@@ -56,75 +57,76 @@ const YEARS = [
   2019
 ];
 
-const LABEL_TEXT = 'Flights';
+const LABEL_TEXT: string = 'Flights';
 
-const COLOR_TEXT = '#42b883';
+const COLOR_TEXT: string = '#42b883';
 
-export default {
-  props: {
-    list: {
-      type: Array,
-      required: true
-    },
-    number: {
-      type: Number,
-      required: true
-    }
-  },
+@Component({
   components: {
     FlightChart
   },
-  methods: {
-    timeFormat(t) {
-      return getTimeFormat(t)
-    },
-    airline(id) {
-      return getAirlineName(id)
-    },
-    departure(id) {
-      return getAirportName(id)
-    },
-    arrival(id) {
-      return getAirportName(id)
-    },
-    boardingType(id) {
-      return getBoardingTypeName(id)
-    },
-    editItem (item) {
-      this.$emit('form-data', Object.assign({}, item))
-    },
-    deleteItem (item) {
-      if (confirm(moment(item.data.time).format('YYYY年MM月DD日') + '\n' + item.data.registration + ' 削除しますか?')) {
-        this.delete(item.id)
-      }
-    },
-    async delete(key) {
-      await this.$store.dispatch('product/removeFlight', {
-        'key': key,
-        'data': []
-      })
-    },
-    getChartDataset(items) {
-      let dataset = []
-      for (let yearIndex = 0; yearIndex < YEARS.length; yearIndex++) {
-        const size = items.filter(item => {
-          return item.data.time.includes(YEARS[yearIndex]) === true
-        }) || 0
+})
+export default class FlightList extends Vue {
+  @Prop() list: Array;
+  @Prop() number: number;
 
-        // console.log(YEARS[yearIndex] + ' : ' + size.length)
-        dataset.push(size.length)
-      }
+  timeFormat(t) {
+    return getTimeFormat(t)
+  }
 
-      return {
-        labels: YEARS,
-        datasets: [
-          {
-            label: LABEL_TEXT,
-            backgroundColor: COLOR_TEXT,
-            data: dataset
-          }
-        ]
-      }
+  airline(id) {
+    return getAirlineName(id)
+  }
+
+  departure(id) {
+    return getAirportName(id)
+  }
+
+  arrival(id) {
+    return getAirportName(id)
+  }
+
+  boardingType(id) {
+    return getBoardingTypeName(id)
+  }
+
+  async editItem (item) {
+    await this.$emit('form-data', Object.assign({}, item))
+  }
+
+  async deleteItem (item) {
+    if (confirm(moment(item.data.time).format('YYYY年MM月DD日') + '\n' + item.data.registration + ' 削除しますか?')) {
+      await this.delete(item.id)
+    }
+  }
+
+  async delete(key) {
+    await this.$store.dispatch('product/removeFlight', {
+      'key': key,
+      'data': []
+    })
+  }
+
+  getChartDataset(items) {
+    let dataset = []
+    for (let yearIndex = 0; yearIndex < YEARS.length; yearIndex++) {
+      const size = items.filter(item => {
+        return item.data.time.includes(YEARS[yearIndex]) === true
+      }) || 0
+
+      // console.log(YEARS[yearIndex] + ' : ' + size.length)
+      dataset.push(size.length)
+    }
+
+    return {
+      labels: YEARS,
+      datasets: [
+        {
+          label: LABEL_TEXT,
+          backgroundColor: COLOR_TEXT,
+          data: dataset
+        }
+      ]
     }
   }
 }
