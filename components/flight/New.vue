@@ -1,14 +1,14 @@
 <template>
   <div>
     <form-template>
-      <!--
       <story-input
         v-model="time"
       />
-      -->
+      <!--
       <flat-pickr
         v-model="time"
       />
+      -->
     </form-template>
     <form-template>
       <story-select
