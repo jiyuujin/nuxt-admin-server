@@ -6,6 +6,8 @@
         :config="config"
         name="搭乗日"
         placeholder="搭乗日"
+        input-class="md-input"
+        style="font-size:16px!important"
       />
     </form-template>
     <form-template>

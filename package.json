@@ -24,7 +24,6 @@
     "@types/webpack": "^4.4.27",
     "chart.js": "^2.7.3",
     "firebase": "^5.7.0-2",
-    "flatpickr": "^4.5.7",
     "js-cookie": "^2.2.0",
     "moment": "^2.22.2",
     "node-fetch": "^2.3.0",
