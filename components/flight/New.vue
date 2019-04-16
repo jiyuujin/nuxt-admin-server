@@ -1,13 +1,13 @@
 <template>
   <div>
     <form-template>
+      <!--
+      <story-input
+        v-model="time"
+      />
+      -->
       <flat-pickr
         v-model="time"
-        :config="config"
-        name="搭乗日"
-        placeholder="搭乗日"
-        input-class="md-input"
-        style="font-size:16px!important"
       />
     </form-template>
     <form-template>
@@ -57,22 +57,12 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
 import FlatPickr from 'vue-flatpickr-component'
-import { Japanese } from 'flatpickr/dist/l10n/ja'
 import 'flatpickr/dist/flatpickr.css'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
-
-const FLATPICKR_CONFIG: object = {
-  locale: Japanese,
-  static: true,
-  altInput: true,
-  altFormat: 'n/j(D)',
-  minDate: moment().subtract(2, 'years').format('YYYY-MM-DD'),
-  maxDate: 'today'
-};
 
 @Component({
   components: {
@@ -121,9 +111,9 @@ export default class FlightNew extends Vue {
   airline: number = 0;
   boardingType: number = 0;
   registration: string = '';
-  config = FLATPICKR_CONFIG;
 
   reset () {
+    this.time = moment().format()
     this.departure = 0
     this.arrival = 0
     this.airline = 0

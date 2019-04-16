@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-//@import "~element-ui/packages/theme-chalk/src/index";
-
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
@@ -53,45 +51,4 @@ html {
 
 body {
   margin: 8px;
-}
-
-p {
-  margin: 0;
-}
-
-input, textarea {
-  font-family: Roboto, 'Hiragino kaku Gothic ProN';
-  -webkit-font-smoothing: antialiased;
-}
-
-.showcase {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  margin: 15px;
-  flex-wrap: wrap;
-}
-
-.showcase > div {
-  flex: 1;
-  min-width: 250px;
-  margin: 15px;
-}
-
-.showcase.flex-left {
-  justify-content: flex-start;
-}
-
-.showcase.flex-left div {
-  flex: none;
-  margin-right: 10px
-}
-
-.flex-block {
-  display: flex;
-  align-items: flex-start;
-}
-
-.flex-block.justify-end {
-  justify-content: flex-end;
 }
