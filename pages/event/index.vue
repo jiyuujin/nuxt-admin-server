@@ -2,7 +2,7 @@
   <main-template
     v-if="events && contacts"
     :loading="loading"
-    :status="userStatus"
+    :user-status="userStatus"
   >
     <form-template>
       <story-select

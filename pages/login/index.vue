@@ -1,6 +1,6 @@
 <template>
   <main-template
-    :status="userStatus"
+    :user-status="userStatus"
     class="login"
   >
     <form-template>

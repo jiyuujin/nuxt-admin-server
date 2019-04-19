@@ -2,7 +2,7 @@
   <main-template
     v-if="flights"
     :loading="loading"
-    :status="userStatus"
+    :user-status="userStatus"
   >
     <form-template>
       <story-select

@@ -12,6 +12,33 @@ export interface Form {
   item: Item
 }
 
+export interface WorkForm {
+  allWorks: {
+    id: string,
+    title: string,
+    description: string
+  }
+}
+
+export interface ProductForm {
+  allProducts: {
+    id: string,
+    title: string,
+    description: string,
+    url: string,
+    tag: string[]
+  }
+}
+
+export interface ActivityForm {
+  allActivities: {
+    id: string,
+    title: string,
+    description: string,
+    url: string
+  }
+}
+
 export interface TipForm {
   title: string,
   url: string,

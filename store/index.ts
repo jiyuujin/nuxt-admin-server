@@ -4,12 +4,16 @@ import { RootState } from '~/store/types'
 
 // Modules
 import { product } from './product'
+import { profile } from './profile'
+import { qiita } from './qiita'
 
 // Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   modules: {
-    'product': product
+    'product': product,
+    'profile': profile,
+    'qiita': qiita,
   },
   state: {
     version: '1.0.0'

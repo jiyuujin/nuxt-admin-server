@@ -32,12 +32,12 @@ export default class Pagination extends Vue {
 
   prev(newVal: number) {
     if (this.page !== 1) {
-      this.$emit('page-data', newVal - 1)
+      this.$emit('form-data', newVal - 1)
     }
   }
   next(newVal: number) {
     if (this.page !== this.max) {
-      this.$emit('page-data', newVal + 1)
+      this.$emit('form-data', newVal + 1)
     }
   }
 }
