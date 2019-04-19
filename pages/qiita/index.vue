@@ -2,7 +2,7 @@
   <main-template
     v-if="qiitas"
     :loading="loading"
-    :status="userStatus"
+    :user-status="userStatus"
   >
     <form-template>
       <story-select
@@ -62,7 +62,7 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     ...mapState({
       userStatus: state => state.product.userStatus,
       loading: state => state.product.loading,
-      qiitas: state =>state.product.qiitas
+      qiitas: state =>state.qiita.qiitas
     })
   },
   async mounted() {
@@ -75,7 +75,7 @@ export default class Index extends Vue {
   page: number = 1;
 
   async getQiitaByTag () {
-    await this.$store.dispatch('product/initQiitas', {
+    await this.$store.dispatch('qiita/fetchQiitas', {
       'tag': this.tag,
       'search': this.search,
       'page': this.page

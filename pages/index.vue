@@ -1,12 +1,8 @@
 <template>
   <main-template
     :loading="loading"
-    :status="userStatus"
+    :user-status="userStatus"
   >
-    <story-button
-      text="logout"
-      @click="logout"
-    />
   </main-template>
 </template>
 
@@ -14,15 +10,11 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
-const Pagination = () => import('~/components/layout/Pagination.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   middleware: 'auth',
   components: {
-    MainTemplate,
-    StoryButton,
-    Pagination
+    MainTemplate
   },
   computed: {
     ...mapState({
@@ -31,15 +23,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     })
   },
 })
-export default class IndexPage extends Vue {
-  async logout() {
-    await this.$store.dispatch('product/signOut')
-
-    if (!this.$store.state.product.userStatus) {
-      this.$router.push('/login')
-    }
-  }
-}
+export default class IndexPage extends Vue {}
 </script>
 
 <style scoped>

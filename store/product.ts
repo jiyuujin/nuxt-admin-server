@@ -1,28 +1,17 @@
-import { Module, ActionContext, ActionTree, MutationTree } from 'vuex';
+import { Module, ActionTree, MutationTree } from 'vuex';
 import { RootState } from './types';
 import Firestore from '~/plugins/firebase';
 import firebase from 'firebase';
-import axios from 'axios';
 import moment from 'moment';
 import { SweetAlertResult } from 'sweetalert2';
-import { Dictionary, Item, Form, TipForm, QiitaForm, FlightForm, EventForm, ContactForm } from '~/types/database.types'
+import { Dictionary, TipForm, FlightForm, EventForm, ContactForm } from '~/types/database.types'
 import { setDialog, isValidText } from '~/store/utils';
-import { CATEGORIES } from '~/utils/index';
 
 const adminFirestore = Firestore.firestore();
-
 const tipsCollection = adminFirestore.collection('tips');
 const flightsCollection = adminFirestore.collection('flights');
 const eventsCollection = adminFirestore.collection('events');
 const contactsCollection = adminFirestore.collection('contacts');
-
-const QIITA_BASE_API = 'https://qiita.com/api/v2/tags/';
-
-const QIITA_OPTION = {
-  headers: {
-    'Content-Type': 'application/json'
-  }
-};
 
 const PAGE_SIZE = 20;
 
@@ -33,11 +22,9 @@ const namespaced = true;
 export const state = (): State => ({
   isCookieAccepted: false,
   userStatus: false,
-  token: null,
   loading: null,
   dialog: false,
   tips: null,
-  qiitas: null,
   flights: null,
   events: null,
   contacts: null
@@ -46,11 +33,9 @@ export const state = (): State => ({
 export interface State {
   isCookieAccepted: boolean | false;
   userStatus: boolean | false;
-  token: string | null;
   loading: string | null;
   dialog: boolean | false;
   tips: Dictionary<TipForm> | null;
-  qiitas: Dictionary<QiitaForm> | null;
   flights: Dictionary<FlightForm> | null;
   events: Dictionary<EventForm> | null;
   contacts: Dictionary<ContactForm> | null;
@@ -75,9 +60,6 @@ export const mutations: MutationTree<State> = {
   },
   setTips (state, payload) {
     state.tips = payload
-  },
-  setQiitas (state, payload) {
-    state.qiitas = payload
   },
   setFlights (state, payload) {
     state.flights = payload
@@ -319,39 +301,6 @@ export const actions: RootActionTree<State, RootState> = {
 
     return setDialog(!ERROR_DIALOG, data.registration + '削除しました')
   },
-  initQiitas ({ commit }, params) {
-    // ローディングを開始する
-    commit('setLoading', true)
-
-    const tagName = CATEGORIES.find(category => {
-      if (category.value === params.tag) {
-        return category
-      }
-    }).text
-
-    axios.get(QIITA_BASE_API + tagName + '/items?page=' + params.page, QIITA_OPTION)
-      .then(response => {
-        if (params.search !== '') {
-          // 検索している時
-          const searchPost = response.data.filter(item => {
-            if (item.title.includes(params.search) === true) return item
-          })
-
-          return commit('setQiitas', searchPost)
-        }
-
-        commit('setQiitas', response.data)
-      })
-      .catch(error => {
-        // console.log(error)
-
-        setDialog(ERROR_DIALOG, '取得に失敗しました')
-      })
-      .finally(() => {
-        // ローディングを終了する
-        commit('setLoading', false)
-      })
-  },
   initEvents ({ commit }) {
     // ローディングを開始する
     commit('setLoading', true)
@@ -504,9 +453,6 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   removeFlight(
     ctx, { key, data }
   ): Promise<SweetAlertResult>;
-  initQiitas(
-    { commit }, params
-  ): void;
   initEvents(
     { commit }
   ): void;

@@ -2,7 +2,7 @@
   <main-template
     v-if="tips && events"
     :loading="loading"
-    :status="userStatus"
+    :user-status="userStatus"
   >
     <form-template>
       <story-input
