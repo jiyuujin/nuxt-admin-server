@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/vue'
+import '../assets/main.scss'
 
-import Label from '~/components/atoms/Label.vue'
+import Label from '../components/atoms/Label.vue'
 
 storiesOf('Label', module).add('list', () => ({
   components: {

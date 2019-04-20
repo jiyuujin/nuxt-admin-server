@@ -1,20 +1,15 @@
 import { storiesOf } from '@storybook/vue'
+import '../assets/main.scss'
 
-import Button from '~/components/atoms/Button.vue'
+import Button from '../components/atoms/Button.vue'
 
 storiesOf('Button', module).add('list', () => ({
   components: {
-    'j-button': Button
+    Button
   },
   template: `
-    <div>
-      <div class="flex-block">
-        <div class="showcase">
-          <div>
-            <j-button text="追加する"/>
-          </div>
-        </div>
-      </div>
+    <div class="m-8">
+      <Button text="追加する" />
     </div>
   `
 }))

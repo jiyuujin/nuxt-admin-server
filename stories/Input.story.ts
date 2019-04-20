@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/vue'
+import '../assets/main.scss'
 
-import Input from '~/components/atoms/Input.vue'
+import Input from '../components/atoms/Input.vue'
 
 storiesOf('Input', module).add('list', () => ({
   components: {

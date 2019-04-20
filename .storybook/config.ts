@@ -1,5 +1,3 @@
-import '../assets/main.scss'
-
 import { configure } from '@storybook/vue'
 
 const req = require.context('../stories', true, /\.story\.ts$/)
