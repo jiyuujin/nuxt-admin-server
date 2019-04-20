@@ -28,7 +28,7 @@
       "dom"
     ],
     "noImplicitAny": false,
-    "noEmit": true,
+    "noEmit": false,
     "paths": {
       "~/*": [
         "./*"
@@ -37,5 +37,15 @@
         "./*"
       ]
     }
-  }
+  },
+  "include": [
+    "components/**/*",
+    "layouts/**/*",
+    "middleware/**/*",
+    "pages/**/*",
+    "plugins/**/*",
+    "store/**/*",
+    "stories/**/*",
+    "utils/**/*"
+  ]
 }

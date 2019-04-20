@@ -30,11 +30,13 @@ export const mutations: MutationTree<State> = {
 
 export const actions: RootActionTree<State, RootState> = {
   fetchQiitas ({ commit }, params) {
-    const tagName = CATEGORIES.find(category => {
+    let tagName: string = '';
+
+    CATEGORIES.forEach(category => {
       if (category.value === params.tag) {
-        return category
+        tagName = category.text
       }
-    }).text
+    });
 
     axios.get(QIITA_BASE_API + tagName + '/items?page=' + params.page, {
       headers: {

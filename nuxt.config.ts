@@ -38,10 +38,6 @@ export default {
   plugins: [
     '~plugins/axios.ts',
     '~plugins/firebase.ts',
-    {
-      src: '~plugins/vue-chartjs.ts',
-      ssr: false
-    }
   ],
 
   purgeCSS: {

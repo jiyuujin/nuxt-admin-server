@@ -4,7 +4,7 @@ import Firestore from '~/plugins/firebase';
 import firebase from 'firebase';
 import moment from 'moment';
 import { SweetAlertResult } from 'sweetalert2';
-import { Dictionary, TipForm, FlightForm, EventForm, ContactForm } from '~/types/database.types'
+import { Dictionary, ItemDataList, TipForm, FlightForm, EventForm, ContactForm } from '~/types/database.types'
 import { setDialog, isValidText } from '~/store/utils';
 
 const adminFirestore = Firestore.firestore();
@@ -77,32 +77,29 @@ export const actions: RootActionTree<State, RootState> = {
     await firebase.auth()
       .signInWithEmailAndPassword(params.email, params.password)
       .then(response => {
-        // ログインユーザステータスをtrueに更新する
         commit('setUserStatus', true)
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
       })
   },
   async signOut ({ commit }) {
     await firebase.auth()
       .signOut()
       .then(response => {
-        // ログインユーザステータスをfalseに更新する
         commit('setUserStatus', false)
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
       })
   },
   initTips ({ commit }, params) {
-    // ローディングを開始する
     commit('setLoading', true)
 
     if (params) {
       tipsCollection.where('event', '==', params.event).get()
         .then(snapshot => {
-          let result = {
+          let result: ItemDataList = {
             item: []
           }
           let i = 1
@@ -125,13 +122,12 @@ export const actions: RootActionTree<State, RootState> = {
           setDialog(ERROR_DIALOG, '取得に失敗しました')
         })
 
-      // ローディングを終了する
       return commit('setLoading', false)
     }
 
     tipsCollection.orderBy('time', 'desc').get()
       .then(snapshot => {
-        let result = {
+        let result: ItemDataList = {
           item: []
         }
         let i = 1
@@ -154,7 +150,6 @@ export const actions: RootActionTree<State, RootState> = {
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
 
-    // ローディングを終了する
     return commit('setLoading', false)
   },
   addTip (ctx, { title, url, description, tags, event, time }) {
@@ -197,7 +192,7 @@ export const actions: RootActionTree<State, RootState> = {
     if (params.boardingType !== 0) {
       flightsCollection.where('boardingType', '==', params.boardingType).get()
         .then(snapshot => {
-          let result = {
+          let result: ItemDataList = {
             item: []
           }
           let i = 1
@@ -220,13 +215,12 @@ export const actions: RootActionTree<State, RootState> = {
           setDialog(ERROR_DIALOG, '取得に失敗しました')
         })
 
-      // ローディングを終了する
       return commit('setLoading', false)
     }
 
     flightsCollection.orderBy('time', 'desc').get()
       .then(snapshot => {
-        let result = {
+        let result: ItemDataList = {
           item: []
         }
         let i = 1
@@ -264,7 +258,6 @@ export const actions: RootActionTree<State, RootState> = {
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
       .finally(() => {
-        // ローディングを終了する
         commit('setLoading', false)
       })
   },
@@ -302,20 +295,22 @@ export const actions: RootActionTree<State, RootState> = {
     return setDialog(!ERROR_DIALOG, data.registration + '削除しました')
   },
   initEvents ({ commit }) {
-    // ローディングを開始する
     commit('setLoading', true)
 
     eventsCollection.orderBy('id', 'asc').get()
       .then(snapshot => {
-        let result = {
+        let result: ItemDataList = {
           item: []
         }
+        let i = 1
         snapshot.forEach(doc => {
           // console.log(doc.id + ' ' + doc.data())
           result.item.push({
-            value: doc.data().id,
-            text: doc.data().name
+            id: doc.id,
+            data: doc.data(),
+            page: Math.ceil(i / PAGE_SIZE)
           })
+          i++
         })
 
         commit('setEvents', result)
@@ -327,7 +322,6 @@ export const actions: RootActionTree<State, RootState> = {
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
 
-    // ローディングを終了する
     commit('setLoading', false)
   },
   addEvent ({ state }, { name, url, locale }) {
@@ -351,13 +345,12 @@ export const actions: RootActionTree<State, RootState> = {
     return setDialog(!ERROR_DIALOG, name + '追加しました')
   },
   initContacts ({ commit }, params) {
-    // ローディングを開始する
     commit('setLoading', true)
 
     if (params) {
       contactsCollection.where('category.value', '==', params.contactCategory).get()
         .then(snapshot => {
-          let result = {
+          let result: ItemDataList = {
             item: []
           }
           let i = 1
@@ -380,13 +373,12 @@ export const actions: RootActionTree<State, RootState> = {
           setDialog(ERROR_DIALOG, '取得に失敗しました')
         })
 
-      // ローディングを終了する
       return commit('setLoading', false)
     }
 
     contactsCollection.orderBy('time', 'desc').get()
       .then(snapshot => {
-        let result = {
+        let result: ItemDataList = {
           item: []
         }
         let i = 1
@@ -409,15 +401,12 @@ export const actions: RootActionTree<State, RootState> = {
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
 
-    // ローディングを終了する
     commit('setLoading', false)
   },
   addDialog ({ commit }) {
-    // ダイアログを追加する
     commit('setDialog', true)
   },
   removeDialog ({ commit }) {
-    // ダイアログを削除する
     commit('setDialog', false)
   }
 }

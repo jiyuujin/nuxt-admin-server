@@ -1,3 +1,5 @@
+import DocumentData = firebase.firestore.DocumentData;
+
 export interface Dictionary<T> {
   [key: string]: T
 }
@@ -12,6 +14,17 @@ export interface Form {
   item: Item
 }
 
+export interface ItemDataList {
+  item: ItemData[]
+}
+
+interface ItemData {
+  id: string,
+  data: DocumentData,
+  page: number
+}
+
+// 経歴
 export interface WorkForm {
   allWorks: {
     id: string,
@@ -20,6 +33,7 @@ export interface WorkForm {
   }
 }
 
+// 成果物
 export interface ProductForm {
   allProducts: {
     id: string,
@@ -30,6 +44,7 @@ export interface ProductForm {
   }
 }
 
+// 活動履歴
 export interface ActivityForm {
   allActivities: {
     id: string,
@@ -39,6 +54,7 @@ export interface ActivityForm {
   }
 }
 
+// Tip
 export interface TipForm {
   title: string,
   url: string,
@@ -48,11 +64,7 @@ export interface TipForm {
   time: Date
 }
 
-export interface QiitaUser {
-  profile_image_url: string;
-  location: string;
-}
-
+// Qiita
 export interface QiitaForm {
   title: string;
   url: string;
@@ -60,6 +72,12 @@ export interface QiitaForm {
   user: QiitaUser[];
 }
 
+interface QiitaUser {
+  profile_image_url: string;
+  location: string;
+}
+
+// フライト
 export interface FlightForm {
   time: Date,
   departure: number,
@@ -69,6 +87,7 @@ export interface FlightForm {
   registration: string
 }
 
+// イベント
 export interface EventForm {
   id: number;
   name: string;
@@ -76,15 +95,16 @@ export interface EventForm {
   locale: number;
 }
 
-export interface ContactCategory {
-  value: number;
-  text: string;
-}
-
+// 問い合わせ
 export interface ContactForm {
   title: number;
   email: string;
   description: string;
   time: Date;
   category: ContactCategory;
+}
+
+interface ContactCategory {
+  value: number;
+  text: string;
 }

@@ -1,12 +1,15 @@
 const path = require('path')
-const rootPath = path.resolve(__dirname, '../')
-
-module.exports = async ({ config, mode }) => {
+module.exports = ({ config, mode }) => {
   config.module.rules.push(
     {
-      test: /\.scss$/,
-      loaders: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../'),
+      test: /\.s?css$/,
+      loaders: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+      include: path.resolve(__dirname, "../")
+    },
+    {
+      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+      loaders: ['file-loader'],
+      include: path.resolve(__dirname, '../')
     },
     {
       test: /\.(ts|tsx)?(\.erb)?$/,
@@ -17,13 +20,10 @@ module.exports = async ({ config, mode }) => {
         }
       }]
     }
-  );
+  )
 
-  config.resolve.alias['@'] = rootPath;
-  config.resolve.alias['~'] = rootPath;
-  config.resolve.alias['vue'] = 'vue/dist/vue.esm.js';
+  config.resolve.alias['@'] = path.resolve(__dirname, '../')
+  config.resolve.alias['~'] = path.resolve(__dirname, '../')
 
-  config.resolve.extensions.push('.ts', '.tsx');
-
-  return config
-}
+  return config;
+};
