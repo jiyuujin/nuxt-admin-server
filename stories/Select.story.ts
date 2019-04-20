@@ -5,17 +5,25 @@ import Select from '../components/atoms/Select.vue'
 
 storiesOf('Select', module).add('list', () => ({
   components: {
-    'j-select': Select
+    Select
   },
   template: `
     <div>
       <div>
-        hoge: {{hoge}}
-        <j-select :options="options" v-model="hoge" />
+        hoge1: {{ hoge1 }}
+        <Select :options="options" v-model="hoge1" />
       </div>
       <div>
-        hoge: {{hoge}}
-        <j-select :options="options" :multiple="multiple" v-model="hoge" />
+        hoge2: {{ hoge2 }}
+        <Select :options="options" v-model="hoge2" :bg-color="backgroundColor" :color="textColor" />
+      </div>
+      <div>
+        hoge3: {{ hoge3 }}
+        <Select :options="options" :multiple="multiple" v-model="hoge3" />
+      </div>
+      <div>
+        hoge4: {{ hoge4 }}
+        <Select :options="options" :multiple="multiple" v-model="hoge4" :bg-color="backgroundColor" :color="textColor" />
       </div>
     </div>
   `,
@@ -29,8 +37,17 @@ storiesOf('Select', module).add('list', () => ({
         5: 'Option5',
         6: 'Option6',
       },
-      hoge: 1,
+      hoge1: 1,
+      hoge2: 1,
+      hoge3: [
+        1
+      ],
+      hoge4: [
+        1
+      ],
       multiple: true,
+      backgroundColor: '#42b883',
+      textColor: '#fff'
     }
   }
 }))

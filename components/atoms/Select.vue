@@ -2,6 +2,7 @@
   <select
     :name="name"
     :multiple="multiple"
+    :style="`background-color: ${bgColor || `#fff`}; color: ${color || `#000`};`"
     class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
     @input="updateInput"
   >
@@ -24,6 +25,8 @@ export default class Select extends Vue {
   @Prop() value: string;
   @Prop() options: string[];
   @Prop() multiple: boolean;
+  @Prop() bgColor: string;
+  @Prop() color: string;
 
   updateInput (event) {
     this.$emit('input', event.target.selectedIndex)
