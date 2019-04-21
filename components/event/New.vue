@@ -30,17 +30,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
+import { EventForm } from '~/types/database.types'
 import { LOCALES } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
-
-interface EventForm {
-  name: string,
-  url: string;
-  locale: number
-}
 
 @Component({
   components: {

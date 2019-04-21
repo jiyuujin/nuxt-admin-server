@@ -33,6 +33,7 @@
       :edited-form="editedForm"
       :data-key="dataKey"
     />
+    <NewEvent />
   </main-template>
 </template>
 
@@ -44,6 +45,7 @@ const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const TipList = () => import('~/components/tip/List.vue')
 const NewTip = () => import('~/components/tip/New.vue')
 const EditTip = () => import('~/components/tip/Edit.vue')
+const NewEvent = () => import('~/components/event/New.vue')
 const Pagination = () => import('~/components/layout/Pagination.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
@@ -56,6 +58,7 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     TipList,
     NewTip,
     EditTip,
+    NewEvent,
     Pagination,
     StoryInput,
     StorySelect
