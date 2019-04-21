@@ -24,6 +24,32 @@ interface ItemData {
   page: number
 }
 
+// メニュー
+export interface MenuList {
+  title: string,
+  url: string,
+  src: string,
+  flex: number
+}
+
+// リスト
+export interface SimpleList {
+  value: number,
+  text: string
+}
+
+export interface CustomListWithColor {
+  value: number,
+  text: string,
+  backgroundColor: string,
+  color: string
+}
+
+export interface CustomListWithUrl {
+  name: string,
+  url: string
+}
+
 // 経歴
 export interface WorkForm {
   allWorks: {
@@ -64,19 +90,6 @@ export interface TipForm {
   time: Date
 }
 
-// Qiita
-export interface QiitaForm {
-  title: string;
-  url: string;
-  updated_at: Date;
-  user: QiitaUser[];
-}
-
-interface QiitaUser {
-  profile_image_url: string;
-  location: string;
-}
-
 // フライト
 export interface FlightForm {
   time: Date,
@@ -107,4 +120,17 @@ export interface ContactForm {
 interface ContactCategory {
   value: number;
   text: string;
+}
+
+// Qiita
+export interface QiitaForm {
+  title: string;
+  url: string;
+  updated_at: Date;
+  user: QiitaUser[];
+}
+
+interface QiitaUser {
+  profile_image_url: string;
+  location: string;
 }

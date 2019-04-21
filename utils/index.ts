@@ -1,34 +1,11 @@
-import moment from 'moment'
-
-interface List {
-  value: number,
-  text: string
-}
-
-interface TagList {
-  value: number,
-  text: string,
-  backgroundColor: string,
-  color: string
-}
-
-interface UrlList {
-  name: string,
-  url: string
-}
-
-interface MenuList {
-  title: string,
-  url: string,
-  src: string,
-  flex: number
-}
+import moment from 'moment';
+import { MenuList, SimpleList, CustomListWithUrl, CustomListWithColor } from '~/types/database.types';
 
 /**
  * 空港
  * @type {*[]}
  */
-export const AIRPORT_LIST: List[] = [
+export const AIRPORT_LIST: SimpleList[] = [
   {value: 0, text: '東京羽田 / HND'},
   {value: 1, text: '東京成田 / NRT'},
   {value: 2, text: '大阪伊丹 / ITM'},
@@ -48,7 +25,7 @@ export const AIRPORT_LIST: List[] = [
  * 航空会社
  * @type {*[]}
  */
-export const AIRLINE_LIST: List[] = [
+export const AIRLINE_LIST: SimpleList[] = [
   {value: 0, text: 'JAL'},
   {value: 1, text: 'ANA'},
   {value: 2, text: 'Skymark'},
@@ -67,7 +44,7 @@ export const AIRLINE_LIST: List[] = [
  * 搭乗機材
  * @type {*[]}
  */
-export const BOARDING_TYPE_LIST: List[] = [
+export const BOARDING_TYPE_LIST: SimpleList[] = [
   {value: 0, text: 'Boeing787-9'},
   {value: 1, text: 'Boeing787-8'},
   {value: 2, text: 'Boeing777-3'},
@@ -91,7 +68,7 @@ export const BOARDING_TYPE_LIST: List[] = [
  * 年
  * @type {number[]}
  */
-export const YEARS: List[] = [
+export const YEARS: SimpleList[] = [
   {
     value: 0,
     text: '2019'
@@ -115,49 +92,10 @@ export const YEARS: List[] = [
 ]
 
 /**
- * 技術カテゴリー
- * @type {*[]}
- */
-export const CATEGORIES: TagList[] = [
-  {value: 0, text: 'Web', backgroundColor: '#0033ff', color: '#fff'},
-  {value: 1, text: 'HTML5', backgroundColor: '#0099ff', color: '#000'},
-  {value: 2, text: 'CSS', backgroundColor: '#00ff99', color: '#000'},
-  {value: 3, text: 'Javascript', backgroundColor: '#ffff00', color: '#000'},
-  {value: 4, text: 'EcmaScript', backgroundColor: '#ff9966', color: '#000'},
-  {value: 5, text: 'PHP', backgroundColor: '#000099', color: '#fff'},
-  {value: 6, text: 'Zendframework', backgroundColor: '#009933', color: '#fff'},
-  {value: 7, text: 'Laravel', backgroundColor: '#ff99cc', color: '#000'},
-  {value: 8, text: 'Scala', backgroundColor: '#ff0000', color: '#fff'},
-  {value: 9, text: 'Playframework', backgroundColor: '#666666', color: '#fff'},
-  {value: 10, text: 'Kotlin', backgroundColor: '#ffcc33', color: '#000'},
-  {value: 11, text: 'Sparkframework', backgroundColor: '#cccccc', color: '#000'},
-  {value: 12, text: 'Heroku', backgroundColor: '#ccffff', color: '#000'},
-  {value: 13, text: 'Netlify', backgroundColor: '#99ffcc', color: '#000'},
-  {value: 14, text: 'AWS', backgroundColor: '#660000', color: '#fff'},
-  {value: 15, text: 'React', backgroundColor: '#3300ff', color: '#fff'},
-  {value: 16, text: 'Vue', backgroundColor: '#33ff33', color: '#000'},
-  {value: 17, text: 'Objective-c', backgroundColor: '#cc9933', color: '#000'},
-  {value: 18, text: 'Swift', backgroundColor: '#ff6633', color: '#fff'},
-  {value: 19, text: 'Firebase', backgroundColor: '#ff9900', color: '#fff'},
-  {value: 20, text: 'TypeScript', backgroundColor: '#ff33ff', color: '#fff'},
-  {value: 21, text: 'Nuxt.js', backgroundColor: '#339933', color: '#fff'},
-  {value: 22, text: 'VuePress', backgroundColor: '#33ff99', color: '#000'},
-  {value: 23, text: 'Gatsby', backgroundColor: '#990099', color: '#fff'},
-  {value: 24, text: 'Angular', backgroundColor: '#ff3333', color: '#fff'},
-  {value: 25, text: 'Elixir', backgroundColor: '#660099', color: '#fff'},
-  {value: 26, text: 'Java', backgroundColor: '#ff6600', color: '#fff'},
-  {value: 27, text: 'Docker', backgroundColor: '#1D2088', color: '#fff'},
-  {value: 28, text: 'MySQL', backgroundColor: '#ff9933', color: '#fff'},
-  {value: 29, text: 'PostgreSQL', backgroundColor: '#333399', color: '#fff'},
-  {value: 30, text: 'Redis', backgroundColor: '#cc0000', color: '#fff'},
-  {value: 31, text: 'Others', backgroundColor: '#000000', color: '#fff'}
-]
-
-/**
  * イベント地域
  * @type {*[]}
  */
-export const LOCALES: List[] = [
+export const LOCALES: SimpleList[] = [
   {
     value: 0,
     text: '指定無し'
@@ -180,7 +118,7 @@ export const LOCALES: List[] = [
  * お問い合わせカテゴリー
  * @type {*[]}
  */
-export const CONTACT_CATEGORIES: List[] = [
+export const CONTACT_CATEGORIES: SimpleList[] = [
   {
     value: 1,
     text: '仕事のご依頼'
@@ -222,19 +160,13 @@ export const MENU_LIST: MenuList[] = [
     src: 'takeoff.png',
     flex: 3
   },
-  {
-    title: 'event',
-    url: '/event',
-    src: 'event.png',
-    flex: 3
-  }
 ]
 
 /**
  * ソーシャル
  * @type {*[]}
  */
-export const SOCIAL_LIST: UrlList[] = [
+export const SOCIAL_LIST: CustomListWithUrl[] = [
   {
     name: 'slack',
     url: 'https://jiyuujinjs.slack.com/'
@@ -250,6 +182,205 @@ export const SOCIAL_LIST: UrlList[] = [
   {
     name: 'bitbucket',
     url: 'https://bitbucket.org/jiyuujin'
+  }
+]
+
+/**
+ * 技術カテゴリー
+ * @type {*[]}
+ */
+export const CATEGORIES: CustomListWithColor[] = [
+  {
+    value: 0,
+    text: 'Web',
+    backgroundColor: '#0033ff',
+    color: '#fff'
+  },
+  {
+    value: 1,
+    text: 'HTML5',
+    backgroundColor: '#0099ff',
+    color: '#000'
+  },
+  {
+    value: 2,
+    text: 'CSS',
+    backgroundColor: '#00ff99',
+    color: '#000'
+  },
+  {
+    value: 3,
+    text: 'Javascript',
+    backgroundColor: '#ffff00',
+    color: '#000'
+  },
+  {
+    value: 4,
+    text: 'EcmaScript',
+    backgroundColor: '#ff9966',
+    color: '#000'
+  },
+  {
+    value: 5,
+    text: 'PHP',
+    backgroundColor: '#000099',
+    color: '#fff'
+  },
+  {
+    value: 6,
+    text: 'Zendframework',
+    backgroundColor: '#009933',
+    color: '#fff'
+  },
+  {
+    value: 7,
+    text: 'Laravel',
+    backgroundColor: '#ff99cc',
+    color: '#000'
+  },
+  {
+    value: 8,
+    text: 'Scala',
+    backgroundColor: '#ff0000',
+    color: '#fff'
+  },
+  {
+    value: 9,
+    text: 'Playframework',
+    backgroundColor: '#666666',
+    color: '#fff'
+  },
+  {
+    value: 10,
+    text: 'Kotlin',
+    backgroundColor: '#ffcc33',
+    color: '#000'
+  },
+  {
+    value: 11,
+    text: 'Sparkframework',
+    backgroundColor: '#cccccc',
+    color: '#000'
+  },
+  {
+    value: 12,
+    text: 'Heroku',
+    backgroundColor: '#ccffff',
+    color: '#000'
+  },
+  {
+    value: 13,
+    text: 'Netlify',
+    backgroundColor: '#99ffcc',
+    color: '#000'
+  },
+  {
+    value: 14,
+    text: 'AWS',
+    backgroundColor: '#660000',
+    color: '#fff'
+  },
+  {
+    value: 15,
+    text: 'React',
+    backgroundColor: '#3300ff',
+    color: '#fff'
+  },
+  {
+    value: 16,
+    text: 'Vue',
+    backgroundColor: '#33ff33',
+    color: '#000'
+  },
+  {
+    value: 17,
+    text: 'Objective-c',
+    backgroundColor: '#cc9933',
+    color: '#000'
+  },
+  {
+    value: 18,
+    text: 'Swift',
+    backgroundColor: '#ff6633',
+    color: '#fff'
+  },
+  {
+    value: 19,
+    text: 'Firebase',
+    backgroundColor: '#ff9900',
+    color: '#fff'
+  },
+  {
+    value: 20,
+    text: 'TypeScript',
+    backgroundColor: '#ff33ff',
+    color: '#fff'
+  },
+  {
+    value: 21,
+    text: 'Nuxt.js',
+    backgroundColor: '#339933',
+    color: '#fff'
+  },
+  {
+    value: 22,
+    text: 'VuePress',
+    backgroundColor: '#33ff99',
+    color: '#000'
+  },
+  {
+    value: 23,
+    text: 'Gatsby',
+    backgroundColor: '#990099',
+    color: '#fff'
+  },
+  {
+    value: 24,
+    text: 'Angular',
+    backgroundColor: '#ff3333',
+    color: '#fff'
+  },
+  {
+    value: 25,
+    text: 'Elixir',
+    backgroundColor: '#660099',
+    color: '#fff'
+  },
+  {
+    value: 26,
+    text: 'Java',
+    backgroundColor: '#ff6600',
+    color: '#fff'
+  },
+  {
+    value: 27,
+    text: 'Docker',
+    backgroundColor: '#1D2088',
+    color: '#fff'
+  },
+  {
+    value: 28,
+    text: 'MySQL',
+    backgroundColor: '#ff9933',
+    color: '#fff'
+  },
+  {
+    value: 29,
+    text: 'PostgreSQL',
+    backgroundColor: '#333399',
+    color: '#fff'
+  },
+  {
+    value: 30,
+    text: 'Redis',
+    backgroundColor: '#cc0000',
+    color: '#fff'
+  },
+  {
+    value: 31,
+    text: 'Others',
+    backgroundColor: '#000000',
+    color: '#fff'
   }
 ]
 
