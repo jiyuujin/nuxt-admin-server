@@ -93,7 +93,7 @@ export const actions: RootActionTree<State, RootState> = {
         // console.log(error)
       })
   },
-  initTips ({ commit }, params) {
+  fetchTips ({ commit }, params) {
     commit('setLoading', true)
 
     if (params) {
@@ -150,43 +150,9 @@ export const actions: RootActionTree<State, RootState> = {
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
 
-    return commit('setLoading', false)
+    commit('setLoading', false)
   },
-  addTip (ctx, { title, url, description, tags, event, time }) {
-    if (isValidText(title)) {
-      return setDialog(ERROR_DIALOG, '入力してください')
-    }
-
-    tipsCollection.add({
-      'title': title,
-      'url': url,
-      'description': description,
-      'tags': tags,
-      'event': event,
-      'time': time
-    })
-
-    return setDialog(!ERROR_DIALOG, title + '追加しました')
-  },
-  updateTip (ctx, { key, data }) {
-    tipsCollection.doc(key).set({
-      title: data.title,
-      url: data.url,
-      description: data.description,
-      tags: data.tags,
-      event: data.event,
-      time: data.time
-    })
-
-    return setDialog(!ERROR_DIALOG, data.title + '更新しました')
-  },
-  removeTip (ctx, { key, data }) {
-    tipsCollection.doc(key).delete()
-
-    return setDialog(!ERROR_DIALOG, data.title + '削除しました')
-  },
-  initFlights ({ commit }, params) {
-    // ローディングを開始する
+  fetchFlights ({ commit }, params) {
     commit('setLoading', true)
 
     if (params.boardingType !== 0) {
@@ -257,44 +223,10 @@ export const actions: RootActionTree<State, RootState> = {
 
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
-      .finally(() => {
-        commit('setLoading', false)
-      })
-  },
-  addFlight (ctx, { time, departure, arrival, airline, boardingType, registration }) {
-    if (isValidText(registration)) {
-      return setDialog(ERROR_DIALOG, '入力してください')
-    }
 
-    flightsCollection.add({
-      time: time,
-      departure: departure,
-      arrival: arrival,
-      airline: airline,
-      boardingType: boardingType,
-      registration: registration
-    })
-
-    return setDialog(!ERROR_DIALOG, registration + '追加しました')
+    commit('setLoading', false)
   },
-  updateFlight (ctx, { key, data }) {
-    flightsCollection.doc(key).set({
-      time: data.time,
-      departure: data.departure,
-      arrival: data.arrival,
-      airline: data.airline,
-      boardingType: data.boardingType,
-      registration: data.registration
-    })
-
-    return setDialog(!ERROR_DIALOG, data.registration + '更新しました')
-  },
-  removeFlight (ctx, { key, data }) {
-    flightsCollection.doc(key).delete()
-
-    return setDialog(!ERROR_DIALOG, data.registration + '削除しました')
-  },
-  initEvents ({ commit }) {
+  fetchEvents ({ commit }) {
     commit('setLoading', true)
 
     eventsCollection.orderBy('id', 'asc').get()
@@ -324,27 +256,7 @@ export const actions: RootActionTree<State, RootState> = {
 
     commit('setLoading', false)
   },
-  addEvent ({ state }, { name, url, locale }) {
-    if (isValidText(name)) {
-      return setDialog(ERROR_DIALOG, '入力してください')
-    }
-
-    if (!state.events) {
-      return setDialog(ERROR_DIALOG, 'イベントを設定ください')
-    }
-
-    const next = state.events.item.length + 1
-
-    eventsCollection.add({
-      'id': next,
-      'name': name,
-      'url': url,
-      'locale': locale
-    })
-
-    return setDialog(!ERROR_DIALOG, name + '追加しました')
-  },
-  initContacts ({ commit }, params) {
+  fetchContacts ({ commit }, params) {
     commit('setLoading', true)
 
     if (params) {
@@ -403,6 +315,92 @@ export const actions: RootActionTree<State, RootState> = {
 
     commit('setLoading', false)
   },
+  addTip (ctx, { title, url, description, tags, event, time }) {
+    if (isValidText(title)) {
+      return setDialog(ERROR_DIALOG, '入力してください')
+    }
+
+    tipsCollection.add({
+      'title': title,
+      'url': url,
+      'description': description,
+      'tags': tags,
+      'event': event,
+      'time': time
+    })
+
+    return setDialog(!ERROR_DIALOG, title + '追加しました')
+  },
+  updateTip (ctx, { key, data }) {
+    tipsCollection.doc(key).set({
+      title: data.title,
+      url: data.url,
+      description: data.description,
+      tags: data.tags,
+      event: data.event,
+      time: data.time
+    })
+
+    return setDialog(!ERROR_DIALOG, data.title + '更新しました')
+  },
+  removeTip (ctx, { key, data }) {
+    tipsCollection.doc(key).delete()
+
+    return setDialog(!ERROR_DIALOG, data.title + '削除しました')
+  },
+  addFlight (ctx, { time, departure, arrival, airline, boardingType, registration }) {
+    if (isValidText(registration)) {
+      return setDialog(ERROR_DIALOG, '入力してください')
+    }
+
+    flightsCollection.add({
+      time: time,
+      departure: departure,
+      arrival: arrival,
+      airline: airline,
+      boardingType: boardingType,
+      registration: registration
+    })
+
+    return setDialog(!ERROR_DIALOG, registration + '追加しました')
+  },
+  updateFlight (ctx, { key, data }) {
+    flightsCollection.doc(key).set({
+      time: data.time,
+      departure: data.departure,
+      arrival: data.arrival,
+      airline: data.airline,
+      boardingType: data.boardingType,
+      registration: data.registration
+    })
+
+    return setDialog(!ERROR_DIALOG, data.registration + '更新しました')
+  },
+  removeFlight (ctx, { key, data }) {
+    flightsCollection.doc(key).delete()
+
+    return setDialog(!ERROR_DIALOG, data.registration + '削除しました')
+  },
+  addEvent ({ state }, { name, url, locale }) {
+    if (isValidText(name)) {
+      return setDialog(ERROR_DIALOG, '入力してください')
+    }
+
+    if (!state.events) {
+      return setDialog(ERROR_DIALOG, 'イベントを設定ください')
+    }
+
+    const next = state.events.item.length + 1
+
+    eventsCollection.add({
+      'id': next,
+      'name': name,
+      'url': url,
+      'locale': locale
+    })
+
+    return setDialog(!ERROR_DIALOG, name + '追加しました')
+  },
   addDialog ({ commit }) {
     commit('setDialog', true)
   },
@@ -414,13 +412,22 @@ export const actions: RootActionTree<State, RootState> = {
 export interface RootActionTree<State, RootState> extends ActionTree<State, RootState> {
   signIn(
     { commit }, params
-  ): void;
+  ): Promise<void>;
   signOut(
     { commit }
-  ): void;
-  initTips(
+  ): Promise<void>;
+  fetchTips(
     { commit }, params
   ): Promise<void>;
+  fetchFlights(
+    { commit }, params
+  ): void;
+  fetchEvents(
+    { commit }
+  ): void;
+  fetchContacts(
+    { commit }, params
+  ): void;
   addTip(
     ctx, { title, url, description, tags, event, time }
   ): Promise<SweetAlertResult>;
@@ -430,9 +437,6 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   removeTip(
     ctx, { key, data }
   ): Promise<SweetAlertResult>;
-  initFlights(
-    { commit }, params
-  ): void;
   addFlight(
     ctx, { time, departure, arrival, airline, boardingType, registration }
   ): Promise<SweetAlertResult>;
@@ -442,15 +446,9 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   removeFlight(
     ctx, { key, data }
   ): Promise<SweetAlertResult>;
-  initEvents(
-    { commit }
-  ): void;
   addEvent(
     { state }, { name, url, locale }
   ): Promise<SweetAlertResult>;
-  initContacts(
-    { commit }, params
-  ): void;
   addDialog(
     { commit }
   ): void;

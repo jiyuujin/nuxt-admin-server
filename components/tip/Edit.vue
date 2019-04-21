@@ -76,7 +76,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     eventOptions() {
       let array = []
       this.$store.state.product.events.item.forEach((item) => {
-        array.push(item.text)
+        array.push(item.data.name)
       })
       return array
     },
@@ -86,7 +86,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     })
   },
   async created () {
-    await this.$store.dispatch('product/initEvents')
+    await this.$store.dispatch('product/fetchEvents')
   },
 })
 export default class TipEdit extends Vue {

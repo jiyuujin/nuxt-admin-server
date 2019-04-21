@@ -46,8 +46,8 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     StorySelect
   },
   async fetch({ store }) {
-    await store.dispatch('product/initEvents', null)
-    await store.dispatch('product/initContacts')
+    await store.dispatch('product/fetchEvents', null)
+    await store.dispatch('product/fetchContacts')
   },
   computed: {
     contactCategoryOptions () {

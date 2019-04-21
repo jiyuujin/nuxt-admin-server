@@ -60,7 +60,7 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     StorySelect
   },
   async fetch({ store }) {
-    await store.dispatch('product/initFlights', {
+    await store.dispatch('product/fetchFlights', {
       boardingType: 0,
       year: 0
     })
