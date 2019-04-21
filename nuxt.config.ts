@@ -30,6 +30,7 @@ export default {
 
   modules: [
     '@nuxtjs/pwa',
+    '@nuxtjs/apollo',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     'nuxt-purgecss'
@@ -39,6 +40,12 @@ export default {
     '~plugins/axios.ts',
     '~plugins/firebase.ts',
   ],
+
+  apollo: {
+    clientConfigs: {
+      default: '~/apollo/client-configs/default.ts'
+    }
+  },
 
   purgeCSS: {
     //
@@ -52,6 +59,7 @@ export default {
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,
     PROJECT_ID: process.env.PROJECT_ID,
+    GRAPH_API: process.env.GRAPH_API,
     APOLLO_KEY: process.env.APOLLO_KEY,
   },
 }
