@@ -61,14 +61,14 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     StorySelect
   },
   async fetch({ store }) {
-    await store.dispatch('product/initTips', null)
-    await store.dispatch('product/initEvents')
+    await store.dispatch('product/fetchTips', null)
+    await store.dispatch('product/fetchEvents')
   },
   computed: {
     eventOptions() {
       let array = []
       this.$store.state.product.events.item.forEach((item) => {
-        array.push(item.text)
+        array.push(item.data.name)
       })
       return array
     },
