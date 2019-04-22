@@ -4,11 +4,6 @@
       <story-input
         v-model="time"
       />
-      <!--
-      <flat-pickr
-        v-model="time"
-      />
-      -->
     </form-template>
     <form-template>
       <story-select
@@ -55,9 +50,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import moment from 'moment'
-import FlatPickr from 'vue-flatpickr-component'
-import 'flatpickr/dist/flatpickr.css'
+import dayjs from 'dayjs'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
@@ -66,7 +59,6 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FlatPickr,
     FormTemplate,
     StoryInput,
     StorySelect,
@@ -105,7 +97,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
   },
 })
 export default class FlightNew extends Vue {
-  time: string = moment().format();
+  time: string = dayjs().format();
   departure: number = 0;
   arrival: number = 0;
   airline: number = 0;
@@ -113,7 +105,7 @@ export default class FlightNew extends Vue {
   registration: string = '';
 
   reset () {
-    this.time = moment().format()
+    this.time = dayjs().format()
     this.departure = 0
     this.arrival = 0
     this.airline = 0
@@ -123,7 +115,7 @@ export default class FlightNew extends Vue {
 
   async postFlight () {
     await this.$store.dispatch('product/addFlight', {
-      time: moment(this.time).format(),
+      time: dayjs(this.time).format(),
       departure: this.departure,
       arrival: this.arrival,
       airline: this.airline,

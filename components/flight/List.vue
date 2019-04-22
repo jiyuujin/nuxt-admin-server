@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils/index'
 const FlightChart = () => import('./FlightChart.vue')
 
@@ -95,7 +95,7 @@ export default class FlightList extends Vue {
   }
 
   async deleteItem (item) {
-    if (confirm(moment(item.data.time).format('YYYY年MM月DD日') + '\n' + item.data.registration + ' 削除しますか?')) {
+    if (confirm(dayjs(item.data.time).format('YYYY年MM月DD日') + '\n' + item.data.registration + ' 削除しますか?')) {
       await this.delete(item.id)
     }
   }

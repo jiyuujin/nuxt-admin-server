@@ -45,7 +45,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { CATEGORIES } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
@@ -108,7 +108,7 @@ export default class TipNew extends Vue {
       description: this.description,
       tags: this.tags,
       event: this.event,
-      time: moment().format('')
+      time: dayjs().format('')
     })
     this.reset()
   }
