@@ -1,44 +1,20 @@
 <template>
   <div>
     <h3>
-      Flight
-      <span>
-        {{ list.length }} レグ搭乗中
-      </span>
+      Flight <span>({{ list.length }} レグ搭乗中)</span>
     </h3>
-    <flight-chart
-      :chart-data="getChartDataset(list)"
-    />
-    <div
-      v-for="item in list"
-      :key="item.id"
-      class="flight"
-    >
-      <ul
+    <chart :chart-data="getChartDataset(list)" />
+    <div class="flight">
+      <card
+        v-for="item in list"
+        :key="item.id"
         v-if="item.page === number"
-      >
-        <li class="date">
-          {{ timeFormat(item.data.time) }}
-        </li>
-        <li class="airline">
-          <img
-            :src="airline(item.data.airline)"
-            :alt="item.data.airline"
-          >
-        </li>
-        <li class="departure">
-          {{ departure(item.data.departure) }}
-        </li>
-        <li class="arrival">
-          {{ arrival(item.data.arrival) }}
-        </li>
-        <li class="registration">
-          {{ item.data.registration }}
-        </li>
-        <li class="boarding-type">
-          ({{ boardingType(item.data.boardingType) }})
-        </li>
-      </ul>
+        :airline-id="item.data.airline"
+        :boarding-type="`${boardingType(item.data.boardingType)}`"
+        :route="`${departure(item.data.departure)} > ${arrival(item.data.arrival)}`"
+        :name="item.data.registration"
+        :time="timeFormat(item.data.time)"
+      />
     </div>
   </div>
 </template>
@@ -47,7 +23,8 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import moment from 'moment'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils/index'
-const FlightChart = () => import('./FlightChart.vue')
+const Chart = () => import('./Chart.vue')
+const Card = () => import('./Card.vue')
 
 const YEARS: number[] = [
   2015,
@@ -63,7 +40,8 @@ const COLOR_TEXT: string = '#42b883';
 
 @Component({
   components: {
-    FlightChart
+    Chart,
+    Card
   },
 })
 export default class FlightList extends Vue {
@@ -134,43 +112,7 @@ export default class FlightList extends Vue {
 
 <style scoped>
 .flight {
-  margin: 0 auto;
-}
-
-ul {
-  font-size: 12px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-ul li {
-  list-style: none;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}
-
-img {
-  width: 25px;
-}
-
-.date {
-  width: 20%;
-}
-
-.departure {
-  width: 20%;
-}
-
-.arrival {
-  width: 20%;
-}
-
-.registration {
-  width: 20%;
-}
-
-.boarding-type {
-  width: 20%;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
