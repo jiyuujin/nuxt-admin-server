@@ -32,8 +32,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
-    'nuxt-purgecss'
+    '@nuxtjs/dotenv'
   ],
 
   plugins: [
