@@ -411,7 +411,7 @@ export function getAirlineName(id) {
       text = airline.text
     }
   })
-  return './' + text.toLowerCase() + '.png'
+  return text
 }
 
 /**
