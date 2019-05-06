@@ -7,7 +7,12 @@ yarn dev
 
 ## Admin 本番環境
 
+https://nuxt-admin-web.appspot.com/
+
 https://nuxtadmin.netlify.com/
+
+### トップページ
+![](./docs/index.png)
 
 ## Storybook 開発環境
 
