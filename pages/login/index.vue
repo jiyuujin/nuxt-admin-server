@@ -12,6 +12,7 @@
     <form-template>
       <story-input
         v-model="password"
+        input-type="password"
         placeholder="Password"
       />
     </form-template>
