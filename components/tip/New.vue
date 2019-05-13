@@ -21,7 +21,6 @@
     <form-template>
       <story-select
         :options="categoryOptions"
-        :multiple="Boolean(true)"
         v-model="tags"
         name="タグ"
       />
@@ -106,7 +105,7 @@ export default class TipNew extends Vue {
       title: this.title,
       url: this.url,
       description: this.description,
-      tags: this.tags,
+      tags: [this.tags],
       event: this.event,
       time: moment().format('')
     })
