@@ -11,7 +11,12 @@ now -e API_KEY="AIzaSyAV7kCXzIPqtKeFnaNz-ywA3NEBUBw7S24" -e AUTH_DOMAIN="nuxtadm
 
 ## Admin 本番環境
 
+https://nuxt-admin-web.appspot.com/
+
 https://nuxtadmin.netlify.com/
+
+### トップページ
+![](./docs/index.png)
 
 ## Storybook 開発環境
 
