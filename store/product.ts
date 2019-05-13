@@ -2,7 +2,7 @@ import { Module, ActionTree, MutationTree } from 'vuex';
 import { RootState } from './types';
 import Firestore from '~/plugins/firebase';
 import firebase from 'firebase';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { SweetAlertResult } from 'sweetalert2';
 import { Dictionary, ItemDataList, TipForm, FlightForm, EventForm, ContactForm } from '~/types/database.types'
 import { setDialog, isValidText } from '~/store/utils';
@@ -204,7 +204,7 @@ export const actions: RootActionTree<State, RootState> = {
         } else {
           snapshot.forEach(doc => {
             // console.log(doc.id + ' ' + doc.data())
-            if (moment(doc.data().time).format('YYYY') == params.year) {
+            if (dayjs(doc.data().time).format('YYYY') == params.year) {
               result.item.push({
                 id: doc.id,
                 data: doc.data(),

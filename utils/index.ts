@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { MenuList, SimpleList, CustomListWithUrl, CustomListWithColor } from '~/types/database.types';
 
 /**
@@ -430,12 +430,12 @@ export function getBoardingTypeName(id) {
 }
 
 /**
- * moment型式を取得する
+ * dayjs形式を取得する
  * @param time
  * @returns {*}
  */
 export function getTimeFormat (time) {
-  return moment(time).format('YYYY年MM月DD日')
+  return dayjs(time).format('YYYY年MM月DD日')
 }
 
 /**
@@ -444,10 +444,10 @@ export function getTimeFormat (time) {
  * @returns {string}
  */
 export function getDiffTime (time) {
-  if (moment().diff(time, 'day') !== 0) return moment().diff(time, 'day') + 'day'
-  if (moment().diff(time, 'hour') !== 0) return moment().diff(time, 'hour') + 'hour'
-  if (moment().diff(time, 'minute') !== 0) return moment().diff(time, 'minute') + 'min'
-  return moment().diff(time, 'second') + 'sec'
+  if (dayjs().diff(time, 'day') !== 0) return dayjs().diff(time, 'day') + 'day'
+  if (dayjs().diff(time, 'hour') !== 0) return dayjs().diff(time, 'hour') + 'hour'
+  if (dayjs().diff(time, 'minute') !== 0) return dayjs().diff(time, 'minute') + 'min'
+  return dayjs().diff(time, 'second') + 'sec'
 }
 
 export default {}

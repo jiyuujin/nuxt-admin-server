@@ -8,5 +8,3 @@ declare module '@types/node'
 declare module '@types/storybook__vue'
 
 declare module 'vue-cookie-law'
-
-declare module 'vue-flatpickr-component'
