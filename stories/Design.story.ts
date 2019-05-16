@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue'
 import '../assets/main.scss'
 
-import TailwindConfig from '../tailwind'
+import TailwindConfig from '../tailwind.config'
 
 storiesOf('Design', module).add('list', () => ({
   data() {
