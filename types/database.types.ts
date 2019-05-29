@@ -117,6 +117,12 @@ export interface ContactForm {
   category: ContactCategory;
 }
 
+// 写真
+export interface PhotoForm {
+  name: string;
+  content: string;
+}
+
 interface ContactCategory {
   value: number;
   text: string;
