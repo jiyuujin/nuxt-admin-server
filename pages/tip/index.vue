@@ -33,7 +33,8 @@
       :edited-form="editedForm"
       :data-key="dataKey"
     />
-    <NewEvent />
+    <new-event />
+    <new-photo />
   </main-template>
 </template>
 
@@ -46,6 +47,7 @@ const TipList = () => import('~/components/tip/List.vue')
 const NewTip = () => import('~/components/tip/New.vue')
 const EditTip = () => import('~/components/tip/Edit.vue')
 const NewEvent = () => import('~/components/event/New.vue')
+const NewPhoto = () => import('~/components/photo/New.vue')
 const Pagination = () => import('~/components/layout/Pagination.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
@@ -59,6 +61,7 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     NewTip,
     EditTip,
     NewEvent,
+    NewPhoto,
     Pagination,
     StoryInput,
     StorySelect
@@ -66,6 +69,7 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
   async fetch({ store }) {
     await store.dispatch('product/fetchTips', null)
     await store.dispatch('product/fetchEvents')
+    await store.dispatch('product/fetchPhotos')
   },
   computed: {
     eventOptions() {

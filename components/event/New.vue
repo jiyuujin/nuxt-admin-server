@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import { mapState } from 'vuex'
 import { EventForm } from '~/types/database.types'
 import { LOCALES } from '~/utils/index'
@@ -57,7 +57,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     })
   },
 })
-export default class EventNew extends Vue {
+export default class New extends Vue {
   form: EventForm = {
     name: '',
     url: '',
