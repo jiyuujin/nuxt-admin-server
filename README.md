@@ -37,5 +37,5 @@ yarn add tailwindcss
 インストール後 tailwindcss.jsを準備します。
 
 ```bash
-./node_modules/.bin/tailwind init tailwind.js
+./node_modules/.bin/tailwind init tailwind.config.js
 ```

@@ -23,12 +23,12 @@ export default class Button extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.btn-blue {
-  @apply bg-blue text-white font-bold py-2 px-4 rounded;
+<style lang="postcss" scoped>
+button {
+  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
 }
 
-.btn-blue:hover {
-  @apply bg-blue-dark;
+button:hover {
+  @apply bg-blue-700;
 }
 </style>
