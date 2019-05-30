@@ -11,10 +11,18 @@
         type="file"
         @change="onFileChange"
       />
-      <div
-        id="preview"
-        class="preview"
-      />
+      <div>
+        アップロード結果:
+        <div
+          v-if="form.content"
+          class="preview"
+        >
+          <img
+            :src="form.content"
+            :alt="form.name"
+          />
+        </div>
+      </div>
     </form-template>
     <form-template>
       <story-button
