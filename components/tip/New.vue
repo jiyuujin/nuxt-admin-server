@@ -43,7 +43,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import dayjs from 'dayjs'
 import { CATEGORIES } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
@@ -59,34 +58,35 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     StoryButton
   },
   computed: {
-    categoryOptions() {
-      let array = []
+    categoryOptions (this: NewTip) {
+      let array: string[] = []
       CATEGORIES.forEach((item) => {
         array.push(item.text)
       })
       return array
     },
-    eventOptions() {
-      let array = []
+    eventOptions (this: NewTip) {
+      let array: string[] = []
       this.$store.state.product.events.item.forEach((item) => {
         array.push(item.data.name)
       })
       return array
-    },
-    ...mapState({
-      events: state => state.product.events
-    })
+    }
   },
   async created () {
     await this.$store.dispatch('product/fetchEvents')
   },
 })
-export default class TipNew extends Vue {
+export default class NewTip extends Vue {
   title: string = '';
   url: string = '';
   description: string = '';
   tags: number[] = [];
   event: number = 0;
+
+  get events () {
+    return this.$store.state.product.events
+  }
 
   applyTags (value) {
     this.tags = value

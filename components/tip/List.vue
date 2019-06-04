@@ -23,12 +23,14 @@
         </span>
         </h2>
 
+        <!--
         <span
           v-for="(tag, index) in item.data.tags"
           :key="index"
         >
           <story-label :text="getText(tag)" />
         </span>
+        -->
 
         <div
           v-if="item.data.description"
@@ -43,7 +45,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import { CATEGORIES, getDiffTime } from '~/utils/index'
+import { getDiffTime } from '~/utils/index'
+import { TipForm } from '~/types/database.types'
 const StoryLabel = () => import('~/components/atoms/Label.vue')
 
 @Component({
@@ -52,7 +55,7 @@ const StoryLabel = () => import('~/components/atoms/Label.vue')
   },
 })
 export default class TipList extends Vue {
-  @Prop() list: Array;
+  @Prop() list: TipForm[];
   @Prop() type: string[];
   @Prop() number: number;
   @Prop() search: string;
@@ -78,11 +81,11 @@ export default class TipList extends Vue {
     })
   }
 
-  getText (id) {
-    return CATEGORIES.find((category) => {
-      if (category.value === id) return category
-    }).text
-  }
+  // getText (id) {
+  //   return CATEGORIES.find((category) => {
+  //     if (category.value === id) return category
+  //   }).text
+  // }
 }
 </script>
 

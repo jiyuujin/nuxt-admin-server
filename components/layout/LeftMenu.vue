@@ -10,6 +10,7 @@
         <img
           :src="'/' + value.src"
           :alt="value.src"
+          decoding="async"
         >
       </nuxt-link>
     </div>

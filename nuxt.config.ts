@@ -14,7 +14,9 @@ export default {
     ]
   },
 
-  loading: { color: '#3B8070' },
+  loading: {
+    color: '#fff'
+  },
 
   build: {
     extractCSS: true,
@@ -24,7 +26,7 @@ export default {
       }
     },
     typescript: {
-      typeCheck: false // or ForkTsChecker options
+      typeCheck: true // or ForkTsChecker options
     }
   },
 

@@ -1,7 +1,6 @@
 <template>
   <main-template
     v-if="flights"
-    :loading="loading"
     :user-status="userStatus"
   >
     <form-template>
@@ -38,7 +37,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import { BOARDING_TYPE_LIST, YEARS } from '~/utils/index'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
@@ -66,26 +64,20 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     })
   },
   computed: {
-    yearOptions () {
-      let array = []
+    yearOptions (this: FlightPage) {
+      let array: string[] = []
       YEARS.forEach(category => {
         array.push(category.text)
       })
       return array
     },
-    boardingTypeOptions () {
-      let array = []
+    boardingTypeOptions (this: FlightPage) {
+      let array: string[] = []
       BOARDING_TYPE_LIST.forEach(category => {
         array.push(category.text)
       })
       return array
-    },
-    ...mapState({
-      userStatus: state => state.product.userStatus,
-      loading: state => state.product.loading,
-      dialog: state => state.product.dialog,
-      flights: state => state.product.flights
-    })
+    }
   },
 })
 export default class FlightPage extends Vue {
@@ -101,6 +93,18 @@ export default class FlightPage extends Vue {
   page: number = 1;
   selectedYaer: number = 2019;
   selectedBoardingType: number = 0;
+
+  get userStatus () {
+    return this.$store.state.product.userStatus
+  }
+
+  get dialog () {
+    return this.$store.state.product.dialog
+  }
+
+  get flights () {
+    return this.$store.state.product.flights
+  }
 
   async startEdited() {
     await this.$store.dispatch('product/addDialog')

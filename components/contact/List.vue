@@ -23,10 +23,11 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { ContactForm } from '~/types/database.types'
 
 @Component({})
 export default class ContactList extends Vue {
-  @Prop() list: Array;
+  @Prop() list: ContactForm[];
   @Prop() number: number;
 }
 </script>

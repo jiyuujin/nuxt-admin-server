@@ -51,8 +51,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import { CATEGORIES } from '~/utils/index'
+import { TipForm } from '~/types/database.types'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
@@ -66,32 +66,36 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     StoryButton
   },
   computed: {
-    categoryOptions() {
-      let array = []
+    categoryOptions (this: EditTip) {
+      let array: string[] = []
       CATEGORIES.forEach((item) => {
         array.push(item.text)
       })
       return array
     },
-    eventOptions() {
-      let array = []
+    eventOptions (this: EditTip) {
+      let array: string[] = []
       this.$store.state.product.events.item.forEach((item) => {
         array.push(item.data.name)
       })
       return array
-    },
-    ...mapState({
-      dialog: state => state.product.dialog,
-      events: state => state.product.events
-    })
+    }
   },
   async created () {
     await this.$store.dispatch('product/fetchEvents')
   },
 })
-export default class TipEdit extends Vue {
-  @Prop() editedForm: object;
+export default class EditTip extends Vue {
+  @Prop() editedForm: TipForm;
   @Prop() dataKey: string;
+
+  get dialog () {
+    return this.$store.state.product.dialog
+  }
+
+  get events () {
+    return this.$store.state.product.events
+  }
 
   applyTags (value) {
     this.editedForm.tags = value

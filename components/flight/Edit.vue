@@ -47,8 +47,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/index'
+import { FlightForm } from '~/types/database.types'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
@@ -60,19 +60,18 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     StoryInput,
     StorySelect,
     StoryButton
-  },
-  computed: {
-    ...mapState({
-      dialog: state => state.product.dialog
-    })
-  },
+  }
 })
-export default class FlightEdit extends Vue {
-  @Prop() editedForm: object;
+export default class EditFlight extends Vue {
+  @Prop() editedForm: FlightForm;
   @Prop() dataKey: string;
   airports = AIRPORT_LIST;
   airlines = AIRLINE_LIST;
   boardingTypes = BOARDING_TYPE_LIST;
+
+  get dialog () {
+    return this.$store.state.product.dialog
+  }
 
   async close () {
     await this.$store.dispatch('product/removeDialog')

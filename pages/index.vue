@@ -1,7 +1,6 @@
 <template>
   <main-template
     v-if="contacts"
-    :loading="loading"
     :user-status="userStatus"
   >
     <form-template>
@@ -25,7 +24,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import gql from 'graphql-tag'
 import { CONTACT_CATEGORIES } from '~/utils/index'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
@@ -57,7 +55,7 @@ const getQuery = gql`
       url
     }
   }
-`;
+`
 
 @Component({
   middleware: 'auth',
@@ -68,46 +66,61 @@ const getQuery = gql`
     Pagination,
     StorySelect
   },
-  async fetch({ store }) {
+  async asyncData({ store }) {
     await store.dispatch('product/fetchContacts')
   },
   computed: {
-    contactCategoryOptions () {
-      let array = []
+    contactCategoryOptions (this: PageIndex) {
+      let array: string[] = []
       CONTACT_CATEGORIES.forEach(category => {
         array.push(category.text)
       })
       return array
-    },
-    ...mapState({
-      userStatus: state => state.product.userStatus,
-      loading: state => state.product.loading,
-      contacts: state => state.product.contacts,
-      works: state => state.profile.works,
-      products: state => state.profile.products,
-      activities: state => state.profile.activities
-    })
+    }
   },
-  apollo: {
-    allWorks: getQuery,
-    allProducts: getQuery,
-    allActivities: getQuery
-  },
-  async created() {
-    await this.$store.dispatch('profile/fetchWorks', this.allWorks)
-    await this.$store.dispatch('profile/fetchProducts', this.allProducts)
-    await this.$store.dispatch('profile/fetchActivities', this.allActivities)
-  }
 })
-export default class IndexPage extends Vue {
+export default class PageIndex extends Vue {
   event: number = 0;
   contact: number = 1;
   contactCategory: number = 0;
 
+  get userStatus () {
+    return this.$store.state.product.userStatus
+  }
+
+  get contacts () {
+    return this.$store.state.product.contacts
+  }
+
+  get works () {
+    return this.$store.state.profile.works
+  }
+
+  get products () {
+    return this.$store.state.profile.products
+  }
+
+  get activities () {
+    return this.$store.state.profile.activities
+  }
+
+  get apollo () {
+    return {
+      allWorks: getQuery,
+      allProducts: getQuery,
+      allActivities: getQuery
+    }
+  }
+
+  async created() {
+    await this.$store.dispatch('profile/fetchWorks', this.apollo.allWorks)
+    await this.$store.dispatch('profile/fetchProducts', this.apollo.allProducts)
+    await this.$store.dispatch('profile/fetchActivities', this.apollo.allActivities)
+  }
+
   applyPageInContact(value) {
     this.contact = value
   }
-
 }
 </script>
 

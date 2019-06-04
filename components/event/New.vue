@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import { EventForm } from '~/types/database.types'
 import { LOCALES } from '~/utils/index'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
@@ -46,23 +45,25 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
   },
   computed: {
     localeOptions () {
-      let array = []
+      let array: string[] = []
       LOCALES.forEach(category => {
         array.push(category.text)
       })
       return array
-    },
-    ...mapState({
-      events: state => state.product.events
-    })
+    }
   },
 })
 export default class New extends Vue {
   form: EventForm = {
+    id: 0,
     name: '',
     url: '',
     locale: 0
   };
+
+  get events () {
+    return this.$store.state.product.events
+  }
 
   reset () {
     this.form.name = ''

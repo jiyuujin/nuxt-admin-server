@@ -20,6 +20,7 @@
           <img
             :src="form.content"
             :alt="form.name"
+            decoding="async"
           />
         </div>
       </div>
@@ -35,7 +36,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import firebase from 'firebase'
 import { PhotoForm } from '~/types/database.types'
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
@@ -49,18 +49,17 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     StoryInput,
     StorySelect,
     StoryButton
-  },
-  computed: {
-    ...mapState({
-      photos: state => state.product.photos
-    })
-  },
+  }
 })
 export default class New extends Vue {
   form: PhotoForm = {
     name: '',
     content: ''
   };
+
+  get photos () {
+    return this.$store.state.product.photos
+  }
 
   reset () {
     this.form.name = ''

@@ -3,7 +3,7 @@
     <h3>
       Qiita
       <span>
-        [{{ categoryText(tag) }}] {{ list.length }} 件登録中
+        {{ list.length }} 件登録中
       </span>
     </h3>
     <div
@@ -29,6 +29,7 @@
         <img
           v-if="item.user['profile_image_url']"
           :src="item.user['profile_image_url']"
+          decoding="async"
         >
         {{ item.user['id'] }}
         <span v-if="item.user['location']">
@@ -41,24 +42,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import { getDiffTime, CATEGORIES } from '~/utils/index'
+import { getDiffTime } from '~/utils/index'
+import { QiitaForm } from '~/types/database.types'
 
 @Component({})
 export default class QiitaList extends Vue {
-  @Prop() list: Array;
+  @Prop() list: QiitaForm[];
   @Prop() search: string;
   @Prop() tag: number;
 
   diffTime(t) {
     return getDiffTime(t)
-  }
-
-  categoryText(id) {
-    return CATEGORIES.find(category => {
-      if (category.value === id) {
-        return category
-      }
-    }).text
   }
 }
 </script>

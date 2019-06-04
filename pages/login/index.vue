@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
@@ -39,16 +38,15 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     FormTemplate,
     StoryInput,
     StoryButton
-  },
-  computed: {
-    ...mapState({
-      userStatus: state => state.product.userStatus
-    })
-  },
+  }
 })
 export default class LoginPage extends Vue {
   email: string = '';
   password: string = '';
+
+  get userStatus () {
+    return this.$store.state.product.userStatus
+  }
 
   async login () {
     await this.$store.dispatch('product/signIn', {
