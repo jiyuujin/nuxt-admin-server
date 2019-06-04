@@ -3,6 +3,7 @@
     <img
       :src="`./${getAirlineText(airlineId).toLowerCase()}.png`"
       :alt="name"
+      decoding="async"
     >
     <div class="time">
       {{ time }}
@@ -23,7 +24,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { getAirlineName } from '~/utils';
 
 @Component({})
-export default class Card extends Vue {
+export default class FlightCard extends Vue {
   @Prop() airlineId: string;
   @Prop() boardingType: string;
   @Prop() route: string;

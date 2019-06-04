@@ -1,33 +1,39 @@
 import { NuxtContext } from 'nuxt';
-import Vue from 'vue';
-import { firestore } from 'firebase';
-import { RouteOption } from './route.types';
-import { VueApollo } from 'vue-apollo/types/vue-apollo';
-import ApolloClient from 'apollo-client';
-import { AxiosInstance } from 'axios';
-import { MetaInfo } from 'vue-meta';
+import Vue, { ComponentOptions } from 'vue';
 import { Route } from 'vue-router';
 import { ActionContext as BaseActionContext } from 'vuex';
+import ApolloClient from 'apollo-client';
+import { VueApollo } from 'vue-apollo/types/vue-apollo';
+import { AxiosInstance } from 'axios';
+import { firestore } from 'firebase';
+import { MetaInfo } from 'vue-meta';
+import { RouteOption } from './route.types';
+
+type QueryOption = {
+  query: Object,
+  variables: Object
+}
+
+type MutateOption = {
+  mutation: Object,
+  variables: Object
+}
+
+interface Apollo {
+  query(queryOption: QueryOption);
+  mutate(mutateOption: MutateOption);
+}
+
+interface ApolloHelpers {
+  onLogin(token: string, apolloClient?: ApolloClient<{}>, tokenExpires?: number): Promise<void>;
+  onLogout(apolloClient?: ApolloClient<{}>): Promise<void>;
+  getToken(tokenName?: string): string;
+}
 
 declare module 'vue/types/vue' {
-  interface apolloHelpers {
-    onLogin<R = any>(
-      token: string,
-      apolloClient?: ApolloClient<R>,
-      tokenExpires?: number
-    ): Promise<void>
-    onLogout<R = any>(
-      apolloClient?: ApolloClient<R>
-    ): Promise<void>
-    getToken(
-      tokenName: string
-    ): boolean | string
-  }
-
   interface Vue {
-    apolloProvider: VueApollo
-    $apolloHelpers: apolloHelpers
-    $axios: AxiosInstance
+    $apollo: Apollo;
+    $apolloHelpers: ApolloHelpers;
   }
 }
 
@@ -35,6 +41,8 @@ declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
     // asyncData?: (ctx: NuxtContext) => Promise<any>;
     // fetch?: (ctx: NuxtContext) => Promise<any>;
+    layout?: string;
+    middleware?: string | string[];
     head?: MetaInfo | (() => MetaInfo)
     key?: string | ((to: Route) => string)
     scrollToTop?: boolean

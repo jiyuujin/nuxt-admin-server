@@ -1,7 +1,6 @@
 <template>
   <main-template
     v-if="tips && events"
-    :loading="loading"
     :user-status="userStatus"
   >
     <form-template>
@@ -40,7 +39,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
 const TipList = () => import('~/components/tip/List.vue')
@@ -72,20 +70,13 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     await store.dispatch('product/fetchPhotos')
   },
   computed: {
-    eventOptions() {
-      let array = []
+    eventOptions (this: TipPage) {
+      let array: string[] = []
       this.$store.state.product.events.item.forEach((item) => {
         array.push(item.data.name)
       })
       return array
-    },
-    ...mapState({
-      userStatus: state => state.product.userStatus,
-      loading: state => state.product.loading,
-      dialog: state => state.product.dialog,
-      tips: state => state.product.tips,
-      events: state => state.product.events
-    })
+    }
   },
 })
 export default class TipPage extends Vue {
@@ -101,6 +92,22 @@ export default class TipPage extends Vue {
   page: number = 1;
   inputSearch: string = '';
   selectedEvent: number = 0;
+
+  get userStatus () {
+    return this.$store.state.product.userStatus
+  }
+
+  get dialog () {
+    return this.$store.state.product.dialog
+  }
+
+  get tips () {
+    return this.$store.state.product.tips
+  }
+
+  get events () {
+    return this.$store.state.product.events
+  }
 
   async startEdited() {
     await this.$store.dispatch('product/addDialog')

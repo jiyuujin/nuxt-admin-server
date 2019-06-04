@@ -1,7 +1,6 @@
 <template>
   <main-template
     v-if="qiitas"
-    :loading="loading"
     :user-status="userStatus"
   >
     <form-template>
@@ -32,7 +31,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mapState } from 'vuex'
 import { CATEGORIES } from '~/utils/index'
 const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
 const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
@@ -52,27 +50,34 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
     StorySelect
   },
   computed: {
-    categoryOptions () {
-      let array = []
+    categoryOptions (this: QiitaPage) {
+      let array: string[] = []
       CATEGORIES.forEach(category => {
         array.push(category.text)
       })
       return array
-    },
-    ...mapState({
-      userStatus: state => state.product.userStatus,
-      loading: state => state.product.loading,
-      qiitas: state =>state.qiita.qiitas
-    })
+    }
   },
   async mounted() {
-    await this.getQiitaByTag()
+    await this.$store.dispatch('qiita/fetchQiitas', {
+      'tag': 1,
+      'search': '',
+      'page': 1
+    })
   }
 })
-export default class Index extends Vue {
+export default class QiitaPage extends Vue {
   tag: number = 1;
   search: string = '';
   page: number = 1;
+
+  get userStatus () {
+    return this.$store.state.product.userStatus
+  }
+
+  get qiitas () {
+    return this.$store.state.qiita.qiitas
+  }
 
   async getQiitaByTag () {
     await this.$store.dispatch('qiita/fetchQiitas', {

@@ -65,30 +65,22 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     StoryButton
   },
   computed: {
-    'form.time': {
-      get () {
-        return this.time || null
-      },
-      set (value) {
-        // console.log(value)
-      }
-    },
-    airportOptions () {
-      let array = []
+    airportOptions (this: NewFlight) {
+      let array: string[] = []
       AIRPORT_LIST.forEach(category => {
         array.push(category.text)
       })
       return array
     },
-    airlineOptions () {
-      let array = []
+    airlineOptions (this: NewFlight) {
+      let array: string[] = []
       AIRLINE_LIST.forEach(category => {
         array.push(category.text)
       })
       return array
     },
-    boardingTypeOptions () {
-      let array = []
+    boardingTypeOptions (this: NewFlight) {
+      let array: string[] = []
       BOARDING_TYPE_LIST.forEach(category => {
         array.push(category.text)
       })
@@ -96,7 +88,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
     },
   },
 })
-export default class FlightNew extends Vue {
+export default class NewFlight extends Vue {
   time: string = dayjs().format();
   departure: number = 0;
   arrival: number = 0;

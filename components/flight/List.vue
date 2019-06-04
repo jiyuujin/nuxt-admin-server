@@ -23,6 +23,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils/index'
+import { FlightForm } from '~/types/database.types'
 const Chart = () => import('./Chart.vue')
 const Card = () => import('./Card.vue')
 
@@ -45,7 +46,7 @@ const COLOR_TEXT: string = '#42b883';
   },
 })
 export default class FlightList extends Vue {
-  @Prop() list: Array;
+  @Prop() list: FlightForm[];
   @Prop() number: number;
 
   timeFormat(t) {
@@ -86,7 +87,7 @@ export default class FlightList extends Vue {
   }
 
   getChartDataset(items) {
-    let dataset = []
+    let dataset: number[] = []
     for (let yearIndex = 0; yearIndex < YEARS.length; yearIndex++) {
       const size = items.filter(item => {
         return item.data.time.includes(YEARS[yearIndex]) === true

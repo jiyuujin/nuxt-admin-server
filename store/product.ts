@@ -23,7 +23,6 @@ const namespaced = true;
 export const state = (): State => ({
   isCookieAccepted: false,
   userStatus: false,
-  loading: null,
   dialog: false,
   tips: null,
   flights: null,
@@ -35,7 +34,6 @@ export const state = (): State => ({
 export interface State {
   isCookieAccepted: boolean | false;
   userStatus: boolean | false;
-  loading: string | null;
   dialog: boolean | false;
   tips: Dictionary<TipForm> | null;
   flights: Dictionary<FlightForm> | null;
@@ -54,9 +52,6 @@ export const mutations: MutationTree<State> = {
   },
   setUserStatus (state, payload) {
     state.userStatus = payload
-  },
-  setLoading (state, payload) {
-    state.loading = payload
   },
   setDialog (state, payload) {
     state.dialog = payload
@@ -100,8 +95,6 @@ export const actions: RootActionTree<State, RootState> = {
       })
   },
   fetchTips ({ commit }, params) {
-    commit('setLoading', true)
-
     if (params) {
       tipsCollection.where('event', '==', params.event).get()
         .then(snapshot => {
@@ -127,8 +120,7 @@ export const actions: RootActionTree<State, RootState> = {
 
           setDialog(ERROR_DIALOG, '取得に失敗しました')
         })
-
-      return commit('setLoading', false)
+      return
     }
 
     tipsCollection.orderBy('time', 'desc').get()
@@ -155,12 +147,8 @@ export const actions: RootActionTree<State, RootState> = {
 
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
-
-    commit('setLoading', false)
   },
   fetchFlights ({ commit }, params) {
-    commit('setLoading', true)
-
     if (params.boardingType !== 0) {
       flightsCollection.where('boardingType', '==', params.boardingType).get()
         .then(snapshot => {
@@ -186,8 +174,7 @@ export const actions: RootActionTree<State, RootState> = {
 
           setDialog(ERROR_DIALOG, '取得に失敗しました')
         })
-
-      return commit('setLoading', false)
+      return
     }
 
     flightsCollection.orderBy('time', 'desc').get()
@@ -229,12 +216,8 @@ export const actions: RootActionTree<State, RootState> = {
 
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
-
-    commit('setLoading', false)
   },
   fetchEvents ({ commit }) {
-    commit('setLoading', true)
-
     eventsCollection.orderBy('id', 'asc').get()
       .then(snapshot => {
         let result: ItemDataList = {
@@ -259,12 +242,8 @@ export const actions: RootActionTree<State, RootState> = {
 
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
-
-    commit('setLoading', false)
   },
   fetchPhotos ({ commit }) {
-    commit('setLoading', true)
-
     photosCollection.get()
       .then(snapshot => {
         let result: ItemDataList = {
@@ -272,7 +251,7 @@ export const actions: RootActionTree<State, RootState> = {
         }
         let i = 1
         snapshot.forEach(doc => {
-          // console.log(doc.id + ' ' + doc.data())
+          // console.log(doc.id + ' ' + doc.data())s
           result.item.push({
             id: doc.id,
             data: doc.data(),
@@ -289,12 +268,8 @@ export const actions: RootActionTree<State, RootState> = {
 
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
-
-    commit('setLoading', false)
   },
   fetchContacts ({ commit }, params) {
-    commit('setLoading', true)
-
     if (params) {
       contactsCollection.where('category.value', '==', params.contactCategory).get()
         .then(snapshot => {
@@ -320,8 +295,7 @@ export const actions: RootActionTree<State, RootState> = {
 
           setDialog(ERROR_DIALOG, '取得に失敗しました')
         })
-
-      return commit('setLoading', false)
+      return
     }
 
     contactsCollection.orderBy('time', 'desc').get()
@@ -348,8 +322,6 @@ export const actions: RootActionTree<State, RootState> = {
 
         setDialog(ERROR_DIALOG, '取得に失敗しました')
       })
-
-    commit('setLoading', false)
   },
   addTip (ctx, { title, url, description, tags, event, time }) {
     if (isValidText(title)) {
@@ -442,10 +414,7 @@ export const actions: RootActionTree<State, RootState> = {
       return setDialog(ERROR_DIALOG, '入力してください')
     }
 
-    const next = state.photos.item.length + 1
-
     photosCollection.add({
-      'id': next,
       'name': name,
       'content': content
     })
@@ -469,7 +438,7 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   ): Promise<void>;
   fetchTips(
     { commit }, params
-  ): Promise<void>;
+  ): void;
   fetchFlights(
     { commit }, params
   ): void;

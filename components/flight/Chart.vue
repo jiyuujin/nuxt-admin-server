@@ -1,5 +1,6 @@
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Prop, mixins } from 'nuxt-property-decorator'
+// import Chart from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
 const OPTION = {
@@ -18,13 +19,12 @@ const OPTION = {
   }
 };
 
-@Component({
-  extends: Bar,
-  async mounted() {
-    await this.renderChart(this.chartData, OPTION)
-  },
-})
-export default class FlightChart extends Vue {
-  @Prop() chartData: object;
+@Component({})
+export default class FlightChart extends mixins(Bar) {
+  @Prop() chartData;
+
+  mounted () {
+    this.renderChart(this.chartData, OPTION)
+  }
 }
 </script>
