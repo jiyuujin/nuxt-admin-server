@@ -1,4 +1,4 @@
-# nuxt-admin-server
+# nuxt-admin
 
 ```bash
 # Local Dev Server

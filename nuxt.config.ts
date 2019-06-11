@@ -3,7 +3,7 @@ import { Context } from '@nuxt/vue-app';
 
 export default {
   head: {
-    title: 'nuxt-admin-server',
+    title: 'nuxt-admin',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
