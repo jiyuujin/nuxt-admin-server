@@ -34,6 +34,6 @@ export default class Select extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

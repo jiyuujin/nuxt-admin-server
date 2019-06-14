@@ -1,4 +1,4 @@
-# nuxt-admin
+# admin
 
 ```bash
 # Local Dev Server
@@ -7,10 +7,9 @@ yarn dev
 
 ## Admin 本番環境
 
-https://nuxtadmin.netlify.com/
+https://admin.nekodev.app/
 
-### トップページ
-![](./docs/index.png)
+~~https://nuxtadmin.netlify.com/~~
 
 ## Storybook 開発環境
 
@@ -18,9 +17,7 @@ https://j-stylebook.netlify.com/
 
 ## 設計原則
 
-テンプレートコンポーネントとその他各エンティティに、小〜中規模程度のコンポーネントを準備します。
-
-AtomsコンポーネントはStorybookで運用します。
+テンプレートコンポーネントとその他各エンティティに、小〜中規模程度のコンポーネントを準備します。AtomsコンポーネントはStorybookで運用します。
 
 ```bash
 yarn add @storybook/vue @storybook/addon-actions @storybook/addon-links @storybook/addon -D
