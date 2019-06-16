@@ -2,6 +2,8 @@ import { Configuration } from 'webpack';
 import { Context } from '@nuxt/vue-app';
 
 export default {
+  srcDir: './client',
+
   head: {
     title: 'admin',
     meta: [
@@ -37,8 +39,8 @@ export default {
   ],
 
   plugins: [
-    '~plugins/axios.ts',
-    '~plugins/firebase.ts',
+    '~/plugins/axios.ts',
+    '~/plugins/firebase.ts',
   ],
 
   apollo: {
@@ -52,10 +54,10 @@ export default {
   ],
 
   env: {
-    API_KEY: process.env.API_KEY,
-    AUTH_DOMAIN: process.env.AUTH_DOMAIN,
-    PROJECT_ID: process.env.PROJECT_ID,
-    GRAPH_API: process.env.GRAPH_API,
-    APOLLO_KEY: process.env.APOLLO_KEY,
+    API_KEY: process.env.API_KEY || 'AIzaSyAV7kCXzIPqtKeFnaNz-ywA3NEBUBw7S24',
+    AUTH_DOMAIN: process.env.AUTH_DOMAIN || 'nuxtadmin-4a9e0.firebaseapp.com',
+    PROJECT_ID: process.env.PROJECT_ID || 'nuxt-admin-tokyo',
+    GRAPH_API: process.env.GRAPH_API || 'https://api.graph.cool/simple/v1/cjr94yoay4hds0196reyj9lke',
+    APOLLO_KEY: process.env.APOLLO_KEY || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDgyNDQ3NzQsImNsaWVudElkIjoiY2pyOTR5b2F5NGhkdDAxOTYwajIwdDE1aiJ9.WulBc4uocM_ytX6b6-U9Et_ieGGERE2BpYZVkpaBUlo',
   },
 }

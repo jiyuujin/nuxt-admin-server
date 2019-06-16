@@ -31,21 +31,25 @@
     "noEmit": false,
     "paths": {
       "~/*": [
-        "./*"
+        "./client/*"
       ],
       "@/*": [
-        "./*"
+        "./client/*"
       ]
     }
   },
   "include": [
-    "components/**/*",
-    "layouts/**/*",
-    "middleware/**/*",
-    "pages/**/*",
-    "plugins/**/*",
-    "store/**/*",
+    "client/components/**/*",
+    "client/layouts/**/*",
+    "client/middleware/**/*",
+    "client/pages/**/*",
+    "client/plugins/**/*",
+    "client/store/**/*",
     "stories/**/*",
-    "utils/**/*"
+    "client/utils/**/*"
+  ],
+  "exclude": [
+    "functions",
+    "node_modules"
   ]
 }
