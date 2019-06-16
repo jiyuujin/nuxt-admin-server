@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue'
-import '../assets/main.scss'
+import '../client/assets/main.scss'
 
-import Button from '../components/atoms/Button.vue'
+import Button from '../client/components/atoms/Button.vue'
 
 storiesOf('Button', module).add('list', () => ({
   components: {

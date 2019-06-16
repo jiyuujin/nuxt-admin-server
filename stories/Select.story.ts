@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue'
-import '../assets/main.scss'
+import '../client/assets/main.scss'
 
-import Select from '../components/atoms/Select.vue'
+import Select from '../client/components/atoms/Select.vue'
 
 storiesOf('Select', module).add('list', () => ({
   components: {
