@@ -1,13 +1,18 @@
 <template>
-  <input
-    :type="inputType"
-    :name="name"
-    :placeholder="placeholder"
-    :value="value"
-    :style="`background-color: ${bgColor || `#fff`}; color: ${color || `#000`};`"
-    class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-    @input="updateInput"
-  >
+  <div>
+    <div>
+      {{ placeholder }}
+    </div>
+    <input
+      :type="inputType"
+      :name="name"
+      :placeholder="placeholder"
+      :value="value"
+      :style="`background-color: ${bgColor || `#fff`}; color: ${color || `#000`};`"
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+      @input="updateInput"
+    >
+  </div>
 </template>
 
 <script lang="ts">
