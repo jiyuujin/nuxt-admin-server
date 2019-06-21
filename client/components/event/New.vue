@@ -46,8 +46,8 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
   computed: {
     localeOptions () {
       let array: string[] = []
-      LOCALES.forEach(category => {
-        array.push(category.text)
+      LOCALES.forEach(locale => {
+        array.push(locale.text)
       })
       return array
     }

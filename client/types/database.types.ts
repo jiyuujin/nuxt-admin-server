@@ -108,6 +108,18 @@ export interface EventForm {
   locale: number;
 }
 
+// 主催イベント
+export interface HostForm {
+  id: number;
+  name: string;
+  event: number;
+  location: string;
+  locale: number;
+  participants: number;
+  max_participants: number;
+  lt: number;
+}
+
 // 問い合わせ
 export interface ContactForm {
   title: number;
