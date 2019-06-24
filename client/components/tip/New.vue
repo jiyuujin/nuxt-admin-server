@@ -1,43 +1,43 @@
 <template>
   <div v-if="events">
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="title"
         placeholder="タイトル"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="url"
         placeholder="URL"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="description"
         placeholder="詳細"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="categoryOptions"
         v-model="tags"
         name="タグ"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="eventOptions"
         v-model="event"
         name="イベント"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-button
         text="Tipを追加"
         @click="postTip"
       />
-    </form-template>
+    </main-template>
   </div>
 </template>
 
@@ -45,14 +45,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import { CATEGORIES } from '~/utils'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -83,6 +83,7 @@ export default class NewTip extends Vue {
   description: string = '';
   tags: number[] = [];
   event: number = 0;
+  isForm: boolean = true;
 
   get events () {
     return this.$store.state.product.events

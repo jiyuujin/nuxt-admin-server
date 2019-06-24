@@ -1,37 +1,37 @@
 <template>
   <dialog v-if="dialog">
     <div>
-      <form-template>
+      <main-template :is-form="isForm">
         <story-select
           :options="airports"
           v-model="editedForm.departure"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-select
           :option="airports"
           v-model="editedForm.arrival"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-select
           :options="airlines"
           v-model="editedForm.airline"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-select
           :options="boardingTypes"
           v-model="editedForm.boardingType"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-input
           v-model="editedForm.registration"
           placeholder="レジ"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-button
           text="Close"
           @click="close"
@@ -40,7 +40,7 @@
           text="Save"
           @click="save"
         />
-      </form-template>
+      </main-template>
     </div>
   </dialog>
 </template>
@@ -49,14 +49,14 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '../../utils'
 import { FlightForm } from '~/types/database.types'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -68,6 +68,7 @@ export default class EditFlight extends Vue {
   airports = AIRPORT_LIST;
   airlines = AIRLINE_LIST;
   boardingTypes = BOARDING_TYPE_LIST;
+  isForm: boolean = true;
 
   get dialog () {
     return this.$store.state.product.dialog

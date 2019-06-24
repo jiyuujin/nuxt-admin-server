@@ -1,50 +1,50 @@
 <template>
   <div>
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="time"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="airportOptions"
         v-model="departure"
         name="出発"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="airportOptions"
         v-model="arrival"
         name="到着"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="airlineOptions"
         v-model="airline"
         name="航空会社"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="boardingTypeOptions"
         v-model="boardingType"
         name="搭乗機材"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="registration"
         placeholder="レジ"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-button
         text="フライトを追加"
         @click="postFlight"
       />
-    </form-template>
+    </main-template>
   </div>
 </template>
 
@@ -52,14 +52,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '../../utils'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -95,6 +95,7 @@ export default class NewFlight extends Vue {
   airline: number = 0;
   boardingType: number = 0;
   registration: string = '';
+  isForm: boolean = true;
 
   reset () {
     this.time = dayjs().format()

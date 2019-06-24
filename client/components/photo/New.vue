@@ -1,12 +1,12 @@
 <template>
   <div>
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="form.name"
         placeholder="名前"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <input
         type="file"
         @change="onFileChange"
@@ -24,13 +24,13 @@
           />
         </div>
       </div>
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-button
         text="Photoを追加"
         @click="postPhoto"
       />
-    </form-template>
+    </main-template>
   </div>
 </template>
 
@@ -38,14 +38,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import firebase from 'firebase'
 import { PhotoForm } from '~/types/database.types'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -56,6 +56,7 @@ export default class New extends Vue {
     name: '',
     content: ''
   };
+  isForm: boolean = true;
 
   get photos () {
     return this.$store.state.product.photos

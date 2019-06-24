@@ -3,19 +3,19 @@
     v-if="tips && events && hosts"
     :user-status="userStatus"
   >
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="inputSearch"
         placeholder="タイトル"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="eventOptions"
         v-model="selectedEvent"
         name="イベント"
       />
-    </form-template>
+    </main-template>
     <tip-list
       :list="tips.item"
       :number="page"
@@ -43,8 +43,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-const MainTemplate = () => import('../../components/templates/MainTemplate.vue')
-const FormTemplate = () => import('../../components/templates/FormTemplate.vue')
+const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const TipList = () => import('../../components/tip/List.vue')
 const NewTip = () => import('../../components/tip/New.vue')
 const EditTip = () => import('../../components/tip/Edit.vue')
@@ -60,7 +59,6 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
   middleware: 'auth',
   components: {
     MainTemplate,
-    FormTemplate,
     TipList,
     NewTip,
     EditTip,
@@ -101,6 +99,7 @@ export default class TipPage extends Vue {
   page: number = 1;
   inputSearch: string = '';
   selectedEvent: number = 0;
+  isForm: boolean = true;
 
   get userStatus () {
     return this.$store.state.product.userStatus

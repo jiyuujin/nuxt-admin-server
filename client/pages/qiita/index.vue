@@ -3,19 +3,19 @@
     v-if="qiitas"
     :user-status="userStatus"
   >
-    <form-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="categoryOptions"
         v-model="tag"
         name="カテゴリー"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="search"
         placeholder="タイトル"
       />
-    </form-template>
+    </main-template>
     <qiita-list
       :list="qiitas"
       :search="search"
@@ -32,8 +32,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { CATEGORIES } from '../../utils'
-const MainTemplate = () => import('../../components/templates/MainTemplate.vue')
-const FormTemplate = () => import('../../components/templates/FormTemplate.vue')
+const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const QiitaList = () => import('../../components/qiita/List.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
 const StoryInput = () => import('../../components/atoms/Input.vue')
@@ -43,7 +42,6 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
   middleware: 'auth',
   components: {
     MainTemplate,
-    FormTemplate,
     QiitaList,
     Pagination,
     StoryInput,
@@ -70,6 +68,7 @@ export default class QiitaPage extends Vue {
   tag: number = 1;
   search: string = '';
   page: number = 1;
+  isForm: boolean = true;
 
   get userStatus () {
     return this.$store.state.product.userStatus

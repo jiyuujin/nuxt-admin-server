@@ -3,39 +3,37 @@
     :user-status="userStatus"
     class="login"
   >
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="email"
         placeholder="Email"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="password"
         input-type="password"
         placeholder="Password"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-button
         text="login"
         @click="login"
       />
-    </form-template>
+    </main-template>
   </main-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-const MainTemplate = () => import('~/components/templates/MainTemplate.vue')
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
     MainTemplate,
-    FormTemplate,
     StoryInput,
     StoryButton
   }
@@ -43,6 +41,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
 export default class LoginPage extends Vue {
   email: string = '';
   password: string = '';
+  isForm: boolean = true;
 
   get userStatus () {
     return this.$store.state.product.userStatus

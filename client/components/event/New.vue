@@ -1,29 +1,29 @@
 <template>
   <div>
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="form.name"
         placeholder="名前"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="form.url"
         placeholder="URL"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="localeOptions"
         v-model="form.locale"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-button
         text="Eventを追加"
         @click="postEvent"
       />
-    </form-template>
+    </main-template>
   </div>
 </template>
 
@@ -31,14 +31,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { EventForm } from '~/types/database.types'
 import { LOCALES } from '~/utils'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -60,6 +60,7 @@ export default class New extends Vue {
     url: '',
     locale: 0
   };
+  isForm: boolean = true;
 
   get events () {
     return this.$store.state.product.events

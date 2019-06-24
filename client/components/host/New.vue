@@ -1,68 +1,68 @@
 <template>
   <div v-if="events">
-    <form-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="name"
         placeholder="イベント名"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="eventOptions"
         v-model="event"
         name="イベント"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="location"
         placeholder="場所"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="localeOptions"
         v-model="locale"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="participants"
         placeholder="参加者数"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="max_participants"
         placeholder="最大参加者数"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-input
         v-model="lt"
         placeholder="登壇・LT数"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-button
         text="Hostを追加"
         @click="postHost"
       />
-    </form-template>
+    </main-template>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { CATEGORIES, LOCALES } from '~/utils'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -102,6 +102,7 @@ export default class NewHost extends Vue {
   participants: number = 0;
   max_participants: number = 0;
   lt: number = 0;
+  isForm: boolean = true;
 
   get events () {
     return this.$store.state.product.events

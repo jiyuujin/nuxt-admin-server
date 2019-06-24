@@ -3,13 +3,13 @@
     v-if="contacts"
     :user-status="userStatus"
   >
-    <form-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="contactCategoryOptions"
         v-model="contactCategory"
         name="カテゴリー"
       />
-    </form-template>
+    </main-template>
     <contact-list
       :list="contacts.item"
       :number="contact"
@@ -26,8 +26,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import gql from 'graphql-tag'
 import { CONTACT_CATEGORIES } from '../utils'
-const MainTemplate = () => import('../components/templates/MainTemplate.vue')
-const FormTemplate = () => import('../components/templates/FormTemplate.vue')
+const MainTemplate = () => import('../components/layout/MainTemplate.vue')
 const ContactList = () => import('../components/contact/List.vue')
 const Pagination = () => import('../components/layout/Pagination.vue')
 const StorySelect = () => import('../components/atoms/Select.vue')
@@ -61,7 +60,6 @@ const getQuery = gql`
   middleware: 'auth',
   components: {
     MainTemplate,
-    FormTemplate,
     ContactList,
     Pagination,
     StorySelect
@@ -83,6 +81,7 @@ export default class PageIndex extends Vue {
   event: number = 0;
   contact: number = 1;
   contactCategory: number = 0;
+  isForm: boolean = true;
 
   get userStatus () {
     return this.$store.state.product.userStatus

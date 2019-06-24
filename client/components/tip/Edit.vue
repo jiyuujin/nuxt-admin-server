@@ -1,25 +1,25 @@
 <template>
   <dialog v-if="events && dialog">
     <div>
-      <form-template>
+      <main-template :is-form="isForm">
         <story-input
           v-model="editedForm.title"
           placeholder="タイトル"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-input
           v-model="editedForm.url"
           placeholder="URL"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-input
           v-model="editedForm.description"
           placeholder="タイトル"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-select
           :options="categoryOptions"
           :multiple="Boolean(true)"
@@ -27,15 +27,15 @@
           name="タグ"
           @form-data="applyTags"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-select
           :options="eventOptions"
           v-model="editedForm.event"
           name="イベント"
         />
-      </form-template>
-      <form-template>
+      </main-template>
+      <main-template :is-form="isForm">
         <story-button
           text="削除する"
           @click="close"
@@ -44,7 +44,7 @@
           text="保存する"
           @click="save"
         />
-      </form-template>
+      </main-template>
     </div>
   </dialog>
 </template>
@@ -53,14 +53,14 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { CATEGORIES } from '~/utils'
 import { TipForm } from '~/types/database.types'
-const FormTemplate = () => import('~/components/templates/FormTemplate.vue')
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
   components: {
-    FormTemplate,
+    MainTemplate,
     StoryInput,
     StorySelect,
     StoryButton
@@ -88,6 +88,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
 export default class EditTip extends Vue {
   @Prop() editedForm: TipForm;
   @Prop() dataKey: string;
+  isForm: boolean = true;
 
   get dialog () {
     return this.$store.state.product.dialog

@@ -3,20 +3,20 @@
     v-if="flights"
     :user-status="userStatus"
   >
-    <form-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="yearOptions"
         v-model="selectedYaer"
         name="年"
       />
-    </form-template>
-    <form-template>
+    </main-template>
+    <main-template :is-form="isForm">
       <story-select
         :options="boardingTypeOptions"
         v-model="selectedBoardingType"
         name="搭乗機材"
       />
-    </form-template>
+    </main-template>
     <flight-list
       :list="flights.item"
       :number="page"
@@ -38,8 +38,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { BOARDING_TYPE_LIST, YEARS } from '../../utils'
-const MainTemplate = () => import('../../components/templates/MainTemplate.vue')
-const FormTemplate = () => import('../../components/templates/FormTemplate.vue')
+const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const FlightList = () => import('../../components/flight/List.vue')
 const NewFlight = () => import('../../components/flight/New.vue')
 const EditFlight = () => import('../../components/flight/Edit.vue')
@@ -50,7 +49,6 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
   middleware: 'auth',
   components: {
     MainTemplate,
-    FormTemplate,
     Pagination,
     FlightList,
     NewFlight,
@@ -93,6 +91,7 @@ export default class FlightPage extends Vue {
   page: number = 1;
   selectedYaer: number = 2019;
   selectedBoardingType: number = 0;
+  isForm: boolean = true;
 
   get userStatus () {
     return this.$store.state.product.userStatus
