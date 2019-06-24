@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "A Nuxt.js project",
   "author": "yuukit <yuma.kitamura@ponos.co.jp>",
   "private": true,
