@@ -1,6 +1,8 @@
 <template>
   <div>
-    <LeftMenu v-if="userStatus" />
+    <LeftMenu
+      v-if="userStatus"
+    />
     <div
       v-if="userStatus"
       class="logout"
@@ -10,7 +12,7 @@
         @click="logout"
       />
     </div>
-    <div class="main">
+    <div :class="isForm ? `form` : `main`">
       <slot />
     </div>
   </div>
@@ -29,6 +31,7 @@ const StoryButton = () => import('~/components/atoms/Button.vue')
 })
 export default class MainTemplate extends Vue {
   @Prop() userStatus: boolean;
+  isForm: boolean = true;
 
   async logout() {
     await this.$store.dispatch('product/signOut')
@@ -44,5 +47,10 @@ export default class MainTemplate extends Vue {
 .logout {
   text-align: right;
   margin-bottom: 15px;
+}
+
+.form {
+  margin: 0 auto;
+  padding-bottom: 10px;
 }
 </style>
