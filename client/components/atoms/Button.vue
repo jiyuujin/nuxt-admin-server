@@ -9,18 +9,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Vue from 'vue'
 
-@Component({})
-export default class Button extends Vue {
-  @Prop() text: string;
-  @Prop() bgColor: string;
-  @Prop() color: string;
-
-  handleClick (event) {
-    this.$emit('click', event)
+export default Vue.extend({
+  props: {
+    text: {
+      type: String
+    },
+    bgColor: {
+      type: String
+    },
+    color: {
+      type: String
+    }
+  },
+  methods: {
+    handleClick (event) {
+      this.$emit('click', event)
+    }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

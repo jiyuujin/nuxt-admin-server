@@ -22,21 +22,35 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Vue from 'vue'
 
-@Component({})
-export default class Select extends Vue {
-  @Prop() name: string;
-  @Prop() value: string;
-  @Prop() options: string[];
-  @Prop() multiple: boolean;
-  @Prop() bgColor: string;
-  @Prop() color: string;
-
-  updateInput (event) {
-    this.$emit('input', event.target.selectedIndex)
+export default Vue.extend({
+  props: {
+    name: {
+      type: String
+    },
+    value: {
+      type: String
+    },
+    options: {
+      type: Array
+    },
+    multiple: {
+      type: Boolean
+    },
+    bgColor: {
+      type: String
+    },
+    color: {
+      type: String
+    }
+  },
+  methods: {
+    updateInput (event) {
+      this.$emit('input', event.target.selectedIndex)
+    }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
