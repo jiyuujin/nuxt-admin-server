@@ -16,21 +16,35 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Vue from 'vue'
 
-@Component({})
-export default class Input extends Vue {
-  @Prop() name: string;
-  @Prop() placeholder: string;
-  @Prop() value: string;
-  @Prop() inputType: string;
-  @Prop() bgColor: string;
-  @Prop() color: string;
-
-  updateInput (event) {
-    this.$emit('input', event.target.value)
+export default Vue.extend({
+  props: {
+    name: {
+      type: String
+    },
+    placeholder: {
+      type: String
+    },
+    value: {
+      type: String
+    },
+    inputType: {
+      type: String
+    },
+    bgColor: {
+      type: String
+    },
+    color: {
+      type: String
+    }
+  },
+  methods: {
+    updateInput (event) {
+      this.$emit('input', event.target.value)
+    }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

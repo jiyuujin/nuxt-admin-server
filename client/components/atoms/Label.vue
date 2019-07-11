@@ -8,14 +8,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Vue from 'vue'
 
-@Component({})
-export default class Label extends Vue {
-  @Prop() text: string;
-  @Prop() bgColor: string;
-  @Prop() color: string;
-}
+export default Vue.extend({
+  props: {
+    text: {
+      type: String
+    },
+    bgColor: {
+      type: String
+    },
+    color: {
+      type: String
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
