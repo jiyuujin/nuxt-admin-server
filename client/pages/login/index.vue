@@ -19,7 +19,7 @@
     <main-template :is-form="isForm">
       <story-button
         text="login"
-        @click="login"
+        @handleClick="login"
       />
     </main-template>
   </main-template>

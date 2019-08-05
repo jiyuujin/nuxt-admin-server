@@ -4,6 +4,8 @@ import { Context } from '@nuxt/vue-app';
 export default {
   srcDir: './client',
 
+  mode: 'spa',
+
   head: {
     title: 'admin',
     meta: [

@@ -1,6 +1,6 @@
 <template>
   <main-template
-    v-if="tips && events && hosts"
+    v-if="tips && events"
     :user-status="userStatus"
   >
     <main-template :is-form="isForm">
@@ -33,10 +33,6 @@
       :data-key="dataKey"
     />
     <new-event />
-    <host-list
-      :list="hosts.item"
-    />
-    <new-host />
     <new-photo />
   </main-template>
 </template>
@@ -48,8 +44,6 @@ const TipList = () => import('../../components/tip/List.vue')
 const NewTip = () => import('../../components/tip/New.vue')
 const EditTip = () => import('../../components/tip/Edit.vue')
 const NewEvent = () => import('../../components/event/New.vue')
-const HostList = () => import('../../components/host/List.vue')
-const NewHost = () => import('../../components/host/New.vue')
 const NewPhoto = () => import('../../components/photo/New.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
 const StoryInput = () => import('../../components/atoms/Input.vue')
@@ -63,8 +57,6 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
     NewTip,
     EditTip,
     NewEvent,
-    HostList,
-    NewHost,
     NewPhoto,
     Pagination,
     StoryInput,
@@ -73,7 +65,7 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
   async fetch({ store }) {
     await store.dispatch('product/fetchTips', null)
     await store.dispatch('product/fetchEvents')
-    await store.dispatch('product/fetchHosts')
+    // await store.dispatch('product/fetchHosts')
     await store.dispatch('product/fetchPhotos')
   },
   computed: {
@@ -113,9 +105,9 @@ export default class TipPage extends Vue {
     return this.$store.state.product.tips
   }
 
-  get hosts () {
-    return this.$store.state.product.hosts
-  }
+  // get hosts () {
+  //   return this.$store.state.product.hosts
+  // }
 
   get events () {
     return this.$store.state.product.events

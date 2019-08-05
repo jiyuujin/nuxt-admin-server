@@ -1,4 +1,4 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
 import { RootState } from './types'
 
@@ -7,13 +7,13 @@ import { product } from './product'
 import { profile } from './profile'
 import { qiita } from './qiita'
 
-// Vue.use(Vuex);
+Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   modules: {
     'product': product,
     'profile': profile,
-    'qiita': qiita,
+    'qiita': qiita
   },
   state: {
     version: '1.0.0'

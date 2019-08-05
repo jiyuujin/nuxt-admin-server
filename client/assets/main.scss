@@ -1,8 +1,17 @@
 @charset "UTF-8";
 
+/* Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Atoms */
+$normal-color: #0084cf;
+$border-color: #ccc;
+
+/* Table */
+$shadow-color: #eee;
+$highlight-color: #ccc;
 
 /* colors */
 $white-color: #FFFFFF;

@@ -28,7 +28,7 @@
     <main-template :is-form="isForm">
       <story-button
         text="Photoを追加"
-        @click="postPhoto"
+        @handleClick="postPhoto"
       />
     </main-template>
   </div>

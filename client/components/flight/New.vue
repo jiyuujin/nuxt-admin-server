@@ -42,7 +42,7 @@
     <main-template :is-form="isForm">
       <story-button
         text="フライトを追加"
-        @click="postFlight"
+        @handleClick="postFlight"
       />
     </main-template>
   </div>

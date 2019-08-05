@@ -35,7 +35,7 @@
     <main-template :is-form="isForm">
       <story-button
         text="Tipを追加"
-        @click="postTip"
+        @handleClick="postTip"
       />
     </main-template>
   </div>

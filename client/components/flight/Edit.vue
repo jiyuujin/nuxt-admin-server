@@ -34,11 +34,11 @@
       <main-template :is-form="isForm">
         <story-button
           text="Close"
-          @click="close"
+          @handleClick="close"
         />
         <story-button
           text="Save"
-          @click="save"
+          @handleClick="save"
         />
       </main-template>
     </div>

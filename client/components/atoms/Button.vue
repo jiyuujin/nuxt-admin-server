@@ -1,11 +1,12 @@
 <template>
-  <button
+  <a
+    href="#"
     :style="`background-color: ${bgColor}; color: ${color};`"
     class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-    @click="handleClick"
+    @click="click"
   >
     {{ text }}
-  </button>
+  </a>
 </template>
 
 <script lang="ts">
@@ -24,19 +25,16 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleClick (event) {
-      this.$emit('click', event)
+    click(event) {
+      this.$emit('handleClick', event)
     }
   }
 })
 </script>
 
-<style lang="scss" scoped>
-button {
-  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
-}
-
-button:hover {
-  @apply bg-blue-700;
-}
+<style lang="sass" scoped>
+a
+  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded
+a:hover
+  @apply bg-blue-700
 </style>

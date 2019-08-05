@@ -38,11 +38,11 @@
       <main-template :is-form="isForm">
         <story-button
           text="削除する"
-          @click="close"
+          @handleClick="close"
         />
         <story-button
           text="保存する"
-          @click="save"
+          @handleClick="save"
         />
       </main-template>
     </div>

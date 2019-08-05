@@ -9,7 +9,7 @@
     >
       <story-button
         text="logout"
-        @click="logout"
+        @handleClick="logout"
       />
     </div>
     <div :class="isForm ? `form` : `main`">
