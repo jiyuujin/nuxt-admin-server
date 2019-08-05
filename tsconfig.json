@@ -16,6 +16,7 @@
     "pretty": true,
     "sourceMap": true,
     "types": [
+      "@types/jest",
       "@types/node",
       "@types/webpack",
       "@nuxt/vue-app"
