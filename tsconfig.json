@@ -19,7 +19,8 @@
       "@types/jest",
       "@types/node",
       "@types/webpack",
-      "@nuxt/vue-app"
+      "@nuxt/vue-app",
+      "ts-node"
     ],
     "target": "esnext",
     "module": "esnext",

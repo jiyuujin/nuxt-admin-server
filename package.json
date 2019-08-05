@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "unit:test": "jest --config jest.config.js"
+    "unit:test": "jest"
   },
   "dependencies": {
     "@nuxt/typescript": "^2.8.1",
