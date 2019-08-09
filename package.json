@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "unit:test": "jest"
+    "test:unit": "jest"
   },
   "dependencies": {
     "@nuxt/typescript": "^2.8.1",
@@ -47,6 +47,8 @@
     "vuex-type-helper": "^1.2.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@storybook/addon-actions": "^5.1.4",
     "@storybook/addon-links": "^5.1.4",
     "@storybook/addons": "^5.1.4",
@@ -55,6 +57,8 @@
     "@testing-library/vue": "^1.2.0",
     "@types/jest": "^24.0.17",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.13.0",
+    "@vue/babel-preset-app": "^3.10.0",
     "@vue/cli-plugin-unit-jest": "^3.10.0",
     "@vue/test-utils": "^1.0.0-beta.29",
     "autoprefixer": "^8.6.5",

@@ -47,11 +47,12 @@
     "client/pages/**/*",
     "client/plugins/**/*",
     "client/store/**/*",
-    "stories/**/*",
-    "client/utils/**/*"
+    "client/utils/**/*",
+    "client/tests/unit/**/*"
   ],
   "exclude": [
     "functions",
+    "stories",
     "node_modules"
   ]
 }

@@ -9,8 +9,8 @@ import { cleanup } from '@testing-library/vue'
 afterEach(cleanup)
 
 describe('shallow sample', () => {
-    test('is a Vue instance', () => {
-        const wrapper = mount(Child)
-        expect(wrapper.isVueInstance()).toBeTruthy()
-    })
-}) 
+  test('is a Vue instance', () => {
+    const wrapper = mount(Child)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
+})
