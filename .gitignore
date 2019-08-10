@@ -21,5 +21,7 @@ storybook-static/
 
 *.log
 
+functions/lib
+
 static/sw.js
 client/static/sw.js
