@@ -15,6 +15,7 @@ cache:
 
 jobs:
   include:
+    # ESLint
     - stage: "lint"
       name: "ESLint"
       install:
@@ -25,10 +26,12 @@ jobs:
           @typescript-eslint/typescript-estree
       script:
         - node_modules/eslint/bin/eslint.js .
+    # Unit Test
     - stage: "test"
       name: "Unit Test"
       script:
         - npm run test:unit
+    # Build Compile
     - stage: "compile"
       name: "Build Compile"
       install:
