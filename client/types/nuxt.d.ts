@@ -1,3 +1,5 @@
+/* eslint-disable */
+// nuxt
 declare module 'nuxt' {
   import { AxiosInstance, AxiosRequestConfig } from 'axios';
   import { Store } from 'vuex';
@@ -49,3 +51,4 @@ declare module 'nuxt' {
     beforeNuxtRender(fn: Function): any;
   }
 }
+/* eslint-enable */
