@@ -1,5 +1,9 @@
+/* eslint-disable*/
 import { Configuration } from 'webpack';
 import { Context } from '@nuxt/vue-app';
+/* eslint-enable */
+
+require('dotenv').config();
 
 export default {
   srcDir: './client',
@@ -56,10 +60,10 @@ export default {
   ],
 
   env: {
-    NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY || 'AIzaSyAV7kCXzIPqtKeFnaNz-ywA3NEBUBw7S24',
-    NUXT_APP_AUTH_DOMAIN: process.env.NUXT_APP_AUTH_DOMAIN || 'nuxtadmin-4a9e0.firebaseapp.com',
-    NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID || 'nuxt-admin-tokyo',
-    NUXT_APP_GRAPH_API: process.env.NUXT_APP_GRAPH_API || 'https://api.graph.cool/simple/v1/cjr94yoay4hds0196reyj9lke',
-    NUXT_APP_APOLLO_KEY: process.env.NUXT_APP_APOLLO_KEY || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDgyNDQ3NzQsImNsaWVudElkIjoiY2pyOTR5b2F5NGhkdDAxOTYwajIwdDE1aiJ9.WulBc4uocM_ytX6b6-U9Et_ieGGERE2BpYZVkpaBUlo',
+    NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY,
+    NUXT_APP_AUTH_DOMAIN: process.env.NUXT_APP_AUTH_DOMAIN,
+    NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID,
+    NUXT_APP_GRAPH_API: process.env.NUXT_APP_GRAPH_API,
+    NUXT_APP_APOLLO_KEY: process.env.NUXT_APP_APOLLO_KEY,
   },
 }

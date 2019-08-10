@@ -1,14 +1,13 @@
-import { NuxtContext } from 'nuxt';
-import Vue, { ComponentOptions } from 'vue';
+/* eslint-disable */
+import Vue from 'vue';
 import { Route } from 'vue-router';
 import { ActionContext as BaseActionContext } from 'vuex';
 import ApolloClient from 'apollo-client';
-import { VueApollo } from 'vue-apollo/types/vue-apollo';
-import { AxiosInstance } from 'axios';
 import { firestore } from 'firebase';
 import { MetaInfo } from 'vue-meta';
 import { RouteOption } from './route.types';
 
+// apollo
 type QueryOption = {
   query: Object,
   variables: Object
@@ -20,16 +19,29 @@ type MutateOption = {
 }
 
 interface Apollo {
-  query(queryOption: QueryOption);
-  mutate(mutateOption: MutateOption);
+  query(
+    queryOption: QueryOption
+  );
+  mutate(
+    mutateOption: MutateOption
+  );
 }
 
 interface ApolloHelpers {
-  onLogin(token: string, apolloClient?: ApolloClient<{}>, tokenExpires?: number): Promise<void>;
-  onLogout(apolloClient?: ApolloClient<{}>): Promise<void>;
-  getToken(tokenName?: string): string;
+  onLogin(
+    token: string,
+    apolloClient?: ApolloClient<{}>,
+    tokenExpires?: number
+  ): Promise<void>;
+  onLogout(
+    apolloClient?: ApolloClient<{}>
+  ): Promise<void>;
+  getToken(
+    tokenName?: string
+  ): string;
 }
 
+// vue
 declare module 'vue/types/vue' {
   interface Vue {
     $apollo: Apollo;
@@ -50,6 +62,7 @@ declare module 'vue/types/options' {
   }
 }
 
+// vue-router
 declare module 'vue-router/types/router' {
   interface VueRouter {
     pushTo<T extends keyof RouteOption>(
@@ -59,12 +72,18 @@ declare module 'vue-router/types/router' {
   }
 }
 
+// vuex
 declare module 'vuex-type-helper' {
   interface BindOptions {
     maxRefDepth?: number;
   }
 
-  export interface ActionContext<State, Getters, Actions, Mutations> extends BaseActionContext<State, any> {
+  export interface ActionContext<
+    State,
+    Getters,
+    Actions,
+    Mutations
+  > extends BaseActionContext<State, any> {
     bindFirebaseRef: (
       key: string,
       ref: firestore.Query,
@@ -75,3 +94,4 @@ declare module 'vuex-type-helper' {
     ) => void;
   }
 }
+/* eslint-enable */
