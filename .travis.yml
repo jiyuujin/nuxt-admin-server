@@ -17,13 +17,14 @@ jobs:
   include:
     - stage: "lint"
       name: "ESLint"
-      script:
+      install:
         - |
           npm install eslint \
           eslint-plugin-vue \
           @typescript-eslint/parser \
           @typescript-eslint/typescript-estree
-          - node_modules/eslint/bin/eslint.js .
+      script:
+        - node_modules/eslint/bin/eslint.js .
     - stage: "test"
       name: "Unit Test"
       script:
