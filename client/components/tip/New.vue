@@ -51,70 +51,66 @@ const StorySelect = () => import('~/components/atoms/Select.vue')
 const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
-  components: {
-    MainTemplate,
-    StoryInput,
-    StorySelect,
-    StoryButton
-  },
-  computed: {
-    categoryOptions (this: NewTip) {
-      let array: string[] = []
-      CATEGORIES.forEach((item) => {
-        array.push(item.text)
-      })
-      return array
+    components: {
+        MainTemplate,
+        StoryInput,
+        StorySelect,
+        StoryButton
     },
-    eventOptions (this: NewTip) {
-      let array: string[] = []
-      this.$store.state.product.events.item.forEach((item) => {
-        array.push(item.data.name)
-      })
-      return array
-    }
-  },
-  async created () {
-    await this.$store.dispatch('product/fetchEvents')
-  },
+    computed: {
+        categoryOptions (this: NewTip) {
+            let array: string[] = []
+            CATEGORIES.forEach((item) => {
+                array.push(item.text)
+            })
+            return array
+        },
+        eventOptions (this: NewTip) {
+            let array: string[] = []
+            this.$store.state.product.events.item.forEach((item) => {
+                array.push(item.data.name)
+            })
+            return array
+        }
+    },
+    async created () {
+        await this.$store.dispatch('product/fetchEvents')
+    },
 })
 export default class NewTip extends Vue {
-  title: string = '';
-  url: string = '';
-  description: string = '';
-  tags: number[] = [];
-  event: number = 0;
-  isForm: boolean = true;
+    title: string = '';
+    url: string = '';
+    description: string = '';
+    tags: number[] = [];
+    event: number = 0;
+    isForm: boolean = true;
 
-  get events () {
-    return this.$store.state.product.events
-  }
+    get events () {
+        return this.$store.state.product.events
+    }
 
-  applyTags (value) {
-    this.tags = value
-  }
+    applyTags (value) {
+        this.tags = value
+    }
 
-  reset () {
-    this.title = ''
-    this.url = ''
-    this.description = ''
-    this.tags = []
-    this.event = 0
-  }
+    reset () {
+        this.title = ''
+        this.url = ''
+        this.description = ''
+        this.tags = []
+        this.event = 0
+    }
 
-  async postTip () {
-    await this.$store.dispatch('product/addTip', {
-      title: this.title,
-      url: this.url,
-      description: this.description,
-      tags: [this.tags],
-      event: this.event,
-      time: dayjs().format('')
-    })
-    this.reset()
-  }
+    async postTip () {
+        await this.$store.dispatch('product/addTip', {
+            title: this.title,
+            url: this.url,
+            description: this.description,
+            tags: [this.tags],
+            event: this.event,
+            time: dayjs().format('')
+        })
+        this.reset()
+    }
 }
 </script>
-
-<style scoped>
-
-</style>

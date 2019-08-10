@@ -6,64 +6,62 @@ import { Context } from '@nuxt/vue-app';
 require('dotenv').config();
 
 export default {
-  srcDir: './client',
+    srcDir: './client',
 
-  mode: 'spa',
+    mode: 'spa',
 
-  head: {
-    title: 'admin',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'https://s3-ap-northeast-1.amazonaws.com/jiyuujinlab/bakeneko.png' }
-    ]
-  },
-
-  loading: {
-    color: '#fff'
-  },
-
-  build: {
-    extend (config: Configuration, { isClient }: Context) {
-      if (isClient) {
-        config.devtool = '#source-map'
-      }
+    head: {
+        title: 'admin',
+        meta: [
+            { charset: 'utf-8' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            { hid: 'description', name: 'description', content: '' }
+        ],
+        link: [
+            { rel: 'icon', type: 'image/x-icon', href: 'https://s3-ap-northeast-1.amazonaws.com/jiyuujinlab/bakeneko.png' }
+        ]
     },
-    typescript: {
-      typeCheck: true // or ForkTsChecker options
-    }
-  },
 
-  modules: [
-    '@nuxtjs/pwa',
-    '@nuxtjs/apollo',
-    '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
-  ],
+    loading: { color: '#fff' },
 
-  plugins: [
-    '~/plugins/axios.ts',
-    '~/plugins/firebase.ts',
-  ],
+    build: {
+        extend (config: Configuration, { isClient }: Context) {
+            if (isClient) {
+                config.devtool = '#source-map'
+            }
+        },
+        typescript: {
+            typeCheck: true // or ForkTsChecker options
+        }
+    },
 
-  apollo: {
-    clientConfigs: {
-      default: '~/apollo/client-configs/default.ts'
-    }
-  },
+    modules: [
+        '@nuxtjs/pwa',
+        '@nuxtjs/apollo',
+        '@nuxtjs/axios',
+        '@nuxtjs/dotenv'
+    ],
 
-  css: [
-    '~/assets/main.scss',
-  ],
+    plugins: [
+        '~/plugins/axios.ts',
+        '~/plugins/firebase.ts',
+    ],
 
-  env: {
-    NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY,
-    NUXT_APP_AUTH_DOMAIN: process.env.NUXT_APP_AUTH_DOMAIN,
-    NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID,
-    NUXT_APP_GRAPH_API: process.env.NUXT_APP_GRAPH_API,
-    NUXT_APP_APOLLO_KEY: process.env.NUXT_APP_APOLLO_KEY,
-  },
+    apollo: {
+        clientConfigs: {
+            default: '~/apollo/client-configs/default.ts'
+        }
+    },
+
+    css: [
+        '~/assets/main.scss',
+    ],
+
+    env: {
+        NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY,
+        NUXT_APP_AUTH_DOMAIN: process.env.NUXT_APP_AUTH_DOMAIN,
+        NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID,
+        NUXT_APP_GRAPH_API: process.env.NUXT_APP_GRAPH_API,
+        NUXT_APP_APOLLO_KEY: process.env.NUXT_APP_APOLLO_KEY,
+    },
 }

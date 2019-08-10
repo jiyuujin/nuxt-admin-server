@@ -4,27 +4,27 @@ import { Component, Prop, mixins } from 'nuxt-property-decorator'
 import { Bar } from 'vue-chartjs'
 
 const OPTION = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          min: 0,
-          max: 40
-        }
-      }
-    ]
-  }
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+        yAxes: [
+            {
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 40
+                }
+            }
+        ]
+    }
 };
 
 @Component({})
 export default class FlightChart extends mixins(Bar) {
-  @Prop() chartData;
+    @Prop() chartData;
 
-  mounted () {
-    this.renderChart(this.chartData, OPTION)
-  }
+    mounted () {
+        this.renderChart(this.chartData, OPTION)
+    }
 }
 </script>

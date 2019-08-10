@@ -5,8 +5,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    indent: ['error', 2],
-    // indent: ['error', 4],
+    indent: ['error', 4],
     quotes: [2, 'single'],
     singleQuote: true,
     'linebreak-style': [2, 'unix'],

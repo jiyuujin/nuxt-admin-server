@@ -5,9 +5,9 @@ import { Dictionary, WorkForm, ProductForm, ActivityForm } from '../types/databa
 const namespaced = true;
 
 export const state = (): State => ({
-  works: null,
-  products: null,
-  activities: null
+    works: null,
+    products: null,
+    activities: null
 });
 
 export interface State {
@@ -21,27 +21,27 @@ export interface RootState extends State {
 }
 
 export const mutations: MutationTree<State> = {
-  setWorks (state, payload) {
-    state.works = payload
-  },
-  setProducts (state, payload) {
-    state.products = payload
-  },
-  setActivities (state, payload) {
-    state.activities = payload
-  },
+    setWorks (state, payload) {
+        state.works = payload
+    },
+    setProducts (state, payload) {
+        state.products = payload
+    },
+    setActivities (state, payload) {
+        state.activities = payload
+    },
 };
 
 export const actions: RootActionTree<State, RootState> = {
-  async fetchWorks ({ commit }, responseData) {
-    await commit('setWorks', responseData)
-  },
-  async fetchProducts ({ commit }, responseData) {
-    await commit('setProducts', responseData)
-  },
-  async fetchActivities ({ commit }, responseData) {
-    await commit('setActivities', responseData)
-  }
+    async fetchWorks ({ commit }, responseData) {
+        await commit('setWorks', responseData)
+    },
+    async fetchProducts ({ commit }, responseData) {
+        await commit('setProducts', responseData)
+    },
+    async fetchActivities ({ commit }, responseData) {
+        await commit('setActivities', responseData)
+    }
 };
 
 export interface RootActionTree<State, RootState> extends ActionTree<State, RootState> {
@@ -60,13 +60,13 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
 }
 
 export const getters = {
-  //
+    //
 };
 
 export const profile: Module<State, RootState> = {
-  namespaced,
-  state,
-  mutations,
-  actions,
-  getters
+    namespaced,
+    state,
+    mutations,
+    actions,
+    getters
 };
