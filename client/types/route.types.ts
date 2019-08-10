@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum RouteNames {
   INDEX = 'index',
   LIST = 'list',
@@ -21,3 +22,4 @@ export type RouteOption = {
   [RouteNames.LIST]: ListOption,
   [RouteNames.DETAIL]: DetailOption,
 }
+/* eslint-enable */

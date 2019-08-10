@@ -1,8 +1,8 @@
 <template>
-  <div class="container mx-auto">
-    <nuxt/>
-    <cookie-footer />
-  </div>
+    <div class="container mx-auto">
+        <nuxt/>
+        <cookie-footer />
+    </div>
 </template>
 
 <script lang="ts">
@@ -10,9 +10,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 const CookieFooter = () => import('~/components/layout/CookieFooter.vue')
 
 @Component({
-  components: {
-    CookieFooter
-  }
+    components: {
+        CookieFooter
+    }
 })
 export default class Default extends Vue {}
 </script>

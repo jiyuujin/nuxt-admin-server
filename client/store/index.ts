@@ -10,18 +10,18 @@ import { qiita } from './qiita'
 Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
-  modules: {
-    'product': product,
-    'profile': profile,
-    'qiita': qiita
-  },
-  state: {
-    version: '1.0.0'
-  }
+    modules: {
+        'product': product,
+        'profile': profile,
+        'qiita': qiita
+    },
+    state: {
+        version: '1.0.0'
+    }
 }
 
 export const createStore = () => {
-  return new Vuex.Store<RootState>(store)
+    return new Vuex.Store<RootState>(store)
 }
 
 // export default createStore

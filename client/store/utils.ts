@@ -7,16 +7,16 @@ import swal from 'sweetalert2'
  * @returns {Promise<any>|Promise<SweetAlertResult>}
  */
 export function setDialog (error, title) {
-  if (error) {
-    return swal({
-      type: 'error',
-      title: title + 'を入力してください'
-    })
-  }
+    if (error) {
+        return swal({
+            type: 'error',
+            title: title + 'を入力してください'
+        })
+    }
 
-  return swal({
-    title: title
-  })
+    return swal({
+        title: title
+    })
 }
 
 /**
@@ -25,11 +25,11 @@ export function setDialog (error, title) {
  * @returns {boolean}
  */
 export function isValidText (value) {
-  if (value === '') {
-    return true
-  } else {
-    return false
-  }
+    if (value === '') {
+        return true
+    } else {
+        return false
+    }
 }
 
 /**
@@ -38,11 +38,11 @@ export function isValidText (value) {
  * @returns {boolean}
  */
 export function isValidNumber (value) {
-  if (value === '') {
-    return true
-  } else {
-    return false
-  }
+    if (value === '') {
+        return true
+    } else {
+        return false
+    }
 }
 
 /**
@@ -51,11 +51,11 @@ export function isValidNumber (value) {
  * @returns {boolean}
  */
 export function isValidArray (array) {
-  if (array.length === 0) {
-    return true
-  } else {
-    return false
-  }
+    if (array.length === 0) {
+        return true
+    } else {
+        return false
+    }
 }
 
 export default {}

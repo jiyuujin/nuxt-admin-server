@@ -1,3 +1,4 @@
+/* eslint-disable */
 import DocumentData = firebase.firestore.DocumentData;
 
 export interface Dictionary<T> {
@@ -152,3 +153,4 @@ interface QiitaUser {
   profile_image_url: string;
   location: string;
 }
+/* eslint-enable */

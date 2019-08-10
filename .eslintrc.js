@@ -1,21 +1,18 @@
 module.exports = {
   root: true,
-  env: {
-    browser: true,
-    node: true
+  env: { node: true },
+  extends: ['plugin:vue/essential'],
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    indent: ['error', 4],
+    quotes: [2, 'single'],
+    singleQuote: true,
+    'linebreak-style': [2, 'unix'],
+    semi: [0, 'never'],
+    'no-unused-vars': 1
   },
   parserOptions: {
-    parser: 'babel-eslint'
-  },
-  extends: [
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    'plugin:vue/essential'
-  ],
-  // required to lint *.vue files
-  plugins: [
-    'vue'
-  ],
-  // add your custom rules here
-  rules: {}
+    parser: '@typescript-eslint/parser'
+  }
 }

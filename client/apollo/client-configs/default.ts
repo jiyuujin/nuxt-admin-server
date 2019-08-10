@@ -7,24 +7,24 @@ const GRAPH_API = process.env.GRAPH_API;
 const TOKEN = process.env.APOLLO_KEY;
 
 export default () => {
-  const httpLink = new HttpLink({
-    uri: GRAPH_API
-  });
-
-  const middlewareLink = new ApolloLink((operation: any, forward: any) => {
-    operation.setContext({
-      headers: {
-        Authorization: `bearer ${TOKEN}`
-      }
+    const httpLink = new HttpLink({
+        uri: GRAPH_API
     });
-    return forward(operation)
-  })
 
-  const link = middlewareLink.concat(httpLink);
+    const middlewareLink = new ApolloLink((operation: any, forward: any) => {
+        operation.setContext({
+            headers: {
+                Authorization: `bearer ${TOKEN}`
+            }
+        });
+        return forward(operation)
+    })
 
-  return {
-    link,
-    cache: new InMemoryCache(),
-    defaultHttpLink: false
-  }
+    const link = middlewareLink.concat(httpLink);
+
+    return {
+        link,
+        cache: new InMemoryCache(),
+        defaultHttpLink: false
+    }
 }

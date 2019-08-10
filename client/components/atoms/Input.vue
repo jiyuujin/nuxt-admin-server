@@ -13,31 +13,27 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  props: {
-    placeholder: {
-      type: String
+    props: {
+        placeholder: {
+            type: String
+        },
+        value: {
+            type: String
+        },
+        inputType: {
+            type: String
+        },
+        bgColor: {
+            type: String
+        },
+        color: {
+            type: String
+        }
     },
-    value: {
-      type: String
-    },
-    inputType: {
-      type: String
-    },
-    bgColor: {
-      type: String
-    },
-    color: {
-      type: String
+    methods: {
+        update(event) {
+            this.$emit('input', event.target.value)
+        }
     }
-  },
-  methods: {
-    update(event) {
-      this.$emit('input', event.target.value)
-    }
-  }
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -11,11 +11,11 @@ const ERROR_DIALOG = true;
 const namespaced = true;
 
 export const state = (): State => ({
-  qiitas: null,
+    qiitas: null,
 });
 
 export interface State {
-  qiitas: Dictionary<QiitaForm> | null;
+    qiitas: Dictionary<QiitaForm> | null;
 }
 
 export interface RootState extends State {
@@ -23,44 +23,44 @@ export interface RootState extends State {
 }
 
 export const mutations: MutationTree<State> = {
-  setQiitas (state, payload) {
-    state.qiitas = payload
-  },
+    setQiitas (state, payload) {
+        state.qiitas = payload
+    },
 };
 
 export const actions: RootActionTree<State, RootState> = {
-  fetchQiitas ({ commit }, params) {
-    let tagName: string = '';
+    fetchQiitas ({ commit }, params) {
+        let tagName: string = '';
 
-    CATEGORIES.forEach(category => {
-      if (category.value === params.tag) {
-        tagName = category.text
-      }
-    });
+        CATEGORIES.forEach(category => {
+            if (category.value === params.tag) {
+                tagName = category.text
+            }
+        });
 
-    axios.get(QIITA_BASE_API + tagName + '/items?page=' + params.page, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        if (params.search !== '') {
-          // 検索している時
-          const searchPost = response.data.filter(item => {
-            if (item.title.includes(params.search) === true) return item
-          })
+        axios.get(QIITA_BASE_API + tagName + '/items?page=' + params.page, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (params.search !== '') {
+                    // 検索している時
+                    const searchPost = response.data.filter(item => {
+                        if (item.title.includes(params.search) === true) return item
+                    })
 
-          return commit('setQiitas', searchPost)
-        }
+                    return commit('setQiitas', searchPost)
+                }
 
-        commit('setQiitas', response.data)
-      })
-      .catch(error => {
-        // console.log(error)
+                commit('setQiitas', response.data)
+            })
+            .catch(error => {
+                // console.log(error)
 
-        setDialog(ERROR_DIALOG, '取得に失敗しました')
-      })
-  }
+                setDialog(ERROR_DIALOG, '取得に失敗しました')
+            })
+    }
 };
 
 export interface RootActionTree<State, RootState> extends ActionTree<State, RootState> {
@@ -70,13 +70,13 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
 }
 
 export const getters = {
-  //
+    //
 };
 
 export const qiita: Module<State, RootState> = {
-  namespaced,
-  state,
-  mutations,
-  actions,
-  getters
+    namespaced,
+    state,
+    mutations,
+    actions,
+    getters
 };

@@ -28,18 +28,18 @@ $normalize-color: #297497;
 $information-color: #AAC9F2;
 
 $theme-colors:(
-  white-color: $white-color,
-  brand-color: $brand-color,
-  link-color: $link-color,
-  field-color: $field-color,
-  ui-color: $ui-color,
-  support-color: $support-color,
-  textgray-color: $textgray-color,
-  error-color: $error-color,
-  success-color: $success-color,
-  disable-color: $disable-color,
-  normalize-color: $normalize-color,
-  information-color: $information-color,
+    white-color: $white-color,
+    brand-color: $brand-color,
+    link-color: $link-color,
+    field-color: $field-color,
+    ui-color: $ui-color,
+    support-color: $support-color,
+    textgray-color: $textgray-color,
+    error-color: $error-color,
+    success-color: $success-color,
+    disable-color: $disable-color,
+    normalize-color: $normalize-color,
+    information-color: $information-color,
 );
 
 /* theme color */
@@ -49,15 +49,15 @@ $--color-primary: $brand-color;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 * {
-  font-family: Roboto, 'Hiragino kaku Gothic ProN';
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+    font-family: Roboto, 'Hiragino kaku Gothic ProN';
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
 }
 
 html {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 body {
-  margin: 8px;
+    margin: 8px;
 }

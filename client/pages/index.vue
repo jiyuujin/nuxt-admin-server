@@ -1,25 +1,25 @@
 <template>
-  <main-template
-    v-if="contacts"
-    :user-status="userStatus"
-  >
-    <main-template :is-form="isForm">
-      <story-select
-        :options="contactCategoryOptions"
-        v-model="contactCategory"
-        name="カテゴリー"
-      />
+    <main-template
+        v-if="contacts"
+        :user-status="userStatus"
+    >
+        <main-template :is-form="isForm">
+            <story-select
+                :options="contactCategoryOptions"
+                v-model="contactCategory"
+                name="カテゴリー"
+            />
+        </main-template>
+        <contact-list
+            :list="contacts.item"
+            :number="contact"
+        />
+        <pagination
+            :page="contact"
+            :max="Math.ceil(contacts.item.length / 20)"
+            @form-data="applyPageInContact"
+        />
     </main-template>
-    <contact-list
-      :list="contacts.item"
-      :number="contact"
-    />
-    <pagination
-      :page="contact"
-      :max="Math.ceil(contacts.item.length / 20)"
-      @form-data="applyPageInContact"
-    />
-  </main-template>
 </template>
 
 <script lang="ts">
@@ -57,72 +57,68 @@ const getQuery = gql`
 `
 
 @Component({
-  middleware: 'auth',
-  components: {
-    MainTemplate,
-    ContactList,
-    Pagination,
-    StorySelect
-  },
-  async asyncData({ store }) {
-    await store.dispatch('product/fetchContacts')
-  },
-  computed: {
-    contactCategoryOptions (this: PageIndex) {
-      let array: string[] = []
-      CONTACT_CATEGORIES.forEach(category => {
-        array.push(category.text)
-      })
-      return array
+    middleware: 'auth',
+    components: {
+        MainTemplate,
+        ContactList,
+        Pagination,
+        StorySelect
+    },
+    async asyncData({ store }) {
+        await store.dispatch('product/fetchContacts')
+    },
+    computed: {
+        contactCategoryOptions(this: PageIndex) {
+            let array: string[] = []
+            CONTACT_CATEGORIES.forEach(category => {
+                array.push(category.text)
+            })
+            return array
+        }
     }
-  },
 })
 export default class PageIndex extends Vue {
-  event: number = 0;
-  contact: number = 1;
-  contactCategory: number = 0;
-  isForm: boolean = true;
+    event: number = 0;
+    contact: number = 1;
+    contactCategory: number = 0;
+    isForm: boolean = true;
 
-  get userStatus () {
-    return this.$store.state.product.userStatus
-  }
-
-  get contacts () {
-    return this.$store.state.product.contacts
-  }
-
-  get works () {
-    return this.$store.state.profile.works
-  }
-
-  get products () {
-    return this.$store.state.profile.products
-  }
-
-  get activities () {
-    return this.$store.state.profile.activities
-  }
-
-  get apollo () {
-    return {
-      allWorks: getQuery,
-      allProducts: getQuery,
-      allActivities: getQuery
+    get userStatus () {
+        return this.$store.state.product.userStatus
     }
-  }
 
-  async created() {
-    await this.$store.dispatch('profile/fetchWorks', this.apollo.allWorks)
-    await this.$store.dispatch('profile/fetchProducts', this.apollo.allProducts)
-    await this.$store.dispatch('profile/fetchActivities', this.apollo.allActivities)
-  }
+    get contacts () {
+        return this.$store.state.product.contacts
+    }
 
-  applyPageInContact(value) {
-    this.contact = value
-  }
+    get works () {
+        return this.$store.state.profile.works
+    }
+
+    get products () {
+        return this.$store.state.profile.products
+    }
+
+    get activities () {
+        return this.$store.state.profile.activities
+    }
+
+    get apollo () {
+        return {
+            allWorks: getQuery,
+            allProducts: getQuery,
+            allActivities: getQuery
+        }
+    }
+
+    async created() {
+        await this.$store.dispatch('profile/fetchWorks', this.apollo.allWorks)
+        await this.$store.dispatch('profile/fetchProducts', this.apollo.allProducts)
+        await this.$store.dispatch('profile/fetchActivities', this.apollo.allActivities)
+    }
+
+    applyPageInContact(value) {
+        this.contact = value
+    }
 }
 </script>
-
-<style scoped>
-
-</style>
