@@ -18,7 +18,8 @@ export const AIRPORT_LIST: SimpleList[] = [
   {value: 9, text: '天草 / AXJ'},
   {value: 10, text: '神戸 / UKB'},
   {value: 11, text: '熊本 / KMJ'},
-  {value: 12, text: '米子 / YGJ'}
+  {value: 12, text: '米子 / YGJ'},
+  {value: 13, text: '秋田 / AXT'},
 ]
 
 /**
