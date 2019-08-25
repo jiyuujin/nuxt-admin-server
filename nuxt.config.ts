@@ -1,6 +1,6 @@
 /* eslint-disable*/
 import { Configuration } from 'webpack';
-import { Context } from '@nuxt/vue-app';
+import { Context } from '@nuxt/types';
 /* eslint-enable */
 
 require('dotenv').config();
@@ -29,14 +29,18 @@ export default {
             if (isClient) {
                 config.devtool = '#source-map'
             }
-        },
-        typescript: {
-            typeCheck: true // or ForkTsChecker options
         }
     },
 
+    buildModules: [
+        ['@nuxt/typescript-build', {
+            typeCheck: true,
+            ignoreNotFoundWarnings: true
+        }]
+    ],
+
     modules: [
-        '@nuxtjs/pwa',
+        // '@nuxtjs/pwa',
         '@nuxtjs/apollo',
         '@nuxtjs/axios',
         '@nuxtjs/dotenv'
