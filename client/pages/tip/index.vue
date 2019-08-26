@@ -65,8 +65,6 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
     async fetch({ store }) {
         await store.dispatch('product/fetchTips', null)
         await store.dispatch('product/fetchEvents')
-        // await store.dispatch('product/fetchHosts')
-        await store.dispatch('product/fetchPhotos')
     },
     computed: {
         eventOptions (this: TipPage) {
@@ -104,10 +102,6 @@ export default class TipPage extends Vue {
     get tips () {
         return this.$store.state.product.tips
     }
-
-    // get hosts () {
-    //   return this.$store.state.product.hosts
-    // }
 
     get events () {
         return this.$store.state.product.events
