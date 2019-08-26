@@ -9,7 +9,7 @@ import { render, cleanup } from '@testing-library/vue'
 
 afterEach(cleanup)
 
-describe('Buton.vue', () => {
+describe('Button', () => {
   it('vue instance', () => {
     const wrapper = mount(Child)
     expect(wrapper.isVueInstance()).toBeTruthy()
