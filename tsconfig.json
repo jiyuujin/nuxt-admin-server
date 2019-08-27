@@ -23,7 +23,7 @@
       "@types/storybook__vue",
       "@types/webpack",
       "@types/webpack-env",
-      "@nuxt/vue-app",
+      "@nuxt/types",
       "ts-node"
     ],
     "target": "esnext",

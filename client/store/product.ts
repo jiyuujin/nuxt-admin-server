@@ -11,7 +11,6 @@ import {
     TipForm,
     FlightForm,
     EventForm,
-    HostForm,
     ContactForm,
     PhotoForm
 } from '../types/database.types';
@@ -22,7 +21,6 @@ const adminFirestore = Firestore.firestore();
 const tipsCollection = adminFirestore.collection('tips');
 const flightsCollection = adminFirestore.collection('flights');
 const eventsCollection = adminFirestore.collection('events');
-const hostsCollection = adminFirestore.collection('hosts');
 const photosCollection = adminFirestore.collection('photos');
 const contactsCollection = adminFirestore.collection('contacts');
 
@@ -39,7 +37,6 @@ export const state = (): State => ({
     tips: null,
     flights: null,
     events: null,
-    hosts: null,
     photos: null,
     contacts: null,
 });
@@ -51,7 +48,6 @@ export interface State {
   tips: Dictionary<TipForm> | null;
   flights: Dictionary<FlightForm> | null;
   events: Dictionary<EventForm> | null;
-  hosts: Dictionary<HostForm> | null;
   photos: Dictionary<PhotoForm> | null;
   contacts: Dictionary<ContactForm> | null;
 }
@@ -78,9 +74,6 @@ export const mutations: MutationTree<State> = {
     },
     setEvents (state, payload) {
         state.events = payload
-    },
-    setHosts (state, payload) {
-        state.hosts = payload
     },
     setPhotos (state, payload) {
         state.photos = payload
@@ -260,58 +253,6 @@ export const actions: RootActionTree<State, RootState> = {
                 setDialog(ERROR_DIALOG, '取得に失敗しました')
             })
     },
-    fetchHosts ({ commit }) {
-        hostsCollection.orderBy('id', 'asc').get()
-            .then(snapshot => {
-                let result: ItemDataList = {
-                    item: []
-                }
-                let i = 1
-                snapshot.forEach(doc => {
-                    // console.log(doc.id + ' ' + doc.data())
-                    result.item.push({
-                        id: doc.id,
-                        data: doc.data(),
-                        page: Math.ceil(i / PAGE_SIZE)
-                    })
-                    i++
-                })
-
-                commit('setHosts', result)
-            })
-            .catch(error => {
-                // console.log(error)
-                commit('setHosts', null)
-
-                setDialog(ERROR_DIALOG, '取得に失敗しました')
-            })
-    },
-    fetchPhotos ({ commit }) {
-        photosCollection.get()
-            .then(snapshot => {
-                let result: ItemDataList = {
-                    item: []
-                }
-                let i = 1
-                snapshot.forEach(doc => {
-                    // console.log(doc.id + ' ' + doc.data())s
-                    result.item.push({
-                        id: doc.id,
-                        data: doc.data(),
-                        page: Math.ceil(i / PAGE_SIZE)
-                    })
-                    i++
-                })
-
-                commit('setPhotos', result)
-            })
-            .catch(error => {
-                // console.log(error)
-                commit('setPhotos', null)
-
-                setDialog(ERROR_DIALOG, '取得に失敗しました')
-            })
-    },
     fetchContacts ({ commit }, params) {
         if (params) {
             contactsCollection.where('category.value', '==', params.contactCategory).get()
@@ -452,30 +393,6 @@ export const actions: RootActionTree<State, RootState> = {
 
         return setDialog(!ERROR_DIALOG, name + '追加しました')
     },
-    addHost ({ state }, { name, event, location, locale, participants, max_participants, lt }) {
-        if (isValidText(name)) {
-            return setDialog(ERROR_DIALOG, '入力してください')
-        }
-
-        if (!state.hosts) {
-            return setDialog(ERROR_DIALOG, '主催イベントを設定ください')
-        }
-
-        const next = state.hosts.item.length + 1
-
-        hostsCollection.add({
-            'id': next,
-            'name': name,
-            'event': event,
-            'location': location,
-            'locale': locale,
-            'participants': participants,
-            'max_participants': max_participants,
-            'lt': lt
-        })
-
-        return setDialog(!ERROR_DIALOG, name + '追加しました')
-    },
     addPhoto ({ state }, { name, content }) {
         if (isValidText(name)) {
             return setDialog(ERROR_DIALOG, '入力してください')
@@ -512,12 +429,6 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   fetchEvents(
     { commit }
   ): void;
-  fetchHosts(
-    { commit }
-  ): void;
-  fetchPhotos(
-    { commit }
-  ): void;
   fetchContacts(
     { commit }, params
   ): void;
@@ -538,9 +449,6 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   ): Promise<SweetAlertResult>;
   removeFlight(
     ctx, { key, data }
-  ): Promise<SweetAlertResult>;
-  addHost(
-    { state }, { name, event, location, locale, participants, max_participants, lt }
   ): Promise<SweetAlertResult>;
   addEvent(
     { state }, { name, url, locale }
