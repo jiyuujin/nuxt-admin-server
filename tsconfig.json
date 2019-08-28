@@ -17,7 +17,6 @@
     "sourceMap": true,
     "types": [
       "@types/chart.js",
-      "@types/graphql",
       "@types/jest",
       "@types/node",
       "@types/storybook__vue",

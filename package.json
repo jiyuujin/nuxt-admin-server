@@ -52,7 +52,6 @@
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/vue": "^1.2.0",
     "@types/chart.js": "^2.7.53",
-    "@types/graphql": "^14.2.0",
     "@types/jest": "^24.0.17",
     "@types/node": "^11.13.4",
     "@types/storybook__vue": "^5.0.2",
