@@ -10,22 +10,22 @@ import { render, cleanup } from '@testing-library/vue'
 afterEach(cleanup)
 
 describe('shallow sample', () => {
-  it('vue instance', () => {
-    const wrapper = mount(Child)
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
-
-  it('rendering', () => {
-    render(Child, {
-      propsData: {
-        options: [
-          'abc',
-          'def',
-          'ghi'
-        ],
-        multiple: true,
-        name: '選択してください'
-      }
+    it('vue instance', () => {
+        const wrapper = mount(Child)
+        expect(wrapper.isVueInstance()).toBeTruthy()
     })
-  })
+
+    it('rendering', () => {
+        render(Child, {
+            propsData: {
+                options: [
+                    'abc',
+                    'def',
+                    'ghi'
+                ],
+                multiple: true,
+                name: '選択してください'
+            }
+        })
+    })
 })

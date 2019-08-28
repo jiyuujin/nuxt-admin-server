@@ -10,16 +10,16 @@ import { render, cleanup } from '@testing-library/vue'
 afterEach(cleanup)
 
 describe('Button', () => {
-  it('vue instance', () => {
-    const wrapper = mount(Child)
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
-
-  it('rendering', () => {
-    render(Child, {
-      propsData: {
-        text: '追加する'
-      }
+    it('vue instance', () => {
+        const wrapper = mount(Child)
+        expect(wrapper.isVueInstance()).toBeTruthy()
     })
-  })
+
+    it('rendering', () => {
+        render(Child, {
+            propsData: {
+                text: '追加する'
+            }
+        })
+    })
 })
