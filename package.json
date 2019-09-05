@@ -31,7 +31,7 @@
     "graphql-tag": "2.10.1",
     "nuxt": "2.9.2",
     "nuxt-property-decorator": "2.4.0",
-    "sweetalert2": "7.33.1",
+    "sweetalert2": "8.17.1",
     "ts-node": "8.3.0",
     "vue-chartjs": "3.4.2",
     "vue-cookie-law": "1.10.0",
