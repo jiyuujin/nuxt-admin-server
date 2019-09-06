@@ -4,10 +4,10 @@ import '../client/assets/main.scss'
 import Input from '../client/components/atoms/Input.vue'
 
 storiesOf('Input', module).add('list', () => ({
-  components: {
-    Input
-  },
-  template: `
+    components: {
+        Input
+    },
+    template: `
     <div>
       <div style="margin-bottom: 8px;">
         hoge1: {{ hoge1 }}
@@ -19,12 +19,12 @@ storiesOf('Input', module).add('list', () => ({
       </div>
     </div>
   `,
-  data () {
-    return {
-      hoge1: '1234',
-      hoge2: '1234',
-      backgroundColor: '#42b883',
-      textColor: '#fff'
-    }
-  },
+    data () {
+        return {
+            hoge1: '1234',
+            hoge2: '1234',
+            backgroundColor: '#42b883',
+            textColor: '#fff'
+        }
+    },
 }))
