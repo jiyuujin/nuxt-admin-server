@@ -4,10 +4,10 @@ import '../client/assets/main.scss'
 import Select from '../client/components/atoms/Select.vue'
 
 storiesOf('Select', module).add('list', () => ({
-  components: {
-    Select
-  },
-  template: `
+    components: {
+        Select
+    },
+    template: `
     <div>
       <div>
         hoge1: {{ hoge1 }}
@@ -27,27 +27,27 @@ storiesOf('Select', module).add('list', () => ({
       </div>
     </div>
   `,
-  data () {
-    return {
-      options: {
-        1: 'Option1',
-        2: 'Option2',
-        3: 'Option3',
-        4: 'Option4',
-        5: 'Option5',
-        6: 'Option6',
-      },
-      hoge1: 1,
-      hoge2: 1,
-      hoge3: [
-        1
-      ],
-      hoge4: [
-        1
-      ],
-      multiple: true,
-      backgroundColor: '#42b883',
-      textColor: '#fff'
+    data () {
+        return {
+            options: {
+                1: 'Option1',
+                2: 'Option2',
+                3: 'Option3',
+                4: 'Option4',
+                5: 'Option5',
+                6: 'Option6',
+            },
+            hoge1: 1,
+            hoge2: 1,
+            hoge3: [
+                1
+            ],
+            hoge4: [
+                1
+            ],
+            multiple: true,
+            backgroundColor: '#42b883',
+            textColor: '#fff'
+        }
     }
-  }
 }))

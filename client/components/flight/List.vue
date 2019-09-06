@@ -3,16 +3,16 @@
         <h3>Flight <span>({{ list.length }} レグ搭乗中)</span></h3>
         <chart :chart-data="getChartDataset(list)" />
         <div class="flight">
-            <card
-                v-for="item in list"
-                :key="item.id"
-                v-if="item.page === number"
-                :airline-id="item.data.airline"
-                :boarding-type="`${boardingType(item.data.boardingType)}`"
-                :route="`${departure(item.data.departure)} > ${arrival(item.data.arrival)}`"
-                :name="item.data.registration"
-                :time="timeFormat(item.data.time)"
-            />
+            <div v-for="item in list" :key="item.id">
+                <card
+                    v-if="item.page === number"
+                    :airline-id="item.data.airline"
+                    :boarding-type="`${boardingType(item.data.boardingType)}`"
+                    :route="`${departure(item.data.departure)} > ${arrival(item.data.arrival)}`"
+                    :name="item.data.registration"
+                    :time="timeFormat(item.data.time)"
+                />
+            </div>
         </div>
     </div>
 </template>
