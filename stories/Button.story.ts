@@ -4,10 +4,10 @@ import '../client/assets/main.scss'
 import Button from '../client/components/atoms/Button.vue'
 
 storiesOf('Button', module).add('list', () => ({
-  components: {
-    Button
-  },
-  template: `
+    components: {
+        Button
+    },
+    template: `
     <div class="m-8">
       <div style="margin-bottom: 8px;">
         <Button text="追加する" />
@@ -17,10 +17,10 @@ storiesOf('Button', module).add('list', () => ({
       </div>
     </div>
   `,
-  data() {
-    return {
-      backgroundColor: '#42b883',
-      textColor: '#fff'
-    }
-  },
+    data() {
+        return {
+            backgroundColor: '#42b883',
+            textColor: '#fff'
+        }
+    },
 }))
