@@ -57,7 +57,7 @@
     "@types/storybook__vue": "5.0.2",
     "@types/webpack": "4.39.1",
     "@types/webpack-env": "1.14.0",
-    "@typescript-eslint/eslint-plugin": "2.1.0",
+    "@typescript-eslint/eslint-plugin": "2.2.0",
     "@typescript-eslint/parser": "1.13.0",
     "@vue/babel-preset-app": "3.11.0",
     "@vue/cli-plugin-unit-jest": "3.11.0",
