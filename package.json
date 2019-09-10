@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "2.5.4",
+  "version": "2.5.8",
   "description": "A Nuxt.js project",
   "author": "yuukit <yuma.kitamura@ponos.co.jp>",
   "private": true,
@@ -40,8 +40,8 @@
     "vuex-type-helper": "1.2.2"
   },
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/preset-env": "7.5.5",
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
     "@nuxt/types": "0.2.11",
     "@nuxt/typescript-build": "0.2.6",
     "@nuxt/typescript-runtime": "0.1.5",
@@ -50,14 +50,14 @@
     "@storybook/addons": "5.1.11",
     "@storybook/vue": "5.1.11",
     "@testing-library/jest-dom": "4.1.0",
-    "@testing-library/vue": "1.2.0",
-    "@types/chart.js": "2.8.4",
+    "@testing-library/vue": "3.0.0",
+    "@types/chart.js": "2.8.5",
     "@types/jest": "24.0.18",
     "@types/node": "11.13.20",
     "@types/storybook__vue": "5.0.2",
     "@types/webpack": "4.39.1",
     "@types/webpack-env": "1.14.0",
-    "@typescript-eslint/eslint-plugin": "2.1.0",
+    "@typescript-eslint/eslint-plugin": "2.2.0",
     "@typescript-eslint/parser": "1.13.0",
     "@vue/babel-preset-app": "3.11.0",
     "@vue/cli-plugin-unit-jest": "3.11.0",
@@ -82,7 +82,7 @@
     "ts-jest": "24.0.2",
     "ts-loader": "6.0.4",
     "typescript": "3.6.2",
-    "vue-jest": "3.0.4",
+    "vue-jest": "3.0.5",
     "webpack": "4.39.3"
   }
 }
