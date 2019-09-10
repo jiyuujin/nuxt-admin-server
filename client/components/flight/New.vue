@@ -49,7 +49,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
-import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '../../utils'
+import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/flight'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const StoryInput = () => import('~/components/atoms/Input.vue')
 const StorySelect = () => import('~/components/atoms/Select.vue')

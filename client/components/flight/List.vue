@@ -25,8 +25,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { FlightForm } from '~/types/database.types'
-import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils'
-import { filledChartData } from '~/utils/flight'
+import { getTimeFormat } from '~/utils'
+import { getAirportName, getAirlineName, getBoardingTypeName, filledChartData } from '~/utils/flight'
 const Chart = () => import('./Chart.vue')
 
 @Component({
