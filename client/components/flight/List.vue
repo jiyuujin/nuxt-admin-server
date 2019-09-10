@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Flight <span>({{ list.length }} レグ搭乗中)</span></h3>
-        <chart :chart-data="getChartDataset(list)" />
+        <chart :chart-data="datasets(list)" />
         <div class="flights">
             <div v-for="item in list" :key="item.id">
                 <div v-if="item.page === number" class="flight-card">
@@ -26,24 +26,13 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { FlightForm } from '~/types/database.types'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils'
+import { filledChartData } from '~/utils/flight'
 const Chart = () => import('./Chart.vue')
-
-const YEARS: number[] = [
-    2015,
-    2016,
-    2017,
-    2018,
-    2019
-];
-
-const LABEL_TEXT: string = 'Flights';
-
-const COLOR_TEXT: string = '#42b883';
 
 @Component({
     components: {
         Chart
-    },
+    }
 })
 export default class FlightList extends Vue {
     @Prop() list: FlightForm[];
@@ -69,27 +58,8 @@ export default class FlightList extends Vue {
         return getBoardingTypeName(id)
     }
 
-    getChartDataset(items) {
-        let dataset: number[] = []
-        for (let yearIndex = 0; yearIndex < YEARS.length; yearIndex++) {
-            const size = items.filter(item => {
-                return item.data.time.includes(YEARS[yearIndex]) === true
-            }) || 0
-
-            // console.log(YEARS[yearIndex] + ' : ' + size.length)
-            dataset.push(size.length)
-        }
-
-        return {
-            labels: YEARS,
-            datasets: [
-                {
-                    label: LABEL_TEXT,
-                    backgroundColor: COLOR_TEXT,
-                    data: dataset
-                }
-            ]
-        }
+    datasets(allData: any) {
+        return filledChartData(allData)
     }
 }
 </script>
