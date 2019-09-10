@@ -10,6 +10,9 @@ const LABEL_TEXT: string = 'Flights'
 
 const COLOR_TEXT: string = '#42b883'
 
+/**
+ * グラフオプション
+ */
 export const CHART_OPTIONS = {
     title: {
     //
