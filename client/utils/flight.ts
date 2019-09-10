@@ -10,6 +10,70 @@ const LABEL_TEXT: string = 'Flights'
 
 const COLOR_TEXT: string = '#42b883'
 
+export const CHART_OPTIONS = {
+    title: {
+    //
+    },
+    legend: {
+        display: true
+    },
+    layout: {
+        padding: {
+            top: 20,
+            left: 20,
+            bottom: 20,
+            right: 20
+        }
+    },
+    scales: {
+        xAxes: [
+            {
+                gridLines: {
+                    display: true,
+                    drawOnChartArea: false,
+                    color: '#ccc',
+                    zeroLineColor: '#fff'
+                },
+                scaleLabel: {
+                    display: true,
+                    fontColor: '#000',
+                    labelString: '年',
+                },
+                ticks: {
+                    beginAtZero: true,
+                    autoSkip: true,
+                    fontColor: '#000',
+                    fontSize: 12
+                }
+            }
+        ],
+        yAxes: [
+            {
+                gridLines: {
+                    display: true,
+                    drawOnChartArea: false,
+                    color: '#ccc',
+                    zeroLineColor: '#fff'
+                },
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 40,
+                    autoSkip: true,
+                    fontColor: '#000',
+                    fontSize: 12,
+                    stepSize: 5,
+                    callback: function(value, index, values) {
+                        return value + 'レグ'
+                    }
+                }
+            }
+        ]
+    },
+    responsive: true,
+    maintainAspectRatio: false
+}
+
 /**
  * グラフを描画する
  * @param allData データセット
