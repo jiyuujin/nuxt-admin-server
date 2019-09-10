@@ -2,16 +2,21 @@
     <div>
         <h3>Flight <span>({{ list.length }} レグ搭乗中)</span></h3>
         <chart :chart-data="getChartDataset(list)" />
-        <div class="flight">
+        <div class="flights">
             <div v-for="item in list" :key="item.id">
-                <card
-                    v-if="item.page === number"
-                    :airline-id="item.data.airline"
-                    :boarding-type="`${boardingType(item.data.boardingType)}`"
-                    :route="`${departure(item.data.departure)} > ${arrival(item.data.arrival)}`"
-                    :name="item.data.registration"
-                    :time="timeFormat(item.data.time)"
-                />
+                <div v-if="item.page === number" class="flight-card">
+                    <div class="flight-card-text">
+                        <div class="title">
+                            {{ `${departure(item.data.departure)} > ${arrival(item.data.arrival)}` }}
+                        </div>
+                        <div class="route">
+                            {{ item.data.registration }}({{ boardingType(item.data.boardingType) }})
+                        </div>
+                    </div>
+                    <div class="flight-card-time">
+                        {{ timeFormat(item.data.time) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -22,7 +27,6 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { FlightForm } from '~/types/database.types'
 import { getAirportName, getAirlineName, getBoardingTypeName, getTimeFormat } from '~/utils'
 const Chart = () => import('./Chart.vue')
-const Card = () => import('./Card.vue')
 
 const YEARS: number[] = [
     2015,
@@ -38,8 +42,7 @@ const COLOR_TEXT: string = '#42b883';
 
 @Component({
     components: {
-        Chart,
-        Card
+        Chart
     },
 })
 export default class FlightList extends Vue {
@@ -92,8 +95,48 @@ export default class FlightList extends Vue {
 </script>
 
 <style scoped>
-.flight {
+.flights {
     display: flex;
     flex-wrap: wrap;
+}
+
+.flight-card {
+    margin: 30px auto;
+    width: 240px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #ccc;
+}
+
+.flight-card-text {
+    padding: 20px;
+}
+
+.flight-card-text .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    overflow: hidden;
+    height: 5.4em;
+    line-height: 1.8;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    vertical-align: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.flight-card-text .route {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.flight-card-time {
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding: 20px;
 }
 </style>
