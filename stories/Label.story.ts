@@ -4,10 +4,10 @@ import '../client/assets/main.scss'
 import Label from '../client/components/atoms/Label.vue'
 
 storiesOf('Label', module).add('list', () => ({
-  components: {
-    'j-label': Label
-  },
-  template: `
+    components: {
+        'j-label': Label
+    },
+    template: `
     <div>
       <div class="flex-block">
         <div class="showcase">
