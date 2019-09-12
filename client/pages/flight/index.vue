@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { BOARDING_TYPE_LIST, YEARS } from '../../utils'
+import { YEARS } from '~/utils'
+import { BOARDING_TYPE_LIST } from '~/utils/flight'
 const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const FlightList = () => import('../../components/flight/List.vue')
 const NewFlight = () => import('../../components/flight/New.vue')
