@@ -2,7 +2,7 @@
   <a
     href="#"
     :style="`background-color: ${bgColor}; color: ${color};`"
-    class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
     @click="click"
   >
     {{ text }}
@@ -31,10 +31,3 @@ export default Vue.extend({
     }
 })
 </script>
-
-<style lang="sass" scoped>
-a
-    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded
-a:hover
-    @apply bg-blue-700
-</style>
