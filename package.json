@@ -32,7 +32,7 @@
     "nuxt": "2.9.2",
     "nuxt-property-decorator": "2.4.0",
     "sweetalert2": "7.33.1",
-    "ts-node": "8.3.0",
+    "ts-node": "8.4.1",
     "vue-chartjs": "3.4.2",
     "vue-cookie-law": "1.10.0",
     "vue-no-ssr": "1.1.1",
@@ -42,9 +42,9 @@
   "devDependencies": {
     "@babel/core": "7.6.0",
     "@babel/preset-env": "7.6.0",
-    "@nuxt/types": "0.2.11",
-    "@nuxt/typescript-build": "0.2.6",
-    "@nuxt/typescript-runtime": "0.1.5",
+    "@nuxt/types": "0.2.14",
+    "@nuxt/typescript-build": "0.2.9",
+    "@nuxt/typescript-runtime": "0.1.6",
     "@storybook/addon-actions": "5.1.11",
     "@storybook/addon-links": "5.1.11",
     "@storybook/addons": "5.1.11",
@@ -57,7 +57,7 @@
     "@types/storybook__vue": "5.0.2",
     "@types/webpack": "4.39.1",
     "@types/webpack-env": "1.14.0",
-    "@typescript-eslint/eslint-plugin": "2.2.0",
+    "@typescript-eslint/eslint-plugin": "2.3.0",
     "@typescript-eslint/parser": "1.13.0",
     "@vue/babel-preset-app": "3.11.0",
     "@vue/cli-plugin-unit-jest": "3.11.0",
@@ -70,7 +70,7 @@
     "cache-loader": "4.1.0",
     "css-loader": "3.2.0",
     "cssnano": "4.1.10",
-    "eslint": "6.3.0",
+    "eslint": "6.4.0",
     "eslint-loader": "3.0.0",
     "eslint-plugin-vue": "5.2.3",
     "fork-ts-checker-webpack-plugin": "1.5.0",
@@ -85,6 +85,6 @@
     "typescript": "3.6.2",
     "vue-jest": "3.0.5",
     "vue-loader": "15.7.1",
-    "webpack": "4.40.0"
+    "webpack": "4.40.2"
   }
 }
