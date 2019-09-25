@@ -4,17 +4,12 @@
         :user-status="userStatus"
     >
         <main-template :is-form="isForm">
-            <story-input
-                v-model="inputSearch"
+            <j-input
                 placeholder="タイトル"
-            />
-        </main-template>
-        <main-template :is-form="isForm">
-            <story-select
-                :options="eventOptions"
-                v-model="selectedEvent"
-                name="イベント"
-            />
+                input-type="text"
+                width="80%"
+                @handleInput="applyTitle"
+            ></j-input>
         </main-template>
         <tip-list
             :list="tips.item"
@@ -46,8 +41,6 @@ const EditTip = () => import('../../components/tip/Edit.vue')
 const NewEvent = () => import('../../components/event/New.vue')
 const NewPhoto = () => import('../../components/photo/New.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
-const StoryInput = () => import('../../components/atoms/Input.vue')
-const StorySelect = () => import('../../components/atoms/Select.vue')
 
 @Component({
     middleware: 'auth',
@@ -58,9 +51,7 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
         EditTip,
         NewEvent,
         NewPhoto,
-        Pagination,
-        StoryInput,
-        StorySelect
+        Pagination
     },
     async fetch({ store }) {
         await store.dispatch('product/fetchTips', null)
@@ -109,6 +100,10 @@ export default class TipPage extends Vue {
 
     async startEdited() {
         await this.$store.dispatch('product/addDialog')
+    }
+
+    applyTitle(value) {
+        this.inputSearch = value
     }
 
     applyEditedForm(value) {

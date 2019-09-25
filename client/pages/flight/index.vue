@@ -3,20 +3,6 @@
         v-if="flights"
         :user-status="userStatus"
     >
-        <main-template :is-form="isForm">
-            <story-select
-                :options="yearOptions"
-                v-model="selectedYaer"
-                name="年"
-            />
-        </main-template>
-        <main-template :is-form="isForm">
-            <story-select
-                :options="boardingTypeOptions"
-                v-model="selectedBoardingType"
-                name="搭乗機材"
-            />
-        </main-template>
         <flight-list
             :list="flights.item"
             :number="page"
@@ -38,7 +24,6 @@ const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const FlightList = () => import('../../components/flight/List.vue')
 const NewFlight = () => import('../../components/flight/New.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
-const StorySelect = () => import('../../components/atoms/Select.vue')
 
 @Component({
     middleware: 'auth',
@@ -46,8 +31,7 @@ const StorySelect = () => import('../../components/atoms/Select.vue')
         MainTemplate,
         Pagination,
         FlightList,
-        NewFlight,
-        StorySelect
+        NewFlight
     },
     async fetch({ store }) {
         await store.dispatch('product/fetchFlights', {

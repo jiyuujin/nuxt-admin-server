@@ -6,7 +6,7 @@ module.exports = ({ config, mode }) => {
   config.module.rules.push(
     {
       test: /\.s?css$/,
-      loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+      loaders: ['style-loader', 'css-loader', 'postcss-loader'],
       include: path.resolve(__dirname, '../')
     },
     {
