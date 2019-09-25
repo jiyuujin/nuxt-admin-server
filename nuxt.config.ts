@@ -49,6 +49,7 @@ export default {
     plugins: [
         '~/plugins/axios.ts',
         '~/plugins/firebase.ts',
+        '~/plugins/j-stylebook.ts'
     ],
 
     apollo: {
@@ -57,9 +58,7 @@ export default {
         }
     },
 
-    css: [
-        '~/assets/main.scss',
-    ],
+    css: [],
 
     env: {
         NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY,

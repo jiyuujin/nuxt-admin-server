@@ -2,48 +2,60 @@
     <dialog v-if="events && dialog">
         <div>
             <main-template :is-form="isForm">
-                <story-input
-                    v-model="editedForm.title"
+                <j-input
                     placeholder="タイトル"
-                />
+                    input-type="text"
+                    width="80%"
+                    @handleInput="applyTitle"
+                ></j-input>
             </main-template>
             <main-template :is-form="isForm">
-                <story-input
-                    v-model="editedForm.url"
+                <j-input
                     placeholder="URL"
-                />
+                    input-type="text"
+                    width="80%"
+                    @handleInput="applyUrl"
+                ></j-input>
             </main-template>
             <main-template :is-form="isForm">
-                <story-input
-                    v-model="editedForm.description"
-                    placeholder="タイトル"
-                />
+                <j-input
+                    placeholder="詳細"
+                    input-type="text"
+                    width="80%"
+                    @handleInput="applyDescription"
+                ></j-input>
             </main-template>
             <main-template :is-form="isForm">
-                <story-select
+                <j-select
                     :options="categoryOptions"
-                    :multiple="Boolean(true)"
-                    v-model="editedForm.tags"
-                    name="タグ"
-                    @form-data="applyTags"
-                />
+                    :multiple="Boolean(false)"
+                    :selected-values="editedForm.tags"
+                    width="80%"
+                    @handleSelect="applyTags"
+                ></j-select>
             </main-template>
             <main-template :is-form="isForm">
-                <story-select
+                <j-select
                     :options="eventOptions"
-                    v-model="editedForm.event"
-                    name="イベント"
-                />
+                    :multiple="Boolean(false)"
+                    :selected-values="editedForm.event"
+                    width="80%"
+                    @handleSelect="applyEvent"
+                ></j-select>
             </main-template>
             <main-template :is-form="isForm">
-                <story-button
+                <j-button
                     text="削除する"
+                    width="128px"
+                    variant-style="text"
                     @handleClick="close"
-                />
-                <story-button
+                ></j-button>
+                <j-button
                     text="保存する"
+                    width="128px"
+                    variant-style="text"
                     @handleClick="save"
-                />
+                ></j-button>
             </main-template>
         </div>
     </dialog>
@@ -54,16 +66,10 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { CATEGORIES } from '~/utils'
 import { TipForm } from '~/types/database.types'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     },
     computed: {
         categoryOptions (this: EditTip) {
@@ -96,6 +102,22 @@ export default class EditTip extends Vue {
 
     get events () {
         return this.$store.state.product.events
+    }
+
+    applyTitle(value) {
+        this.editedForm.title = value
+    }
+
+    applyUrl(value) {
+        this.editedForm.url = value
+    }
+
+    applyDescription(value) {
+        this.editedForm.description = value
+    }
+
+    applyEvent(value) {
+        this.editedForm.event = value
     }
 
     applyTags (value) {

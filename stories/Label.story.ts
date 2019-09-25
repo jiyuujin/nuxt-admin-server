@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/vue'
-import '../client/assets/main.scss'
+// import '../client/assets/main.scss'
 
 import Label from '../client/components/atoms/Label.vue'
 

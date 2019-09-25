@@ -1,47 +1,64 @@
 <template>
     <div>
         <main-template :is-form="isForm">
-            <story-input v-model="time" />
+            <j-input
+                placeholder="搭乗時間"
+                input-type="text"
+                width="80%"
+                @handleInput="applyTime"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="airportOptions"
-                v-model="departure"
-                name="出発"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="departure"
+                width="80%"
+                @handleSelect="applyDeparture"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="airportOptions"
-                v-model="arrival"
-                name="到着"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="arrival"
+                width="80%"
+                @handleSelect="applyArrival"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="airlineOptions"
-                v-model="airline"
-                name="航空会社"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="airline"
+                width="80%"
+                @handleSelect="applyAirline"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="boardingTypeOptions"
-                v-model="boardingType"
-                name="搭乗機材"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="boardingType"
+                width="80%"
+                @handleSelect="applyBoardingType"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-          <story-input
-              v-model="registration"
-              placeholder="レジ"
-          />
+            <j-input
+                placeholder="レジ"
+                input-type="text"
+                width="80%"
+                @handleInput="applyRegistration"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-button
+            <j-button
                 text="フライトを追加"
+                width="128px"
+                variant-style="text"
                 @handleClick="postFlight"
-            />
+            ></j-button>
         </main-template>
     </div>
 </template>
@@ -51,16 +68,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/flight'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     },
     computed: {
         airportOptions (this: NewFlight) {
@@ -94,6 +105,30 @@ export default class NewFlight extends Vue {
     boardingType: number = 0;
     registration: string = '';
     isForm: boolean = true;
+
+    applyTime(value) {
+        this.time = value
+    }
+
+    applyDeparture(value) {
+        this.departure = value
+    }
+
+    applyArrival(value) {
+        this.arrival = value
+    }
+
+    applyAirline(value) {
+        this.airline = value
+    }
+
+    applyBoardingType(value) {
+        this.boardingType = value
+    }
+
+    applyRegistration(value) {
+        this.registration = value
+    }
 
     reset () {
         this.time = dayjs().format()

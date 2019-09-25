@@ -1,42 +1,54 @@
 <template>
-  <div v-if="events">
-    <main-template :is-form="isForm">
-      <story-input
-        v-model="title"
-        placeholder="タイトル"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-input
-        v-model="url"
-        placeholder="URL"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-input
-        v-model="description"
-        placeholder="詳細"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-select
-        :options="categoryOptions"
-        v-model="tags"
-        name="タグ"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-select
-        :options="eventOptions"
-        v-model="event"
-        name="イベント"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-button
-        text="Tipを追加"
-        @handleClick="postTip"
-      />
+    <div v-if="events">
+        <main-template :is-form="isForm">
+            <j-input
+                placeholder="タイトル"
+                input-type="text"
+                width="80%"
+                @handleInput="applyTitle"
+            ></j-input>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-input
+                placeholder="URL"
+                input-type="text"
+                width="80%"
+                @handleInput="applyUrl"
+            ></j-input>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-input
+                placeholder="詳細"
+                input-type="text"
+                width="80%"
+                @handleInput="applyDescription"
+            ></j-input>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-select
+                :options="categoryOptions"
+                :multiple="Boolean(false)"
+                :selected-values="tags"
+                width="80%"
+                @handleSelect="applyTags"
+            ></j-select>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-select
+                :options="eventOptions"
+                :multiple="Boolean(false)"
+                :selected-values="event"
+                width="80%"
+                @handleSelect="applyEvent"
+            ></j-select>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-button
+                text="Tipを追加"
+                width="128px"
+                variant-style="text"
+                @handleClick="postTip"
+            ></j-button>
     </main-template>
   </div>
 </template>
@@ -46,16 +58,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import { CATEGORIES } from '~/utils'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     },
     computed: {
         categoryOptions (this: NewTip) {
@@ -87,6 +93,22 @@ export default class NewTip extends Vue {
 
     get events () {
         return this.$store.state.product.events
+    }
+
+    applyTitle(value) {
+      this.title = value
+    }
+
+    applyUrl(value) {
+      this.url = value
+    }
+
+    apply(value) {
+      this.description = value
+    }
+
+    applyEvent(value) {
+        this.event = value
     }
 
     applyTags (value) {
