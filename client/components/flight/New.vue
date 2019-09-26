@@ -68,26 +68,14 @@ const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
         MainTemplate
     },
     computed: {
-        airportOptions (this: NewFlight) {
-            let array: string[] = []
-            AIRPORT_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
+        airportOptions(this: NewFlight) {
+            return AIRPORT_LIST
         },
-        airlineOptions (this: NewFlight) {
-            let array: string[] = []
-            AIRLINE_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
+        airlineOptions(this: NewFlight) {
+            return AIRLINE_LIST
         },
         boardingTypeOptions (this: NewFlight) {
-            let array: string[] = []
-            BOARDING_TYPE_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
+            return BOARDING_TYPE_LIST
         },
     },
 })

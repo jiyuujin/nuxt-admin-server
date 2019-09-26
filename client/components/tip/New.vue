@@ -51,7 +51,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
-import { CATEGORIES } from '~/utils'
+import { CATEGORIES } from '~/utils/tip'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
 @Component({
@@ -59,17 +59,16 @@ const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
         MainTemplate
     },
     computed: {
-        categoryOptions (this: NewTip) {
-            let array: string[] = []
-            CATEGORIES.forEach((item) => {
-                array.push(item.text)
-            })
-            return array
+        categoryOptions(this: NewTip) {
+            return CATEGORIES
         },
-        eventOptions (this: NewTip) {
-            let array: string[] = []
+        eventOptions(this: NewTip) {
+            let array: object[] = []
             this.$store.state.product.events.item.forEach((item) => {
-                array.push(item.data.name)
+                array.push({
+                    value: item.data.id,
+                    text: item.data.name
+                })
             })
             return array
         }
@@ -82,7 +81,7 @@ export default class NewTip extends Vue {
     title: string = '';
     url: string = '';
     description: string = '';
-    tags: number[] = [];
+    tags: number = 0;
     event: number = 0;
     isForm: boolean = true;
 
@@ -114,7 +113,7 @@ export default class NewTip extends Vue {
         this.title = ''
         this.url = ''
         this.description = ''
-        this.tags = []
+        this.tags = 0
         this.event = 0
     }
 

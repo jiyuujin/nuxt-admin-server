@@ -36,7 +36,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { EventForm } from '~/types/database.types'
-import { LOCALES } from '~/utils'
+import { LOCALES } from '~/utils/tip'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
 @Component({
@@ -45,11 +45,7 @@ const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
     },
     computed: {
         localeOptions () {
-            let array: string[] = []
-            LOCALES.forEach(locale => {
-                array.push(locale.text)
-            })
-            return array
+            return LOCALES
         }
     },
 })

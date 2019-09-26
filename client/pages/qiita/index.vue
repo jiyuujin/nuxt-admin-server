@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { CATEGORIES } from '../../utils'
+import { CATEGORIES } from '~/utils/tip'
 const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const QiitaList = () => import('../../components/qiita/List.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
