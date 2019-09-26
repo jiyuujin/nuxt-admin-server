@@ -4,7 +4,6 @@
             <j-input
                 placeholder="タイトル"
                 input-type="text"
-                width="80%"
                 @handleInput="applyTitle"
             ></j-input>
         </main-template>
@@ -12,7 +11,6 @@
             <j-input
                 placeholder="URL"
                 input-type="text"
-                width="80%"
                 @handleInput="applyUrl"
             ></j-input>
         </main-template>
@@ -20,7 +18,6 @@
             <j-input
                 placeholder="詳細"
                 input-type="text"
-                width="80%"
                 @handleInput="applyDescription"
             ></j-input>
         </main-template>
@@ -29,7 +26,6 @@
                 :options="categoryOptions"
                 :multiple="Boolean(false)"
                 :selected-values="tags"
-                width="80%"
                 @handleSelect="applyTags"
             ></j-select>
         </main-template>
@@ -38,14 +34,13 @@
                 :options="eventOptions"
                 :multiple="Boolean(false)"
                 :selected-values="event"
-                width="80%"
                 @handleSelect="applyEvent"
             ></j-select>
         </main-template>
         <main-template :is-form="isForm">
             <j-button
                 text="Tipを追加"
-                width="128px"
+                width="160px"
                 variant-style="text"
                 @handleClick="postTip"
             ></j-button>
@@ -96,15 +91,15 @@ export default class NewTip extends Vue {
     }
 
     applyTitle(value) {
-      this.title = value
+        this.title = value
     }
 
     applyUrl(value) {
-      this.url = value
+        this.url = value
     }
 
-    apply(value) {
-      this.description = value
+    applyDescription(value) {
+        this.description = value
     }
 
     applyEvent(value) {

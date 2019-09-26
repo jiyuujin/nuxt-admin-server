@@ -4,7 +4,6 @@
             <j-input
                 placeholder="名前"
                 input-type="text"
-                width="80%"
                 @handleInput="applyName"
             ></j-input>
         </main-template>
@@ -12,7 +11,6 @@
             <j-input
                 placeholder="URL"
                 input-type="text"
-                width="80%"
                 @handleInput="applyUrl"
             ></j-input>
         </main-template>
@@ -21,14 +19,13 @@
                 :options="localeOptions"
                 :multiple="Boolean(false)"
                 :selected-values="form.locale"
-                width="80%"
                 @handleSelect="applyLocale"
             ></j-select>
         </main-template>
         <main-template :is-form="isForm">
             <j-button
                 text="Eventを追加"
-                width="128px"
+                width="160px"
                 variant-style="text"
                 @handleClick="postEvent"
             ></j-button>

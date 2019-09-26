@@ -1,26 +1,24 @@
 <template>
-    <main-template
-        v-if="qiitas"
-        :user-status="userStatus"
-    >
+    <main-template v-if="qiitas" :user-status="userStatus">
         <main-template :is-form="isForm">
             <j-input
                 placeholder="タイトル"
                 input-type="text"
-                width="80%"
                 @handleInput="applyTitle"
             ></j-input>
         </main-template>
-        <qiita-list
-            :list="qiitas"
-            :search="search"
-           :tag="tag"
-        />
-        <pagination
-            :page="page"
-            :max="Math.ceil(qiitas.length / 20)"
-             @form-data="applyPage"
-        />
+        <main-template>
+            <qiita-list
+                :list="qiitas"
+                :search="search"
+                :tag="tag"
+            />
+            <pagination
+                :page="page"
+                :max="Math.ceil(qiitas.length / 20)"
+                @form-data="applyPage"
+            />
+        </main-template>
     </main-template>
 </template>
 

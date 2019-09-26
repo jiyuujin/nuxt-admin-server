@@ -4,7 +4,6 @@
             <j-input
                 placeholder="名前"
                 input-type="text"
-                width="80%"
                 @handleInput="applyName"
             ></j-input>
         </main-template>
@@ -30,7 +29,7 @@
         <main-template :is-form="isForm">
             <j-button
                 text="Photoを追加"
-                width="128px"
+                width="160px"
                 variant-style="text"
                 @handleClick="postPhoto"
             ></j-button>

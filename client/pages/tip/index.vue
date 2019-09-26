@@ -1,34 +1,34 @@
 <template>
-    <main-template
-        v-if="tips && events"
-        :user-status="userStatus"
-    >
+    <main-template v-if="tips && events" :user-status="userStatus">
         <main-template :is-form="isForm">
             <j-input
                 placeholder="タイトル"
                 input-type="text"
-                width="80%"
                 @handleInput="applyTitle"
             ></j-input>
         </main-template>
-        <tip-list
-            :list="tips.item"
-            :number="page"
-            :search="inputSearch"
-            @form-data="applyEditedForm"
-        />
-        <pagination
-            :page="page"
-            :max="Math.ceil(tips.item.length / 20)"
-            @form-data="applyPage"
-        />
-        <new-tip />
-        <edit-tip
-            :edited-form="editedForm"
-            :data-key="dataKey"
-        />
-        <new-event />
-        <new-photo />
+        <main-template>
+            <tip-list
+                :list="tips.item"
+                :number="page"
+                :search="inputSearch"
+                @form-data="applyEditedForm"
+            />
+            <pagination
+                :page="page"
+                :max="Math.ceil(tips.item.length / 20)"
+                @form-data="applyPage"
+            />
+        </main-template>
+        <main-template :is-form="isForm">
+            <new-tip />
+        </main-template>
+        <main-template :is-form="isForm">
+            <new-event />
+        </main-template>
+        <main-template :is-form="isForm">
+            <new-photo />
+        </main-template>
     </main-template>
 </template>
 
@@ -37,7 +37,6 @@ import { Component, Vue } from 'nuxt-property-decorator'
 const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const TipList = () => import('../../components/tip/List.vue')
 const NewTip = () => import('../../components/tip/New.vue')
-const EditTip = () => import('../../components/tip/Edit.vue')
 const NewEvent = () => import('../../components/event/New.vue')
 const NewPhoto = () => import('../../components/photo/New.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
@@ -48,7 +47,6 @@ const Pagination = () => import('../../components/layout/Pagination.vue')
         MainTemplate,
         TipList,
         NewTip,
-        EditTip,
         NewEvent,
         NewPhoto,
         Pagination
@@ -84,10 +82,6 @@ export default class TipPage extends Vue {
 
     get userStatus () {
         return this.$store.state.product.userStatus
-    }
-
-    get dialog () {
-        return this.$store.state.product.dialog
     }
 
     get tips () {

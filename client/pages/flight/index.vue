@@ -1,8 +1,5 @@
 <template>
-    <main-template
-        v-if="flights"
-        :user-status="userStatus"
-    >
+    <main-template v-if="flights" :user-status="userStatus">
         <flight-list
             :list="flights.item"
             :number="page"

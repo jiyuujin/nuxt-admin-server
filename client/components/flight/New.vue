@@ -4,7 +4,6 @@
             <j-input
                 placeholder="搭乗時間"
                 input-type="text"
-                width="80%"
                 @handleInput="applyTime"
             ></j-input>
         </main-template>
@@ -13,7 +12,6 @@
                 :options="airportOptions"
                 :multiple="Boolean(false)"
                 :selected-values="departure"
-                width="80%"
                 @handleSelect="applyDeparture"
             ></j-select>
         </main-template>
@@ -22,7 +20,6 @@
                 :options="airportOptions"
                 :multiple="Boolean(false)"
                 :selected-values="arrival"
-                width="80%"
                 @handleSelect="applyArrival"
             ></j-select>
         </main-template>
@@ -31,7 +28,6 @@
                 :options="airlineOptions"
                 :multiple="Boolean(false)"
                 :selected-values="airline"
-                width="80%"
                 @handleSelect="applyAirline"
             ></j-select>
         </main-template>
@@ -40,7 +36,6 @@
                 :options="boardingTypeOptions"
                 :multiple="Boolean(false)"
                 :selected-values="boardingType"
-                width="80%"
                 @handleSelect="applyBoardingType"
             ></j-select>
         </main-template>
@@ -48,14 +43,13 @@
             <j-input
                 placeholder="レジ"
                 input-type="text"
-                width="80%"
                 @handleInput="applyRegistration"
             ></j-input>
         </main-template>
         <main-template :is-form="isForm">
             <j-button
-                text="フライトを追加"
-                width="128px"
+                text="Flightを追加"
+                width="160px"
                 variant-style="text"
                 @handleClick="postFlight"
             ></j-button>

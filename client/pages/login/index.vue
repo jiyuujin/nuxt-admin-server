@@ -1,13 +1,9 @@
 <template>
-    <main-template
-        :user-status="userStatus"
-        class="login"
-    >
+    <main-template :user-status="userStatus" class="login">
         <main-template :is-form="isForm">
             <j-input
                 placeholder="メールアドレス"
                 input-type="text"
-                width="80%"
                 @handleInput="applyEmail"
             ></j-input>
         </main-template>
@@ -15,7 +11,6 @@
             <j-input
                 placeholder="パスワード"
                 input-type="password"
-                width="80%"
                 @handleInput="applyPassword"
             ></j-input>
         </main-template>
