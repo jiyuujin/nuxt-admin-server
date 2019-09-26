@@ -7,10 +7,12 @@
             v-if="userStatus"
             class="logout"
         >
-            <story-button
-                text="logout"
+            <j-button
+                text="ログアウト"
+                width="128px"
+                variant-style="text"
                 @handleClick="logout"
-            />
+            ></j-button>
         </div>
         <div :class="isForm ? `form` : `main`">
             <slot />
@@ -21,12 +23,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 const LeftMenu = () => import('~/components/layout/LeftMenu.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        LeftMenu,
-        StoryButton
+        LeftMenu
     }
 })
 export default class MainTemplate extends Vue {

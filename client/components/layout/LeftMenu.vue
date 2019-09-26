@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { MENU_LIST } from '~/utils'
+import { MENU_LIST } from '~/utils/layout'
 
 @Component({})
 export default class LeftMenu extends Vue {

@@ -1,51 +1,40 @@
 <template>
-    <main-template
-        v-if="qiitas"
-        :user-status="userStatus"
-    >
+    <main-template v-if="qiitas" :user-status="userStatus">
         <main-template :is-form="isForm">
-            <story-select
-                :options="categoryOptions"
-                v-model="tag"
-                name="カテゴリー"
-            />
-        </main-template>
-        <main-template :is-form="isForm">
-            <story-input
-                v-model="search"
+            <j-input
                 placeholder="タイトル"
+                input-type="text"
+                @handleInput="applyTitle"
+            ></j-input>
+        </main-template>
+        <main-template>
+            <qiita-list
+                :list="qiitas"
+                :search="search"
+                :tag="tag"
+            />
+            <pagination
+                :page="page"
+                :max="Math.ceil(qiitas.length / 20)"
+                @form-data="applyPage"
             />
         </main-template>
-        <qiita-list
-            :list="qiitas"
-            :search="search"
-           :tag="tag"
-        />
-        <pagination
-            :page="page"
-            :max="Math.ceil(qiitas.length / 20)"
-             @form-data="applyPage"
-        />
     </main-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { CATEGORIES } from '../../utils'
+import { CATEGORIES } from '~/utils/tip'
 const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const QiitaList = () => import('../../components/qiita/List.vue')
 const Pagination = () => import('../../components/layout/Pagination.vue')
-const StoryInput = () => import('../../components/atoms/Input.vue')
-const StorySelect = () => import('../../components/atoms/Select.vue')
 
 @Component({
     middleware: 'auth',
     components: {
         MainTemplate,
         QiitaList,
-        Pagination,
-        StoryInput,
-        StorySelect
+        Pagination
     },
     computed: {
         categoryOptions (this: QiitaPage) {
@@ -76,6 +65,10 @@ export default class QiitaPage extends Vue {
 
     get qiitas () {
         return this.$store.state.qiita.qiitas
+    }
+
+    applyTitle(value) {
+        this.search = value
     }
 
     async getQiitaByTag () {

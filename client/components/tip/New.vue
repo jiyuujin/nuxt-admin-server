@@ -1,42 +1,49 @@
 <template>
-  <div v-if="events">
-    <main-template :is-form="isForm">
-      <story-input
-        v-model="title"
-        placeholder="タイトル"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-input
-        v-model="url"
-        placeholder="URL"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-input
-        v-model="description"
-        placeholder="詳細"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-select
-        :options="categoryOptions"
-        v-model="tags"
-        name="タグ"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-select
-        :options="eventOptions"
-        v-model="event"
-        name="イベント"
-      />
-    </main-template>
-    <main-template :is-form="isForm">
-      <story-button
-        text="Tipを追加"
-        @handleClick="postTip"
-      />
+    <div v-if="events">
+        <main-template :is-form="isForm">
+            <j-input
+                placeholder="タイトル"
+                input-type="text"
+                @handleInput="applyTitle"
+            ></j-input>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-input
+                placeholder="URL"
+                input-type="text"
+                @handleInput="applyUrl"
+            ></j-input>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-input
+                placeholder="詳細"
+                input-type="text"
+                @handleInput="applyDescription"
+            ></j-input>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-select
+                :options="categoryOptions"
+                :multiple="Boolean(false)"
+                :selected-values="tags"
+                @handleSelect="applyTags"
+            ></j-select>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-select
+                :options="eventOptions"
+                :multiple="Boolean(false)"
+                :selected-values="event"
+                @handleSelect="applyEvent"
+            ></j-select>
+        </main-template>
+        <main-template :is-form="isForm">
+            <j-button
+                text="Tipを追加"
+                width="160px"
+                variant-style="text"
+                @handleClick="postTip"
+            ></j-button>
     </main-template>
   </div>
 </template>
@@ -44,31 +51,24 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
-import { CATEGORIES } from '~/utils'
+import { CATEGORIES } from '~/utils/tip'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     },
     computed: {
-        categoryOptions (this: NewTip) {
-            let array: string[] = []
-            CATEGORIES.forEach((item) => {
-                array.push(item.text)
-            })
-            return array
+        categoryOptions(this: NewTip) {
+            return CATEGORIES
         },
-        eventOptions (this: NewTip) {
-            let array: string[] = []
+        eventOptions(this: NewTip) {
+            let array: object[] = []
             this.$store.state.product.events.item.forEach((item) => {
-                array.push(item.data.name)
+                array.push({
+                    value: item.data.id,
+                    text: item.data.name
+                })
             })
             return array
         }
@@ -81,12 +81,28 @@ export default class NewTip extends Vue {
     title: string = '';
     url: string = '';
     description: string = '';
-    tags: number[] = [];
+    tags: number = 0;
     event: number = 0;
     isForm: boolean = true;
 
     get events () {
         return this.$store.state.product.events
+    }
+
+    applyTitle(value) {
+        this.title = value
+    }
+
+    applyUrl(value) {
+        this.url = value
+    }
+
+    applyDescription(value) {
+        this.description = value
+    }
+
+    applyEvent(value) {
+        this.event = value
     }
 
     applyTags (value) {
@@ -97,7 +113,7 @@ export default class NewTip extends Vue {
         this.title = ''
         this.url = ''
         this.description = ''
-        this.tags = []
+        this.tags = 0
         this.event = 0
     }
 

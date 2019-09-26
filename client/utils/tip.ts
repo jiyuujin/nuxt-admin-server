@@ -1,134 +1,4 @@
-import dayjs from 'dayjs';
-
-/* eslint-disable */
-import {
-    MenuList,
-    SimpleList,
-    CustomListWithUrl,
-    CustomListWithColor
-} from '@/types/database.types';
-/* eslint-enable */
-
-/**
- * 年
- * @type {number[]}
- */
-export const YEARS: SimpleList[] = [
-    {
-        value: 0,
-        text: '2019'
-    },
-    {
-        value: 1,
-        text: '2018'
-    },
-    {
-        value: 2,
-        text: '2017'
-    },
-    {
-        value: 3,
-        text: '2016'
-    },
-    {
-        value: 4,
-        text: '2015'
-    },
-]
-
-/**
- * イベント地域
- * @type {*[]}
- */
-export const LOCALES: SimpleList[] = [
-    {
-        value: 0,
-        text: '指定無し'
-    },
-    {
-        value: 1,
-        text: '東京'
-    },
-    {
-        value: 2,
-        text: '大阪'
-    },
-    {
-        value: 3,
-        text: 'その他'
-    }
-]
-
-/**
- * お問い合わせカテゴリー
- * @type {*[]}
- */
-export const CONTACT_CATEGORIES: SimpleList[] = [
-    {
-        value: 1,
-        text: '仕事のご依頼'
-    },
-    {
-        value: 2,
-        text: '当ブログへのご提案'
-    },
-    {
-        value: 10,
-        text: 'ブログ記事全般'
-    },
-    {
-        value: 99,
-        text: 'その他'
-    }
-]
-
-/**
- * メニュー
- * @type {*[]}
- */
-export const MENU_LIST: MenuList[] = [
-    {
-        title: 'tip',
-        url: '/tip',
-        src: 'nyanko.png',
-        flex: 3
-    },
-    {
-        title: 'qiita',
-        url: '/qiita',
-        src: 'qiita.png',
-        flex: 3
-    },
-    {
-        title: 'flight',
-        url: '/flight',
-        src: 'takeoff.png',
-        flex: 3
-    },
-]
-
-/**
- * ソーシャル
- * @type {*[]}
- */
-export const SOCIAL_LIST: CustomListWithUrl[] = [
-    {
-        name: 'slack',
-        url: 'https://jiyuujinjs.slack.com/'
-    },
-    {
-        name: 'twitter',
-        url: 'https://twitter.com/jiyuujinlab'
-    },
-    {
-        name: 'github',
-        url: 'https://github.com/jiyuujin'
-    },
-    {
-        name: 'bitbucket',
-        url: 'https://bitbucket.org/jiyuujin'
-    }
-]
+import { CustomListWithColor, SimpleList } from '~/types/database.types'
 
 /**
  * 技術カテゴリー
@@ -330,24 +200,24 @@ export const CATEGORIES: CustomListWithColor[] = [
 ]
 
 /**
- * dayjs形式を取得する
- * @param time
- * @returns {*}
+ * イベント地域
+ * @type {*[]}
  */
-export function getTimeFormat (time) {
-    return dayjs(time).format('YYYY年MM月DD日')
-}
-
-/**
- * 時間の差を取得する
- * @param time
- * @returns {string}
- */
-export function getDiffTime (time) {
-    if (dayjs().diff(time, 'day') !== 0) return dayjs().diff(time, 'day') + 'day'
-    if (dayjs().diff(time, 'hour') !== 0) return dayjs().diff(time, 'hour') + 'hour'
-    if (dayjs().diff(time, 'minute') !== 0) return dayjs().diff(time, 'minute') + 'min'
-    return dayjs().diff(time, 'second') + 'sec'
-}
-
-export default {}
+export const LOCALES: SimpleList[] = [
+    {
+        value: 0,
+        text: '指定無し'
+    },
+    {
+        value: 1,
+        text: '東京'
+    },
+    {
+        value: 2,
+        text: '大阪'
+    },
+    {
+        value: 3,
+        text: 'その他'
+    }
+]
