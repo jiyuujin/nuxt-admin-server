@@ -2,7 +2,6 @@ import { Module, ActionTree, MutationTree } from 'vuex';
 import Firestore from '../plugins/firebase';
 import firebase from 'firebase';
 import dayjs from 'dayjs';
-import { SweetAlertResult } from 'sweetalert2';
 
 import { RootState } from './types';
 import {
@@ -434,28 +433,28 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
   ): void;
   addTip(
     ctx, { title, url, description, tags, event, time }
-  ): Promise<SweetAlertResult>;
+  ): void;
   updateTip(
     ctx, { key, data }
-  ): Promise<SweetAlertResult>;
+  ): void;
   removeTip(
     ctx, { key, data }
-  ): Promise<SweetAlertResult>;
+  ): void;
   addFlight(
     ctx, { time, departure, arrival, airline, boardingType, registration }
-  ): Promise<SweetAlertResult>;
+  ): void;
   updateFlight(
     ctx, { key, data }
-  ): Promise<SweetAlertResult>;
+  ): void;
   removeFlight(
     ctx, { key, data }
-  ): Promise<SweetAlertResult>;
+  ): void;
   addEvent(
     { state }, { name, url, locale }
-  ): Promise<SweetAlertResult>;
+  ): void;
   addPhoto(
     { state }, { name, content }
-  ): Promise<SweetAlertResult>;
+  ): void;
   addDialog(
     { commit }
   ): void;

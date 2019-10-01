@@ -1,4 +1,4 @@
-import swal from 'sweetalert2'
+import Vue from 'vue'
 
 export default ({ $axios, store }) => {
     $axios.onRequest(config => {
@@ -7,10 +7,10 @@ export default ({ $axios, store }) => {
 
     $axios.onResponse(response => response, error => {
         if (error.response >= 500) {
-            swal({
-                type: 'error',
-                title: 'Error!'
-            })
+            setTimeout(() => {
+                Vue.toasted.error('Error!')
+            }, 5000)
+            Vue.toasted.clear()
         }
         return Promise.reject(error)
     })
