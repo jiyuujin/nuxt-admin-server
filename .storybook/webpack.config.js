@@ -1,12 +1,12 @@
 const path = require('path')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const HardSource = require('hard-source-webpack-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = ({ config, mode }) => {
   config.module.rules.push(
     {
       test: /\.s?css$/,
-      loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+      loaders: ['style-loader', 'css-loader', 'postcss-loader'],
       include: path.resolve(__dirname, '../')
     },
     {
@@ -46,11 +46,11 @@ module.exports = ({ config, mode }) => {
     })
   )
   config.plugins.push(
-    new HardSource()
+    new HardSourceWebpackPlugin()
   )
 
   config.resolve.alias['@'] = path.dirname(path.resolve(__dirname))
   config.resolve.alias['~'] = path.dirname(path.resolve(__dirname))
 
-  return config;
-};
+  return config
+}

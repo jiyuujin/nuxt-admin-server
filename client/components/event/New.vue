@@ -1,28 +1,34 @@
 <template>
     <div>
         <main-template :is-form="isForm">
-            <story-input
-                v-model="form.name"
+            <j-input
                 placeholder="名前"
-            />
+                input-type="text"
+                @handleInput="applyName"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-input
-                v-model="form.url"
+            <j-input
                 placeholder="URL"
-            />
+                input-type="text"
+                @handleInput="applyUrl"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="localeOptions"
-                v-model="form.locale"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="form.locale"
+                @handleSelect="applyLocale"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-button
+            <j-button
                 text="Eventを追加"
+                width="160px"
+                variant-style="text"
                 @handleClick="postEvent"
-            />
+            ></j-button>
         </main-template>
     </div>
 </template>
@@ -30,26 +36,16 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { EventForm } from '~/types/database.types'
-import { LOCALES } from '~/utils'
+import { LOCALES } from '~/utils/tip'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     },
     computed: {
         localeOptions () {
-            let array: string[] = []
-            LOCALES.forEach(locale => {
-                array.push(locale.text)
-            })
-            return array
+            return LOCALES
         }
     },
 })
@@ -64,6 +60,18 @@ export default class New extends Vue {
 
     get events () {
         return this.$store.state.product.events
+    }
+
+    applyName(value) {
+        this.form.name = value
+    }
+
+    applyUrl(value) {
+        this.form.url = value
+    }
+
+    applyLocale(value) {
+        this.form.locale = value
     }
 
     reset () {

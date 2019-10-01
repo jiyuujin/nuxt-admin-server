@@ -2,7 +2,7 @@ import { Module, ActionTree, MutationTree } from 'vuex';
 import axios from 'axios';
 import { RootState } from './types';
 import { Dictionary, QiitaForm } from '../types/database.types';
-import { CATEGORIES } from '../utils';
+import { CATEGORIES } from '~/utils/tip'
 import { setDialog } from './utils';
 
 const QIITA_BASE_API = 'https://qiita.com/api/v2/tags/';

@@ -1,10 +1,11 @@
 <template>
     <div>
         <main-template :is-form="isForm">
-            <story-input
-                v-model="form.name"
+            <j-input
                 placeholder="名前"
-            />
+                input-type="text"
+                @handleInput="applyName"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
             <input
@@ -26,10 +27,12 @@
             </div>
         </main-template>
         <main-template :is-form="isForm">
-            <story-button
+            <j-button
                 text="Photoを追加"
+                width="160px"
+                variant-style="text"
                 @handleClick="postPhoto"
-            />
+            ></j-button>
         </main-template>
     </div>
 </template>
@@ -39,16 +42,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import firebase from 'firebase'
 import { PhotoForm } from '~/types/database.types'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     }
 })
 export default class New extends Vue {
@@ -60,6 +57,10 @@ export default class New extends Vue {
 
     get photos () {
         return this.$store.state.product.photos
+    }
+
+    applyName(value) {
+        this.form.name = value
     }
 
     reset () {

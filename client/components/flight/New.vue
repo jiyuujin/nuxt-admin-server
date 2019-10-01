@@ -1,47 +1,58 @@
 <template>
     <div>
         <main-template :is-form="isForm">
-            <story-input v-model="time" />
+            <j-input
+                placeholder="搭乗時間"
+                input-type="text"
+                @handleInput="applyTime"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="airportOptions"
-                v-model="departure"
-                name="出発"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="departure"
+                @handleSelect="applyDeparture"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="airportOptions"
-                v-model="arrival"
-                name="到着"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="arrival"
+                @handleSelect="applyArrival"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="airlineOptions"
-                v-model="airline"
-                name="航空会社"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="airline"
+                @handleSelect="applyAirline"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-            <story-select
+            <j-select
                 :options="boardingTypeOptions"
-                v-model="boardingType"
-                name="搭乗機材"
-            />
+                :multiple="Boolean(false)"
+                :selected-values="boardingType"
+                @handleSelect="applyBoardingType"
+            ></j-select>
         </main-template>
         <main-template :is-form="isForm">
-          <story-input
-              v-model="registration"
-              placeholder="レジ"
-          />
+            <j-input
+                placeholder="レジ"
+                input-type="text"
+                @handleInput="applyRegistration"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-button
-                text="フライトを追加"
+            <j-button
+                text="Flightを追加"
+                width="160px"
+                variant-style="text"
                 @handleClick="postFlight"
-            />
+            ></j-button>
         </main-template>
     </div>
 </template>
@@ -49,40 +60,22 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
-import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '../../utils'
+import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/flight'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StorySelect = () => import('~/components/atoms/Select.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StorySelect,
-        StoryButton
+        MainTemplate
     },
     computed: {
-        airportOptions (this: NewFlight) {
-            let array: string[] = []
-            AIRPORT_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
+        airportOptions(this: NewFlight) {
+            return AIRPORT_LIST
         },
-        airlineOptions (this: NewFlight) {
-            let array: string[] = []
-            AIRLINE_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
+        airlineOptions(this: NewFlight) {
+            return AIRLINE_LIST
         },
         boardingTypeOptions (this: NewFlight) {
-            let array: string[] = []
-            BOARDING_TYPE_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
+            return BOARDING_TYPE_LIST
         },
     },
 })
@@ -94,6 +87,30 @@ export default class NewFlight extends Vue {
     boardingType: number = 0;
     registration: string = '';
     isForm: boolean = true;
+
+    applyTime(value) {
+        this.time = value
+    }
+
+    applyDeparture(value) {
+        this.departure = value
+    }
+
+    applyArrival(value) {
+        this.arrival = value
+    }
+
+    applyAirline(value) {
+        this.airline = value
+    }
+
+    applyBoardingType(value) {
+        this.boardingType = value
+    }
+
+    applyRegistration(value) {
+        this.registration = value
+    }
 
     reset () {
         this.time = dayjs().format()

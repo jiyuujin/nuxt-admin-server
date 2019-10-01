@@ -1,26 +1,26 @@
 <template>
-    <main-template
-        :user-status="userStatus"
-        class="login"
-    >
+    <main-template :user-status="userStatus" class="login">
         <main-template :is-form="isForm">
-            <story-input
-                v-model="email"
-                placeholder="Email"
-            />
+            <j-input
+                placeholder="メールアドレス"
+                input-type="text"
+                @handleInput="applyEmail"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-input
-                v-model="password"
+            <j-input
+                placeholder="パスワード"
                 input-type="password"
-                placeholder="Password"
-            />
+                @handleInput="applyPassword"
+            ></j-input>
         </main-template>
         <main-template :is-form="isForm">
-            <story-button
-                text="login"
+            <j-button
+                text="ログイン"
+                width="128px"
+                variant-style="text"
                 @handleClick="login"
-            />
+            ></j-button>
         </main-template>
     </main-template>
 </template>
@@ -28,14 +28,10 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const StoryInput = () => import('~/components/atoms/Input.vue')
-const StoryButton = () => import('~/components/atoms/Button.vue')
 
 @Component({
     components: {
-        MainTemplate,
-        StoryInput,
-        StoryButton
+        MainTemplate
     }
 })
 export default class LoginPage extends Vue {
@@ -45,6 +41,14 @@ export default class LoginPage extends Vue {
 
     get userStatus () {
         return this.$store.state.product.userStatus
+    }
+
+    applyEmail(value) {
+        this.email = value
+    }
+
+    applyPassword(value) {
+        this.password = value
     }
 
     async login () {
