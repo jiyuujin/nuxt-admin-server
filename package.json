@@ -32,11 +32,11 @@
     "graphql-tag": "2.10.1",
     "nuxt": "2.9.2",
     "nuxt-property-decorator": "2.4.0",
-    "sweetalert2": "7.33.1",
     "ts-node": "8.4.1",
     "vue-chartjs": "3.4.2",
     "vue-cookie-law": "1.10.0",
     "vue-no-ssr": "1.1.1",
+    "vue-toasted": "^1.1.27",
     "vuex-persistedstate": "2.5.4",
     "vuex-type-helper": "1.2.2"
   },

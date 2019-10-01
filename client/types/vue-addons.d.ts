@@ -1,8 +1,7 @@
-/* eslint-disable */
 import Vue from 'vue';
 import { Route } from 'vue-router';
 import { ActionContext as BaseActionContext } from 'vuex';
-import ApolloClient from 'apollo-client';
+// import ApolloClient from 'apollo-client';
 import { firestore } from 'firebase';
 import { MetaInfo } from 'vue-meta';
 import { RouteOption } from './route.types';
@@ -28,14 +27,14 @@ interface Apollo {
 }
 
 interface ApolloHelpers {
-  onLogin(
-    token: string,
-    apolloClient?: ApolloClient<{}>,
-    tokenExpires?: number
-  ): Promise<void>;
-  onLogout(
-    apolloClient?: ApolloClient<{}>
-  ): Promise<void>;
+  // onLogin(
+  //   token: string,
+  //   apolloClient?: ApolloClient<{}>,
+  //   tokenExpires?: number
+  // ): Promise<void>;
+  // onLogout(
+  //   apolloClient?: ApolloClient<{}>
+  // ): Promise<void>;
   getToken(
     tokenName?: string
   ): string;
@@ -94,4 +93,3 @@ declare module 'vuex-type-helper' {
     ) => void;
   }
 }
-/* eslint-enable */

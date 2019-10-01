@@ -3,7 +3,4 @@ declare module '*.vue' {
   export default Vue;
 }
 
-// vue-cookie-law
-declare module 'vue-cookie-law' {
-  //
-}
+declare module 'vue-cookie-law'

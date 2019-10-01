@@ -1,22 +1,23 @@
-import swal from 'sweetalert2'
+import Vue from 'vue'
 
 /**
  * ダイアログを設定する
  * @param error
  * @param title
- * @returns {Promise<any>|Promise<SweetAlertResult>}
+ * @returns {Promise<any>|Promise<void>}
  */
 export function setDialog (error, title) {
     if (error) {
-        return swal({
-            type: 'error',
-            title: title + 'を入力してください'
-        })
+        setTimeout(() => {
+            Vue.toasted.error(`${title}を入力してください`)
+        }, 5000)
+        Vue.toasted.clear()
     }
 
-    return swal({
-        title: title
-    })
+    setTimeout(() => {
+        Vue.toasted.error(title)
+    }, 5000)
+    Vue.toasted.clear()
 }
 
 /**
