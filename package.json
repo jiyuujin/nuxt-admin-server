@@ -52,7 +52,7 @@
     "@storybook/vue": "5.2.1",
     "@testing-library/jest-dom": "4.1.0",
     "@testing-library/vue": "3.0.0",
-    "@types/chart.js": "2.8.5",
+    "@types/chart.js": "2.8.7",
     "@types/jest": "24.0.18",
     "@types/node": "11.13.22",
     "@types/storybook__vue": "5.0.2",
