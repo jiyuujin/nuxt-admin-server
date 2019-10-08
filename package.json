@@ -43,7 +43,7 @@
   "devDependencies": {
     "@babel/core": "7.6.3",
     "@babel/preset-env": "7.6.3",
-    "@nuxt/types": "0.3.0",
+    "@nuxt/types": "0.3.1",
     "@nuxt/typescript-build": "0.3.0",
     "@nuxt/typescript-runtime": "0.1.7",
     "@storybook/addon-actions": "5.2.3",
