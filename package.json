@@ -74,7 +74,7 @@
     "eslint": "6.5.1",
     "eslint-loader": "3.0.2",
     "eslint-plugin-vue": "5.2.3",
-    "fork-ts-checker-webpack-plugin": "1.5.0",
+    "fork-ts-checker-webpack-plugin": "1.5.1",
     "hard-source-webpack-plugin": "0.13.1",
     "jest": "24.9.0",
     "tailwindcss": "1.1.2",
