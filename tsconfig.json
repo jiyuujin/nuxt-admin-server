@@ -19,7 +19,6 @@
       "@types/chart.js",
       "@types/jest",
       "@types/node",
-      "@types/storybook__vue",
       "@types/webpack",
       "@types/webpack-env",
       "@nuxt/types",
@@ -55,7 +54,6 @@
   ],
   "exclude": [
     "functions",
-    "stories",
     "node_modules"
   ]
 }

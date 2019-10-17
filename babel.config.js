@@ -1,6 +1,5 @@
 module.exports = {
     presets: [
-        '@vue/app',
         [
             '@babel/preset-env',
             {
@@ -11,5 +10,13 @@ module.exports = {
             }
         ]
     ],
-    plugins: ['@babel/plugin-transform-runtime']
+    plugins: [
+        [
+            '@babel/plugin-transform-runtime',
+            {
+                'helpers': false,
+                'regenerator': true
+            }
+        ]
+    ]
 }
