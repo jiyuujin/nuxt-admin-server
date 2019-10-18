@@ -42,7 +42,7 @@
     "@babel/core": "7.6.4",
     "@babel/plugin-transform-runtime": "7.6.2",
     "@babel/preset-env": "7.6.3",
-    "@nuxt/types": "0.3.1",
+    "@nuxt/types": "0.3.2",
     "@nuxt/typescript-build": "0.3.1",
     "@nuxt/typescript-runtime": "0.2.1",
     "@testing-library/jest-dom": "4.1.2",
