@@ -52,7 +52,7 @@
     "@types/node": "11.13.22",
     "@types/webpack": "4.39.5",
     "@types/webpack-env": "1.14.1",
-    "@typescript-eslint/eslint-plugin": "2.4.0",
+    "@typescript-eslint/eslint-plugin": "2.5.0",
     "@typescript-eslint/parser": "1.13.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "autoprefixer": "9.6.5",
