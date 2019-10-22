@@ -6,15 +6,15 @@ import { MenuList } from '~/types/database.types'
  */
 export const MENU_LIST: MenuList[] = [
     {
-        title: 'tip',
-        url: '/tip',
-        src: 'nyanko.png',
+        title: 'index',
+        url: '/',
+        src: 'setting.png',
         flex: 3
     },
     {
-        title: 'qiita',
-        url: '/qiita',
-        src: 'qiita.png',
+        title: 'tip',
+        url: '/tip',
+        src: 'nyanko.png',
         flex: 3
     },
     {

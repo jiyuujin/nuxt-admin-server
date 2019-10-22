@@ -1,7 +1,5 @@
-/* eslint-disable*/
 import { Configuration } from 'webpack';
 import { Context } from '@nuxt/types';
-/* eslint-enable */
 
 require('dotenv').config();
 
