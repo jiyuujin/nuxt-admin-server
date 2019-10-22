@@ -19,6 +19,7 @@ jobs:
         - |
           npm install eslint \
           typescript \
+          @nekohack/eslint-config \
           eslint-plugin-vue \
           @typescript-eslint/parser \
           @typescript-eslint/typescript-estree
