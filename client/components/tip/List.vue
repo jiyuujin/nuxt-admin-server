@@ -47,29 +47,6 @@ export default class TipList extends Vue {
     diffTime(t) {
         return getDiffTime(t)
     }
-
-    async editItem (item) {
-        await this.$emit('form-data', Object.assign({}, item))
-    }
-
-    async deleteItem (item) {
-        if (confirm(item.data.title + ' 削除しますか?')) {
-            await this.delete(item.id)
-        }
-    }
-
-    async delete (key) {
-        await this.$store.dispatch('product/removeTip', {
-            key: key,
-            data: []
-        })
-    }
-
-    // getText (id) {
-    //   return CATEGORIES.find((category) => {
-    //     if (category.value === id) return category
-    //   }).text
-    // }
 }
 </script>
 

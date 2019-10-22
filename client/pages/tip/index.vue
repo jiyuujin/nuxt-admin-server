@@ -12,7 +12,6 @@
                 :list="tips.item"
                 :number="page"
                 :search="inputSearch"
-                @form-data="applyEditedForm"
             />
             <pagination
                 :page="page"
@@ -66,18 +65,8 @@ const Pagination = () => import('../../components/layout/Pagination.vue')
     }
 })
 export default class TipPage extends Vue {
-    editedForm = {
-        title : '',
-        url: '',
-        description: '',
-        tags: [],
-        event: 0,
-        time: ''
-    };
-    dataKey: string = '';
     page: number = 1;
     inputSearch: string = '';
-    selectedEvent: number = 0;
     isForm: boolean = true;
 
     get userStatus () {
@@ -92,18 +81,8 @@ export default class TipPage extends Vue {
         return this.$store.state.product.events
     }
 
-    async startEdited() {
-        await this.$store.dispatch('product/addDialog')
-    }
-
     applyTitle(value) {
         this.inputSearch = value
-    }
-
-    applyEditedForm(value) {
-        this.editedForm = value.data
-        this.dataKey = value.id
-        this.startEdited()
     }
 
     applyPage(value) {

@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { YEARS } from '~/utils'
 import { BOARDING_TYPE_LIST } from '~/utils/flight'
 const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
 const FlightList = () => import('../../components/flight/List.vue')
@@ -37,13 +36,6 @@ const Pagination = () => import('../../components/layout/Pagination.vue')
         })
     },
     computed: {
-        yearOptions (this: FlightPage) {
-            let array: string[] = []
-            YEARS.forEach(category => {
-                array.push(category.text)
-            })
-            return array
-        },
         boardingTypeOptions (this: FlightPage) {
             let array: string[] = []
             BOARDING_TYPE_LIST.forEach(category => {
@@ -55,9 +47,6 @@ const Pagination = () => import('../../components/layout/Pagination.vue')
 })
 export default class FlightPage extends Vue {
     page: number = 1;
-    selectedYaer: number = 2019;
-    selectedBoardingType: number = 0;
-    isForm: boolean = true;
 
     get userStatus () {
         return this.$store.state.product.userStatus
