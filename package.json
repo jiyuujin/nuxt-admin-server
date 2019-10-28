@@ -22,7 +22,7 @@
     "apollo-cache-inmemory": "1.6.3",
     "apollo-link": "1.2.13",
     "apollo-link-http": "1.5.16",
-    "chart.js": "2.8.0",
+    "chart.js": "2.9.1",
     "core-js": "2.6.10",
     "dayjs": "1.8.16",
     "firebase": "7.2.2",
