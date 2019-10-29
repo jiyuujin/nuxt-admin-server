@@ -9,7 +9,6 @@
         >
             <j-button
                 text="ログアウト"
-                width="128px"
                 variant-style="text"
                 @handleClick="logout"
             ></j-button>

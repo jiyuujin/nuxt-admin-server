@@ -6,7 +6,7 @@ require('dotenv').config();
 export default {
     srcDir: './client',
 
-    mode: 'spa',
+    mode: 'universal',
 
     head: {
         title: 'admin',
@@ -62,7 +62,7 @@ export default {
         '~/plugins/axios.ts',
         '~/plugins/firebase.ts',
         '~/plugins/j-stylebook.ts',
-        '~/plugins/vue-toasted.ts'
+        // '~/plugins/vue-toasted.ts'
     ],
 
     apollo: {

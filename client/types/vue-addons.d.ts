@@ -1,10 +1,12 @@
-import Vue from 'vue';
-import { Route } from 'vue-router';
-import { ActionContext as BaseActionContext } from 'vuex';
-// import ApolloClient from 'apollo-client';
-import { firestore } from 'firebase';
-import { MetaInfo } from 'vue-meta';
-import { RouteOption } from './route.types';
+import Vue from 'vue'
+import { Route } from 'vue-router'
+import { ActionContext as BaseActionContext } from 'vuex'
+// import ApolloClient from 'apollo-client'
+import { firestore } from 'firebase'
+import { MetaInfo } from 'vue-meta'
+
+import { RouteOption } from './route.types'
+import { TipForm, FlightForm, ContactForm } from './database.types'
 
 // apollo
 type QueryOption = {
@@ -40,11 +42,10 @@ interface ApolloHelpers {
   ): string;
 }
 
-// vue
 declare module 'vue/types/vue' {
   interface Vue {
-    $apollo: Apollo;
-    $apolloHelpers: ApolloHelpers;
+    $apollo: Apollo
+    $apolloHelpers: ApolloHelpers
   }
 }
 

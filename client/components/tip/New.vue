@@ -25,7 +25,7 @@
             <j-select
                 :options="categoryOptions"
                 :multiple="Boolean(false)"
-                :selected-values="tags"
+                :selected-values="form.tags"
                 @handleSelect="applyTags"
             ></j-select>
         </main-template>
@@ -33,14 +33,13 @@
             <j-select
                 :options="eventOptions"
                 :multiple="Boolean(false)"
-                :selected-values="event"
+                :selected-values="form.event"
                 @handleSelect="applyEvent"
             ></j-select>
         </main-template>
         <main-template :is-form="isForm">
             <j-button
                 text="Tipを追加"
-                width="160px"
                 variant-style="text"
                 @handleClick="postTip"
             ></j-button>
@@ -49,22 +48,37 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-import dayjs from 'dayjs'
+import Vue from 'vue'
+import { addTip } from '~/services/tipService'
+import { fetchEvents } from '~/services/eventService'
 import { CATEGORIES } from '~/utils/tip'
+
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
-@Component({
+export default Vue.extend({
     components: {
         MainTemplate
     },
+    data() {
+        return {
+            form: {
+                title: '' as string,
+                url: '' as string,
+                description: '' as string,
+                tags: 0 as number,
+                event: 0 as number
+            },
+            events: null,
+            isForm: true as boolean
+        }
+    },
     computed: {
-        categoryOptions(this: NewTip) {
+        categoryOptions() {
             return CATEGORIES
         },
-        eventOptions(this: NewTip) {
-            let array: object[] = []
-            this.$store.state.product.events.item.forEach((item) => {
+        eventOptions() {
+            let array: object[] = [];
+            (this as any).events.item.forEach((item) => {
                 array.push({
                     value: item.data.id,
                     text: item.data.name
@@ -73,60 +87,36 @@ const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
             return array
         }
     },
-    async created () {
-        await this.$store.dispatch('product/fetchEvents')
+    async mounted() {
+        (this as any).events = await fetchEvents()
     },
+    methods: {
+        applyTitle(value) {
+            this.form.title = value
+        },
+        applyUrl(value) {
+            this.form.url = value
+        },
+        applyDescription(value) {
+            this.form.description = value
+        },
+        applyEvent(value) {
+            this.form.event = value
+        },
+        applyTags (value) {
+            this.form.tags = value
+        },
+        reset () {
+            this.form.title = ''
+            this.form.url = ''
+            this.form.description = ''
+            this.form.tags = 0
+            this.form.event = 0
+        },
+        async postTip () {
+            await addTip(this.form)
+            this.reset()
+        }
+    }
 })
-export default class NewTip extends Vue {
-    title: string = '';
-    url: string = '';
-    description: string = '';
-    tags: number = 0;
-    event: number = 0;
-    isForm: boolean = true;
-
-    get events () {
-        return this.$store.state.product.events
-    }
-
-    applyTitle(value) {
-        this.title = value
-    }
-
-    applyUrl(value) {
-        this.url = value
-    }
-
-    applyDescription(value) {
-        this.description = value
-    }
-
-    applyEvent(value) {
-        this.event = value
-    }
-
-    applyTags (value) {
-        this.tags = value
-    }
-
-    reset () {
-        this.title = ''
-        this.url = ''
-        this.description = ''
-        this.tags = 0
-        this.event = 0
-    }
-
-    async postTip () {
-        await this.$store.dispatch('product/addTip', {
-            title: this.title,
-            url: this.url,
-            description: this.description,
-            tags: [this.tags],
-            event: this.event,
-            time: dayjs().format('')
-        })
-        this.reset()
-    }
-}
 </script>

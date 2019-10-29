@@ -17,7 +17,6 @@
         <main-template :is-form="isForm">
             <j-button
                 text="ログイン"
-                width="128px"
                 variant-style="text"
                 @handleClick="login"
             ></j-button>
@@ -27,6 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
 @Component({
