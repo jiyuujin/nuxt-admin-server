@@ -32,7 +32,7 @@
     "nuxt-property-decorator": "2.5.0",
     "ts-node": "8.4.1",
     "vue-chartjs": "3.5.0",
-    "vue-cookie-law": "1.10.0",
+    "vue-cookie-law": "1.11.0",
     "vue-no-ssr": "1.1.1",
     "vue-toasted": "1.1.27",
     "vuex-persistedstate": "2.7.0",
