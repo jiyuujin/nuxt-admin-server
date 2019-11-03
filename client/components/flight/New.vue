@@ -11,7 +11,7 @@
             <j-select
                 :options="airportOptions"
                 :multiple="Boolean(false)"
-                :selected-values="departure"
+                :selected-values="form.departure"
                 @handleSelect="applyDeparture"
             ></j-select>
         </main-template>
@@ -19,7 +19,7 @@
             <j-select
                 :options="airportOptions"
                 :multiple="Boolean(false)"
-                :selected-values="arrival"
+                :selected-values="form.arrival"
                 @handleSelect="applyArrival"
             ></j-select>
         </main-template>
@@ -27,7 +27,7 @@
             <j-select
                 :options="airlineOptions"
                 :multiple="Boolean(false)"
-                :selected-values="airline"
+                :selected-values="form.airline"
                 @handleSelect="applyAirline"
             ></j-select>
         </main-template>
@@ -35,7 +35,7 @@
             <j-select
                 :options="boardingTypeOptions"
                 :multiple="Boolean(false)"
-                :selected-values="boardingType"
+                :selected-values="form.boardingType"
                 @handleSelect="applyBoardingType"
             ></j-select>
         </main-template>
@@ -49,7 +49,6 @@
         <main-template :is-form="isForm">
             <j-button
                 text="Flightを追加"
-                width="160px"
                 variant-style="text"
                 @handleClick="postFlight"
             ></j-button>
@@ -58,79 +57,71 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-import dayjs from 'dayjs'
+import Vue from 'vue'
+import { addFlight } from '~/services/flightService'
 import { AIRPORT_LIST, AIRLINE_LIST, BOARDING_TYPE_LIST } from '~/utils/flight'
+
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
-@Component({
+export default Vue.extend({
     components: {
         MainTemplate
     },
+    data() {
+        return {
+            form: {
+                time: '' as string,
+                departure: 0 as number,
+                arrival: 0 as number,
+                airline: 0 as number,
+                boardingType: 0 as number,
+                registration: '' as string
+            },
+            isForm: true as boolean
+        }
+    },
     computed: {
-        airportOptions(this: NewFlight) {
+        airportOptions() {
             return AIRPORT_LIST
         },
-        airlineOptions(this: NewFlight) {
+        airlineOptions() {
             return AIRLINE_LIST
         },
-        boardingTypeOptions (this: NewFlight) {
+        boardingTypeOptions() {
             return BOARDING_TYPE_LIST
         },
     },
+    methods: {
+        applyTime(value) {
+            this.form.time = value
+        },
+        applyDeparture(value) {
+            this.form.departure = value
+        },
+        applyArrival(value) {
+            this.form.arrival = value
+        },
+        applyAirline(value) {
+            this.form.airline = value
+        },
+        applyBoardingType(value) {
+            this.form.boardingType = value
+        },
+        applyRegistration(value) {
+            this.form.registration = value
+        },
+        reset () {
+            this.form.time =''
+            this.form.departure = 0
+            this.form.arrival = 0
+            this.form.airline = 0
+            this.form.boardingType = 0
+            this.form.registration = ''
+        },
+        async postFlight () {
+            await addFlight(this.form)
+            this.reset()
+        }
+    }
 })
-export default class NewFlight extends Vue {
-    time: string = dayjs().format();
-    departure: number = 0;
-    arrival: number = 0;
-    airline: number = 0;
-    boardingType: number = 0;
-    registration: string = '';
-    isForm: boolean = true;
-
-    applyTime(value) {
-        this.time = value
-    }
-
-    applyDeparture(value) {
-        this.departure = value
-    }
-
-    applyArrival(value) {
-        this.arrival = value
-    }
-
-    applyAirline(value) {
-        this.airline = value
-    }
-
-    applyBoardingType(value) {
-        this.boardingType = value
-    }
-
-    applyRegistration(value) {
-        this.registration = value
-    }
-
-    reset () {
-        this.time = dayjs().format()
-        this.departure = 0
-        this.arrival = 0
-        this.airline = 0
-        this.boardingType = 0
-        this.registration = ''
-    }
-
-    async postFlight () {
-        await this.$store.dispatch('product/addFlight', {
-            time: dayjs(this.time).format(),
-            departure: this.departure,
-            arrival: this.arrival,
-            airline: this.airline,
-            boardingType: this.boardingType,
-            registration: this.registration
-        })
-        this.reset()
-    }
-}
 </script>

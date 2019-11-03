@@ -6,12 +6,6 @@ import { MenuList } from '~/types/database.types'
  */
 export const MENU_LIST: MenuList[] = [
     {
-        title: 'index',
-        url: '/',
-        src: 'setting.png',
-        flex: 3
-    },
-    {
         title: 'tip',
         url: '/tip',
         src: 'nyanko.png',

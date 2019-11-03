@@ -1,17 +1,9 @@
 <template>
-    <main-template v-if="tips && events" :user-status="userStatus">
-        <main-template :is-form="isForm">
-            <j-input
-                placeholder="タイトル"
-                input-type="text"
-                @handleInput="applyTitle"
-            ></j-input>
-        </main-template>
+    <main-template v-if="tips" :user-status="userStatus">
         <main-template>
             <tip-list
                 :list="tips.item"
                 :number="page"
-                :search="inputSearch"
             />
             <pagination
                 :page="page"
@@ -33,12 +25,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
-const TipList = () => import('../../components/tip/List.vue')
-const NewTip = () => import('../../components/tip/New.vue')
-const NewEvent = () => import('../../components/event/New.vue')
-const NewPhoto = () => import('../../components/photo/New.vue')
-const Pagination = () => import('../../components/layout/Pagination.vue')
+import { fetchTips } from '~/services/tipService'
+
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
+const TipList = () => import('~/components/tip/List.vue')
+const NewTip = () => import('~/components/tip/New.vue')
+const NewEvent = () => import('~/components/event/New.vue')
+const NewPhoto = () => import('~/components/photo/New.vue')
+const Pagination = () => import('~/components/layout/Pagination.vue')
 
 @Component({
     middleware: 'auth',
@@ -50,39 +44,17 @@ const Pagination = () => import('../../components/layout/Pagination.vue')
         NewPhoto,
         Pagination
     },
-    async fetch({ store }) {
-        await store.dispatch('product/fetchTips', null)
-        await store.dispatch('product/fetchEvents')
-    },
-    computed: {
-        eventOptions (this: TipPage) {
-            let array: string[] = []
-            this.$store.state.product.events.item.forEach((item) => {
-                array.push(item.data.name)
-            })
-            return array
-        }
+    async mounted() {
+        (this as any).tips = await fetchTips()
     }
 })
 export default class TipPage extends Vue {
-    page: number = 1;
-    inputSearch: string = '';
-    isForm: boolean = true;
+    page: number = 1
+    isForm: boolean = true
+    tips = null
 
     get userStatus () {
         return this.$store.state.product.userStatus
-    }
-
-    get tips () {
-        return this.$store.state.product.tips
-    }
-
-    get events () {
-        return this.$store.state.product.events
-    }
-
-    applyTitle(value) {
-        this.inputSearch = value
     }
 
     applyPage(value) {

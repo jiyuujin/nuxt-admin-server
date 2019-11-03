@@ -29,7 +29,6 @@
         <main-template :is-form="isForm">
             <j-button
                 text="Photoを追加"
-                width="160px"
                 variant-style="text"
                 @handleClick="postPhoto"
             ></j-button>
@@ -41,6 +40,8 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import firebase from 'firebase'
 import { PhotoForm } from '~/types/database.types'
+import { addPhoto } from '~/services/photoService'
+
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
 @Component({
@@ -55,10 +56,6 @@ export default class New extends Vue {
     };
     isForm: boolean = true;
 
-    get photos () {
-        return this.$store.state.product.photos
-    }
-
     applyName(value) {
         this.form.name = value
     }
@@ -69,10 +66,7 @@ export default class New extends Vue {
     }
 
     async postPhoto () {
-        await this.$store.dispatch('product/addPhoto', {
-            name: this.form.name,
-            content: this.form.content
-        })
+        await addPhoto(this.form)
         this.reset()
     }
 

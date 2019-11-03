@@ -7,7 +7,7 @@
                 <div v-if="item.page === number" class="flight-card">
                     <div class="flight-card-text">
                         <div class="title">
-                            {{ `${departure(item.data.departure)} > ${arrival(item.data.arrival)}` }}
+                            {{ departure(item.data.departure) }}<br>{{ arrival(item.data.arrival) }}
                         </div>
                         <div class="route">
                             {{ item.data.registration }}({{ boardingType(item.data.boardingType) }})
@@ -27,6 +27,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { FlightForm } from '~/types/database.types'
 import { getTimeFormat } from '~/utils'
 import { getAirportName, getAirlineName, getBoardingTypeName, filledChartData } from '~/utils/flight'
+
 const Chart = () => import('./Chart.vue')
 
 @Component({
@@ -35,8 +36,8 @@ const Chart = () => import('./Chart.vue')
     }
 })
 export default class FlightList extends Vue {
-    @Prop() list: FlightForm[];
-    @Prop() number: number;
+    @Prop() list: FlightForm[]
+    @Prop() number: number
 
     timeFormat(t) {
         return getTimeFormat(t)

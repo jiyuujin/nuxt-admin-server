@@ -15,11 +15,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { BOARDING_TYPE_LIST } from '~/utils/flight'
-const MainTemplate = () => import('../../components/layout/MainTemplate.vue')
-const FlightList = () => import('../../components/flight/List.vue')
-const NewFlight = () => import('../../components/flight/New.vue')
-const Pagination = () => import('../../components/layout/Pagination.vue')
+import { fetchFlights } from '~/services/flightService'
+
+const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
+const FlightList = () => import('~/components/flight/List.vue')
+const NewFlight = () => import('~/components/flight/New.vue')
+const Pagination = () => import('~/components/layout/Pagination.vue')
 
 @Component({
     middleware: 'auth',
@@ -29,31 +30,16 @@ const Pagination = () => import('../../components/layout/Pagination.vue')
         FlightList,
         NewFlight
     },
-    async fetch({ store }) {
-        await store.dispatch('product/fetchFlights', {
-            boardingType: 0,
-            year: 0
-        })
-    },
-    computed: {
-        boardingTypeOptions (this: FlightPage) {
-            let array: string[] = []
-            BOARDING_TYPE_LIST.forEach(category => {
-                array.push(category.text)
-            })
-            return array
-        }
+    async mounted() {
+        (this as any).flights = await fetchFlights()
     }
 })
 export default class FlightPage extends Vue {
-    page: number = 1;
+    page: number = 1
+    flights = null
 
     get userStatus () {
         return this.$store.state.product.userStatus
-    }
-
-    get flights () {
-        return this.$store.state.product.flights
     }
 
     applyPage(value) {

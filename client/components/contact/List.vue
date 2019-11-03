@@ -1,20 +1,14 @@
 <template>
     <div>
-        <div
-            v-for="item in list"
-            :key="item.id"
-        >
-            <h2 v-if="item.page === number">
-                <span>
-                    {{ item.data.category.text }}
-                </span>
-                ・
-                {{ item.data.title }}
-            </h2>
-
-            <div class="description">
-                {{ item.data.description }}
-            </div>
+        <div v-for="item in list" :key="item.id">
+            <template v-if="item.page === number">
+                <div class="title">
+                    {{ item.data.title }}
+                </div>
+                <div class="description">
+                    {{ item.data.description }}
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -31,7 +25,8 @@ export default class ContactList extends Vue {
 </script>
 
 <style scoped>
-h2 {
+.title {
+    font-weight: bold;
     font-size: 18px;
 }
 
