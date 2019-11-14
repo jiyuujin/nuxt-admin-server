@@ -62,6 +62,7 @@ export default {
         '~/plugins/axios.ts',
         '~/plugins/firebase.ts',
         '~/plugins/j-stylebook.ts',
+        '~/plugins/composition-api.ts',
         // '~/plugins/vue-toasted.ts'
     ],
 
