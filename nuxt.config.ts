@@ -6,7 +6,7 @@ require('dotenv').config();
 export default {
     srcDir: './client',
 
-    mode: 'universal',
+    mode: 'spa',
 
     head: {
         title: 'admin',
