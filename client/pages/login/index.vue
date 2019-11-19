@@ -1,20 +1,20 @@
 <template>
     <main-template :user-status="userStatus" class="login">
-        <main-template :is-form="isForm">
+        <main-template :is-form="state.isForm">
             <j-input
                 placeholder="メールアドレス"
                 input-type="text"
                 @handleInput="applyEmail"
             ></j-input>
         </main-template>
-        <main-template :is-form="isForm">
+        <main-template :is-form="state.isForm">
             <j-input
                 placeholder="パスワード"
                 input-type="password"
                 @handleInput="applyPassword"
             ></j-input>
         </main-template>
-        <main-template :is-form="isForm">
+        <main-template :is-form="state.isForm">
             <j-button
                 text="ログイン"
                 variant-style="text"
@@ -25,43 +25,45 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { createComponent, SetupContext, reactive, computed } from '@vue/composition-api'
 
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 
-@Component({
+export default createComponent({
     components: {
         MainTemplate
-    }
-})
-export default class LoginPage extends Vue {
-    email: string = '';
-    password: string = '';
-    isForm: boolean = true;
-
-    get userStatus () {
-        return this.$store.state.product.userStatus
-    }
-
-    applyEmail(value) {
-        this.email = value
-    }
-
-    applyPassword(value) {
-        this.password = value
-    }
-
-    async login () {
-        await this.$store.dispatch('product/signIn', {
-            email: this.email,
-            password: this.password
+    },
+    setup(props: {}, ctx: SetupContext) {
+        const state = reactive({
+            email: '',
+            password: '',
+            isForm: true
         })
 
-        if (this.$store.state.product.userStatus) {
-            await this.$router.push('/')
+        const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
+
+        return {
+            state,
+            userStatus,
+            applyEmail(value) {
+                state.email = value
+            },
+            applyPassword(value) {
+                state.password = value
+            },
+            async login() {
+                await ctx.root.$store.dispatch('product/signIn', {
+                    email: state.email,
+                    password: state.password
+                })
+
+                if (ctx.root.$store.state.product.userStatus) {
+                    await ctx.root.$router.push('/')
+                }
+            }
         }
     }
-}
+})
 </script>
 
 <style scoped>
