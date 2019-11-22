@@ -39,9 +39,9 @@
     "vuex-type-helper": "1.2.2"
   },
   "devDependencies": {
-    "@babel/core": "7.7.2",
-    "@babel/plugin-transform-runtime": "7.6.2",
-    "@babel/preset-env": "7.7.1",
+    "@babel/core": "7.7.4",
+    "@babel/plugin-transform-runtime": "7.7.4",
+    "@babel/preset-env": "7.7.4",
     "@nekohack/eslint-config": "0.1.4",
     "@nuxt/types": "0.3.4",
     "@nuxt/typescript-build": "0.3.4",
