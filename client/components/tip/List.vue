@@ -7,6 +7,12 @@
                     <a :href="item.data.url" target="_blank" rel="noopener">
                         {{ item.data.title }}
                     </a>
+                    <div
+                        v-for="tag in tagTexts(item.data.tags)"
+                        :key="tag"
+                    >
+                        <j-label :tag-text="tag"></j-label>
+                    </div>
                 </j-form>
             </template>
         </div>
@@ -15,6 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { CATEGORIES } from '~/utils/tip'
 import { getDiffTime } from '~/utils'
 
 export default Vue.extend({
@@ -32,6 +39,15 @@ export default Vue.extend({
     methods: {
         diffTime(t) {
             return getDiffTime(t)
+        },
+        tagTexts(tagId: number) {
+            let result: string[] = []
+            CATEGORIES.map(category => {
+                if (category.value === tagId) {
+                    result.push(category.text)
+                }
+            })
+            return result
         }
     }
 })
