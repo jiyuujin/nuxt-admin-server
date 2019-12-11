@@ -1,12 +1,11 @@
 import dayjs from 'dayjs'
 
-import { SimpleList } from './types/database.types'
+import { List } from './types/utils'
 
 /**
  * 年
- * @type {number[]}
  */
-export const YEARS: SimpleList[] = [
+export const YEARS: List[] = [
     {
         value: 0,
         text: '2019'

@@ -1,8 +1,11 @@
 import { Module, ActionTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
-import { RootState } from './types'
 
 const namespaced = true
+
+type RootState = {
+    version: string
+}
 
 export const state = (): State => ({
     isCookieAccepted: false,
@@ -12,10 +15,6 @@ export const state = (): State => ({
 interface State {
     isCookieAccepted: boolean | false;
     userStatus: boolean | false
-}
-
-export interface RootState extends State {
-  //
 }
 
 export const mutations: MutationTree<State> = {

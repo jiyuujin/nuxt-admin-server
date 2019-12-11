@@ -6,7 +6,4 @@ https://admin.nekohack.app/
 # client
 yanr install
 yarn dev
-
-# functons
-yarn install --ignore-engines
 ```
