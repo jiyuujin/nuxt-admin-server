@@ -1,10 +1,10 @@
-import { MenuList } from '~/types/database.types'
+import { Menu } from '~/types/utils'
 
 /**
  * メニュー
  * @type {*[]}
  */
-export const MENU_LIST: MenuList[] = [
+export const MENU_LIST: Menu[] = [
     {
         title: 'tip',
         url: '/tip',

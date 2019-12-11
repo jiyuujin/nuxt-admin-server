@@ -1,6 +1,4 @@
-/* eslint-disable */
-import { SimpleList } from '@/types/database.types';
-/* eslint-enable */
+import { List } from '@/types/utils'
 
 const YEARS: number[] = [
     2015,
@@ -16,9 +14,8 @@ const COLOR_TEXT: string = '#42b883'
 
 /**
  * 空港
- * @type {*[]}
  */
-export const AIRPORT_LIST: SimpleList[] = [
+export const AIRPORT_LIST: List[] = [
     {value: 0, text: '東京羽田 / HND'},
     {value: 1, text: '東京成田 / NRT'},
     {value: 2, text: '大阪伊丹 / ITM'},
@@ -37,9 +34,8 @@ export const AIRPORT_LIST: SimpleList[] = [
 
 /**
  * 航空会社
- * @type {*[]}
  */
-export const AIRLINE_LIST: SimpleList[] = [
+export const AIRLINE_LIST: List[] = [
     {value: 0, text: 'JAL'},
     {value: 1, text: 'ANA'},
     {value: 2, text: 'Skymark'},
@@ -56,9 +52,8 @@ export const AIRLINE_LIST: SimpleList[] = [
 
 /**
  * 搭乗機材
- * @type {*[]}
  */
-export const BOARDING_TYPE_LIST: SimpleList[] = [
+export const BOARDING_TYPE_LIST: List[] = [
     {value: 0, text: 'Boeing787-9'},
     {value: 1, text: 'Boeing787-8'},
     {value: 2, text: 'Boeing777-3'},

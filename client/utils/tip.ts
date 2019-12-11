@@ -1,10 +1,10 @@
-import { CustomListWithColor, SimpleList } from '~/types/database.types'
+import { List } from '~/types/utils'
 
 /**
  * 技術カテゴリー
  * @type {*[]}
  */
-export const CATEGORIES: CustomListWithColor[] = [
+export const CATEGORIES: List[] = [
     {
         value: 0,
         text: 'Web',
@@ -201,9 +201,8 @@ export const CATEGORIES: CustomListWithColor[] = [
 
 /**
  * イベント地域
- * @type {*[]}
  */
-export const LOCALES: SimpleList[] = [
+export const LOCALES: List[] = [
     {
         value: 0,
         text: '指定無し'

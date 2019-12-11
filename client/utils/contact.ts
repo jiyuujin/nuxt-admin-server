@@ -1,10 +1,9 @@
-import { SimpleList } from '~/types/database.types'
+import { List } from '~/types/utils'
 
 /**
  * お問い合わせカテゴリー
- * @type {*[]}
  */
-export const CONTACT_CATEGORIES: SimpleList[] = [
+export const CONTACT_CATEGORIES: List[] = [
     {
         value: 1,
         text: '仕事のご依頼'
