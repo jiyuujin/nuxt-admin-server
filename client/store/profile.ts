@@ -1,14 +1,21 @@
-import { Module, ActionTree, MutationTree } from 'vuex';
-import { RootState } from './types';
-import { Dictionary, WorkForm, ProductForm, ActivityForm } from '../types/database.types';
+import { Module, ActionTree, MutationTree } from 'vuex'
+import { WorkForm, ProductForm, ActivityForm } from '~/types/database.types'
 
-const namespaced = true;
+const namespaced = true
+
+type RootState = {
+    version: string
+}
+
+type Dictionary<T> = {
+    [key: string]: T
+}
 
 export const state = (): State => ({
     works: null,
     products: null,
     activities: null
-});
+})
 
 export interface State {
   works: Dictionary<WorkForm> | null;
@@ -16,9 +23,9 @@ export interface State {
   activities: Dictionary<ActivityForm> | null;
 }
 
-export interface RootState extends State {
-  //
-}
+// export interface RootState extends State {
+//   //
+// }
 
 export const mutations: MutationTree<State> = {
     setWorks (state, payload) {
@@ -30,7 +37,7 @@ export const mutations: MutationTree<State> = {
     setActivities (state, payload) {
         state.activities = payload
     },
-};
+}
 
 export const actions: RootActionTree<State, RootState> = {
     async fetchWorks ({ commit }, responseData) {
@@ -42,7 +49,7 @@ export const actions: RootActionTree<State, RootState> = {
     async fetchActivities ({ commit }, responseData) {
         await commit('setActivities', responseData)
     }
-};
+}
 
 export interface RootActionTree<State, RootState> extends ActionTree<State, RootState> {
   fetchWorks(
@@ -61,7 +68,7 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
 
 export const getters = {
     //
-};
+}
 
 export const profile: Module<State, RootState> = {
     namespaced,
@@ -69,4 +76,4 @@ export const profile: Module<State, RootState> = {
     mutations,
     actions,
     getters
-};
+}

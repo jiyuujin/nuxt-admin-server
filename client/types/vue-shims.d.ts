@@ -1,6 +1,6 @@
 declare module '*.vue' {
   import Vue from 'vue'
-  export default Vue;
+  export default Vue
 }
 
 declare module 'vue-cookie-law'

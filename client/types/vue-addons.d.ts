@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import { Route } from 'vue-router'
-import { ActionContext as BaseActionContext } from 'vuex'
-// import ApolloClient from 'apollo-client'
-import { firestore } from 'firebase'
 import { MetaInfo } from 'vue-meta'
+import { ActionContext as BaseActionContext } from 'vuex'
+import { firestore } from 'firebase'
 
 import { RouteOption } from './route.types'
-import { TipForm, FlightForm, ContactForm } from './database.types'
 
-// apollo
 type QueryOption = {
   query: Object,
   variables: Object
@@ -62,7 +59,6 @@ declare module 'vue/types/options' {
   }
 }
 
-// vue-router
 declare module 'vue-router/types/router' {
   interface VueRouter {
     pushTo<T extends keyof RouteOption>(
@@ -72,7 +68,6 @@ declare module 'vue-router/types/router' {
   }
 }
 
-// vuex
 declare module 'vuex-type-helper' {
   interface BindOptions {
     maxRefDepth?: number;
