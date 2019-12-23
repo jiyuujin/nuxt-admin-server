@@ -45,7 +45,7 @@
     "@nekohack/eslint-config": "0.1.4",
     "@nuxt/types": "0.5.8",
     "@nuxt/typescript-build": "0.5.2",
-    "@nuxt/typescript-runtime": "0.3.3",
+    "@nuxt/typescript-runtime": "0.3.4",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/vue": "4.1.0",
     "@types/chart.js": "2.9.7",
