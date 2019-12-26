@@ -29,9 +29,6 @@ export default Vue.extend({
         list: {
             type: Array
         },
-        type: {
-            type: Array
-        },
         number: {
             type: Number
         }
