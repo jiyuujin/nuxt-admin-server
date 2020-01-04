@@ -1,38 +1,26 @@
 <template>
     <div>
-        <main-template :is-form="isForm">
-            <j-input
-                placeholder="名前"
-                input-type="text"
-                @handleInput="applyName"
-            ></j-input>
-        </main-template>
-        <main-template :is-form="isForm">
-            <input
-                type="file"
-                @change="onFileChange"
-            />
-            <div>
-                アップロード結果:
-                <div
-                    v-if="form.content"
-                    class="preview"
-                >
-                    <img
-                        :src="form.content"
-                        :alt="form.name"
-                        decoding="async"
-                    />
-                </div>
+        <j-input
+            placeholder="名前"
+            input-type="text"
+            @handleInput="applyName"
+        />
+        <input type="file" @change="onFileChange" />
+        <div>
+            アップロード結果:
+            <div v-if="form.content" class="preview">
+                <img
+                    :src="form.content"
+                    :alt="form.name"
+                    decoding="async"
+                />
             </div>
-        </main-template>
-        <main-template :is-form="isForm">
-            <j-button
-                text="Photoを追加"
-                variant-style="text"
-                @handleClick="postPhoto"
-            ></j-button>
-        </main-template>
+        </div>
+        <j-button
+            text="Photoを追加"
+            variant-style="text"
+            @handleClick="postPhoto"
+        />
     </div>
 </template>
 
@@ -42,19 +30,14 @@ import firebase from 'firebase'
 import { PhotoForm } from '~/types/database.types'
 import { addPhoto } from '~/services/photoService'
 
-const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-
 @Component({
-    components: {
-        MainTemplate
-    }
+    //
 })
 export default class New extends Vue {
     form: PhotoForm = {
         name: '',
         content: ''
     };
-    isForm: boolean = true;
 
     applyName(value) {
         this.form.name = value
@@ -96,6 +79,6 @@ export default class New extends Vue {
 
 <style scoped>
 .preview img {
-  width: 60px;
+    width: 60px;
 }
 </style>
