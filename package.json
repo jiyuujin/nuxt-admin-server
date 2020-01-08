@@ -14,7 +14,7 @@
     "test:unit": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@nekohack/j-stylebook": "0.2.8",
+    "@nekohack/j-stylebook": "0.2.9",
     "@nuxtjs/apollo": "4.0.0-rc9",
     "@nuxtjs/axios": "5.9.2",
     "@nuxtjs/dotenv": "1.4.1",
