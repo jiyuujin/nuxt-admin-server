@@ -1,5 +1,54 @@
 <template>
     <main-template v-if="flights" :user-status="userStatus">
+        <j-modal
+            title="Flightを追加"
+            :handle-cancel-click-callback="cancel"
+            :handle-submit-click-callback="submit"
+        >
+            <div style="width: 100%;">
+                <j-form title="搭乗時間">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyTime"
+                    />
+                </j-form>
+                <j-form title="出発／到着">
+                    <j-select
+                        :options="airportOptions"
+                        :selected-values="form.departure"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyDeparture"
+                    />
+                    <j-select
+                        :options="airportOptions"
+                        :selected-values="form.arrival"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyArrival"
+                    />
+                </j-form>
+                <j-form title="航空会社">
+                    <j-select
+                        :options="airlineOptions"
+                        :selected-values="form.airline"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyAirline"
+                    />
+                </j-form>
+                <j-form title="搭乗機材／レジ">
+                    <j-select
+                        :options="boardingTypeOptions"
+                        :selected-values="form.boardingType"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyBoardingType"
+                    />
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyRegistration"
+                    />
+                </j-form>
+            </div>
+        </j-modal>
+
         <flight-list
             :list="flights.item"
             :number="page"
@@ -9,17 +58,16 @@
             :max="Math.ceil(flights.item.length / 20)"
             @form-data="applyPage"
         />
-        <new-flight />
     </main-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { fetchFlights } from '~/services/flightService'
+import { fetchFlights, addFlight } from '~/services/flightService'
+import { AIRLINE_LIST, AIRPORT_LIST, BOARDING_TYPE_LIST } from '~/utils/flight'
 
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const FlightList = () => import('~/components/flight/List.vue')
-const NewFlight = () => import('~/components/flight/New.vue')
 const Pagination = () => import('~/components/layout/Pagination.vue')
 
 @Component({
@@ -27,8 +75,18 @@ const Pagination = () => import('~/components/layout/Pagination.vue')
     components: {
         MainTemplate,
         Pagination,
-        FlightList,
-        NewFlight
+        FlightList
+    },
+    computed: {
+        airportOptions() {
+            return AIRPORT_LIST
+        },
+        airlineOptions() {
+            return AIRLINE_LIST
+        },
+        boardingTypeOptions() {
+            return BOARDING_TYPE_LIST
+        }
     },
     async mounted() {
         (this as any).flights = await fetchFlights()
@@ -37,6 +95,14 @@ const Pagination = () => import('~/components/layout/Pagination.vue')
 export default class FlightPage extends Vue {
     page: number = 1
     flights = null
+    form = {
+        time: '' as string,
+        departure: 0 as number,
+        arrival: 0 as number,
+        airline: 0 as number,
+        boardingType: 0 as number,
+        registration: '' as string
+    }
 
     get userStatus () {
         return this.$store.state.product.userStatus
@@ -44,6 +110,48 @@ export default class FlightPage extends Vue {
 
     applyPage(value) {
         this.page = value
+    }
+
+    applyTime(value) {
+        this.form.time = value
+    }
+
+    applyDeparture(value) {
+        this.form.departure = value
+    }
+
+    applyArrival(value) {
+        this.form.arrival = value
+    }
+
+    applyAirline(value) {
+        this.form.airline = value
+    }
+
+    applyBoardingType(value) {
+        this.form.boardingType = value
+    }
+
+    applyRegistration(value) {
+        this.form.registration = value
+    }
+
+    reset () {
+        this.form.time =''
+        this.form.departure = 0
+        this.form.arrival = 0
+        this.form.airline = 0
+        this.form.boardingType = 0
+        this.form.registration = ''
+    }
+
+    cancel() {
+        this.reset()
+    }
+
+    async submit() {
+        await addFlight(this.form)
+        this.reset()
     }
 }
 </script>

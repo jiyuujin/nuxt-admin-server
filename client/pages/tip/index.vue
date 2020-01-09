@@ -1,36 +1,70 @@
 <template>
     <main-template v-if="tips" :user-status="userStatus">
-        <main-template>
-            <tip-list
-                :list="tips.item"
-                :number="page"
-            />
-            <pagination
-                :page="page"
-                :max="Math.ceil(tips.item.length / 20)"
-                @form-data="applyPage"
-            />
-        </main-template>
-        <main-template :is-form="isForm">
-            <new-tip />
-        </main-template>
-        <main-template :is-form="isForm">
-            <new-event />
-        </main-template>
-        <main-template :is-form="isForm">
-            <new-photo />
-        </main-template>
+        <j-modal
+            title="Tipを追加"
+            :handle-cancel-click-callback="cancel"
+            :handle-submit-click-callback="submit"
+        >
+            <div v-if="events" style="width: 100%;">
+                <j-form title="タイトル">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyTitle"
+                    />
+                </j-form>
+                <j-form title="URL">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyUrl"
+                    />
+                </j-form>
+                <j-form title="詳細">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyDescription"
+                    />
+                </j-form>
+                <j-form title="カテゴリー">
+                    <j-select
+                        :options="categoryOptions"
+                        :selected-values="form.tags"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyTags"
+                    />
+                </j-form>
+                <j-form title="イベント">
+                    <j-select
+                        :options="eventOptions"
+                        :selected-values="form.event"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyEvent"
+                    />
+                </j-form>
+            </div>
+        </j-modal>
+
+        <new-photo />
+
+        <tip-list
+            :list="tips.item"
+            :number="page"
+        />
+        <pagination
+            :page="page"
+            :max="Math.ceil(tips.item.length / 20)"
+            @form-data="applyPage"
+        />
     </main-template>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { fetchTips } from '~/services/tipService'
+import { fetchTips, addTip } from '~/services/tipService'
+import { fetchEvents } from '~/services/eventService'
+import { CATEGORIES } from '~/utils/tip'
 
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const TipList = () => import('~/components/tip/List.vue')
-const NewTip = () => import('~/components/tip/New.vue')
-const NewEvent = () => import('~/components/event/New.vue')
 const NewPhoto = () => import('~/components/photo/New.vue')
 const Pagination = () => import('~/components/layout/Pagination.vue')
 
@@ -39,19 +73,40 @@ const Pagination = () => import('~/components/layout/Pagination.vue')
     components: {
         MainTemplate,
         TipList,
-        NewTip,
-        NewEvent,
         NewPhoto,
         Pagination
     },
+    computed: {
+        categoryOptions() {
+            return CATEGORIES
+        },
+        eventOptions() {
+            let array: object[] = [];
+            (this as any).events.item.forEach((item) => {
+                array.push({
+                    value: item.data.id,
+                    text: item.data.name
+                })
+            })
+            return array
+        }
+    },
     async mounted() {
-        (this as any).tips = await fetchTips()
+        (this as any).tips = await fetchTips();
+        (this as any).events = await fetchEvents()
     }
 })
 export default class TipPage extends Vue {
     page: number = 1
-    isForm: boolean = true
     tips = null
+    events = null
+    form = {
+        title: '' as string,
+        url: '' as string,
+        description: '' as string,
+        tags: 0 as number,
+        event: 0 as number
+    }
 
     get userStatus () {
         return this.$store.state.product.userStatus
@@ -59,6 +114,43 @@ export default class TipPage extends Vue {
 
     applyPage(value) {
         this.page = value
+    }
+
+    applyTitle(value) {
+        this.form.title = value
+    }
+
+    applyUrl(value) {
+        this.form.url = value
+    }
+
+    applyDescription(value) {
+        this.form.description = value
+    }
+
+    applyEvent(value) {
+        this.form.event = value
+    }
+
+    applyTags (value) {
+        this.form.tags = value
+    }
+
+    reset () {
+        this.form.title = ''
+        this.form.url = ''
+        this.form.description = ''
+        this.form.tags = 0
+        this.form.event = 0
+    }
+
+    cancel() {
+        this.reset()
+    }
+
+    async submit() {
+        await addTip(this.form)
+        this.reset()
     }
 }
 </script>

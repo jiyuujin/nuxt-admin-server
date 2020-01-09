@@ -5,21 +5,22 @@
                 placeholder="メールアドレス"
                 input-type="text"
                 @handleInput="applyEmail"
-            ></j-input>
+            />
         </main-template>
         <main-template :is-form="isForm">
             <j-input
                 placeholder="パスワード"
                 input-type="password"
+                password
                 @handleInput="applyPassword"
-            ></j-input>
+            />
         </main-template>
         <main-template :is-form="isForm">
             <j-button
                 text="ログイン"
                 variant-style="text"
                 @handleClick="login"
-            ></j-button>
+            />
         </main-template>
     </main-template>
 </template>
