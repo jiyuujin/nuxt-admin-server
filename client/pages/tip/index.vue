@@ -5,34 +5,41 @@
             :handle-cancel-click-callback="cancel"
             :handle-submit-click-callback="submit"
         >
-            <div v-if="events" style="text-align: left;">
-                <j-input
-                    placeholder="タイトル"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleInput="applyTitle"
-                />
-                <j-input
-                    placeholder="URL"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleInput="applyUrl"
-                />
-                <j-input
-                    placeholder="詳細"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleInput="applyDescription"
-                />
-                <j-select
-                    :options="categoryOptions"
-                    :selected-values="form.tags"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleSelect="applyTags"
-                />
-                <j-select
-                    :options="eventOptions"
-                    :selected-values="form.event"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleSelect="applyEvent"
-                />
+            <div v-if="events" style="width: 100%;">
+                <j-form title="タイトル">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyTitle"
+                    />
+                </j-form>
+                <j-form title="URL">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyUrl"
+                    />
+                </j-form>
+                <j-form title="詳細">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyDescription"
+                    />
+                </j-form>
+                <j-form title="カテゴリー">
+                    <j-select
+                        :options="categoryOptions"
+                        :selected-values="form.tags"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyTags"
+                    />
+                </j-form>
+                <j-form title="イベント">
+                    <j-select
+                        :options="eventOptions"
+                        :selected-values="form.event"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyEvent"
+                    />
+                </j-form>
             </div>
         </j-modal>
 

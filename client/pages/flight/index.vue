@@ -5,41 +5,47 @@
             :handle-cancel-click-callback="cancel"
             :handle-submit-click-callback="submit"
         >
-            <div style="text-align: left;">
-                <j-input
-                    placeholder="搭乗時間"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleInput="applyTime"
-                />
-                <j-select
-                    :options="airportOptions"
-                    :selected-values="form.departure"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleSelect="applyDeparture"
-                />
-                <j-select
-                    :options="airportOptions"
-                    :selected-values="form.arrival"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleSelect="applyArrival"
-                />
-                <j-select
-                    :options="airlineOptions"
-                    :selected-values="form.airline"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleSelect="applyAirline"
-                />
-                <j-select
-                    :options="boardingTypeOptions"
-                    :selected-values="form.boardingType"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleSelect="applyBoardingType"
-                />
-                <j-input
-                    placeholder="レジ"
-                    style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                    @handleInput="applyRegistration"
-                />
+            <div style="width: 100%;">
+                <j-form title="搭乗時間">
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyTime"
+                    />
+                </j-form>
+                <j-form title="出発／到着">
+                    <j-select
+                        :options="airportOptions"
+                        :selected-values="form.departure"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyDeparture"
+                    />
+                    <j-select
+                        :options="airportOptions"
+                        :selected-values="form.arrival"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyArrival"
+                    />
+                </j-form>
+                <j-form title="航空会社">
+                    <j-select
+                        :options="airlineOptions"
+                        :selected-values="form.airline"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyAirline"
+                    />
+                </j-form>
+                <j-form title="搭乗機材／レジ">
+                    <j-select
+                        :options="boardingTypeOptions"
+                        :selected-values="form.boardingType"
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleSelect="applyBoardingType"
+                    />
+                    <j-input
+                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
+                        @handleInput="applyRegistration"
+                    />
+                </j-form>
             </div>
         </j-modal>
 
