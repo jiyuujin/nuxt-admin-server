@@ -1,46 +1,53 @@
 <template>
-    <main-template v-if="contacts" :user-status="userStatus">
+    <main-template v-if="state.contacts" :user-status="userStatus">
         <contact-list
-            :list="contacts.item"
-            :number="contact"
+            :list="state.contacts.item"
+            :number="state.page"
         />
+        <!--
         <pagination
-            :page="contact"
-            :max="Math.ceil(contacts.item.length / 20)"
-            @form-data="applyPageInContact"
+            :page="state.page"
+            :max="Math.ceil(state.contacts.item.length / 20)"
+            @form-data="applyPage"
         />
+        -->
     </main-template>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { createComponent, SetupContext, onMounted, reactive, computed } from '@vue/composition-api'
 import { fetchContacts } from '~/services/contactService'
 
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const ContactList = () => import('~/components/contact/List.vue')
 const Pagination = () => import('~/components/layout/Pagination.vue')
 
-@Component({
+export default createComponent({
     middleware: 'auth',
     components: {
         MainTemplate,
         ContactList,
         Pagination
     },
-    async mounted() {
-        (this as any).contacts = await fetchContacts()
+    setup(props: {}, ctx: SetupContext) {
+        const state = reactive({
+            contacts: {},
+            page: 1
+        })
+
+        const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
+
+        onMounted(async () => {
+            state.contacts = await fetchContacts()
+        })
+
+        return {
+            state,
+            userStatus,
+            applyPage(value) {
+                return value
+            }
+        }
     }
 })
-export default class PageIndex extends Vue {
-    contact: number = 1
-    contacts = null
-
-    get userStatus () {
-        return this.$store.state.product.userStatus
-    }
-
-    applyPageInContact(value) {
-        this.contact = value
-    }
-}
 </script>
