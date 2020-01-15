@@ -1,17 +1,12 @@
 <template>
     <div>
-        <LeftMenu
-            v-if="userStatus"
-        />
-        <div
-            v-if="userStatus"
-            class="logout"
-        >
+        <LeftMenu v-if="userStatus" />
+        <div v-if="userStatus" class="logout">
             <j-button
                 text="ログアウト"
                 variant-style="text"
                 @handleClick="logout"
-            ></j-button>
+            />
         </div>
         <div :class="isForm ? `form` : `main`">
             <slot />
@@ -21,6 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
 const LeftMenu = () => import('~/components/layout/LeftMenu.vue')
 
 @Component({
@@ -30,7 +26,7 @@ const LeftMenu = () => import('~/components/layout/LeftMenu.vue')
 })
 export default class MainTemplate extends Vue {
     @Prop() userStatus: boolean;
-    isForm: boolean = true;
+    isForm: boolean = false;
 
     async logout() {
         await this.$store.dispatch('product/signOut')
@@ -46,6 +42,11 @@ export default class MainTemplate extends Vue {
 .logout {
     text-align: right;
     margin-bottom: 15px;
+}
+
+.main {
+    margin: 0 2%;
+    width: 96%;
 }
 
 .form {

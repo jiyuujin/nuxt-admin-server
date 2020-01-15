@@ -33,9 +33,4 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
-.site-info {
-  width: 80%;
-  margin: 0 auto;
-}
 </style>

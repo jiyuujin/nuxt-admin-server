@@ -5,7 +5,8 @@ const YEARS: number[] = [
     2016,
     2017,
     2018,
-    2019
+    2019,
+    2020
 ]
 
 const LABEL_TEXT: string = 'Flights'
