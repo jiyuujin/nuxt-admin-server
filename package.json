@@ -11,7 +11,7 @@
     "generate": "nuxt-ts generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test:unit": "jest --passWithNoTests"
+    "test:unit": "jest"
   },
   "dependencies": {
     "@nekohack/j-stylebook": "0.2.9",
@@ -65,6 +65,8 @@
     "eslint": "6.8.0",
     "eslint-loader": "3.0.3",
     "eslint-plugin-vue": "6.1.2",
+    "firebase-admin": "^8.9.0",
+    "firebase-functions": "^3.3.0",
     "jest": "24.9.0",
     "jest-transform-stub": "2.0.0",
     "tailwindcss": "1.1.4",
