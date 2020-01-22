@@ -7,10 +7,23 @@
         >
             <div style="width: 100%;">
                 <j-form title="搭乗時間">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyTime"
-                    />
+                    <j-range-picker
+                        ref="single-picker"
+                        :single-date-picker="singleDatePicker"
+                        :show-dropdown="showDropdown"
+                        :auto-apply="autoApply"
+                        :linked-calendars="linkedCalendars"
+                        :date-range="dateRange"
+                        :ranges="null"
+                        opens="right"
+                        :date-format="dateFormat"
+                        @update="updateValues"
+                        @toggle="checkOpen"
+                    >
+                        <div slot="input" slot-scope="picker" style="min-width: 350px;">
+                            {{ picker.startDate }}
+                        </div>
+                    </j-range-picker>
                 </j-form>
                 <j-form title="出発／到着">
                     <j-select
@@ -63,8 +76,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import dayjs from 'dayjs'
 import { fetchFlights, addFlight } from '~/services/flightService'
 import { AIRLINE_LIST, AIRPORT_LIST, BOARDING_TYPE_LIST } from '~/utils/flight'
+import { DateRange } from '~/types/utils'
 
 const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
 const FlightList = () => import('~/components/flight/List.vue')
@@ -78,6 +93,14 @@ const Pagination = () => import('~/components/layout/Pagination.vue')
         FlightList
     },
     computed: {
+        dateRange: {
+            get(): DateRange {
+                return (this as any).requestDate
+            },
+            set(values: DateRange): void {
+                (this as any).requestDate = { ...values }
+            }
+        },
         airportOptions() {
             return AIRPORT_LIST
         },
@@ -93,6 +116,13 @@ const Pagination = () => import('~/components/layout/Pagination.vue')
     }
 })
 export default class FlightPage extends Vue {
+    singleDatePicker: boolean = true
+    showDropdown: boolean = true
+    autoApply: boolean = false
+    linkedCalendars: boolean = true
+    requestDate: DateRange = {
+        startDate: dayjs().format('YYYY/MM/DD')
+    }
     page: number = 1
     flights = null
     form = {
@@ -112,8 +142,17 @@ export default class FlightPage extends Vue {
         this.page = value
     }
 
-    applyTime(value) {
-        this.form.time = value
+    updateValues(value: DateRange): void {
+        this.requestDate = value
+        this.form.time = dayjs(value.startDate).format()
+    }
+
+    checkOpen(open: any): void {
+        // console.log('event: ' + open)
+    }
+
+    dateFormat(classes: any, date: Date) {
+        return classes
     }
 
     applyDeparture(value) {
