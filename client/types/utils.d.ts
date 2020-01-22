@@ -11,3 +11,8 @@ export interface List {
     backgroundColor?: string,
     color?: string
 }
+
+export interface DateRange {
+    startDate: string,
+    endDate?: string
+}
