@@ -8,7 +8,7 @@
             <div style="width: 100%;">
                 <j-form title="搭乗時間">
                     <j-range-picker
-                        ref="range-picker"
+                        ref="single-picker"
                         :single-date-picker="singleDatePicker"
                         :show-dropdown="showDropdown"
                         :auto-apply="autoApply"
