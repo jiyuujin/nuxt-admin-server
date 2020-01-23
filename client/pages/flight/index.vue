@@ -17,6 +17,7 @@
                         :ranges="null"
                         opens="right"
                         :date-format="dateFormat"
+                        transition-type="slide-fade"
                         @update="updateValues"
                         @toggle="checkOpen"
                     >
