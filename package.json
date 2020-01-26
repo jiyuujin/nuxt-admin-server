@@ -65,7 +65,7 @@
     "eslint": "6.8.0",
     "eslint-loader": "3.0.3",
     "eslint-plugin-vue": "6.1.2",
-    "firebase-admin": "8.9.1",
+    "firebase-admin": "8.9.2",
     "firebase-functions": "3.3.0",
     "jest": "25.1.0",
     "jest-transform-stub": "2.0.0",
