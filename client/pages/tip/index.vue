@@ -7,28 +7,18 @@
         >
             <div v-if="events" style="width: 100%;">
                 <j-form title="タイトル">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyTitle"
-                    />
+                    <j-input @handleInput="applyTitle" />
                 </j-form>
                 <j-form title="URL">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyUrl"
-                    />
+                    <j-input @handleInput="applyUrl" />
                 </j-form>
                 <j-form title="詳細">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyDescription"
-                    />
+                    <j-input @handleInput="applyDescription" />
                 </j-form>
                 <j-form title="カテゴリー">
                     <j-select
                         :options="categoryOptions"
                         :selected-values="form.tags"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyTags"
                     />
                 </j-form>
@@ -36,7 +26,6 @@
                     <j-select
                         :options="eventOptions"
                         :selected-values="form.event"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyEvent"
                     />
                 </j-form>

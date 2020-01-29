@@ -30,13 +30,11 @@
                     <j-select
                         :options="airportOptions"
                         :selected-values="form.departure"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyDeparture"
                     />
                     <j-select
                         :options="airportOptions"
                         :selected-values="form.arrival"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyArrival"
                     />
                 </j-form>
@@ -44,7 +42,6 @@
                     <j-select
                         :options="airlineOptions"
                         :selected-values="form.airline"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyAirline"
                     />
                 </j-form>
@@ -52,13 +49,9 @@
                     <j-select
                         :options="boardingTypeOptions"
                         :selected-values="form.boardingType"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyBoardingType"
                     />
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyRegistration"
-                    />
+                    <j-input @handleInput="applyRegistration" />
                 </j-form>
             </div>
         </j-modal>
