@@ -28,7 +28,7 @@
     "firebase": "7.7.0",
     "graphql": "14.6.0",
     "graphql-tag": "2.10.1",
-    "nuxt": "2.10.2",
+    "nuxt": "2.11.0",
     "nuxt-property-decorator": "2.5.0",
     "ts-node": "8.6.2",
     "vue-chartjs": "3.5.0",
