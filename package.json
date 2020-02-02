@@ -16,7 +16,7 @@
   "dependencies": {
     "@nekohack/j-stylebook": "0.2.14",
     "@nuxtjs/apollo": "4.0.0-rc9",
-    "@nuxtjs/axios": "5.9.3",
+    "@nuxtjs/axios": "5.9.5",
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/pwa": "3.0.0-beta.19",
     "apollo-cache-inmemory": "1.6.5",
