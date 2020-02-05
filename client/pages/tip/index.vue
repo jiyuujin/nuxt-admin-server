@@ -93,7 +93,7 @@ export default class TipPage extends Vue {
         title: '' as string,
         url: '' as string,
         description: '' as string,
-        tags: 0 as number,
+        tags: [0] as number[],
         event: 0 as number
     }
 
@@ -122,14 +122,14 @@ export default class TipPage extends Vue {
     }
 
     applyTags (value) {
-        this.form.tags = value
+        this.form.tags = [...value]
     }
 
     reset () {
         this.form.title = ''
         this.form.url = ''
         this.form.description = ''
-        this.form.tags = 0
+        this.form.tags = [0]
         this.form.event = 0
     }
 

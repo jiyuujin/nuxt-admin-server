@@ -47,6 +47,6 @@ interface Tip {
     title: string
     url: string
     description: string
-    tags: number
+    tags: number[]
     event: number
 }
