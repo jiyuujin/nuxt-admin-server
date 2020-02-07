@@ -8,7 +8,7 @@
                 @handleClick="logout"
             />
         </div>
-        <div :class="isForm ? `form` : `main`">
+        <div class="main">
             <slot />
         </div>
     </div>
@@ -26,7 +26,6 @@ const LeftMenu = () => import('~/components/layout/LeftMenu.vue')
 })
 export default class MainTemplate extends Vue {
     @Prop() userStatus: boolean;
-    isForm: boolean = false;
 
     async logout() {
         await this.$store.dispatch('product/signOut')
@@ -47,10 +46,5 @@ export default class MainTemplate extends Vue {
 .main {
     margin: 0 2%;
     width: 96%;
-}
-
-.form {
-    margin: 0 auto;
-    padding-bottom: 10px;
 }
 </style>

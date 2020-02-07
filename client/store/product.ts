@@ -1,5 +1,5 @@
 import { Module, ActionTree, MutationTree } from 'vuex'
-import firebase from 'firebase'
+import { signIn, signOut } from '~/services/authService'
 
 const namespaced = true
 
@@ -27,19 +27,15 @@ export const mutations: MutationTree<State> = {
 };
 
 export const actions: RootActionTree<State, RootState> = {
-    async signIn ({ commit }, params) {
-        await firebase.auth()
-            .signInWithEmailAndPassword(params.email, params.password)
-            .then(response => {
-                commit('setUserStatus', true)
-            })
+    async signIn({ commit }, params) {
+        if (await signIn(params)) {
+            commit('setUserStatus', true)
+        }
     },
-    async signOut ({ commit }) {
-        await firebase.auth()
-            .signOut()
-            .then(response => {
-                commit('setUserStatus', false)
-            })
+    async signOut({ commit }) {
+        if (await signOut()) {
+            commit('setUserStatus', false)
+        }
     }
 }
 

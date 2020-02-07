@@ -1,8 +1,14 @@
-# admin-function
+# function
 
-https://admin.nekohack.app/
+Please install firebase-tools because you use the `firebase` command
 
 ```bash
-# function
-yarn install --ignore-engines
+npm install -g firebase-tools
+firebase login
+```
+
+## Deploy
+
+```bash
+yarn deploy
 ```

@@ -2,33 +2,24 @@
     <main-template v-if="tips" :user-status="userStatus">
         <j-modal
             title="Tipを追加"
+            style="margin: 20px 0;"
             :handle-cancel-click-callback="cancel"
             :handle-submit-click-callback="submit"
         >
             <div v-if="events" style="width: 100%;">
                 <j-form title="タイトル">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyTitle"
-                    />
+                    <j-input @handleInput="applyTitle" />
                 </j-form>
                 <j-form title="URL">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyUrl"
-                    />
+                    <j-input @handleInput="applyUrl" />
                 </j-form>
                 <j-form title="詳細">
-                    <j-input
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
-                        @handleInput="applyDescription"
-                    />
+                    <j-input @handleInput="applyDescription" />
                 </j-form>
                 <j-form title="カテゴリー">
                     <j-select
                         :options="categoryOptions"
                         :selected-values="form.tags"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyTags"
                     />
                 </j-form>
@@ -36,7 +27,6 @@
                     <j-select
                         :options="eventOptions"
                         :selected-values="form.event"
-                        style="width: 160px; margin-right: 8px; margin-bottom: 4px;"
                         @handleSelect="applyEvent"
                     />
                 </j-form>
@@ -104,7 +94,7 @@ export default class TipPage extends Vue {
         title: '' as string,
         url: '' as string,
         description: '' as string,
-        tags: 0 as number,
+        tags: [] as number[],
         event: 0 as number
     }
 
@@ -112,35 +102,43 @@ export default class TipPage extends Vue {
         return this.$store.state.product.userStatus
     }
 
-    applyPage(value) {
+    applyPage(value: number) {
         this.page = value
     }
 
-    applyTitle(value) {
+    applyTitle(value: string) {
         this.form.title = value
     }
 
-    applyUrl(value) {
+    applyUrl(value: string) {
         this.form.url = value
     }
 
-    applyDescription(value) {
+    applyDescription(value: string) {
         this.form.description = value
     }
 
-    applyEvent(value) {
+    applyEvent(value: number) {
         this.form.event = value
     }
 
-    applyTags (value) {
-        this.form.tags = value
+    applyTags(value: number) {
+        let isSame: boolean = false
+        this.form.tags.map(tag => {
+            if (tag === value) {
+                isSame = true
+            }
+        })
+        if (!isSame) {
+            this.form.tags.push(value)
+        }
     }
 
-    reset () {
+    reset() {
         this.form.title = ''
         this.form.url = ''
         this.form.description = ''
-        this.form.tags = 0
+        this.form.tags = [0]
         this.form.event = 0
     }
 

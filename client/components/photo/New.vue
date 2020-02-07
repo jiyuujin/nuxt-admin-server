@@ -3,6 +3,7 @@
         <j-input
             placeholder="名前"
             input-type="text"
+            style="margin: 20px 0;"
             @handleInput="applyName"
         />
         <input type="file" @change="onFileChange" />
@@ -19,6 +20,7 @@
         <j-button
             text="Photoを追加"
             variant-style="text"
+            style="margin: 20px 0;"
             @handleClick="postPhoto"
         />
     </div>
