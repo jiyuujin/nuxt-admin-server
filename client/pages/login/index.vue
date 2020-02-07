@@ -1,27 +1,27 @@
 <template>
     <main-template :user-status="userStatus" class="login">
-        <main-template :is-form="isForm">
+        <div style="margin: 20px;">
             <j-input
                 placeholder="メールアドレス"
                 input-type="text"
                 @handleInput="applyEmail"
             />
-        </main-template>
-        <main-template :is-form="isForm">
+        </div>
+        <div style="margin: 20px;">
             <j-input
                 placeholder="パスワード"
                 input-type="password"
                 password
                 @handleInput="applyPassword"
             />
-        </main-template>
-        <main-template :is-form="isForm">
+        </div>
+        <div style="margin: 20px;">
             <j-button
                 text="ログイン"
                 variant-style="text"
                 @handleClick="login"
             />
-        </main-template>
+        </div>
     </main-template>
 </template>
 

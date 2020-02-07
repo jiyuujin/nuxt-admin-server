@@ -2,6 +2,7 @@
     <main-template v-if="tips" :user-status="userStatus">
         <j-modal
             title="Tipを追加"
+            style="margin: 20px 0;"
             :handle-cancel-click-callback="cancel"
             :handle-submit-click-callback="submit"
         >
@@ -93,7 +94,7 @@ export default class TipPage extends Vue {
         title: '' as string,
         url: '' as string,
         description: '' as string,
-        tags: [0] as number[],
+        tags: [] as number[],
         event: 0 as number
     }
 
@@ -101,31 +102,39 @@ export default class TipPage extends Vue {
         return this.$store.state.product.userStatus
     }
 
-    applyPage(value) {
+    applyPage(value: number) {
         this.page = value
     }
 
-    applyTitle(value) {
+    applyTitle(value: string) {
         this.form.title = value
     }
 
-    applyUrl(value) {
+    applyUrl(value: string) {
         this.form.url = value
     }
 
-    applyDescription(value) {
+    applyDescription(value: string) {
         this.form.description = value
     }
 
-    applyEvent(value) {
+    applyEvent(value: number) {
         this.form.event = value
     }
 
-    applyTags (value) {
-        this.form.tags = [...value]
+    applyTags(value: number) {
+        let isSame: boolean = false
+        this.form.tags.map(tag => {
+            if (tag === value) {
+                isSame = true
+            }
+        })
+        if (!isSame) {
+            this.form.tags.push(value)
+        }
     }
 
-    reset () {
+    reset() {
         this.form.title = ''
         this.form.url = ''
         this.form.description = ''

@@ -7,8 +7,17 @@
                     <a :href="item.data.url" target="_blank" rel="noopener">
                         {{ item.data.title }}
                     </a>
-                    <div v-for="tag in item.data.tags" :key="tag">
-                        <j-label :tag-text="tagText(tag)" />
+                    <div>
+                        {{ item.data.description }}
+                    </div>
+                    <div>
+                        <template v-for="tag in item.data.tags">
+                            <j-label
+                                :key="tag"
+                                :tag-text="tagText(tag)"
+                                style="margin: 2px;"
+                            />
+                        </template>
                     </div>
                 </j-form>
             </template>
