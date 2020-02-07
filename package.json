@@ -35,7 +35,6 @@
     "vue-cookie-law": "1.11.0",
     "vue-no-ssr": "1.1.1",
     "vue-toasted": "1.1.27",
-    "vuex-persistedstate": "2.7.0",
     "vuex-type-helper": "1.2.2"
   },
   "devDependencies": {
