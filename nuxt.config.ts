@@ -1,7 +1,7 @@
-import { Configuration } from 'webpack';
-import { Context } from '@nuxt/types';
+import { Configuration } from 'webpack'
+import { Context } from '@nuxt/types'
 
-require('dotenv').config();
+require('dotenv').config()
 
 export default {
     srcDir: './client',
@@ -53,7 +53,6 @@ export default {
 
     modules: [
         // '@nuxtjs/pwa',
-        '@nuxtjs/apollo',
         '@nuxtjs/axios',
         '@nuxtjs/dotenv'
     ],
@@ -65,19 +64,9 @@ export default {
         // '~/plugins/vue-toasted.ts'
     ],
 
-    apollo: {
-        clientConfigs: {
-            default: '~/apollo/client-configs/default.ts'
-        }
-    },
-
-    css: [],
-
     env: {
         NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY,
         NUXT_APP_AUTH_DOMAIN: process.env.NUXT_APP_AUTH_DOMAIN,
-        NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID,
-        NUXT_APP_GRAPH_API: process.env.NUXT_APP_GRAPH_API,
-        NUXT_APP_APOLLO_KEY: process.env.NUXT_APP_APOLLO_KEY,
-    },
+        NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID
+    }
 }
