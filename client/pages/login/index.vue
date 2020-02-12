@@ -4,6 +4,7 @@
             <j-input
                 placeholder="メールアドレス"
                 input-type="text"
+                :input-text="state.email"
                 @handleInput="applyEmail"
             />
         </div>
@@ -11,6 +12,7 @@
             <j-input
                 placeholder="パスワード"
                 input-type="password"
+                :input-text="state.password"
                 password
                 @handleInput="applyPassword"
             />

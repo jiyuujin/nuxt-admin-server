@@ -1,17 +1,19 @@
 <template>
-    <main-template v-if="state.contacts" :user-status="userStatus">
+    <main-template :user-status="userStatus">
         <template v-if="state.contacts">
             <div v-for="item in state.contacts.item" :key="item.id">
-                <h3>
-                    <j-label
-                        :tag-text="item.data.category.text"
-                        style="margin-right: 2px;"
-                    />
-                    {{ item.data.title }}
-                </h3>
-                <div style="margin-bottom: 12px;">
-                    {{ item.data.description }}
-                </div>
+                <j-form :title="timeFormat(item.data.time)">
+                    <h3>
+                        <j-label
+                            :tag-text="item.data.category.text"
+                            style="margin-right: 2px;"
+                        />
+                        {{ item.data.title }}
+                    </h3>
+                    <div style="margin-bottom: 12px;">
+                        {{ item.data.description }}
+                    </div>
+                </j-form>
             </div>
             <!--
             <pagination
@@ -27,6 +29,7 @@
 <script lang="ts">
 import { createComponent, SetupContext, onMounted, reactive, computed } from '@vue/composition-api'
 import { fetchContacts } from '~/services/contactService'
+import { getTimeFormat } from '~/utils/date'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
@@ -54,6 +57,9 @@ export default createComponent({
             userStatus,
             applyPage(value) {
                 return value
+            },
+            timeFormat(t) {
+                return getTimeFormat(t)
             }
         }
     }

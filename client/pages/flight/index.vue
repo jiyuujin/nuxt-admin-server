@@ -1,5 +1,5 @@
 <template>
-    <main-template v-if="state.flights" :user-status="userStatus">
+    <main-template :user-status="userStatus">
         <j-modal
             title="Flightを追加"
             :handle-cancel-click-callback="cancel"
@@ -58,28 +58,30 @@
 
         <template v-if="state.flights">
             <div v-for="item in state.flights.item" :key="item.id">
-                <div>
-                    {{ `${timeFormat(item.data.time)} ${departure(item.data.departure)}-${arrival(item.data.arrival)}` }}
-                </div>
-                <div style="margin-bottom: 12px;">
-                    <j-label
-                        :tag-text="item.data.registration"
-                        style="margin: 2px;"
-                    />
-                    <j-label
-                        :tag-text="boardingType(item.data.boardingType)"
-                        style="margin: 2px;"
-                    />
-                </div>
+                <j-form :title="timeFormat(item.data.time)">
+                    <div>
+                        {{ `${departure(item.data.departure)}-${arrival(item.data.arrival)}` }}
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <j-label
+                            :tag-text="item.data.registration"
+                            style="margin: 2px;"
+                        />
+                        <j-label
+                            :tag-text="boardingType(item.data.boardingType)"
+                            style="margin: 2px;"
+                        />
+                    </div>
+                </j-form>
             </div>
+            <!--
+            <pagination
+                :page="state.page"
+                :max="Math.ceil(state.flights.item.length / 20)"
+                @form-data="applyPage"
+            />
+            -->
         </template>
-        <!--
-        <pagination
-            :page="state.page"
-            :max="Math.ceil(state.flights.item.length / 20)"
-            @form-data="applyPage"
-        />
-        -->
     </main-template>
 </template>
 
@@ -90,7 +92,7 @@ import { fetchFlights, addFlight } from '~/services/flightService'
 import { DateRange } from '~/types/utils'
 import { ItemDataList } from '~/types/database.types'
 import { AIRLINE_LIST, AIRPORT_LIST, BOARDING_TYPE_LIST, getAirportName, getBoardingTypeName } from '~/utils/flight'
-import { getTimeFormat } from '~/utils'
+import { getTimeFormat } from '~/utils/date'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')

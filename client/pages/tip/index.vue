@@ -1,5 +1,5 @@
 <template>
-    <main-template v-if="state.tips" :user-status="userStatus">
+    <main-template :user-status="userStatus">
         <j-modal
             title="Tipを追加"
             style="margin: 20px 0;"
@@ -39,31 +39,33 @@
 
         <template v-if="state.tips">
             <div v-for="item in state.tips.item" :key="item.id">
-                <a
-                    :href="item.data.url"
-                    target="_blank"
-                    rel="noopener"
-                >
-                    {{ item.data.title }}
-                </a>
-                <div style="margin-bottom: 12px;">
-                    <template v-for="tag in item.data.tags">
-                        <j-label
-                            :key="tag"
-                            :tag-text="tagText(tag)"
-                            style="margin: 2px;"
-                        />
-                    </template>
-                </div>
+                <j-form :title="timeFormat(item.data.time)">
+                    <a
+                        :href="item.data.url"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        {{ item.data.title }}
+                    </a>
+                    <div style="margin-bottom: 12px;">
+                        <template v-for="tag in item.data.tags">
+                            <j-label
+                                :key="tag"
+                                :tag-text="tagText(tag)"
+                                style="margin: 2px;"
+                            />
+                        </template>
+                    </div>
+                </j-form>
             </div>
+            <!--
+            <pagination
+                :page="state.page"
+                :max="Math.ceil(state.tips.item.length / 20)"
+                @form-data="applyPage"
+            />
+            -->
         </template>
-        <!--
-        <pagination
-            :page="state.page"
-            :max="Math.ceil(state.tips.item.length / 20)"
-            @form-data="applyPage"
-        />
-        -->
     </main-template>
 </template>
 
@@ -73,6 +75,7 @@ import { fetchTips, addTip } from '~/services/tipService'
 import { fetchEvents } from '~/services/eventService'
 import { ItemDataList } from '~/types/database.types'
 import { CATEGORIES } from '~/utils/tip'
+import { getTimeFormat } from '~/utils/date'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const PhotoUpload = () => import('~/components/PhotoUpload.vue')
@@ -146,6 +149,9 @@ export default createComponent({
                 if (!isSame) {
                     state.form.tags.push(value)
                 }
+            },
+            timeFormat(t) {
+                return getTimeFormat(t)
             },
             tagText(tagId: number) {
                 let result: string = ''
