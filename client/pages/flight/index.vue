@@ -92,8 +92,8 @@ import { ItemDataList } from '~/types/database.types'
 import { AIRLINE_LIST, AIRPORT_LIST, BOARDING_TYPE_LIST, getAirportName, getBoardingTypeName } from '~/utils/flight'
 import { getTimeFormat } from '~/utils'
 
-const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const Pagination = () => import('~/components/layout/Pagination.vue')
+const MainTemplate = () => import('~/components/MainTemplate.vue')
+const Pagination = () => import('~/components/Pagination.vue')
 
 export default createComponent({
     middleware: 'auth',

@@ -8,7 +8,7 @@
 <script lang="ts">
 import { createComponent } from '@vue/composition-api'
 
-const CookieFooter = () => import('~/components/layout/CookieFooter.vue')
+const CookieFooter = () => import('~/components/CookieFooter.vue')
 
 export default createComponent({
     components: {

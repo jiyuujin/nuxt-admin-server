@@ -28,7 +28,7 @@
 <script lang="ts">
 import { createComponent, SetupContext, reactive, computed } from '@vue/composition-api'
 
-const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
+const MainTemplate = () => import('~/components/MainTemplate.vue')
 
 export default createComponent({
     components: {

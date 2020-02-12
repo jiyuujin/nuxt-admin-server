@@ -35,7 +35,7 @@
             </div>
         </j-modal>
 
-        <new-photo />
+        <photo-upload />
 
         <template v-if="state.tips">
             <div v-for="item in state.tips.item" :key="item.id">
@@ -74,15 +74,15 @@ import { fetchEvents } from '~/services/eventService'
 import { ItemDataList } from '~/types/database.types'
 import { CATEGORIES } from '~/utils/tip'
 
-const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const NewPhoto = () => import('~/components/photo/New.vue')
-const Pagination = () => import('~/components/layout/Pagination.vue')
+const MainTemplate = () => import('~/components/MainTemplate.vue')
+const PhotoUpload = () => import('~/components/PhotoUpload.vue')
+const Pagination = () => import('~/components/Pagination.vue')
 
 export default createComponent({
     middleware: 'auth',
     components: {
         MainTemplate,
-        NewPhoto,
+        PhotoUpload,
         Pagination
     },
     setup(props: {}, ctx: SetupContext) {

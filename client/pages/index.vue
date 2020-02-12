@@ -28,8 +28,8 @@
 import { createComponent, SetupContext, onMounted, reactive, computed } from '@vue/composition-api'
 import { fetchContacts } from '~/services/contactService'
 
-const MainTemplate = () => import('~/components/layout/MainTemplate.vue')
-const Pagination = () => import('~/components/layout/Pagination.vue')
+const MainTemplate = () => import('~/components/MainTemplate.vue')
+const Pagination = () => import('~/components/Pagination.vue')
 
 export default createComponent({
     middleware: 'auth',
