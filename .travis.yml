@@ -16,13 +16,7 @@ jobs:
     - stage: "lint"
       name: "ESLint"
       install:
-        - |
-          npm install eslint \
-          typescript \
-          @nekohack/eslint-config \
-          eslint-plugin-vue \
-          @typescript-eslint/parser \
-          @typescript-eslint/typescript-estree
+        - npm install
       script:
         - npm run lint
     # Unit Test
