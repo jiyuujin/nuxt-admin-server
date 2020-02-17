@@ -24,7 +24,7 @@ jobs:
           @typescript-eslint/parser \
           @typescript-eslint/typescript-estree
       script:
-        - node_modules/eslint/bin/eslint.js .
+        - npm run lint
     # Unit Test
     - stage: "test"
       name: "Unit Test"
