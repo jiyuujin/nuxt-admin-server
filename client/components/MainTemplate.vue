@@ -1,27 +1,36 @@
 <template>
-    <div>
-        <div v-if="userStatus" class="menu">
-            <div v-for="menu in menus" :key="menu.title">
-                <nuxt-link :to="menu.url">
-                    <img
-                        :src="`/${menu.src}`"
-                        :alt="menu.src"
-                        decoding="async"
-                    >
-                </nuxt-link>
-            </div>
-        </div>
-        <div v-if="userStatus" class="logout">
-            <j-button
-                text="ログアウト"
-                variant-style="text"
-                @handleClick="logout"
-            />
-        </div>
-        <div class="main">
-            <slot />
-        </div>
+  <div>
+    <div
+      v-if="userStatus"
+      class="menu"
+    >
+      <div
+        v-for="menu in menus"
+        :key="menu.title"
+      >
+        <nuxt-link :to="menu.url">
+          <img
+            :src="`/${menu.src}`"
+            :alt="menu.src"
+            decoding="async"
+          >
+        </nuxt-link>
+      </div>
     </div>
+    <div
+      v-if="userStatus"
+      class="logout"
+    >
+      <j-button
+        text="ログアウト"
+        variant-style="text"
+        @handleClick="logout"
+      />
+    </div>
+    <div class="main">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

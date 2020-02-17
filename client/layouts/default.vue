@@ -1,8 +1,8 @@
 <template>
-    <div class="container mx-auto">
-        <nuxt/>
-        <cookie-footer />
-    </div>
+  <div class="container mx-auto">
+    <nuxt />
+    <cookie-footer />
+  </div>
 </template>
 
 <script lang="ts">

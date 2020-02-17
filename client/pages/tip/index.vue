@@ -1,29 +1,32 @@
 <template>
-    <main-template :user-status="userStatus">
-        <j-modal
-            title="Tipを追加"
-            style="margin: 20px 0;"
-            :handle-cancel-click-callback="cancel"
-            :handle-submit-click-callback="submit"
-        >
-            <div v-if="state.events" style="width: 100%;">
-                <j-form title="タイトル">
-                    <j-input @handleInput="applyTitle" />
-                </j-form>
-                <j-form title="URL">
-                    <j-input @handleInput="applyUrl" />
-                </j-form>
-                <j-form title="詳細">
-                    <j-input @handleInput="applyDescription" />
-                </j-form>
-                <j-form title="カテゴリー">
-                    <j-select
-                        :options="categoryOptions"
-                        :selected-values="state.form.tags"
-                        @handleSelect="applyTags"
-                    />
-                </j-form>
-                <!--
+  <main-template :user-status="userStatus">
+    <j-modal
+      title="Tipを追加"
+      style="margin: 20px 0;"
+      :handle-cancel-click-callback="cancel"
+      :handle-submit-click-callback="submit"
+    >
+      <div
+        v-if="state.events"
+        style="width: 100%;"
+      >
+        <j-form title="タイトル">
+          <j-input @handleInput="applyTitle" />
+        </j-form>
+        <j-form title="URL">
+          <j-input @handleInput="applyUrl" />
+        </j-form>
+        <j-form title="詳細">
+          <j-input @handleInput="applyDescription" />
+        </j-form>
+        <j-form title="カテゴリー">
+          <j-select
+            :options="categoryOptions"
+            :selected-values="state.form.tags"
+            @handleSelect="applyTags"
+          />
+        </j-form>
+        <!--
                 <j-form title="イベント">
                     <j-select
                         :options="eventOptions"
@@ -32,41 +35,44 @@
                     />
                 </j-form>
                 -->
-            </div>
-        </j-modal>
+      </div>
+    </j-modal>
 
-        <photo-upload />
+    <photo-upload />
 
-        <template v-if="state.tips">
-            <div v-for="item in state.tips.item" :key="item.id">
-                <j-form :title="timeFormat(item.data.time)">
-                    <a
-                        :href="item.data.url"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        {{ item.data.title }}
-                    </a>
-                    <div style="margin-bottom: 12px;">
-                        <template v-for="tag in item.data.tags">
-                            <j-label
-                                :key="tag"
-                                :tag-text="tagText(tag)"
-                                style="margin: 2px;"
-                            />
-                        </template>
-                    </div>
-                </j-form>
-            </div>
-            <!--
+    <template v-if="state.tips">
+      <div
+        v-for="item in state.tips.item"
+        :key="item.id"
+      >
+        <j-form :title="timeFormat(item.data.time)">
+          <a
+            :href="item.data.url"
+            target="_blank"
+            rel="noopener"
+          >
+            {{ item.data.title }}
+          </a>
+          <div style="margin-bottom: 12px;">
+            <template v-for="tag in item.data.tags">
+              <j-label
+                :key="tag"
+                :tag-text="tagText(tag)"
+                style="margin: 2px;"
+              />
+            </template>
+          </div>
+        </j-form>
+      </div>
+      <!--
             <pagination
                 :page="state.page"
                 :max="Math.ceil(state.tips.item.length / 20)"
                 @form-data="applyPage"
             />
             -->
-        </template>
-    </main-template>
+    </template>
+  </main-template>
 </template>
 
 <script lang="ts">

@@ -1,88 +1,95 @@
 <template>
-    <main-template :user-status="userStatus">
-        <j-modal
-            title="Flightを追加"
-            :handle-cancel-click-callback="cancel"
-            :handle-submit-click-callback="submit"
-        >
-            <div style="width: 100%; text-align: left;">
-                <j-form title="搭乗時間">
-                    <j-range-picker
-                        ref="single-picker"
-                        :single-date-picker="datePicker.singleDatePicker"
-                        :show-dropdown="datePicker.showDropdown"
-                        :auto-apply="datePicker.autoApply"
-                        :linked-calendars="datePicker.linkedCalendars"
-                        :date-range="dateRange"
-                        :ranges="null"
-                        opens="right"
-                        :date-format="dateFormat"
-                        transition-type="slide-fade"
-                        @update="updateValues"
-                        @toggle="checkOpen"
-                    >
-                        <div slot="input" slot-scope="picker" style="min-width: 350px;">
-                            {{ picker.startDate }}
-                        </div>
-                    </j-range-picker>
-                </j-form>
-                <j-form title="出発／到着">
-                    <j-select
-                        :options="airportOptions"
-                        :selected-values="state.form.departure"
-                        @handleSelect="applyDeparture"
-                    />
-                    <j-select
-                        :options="airportOptions"
-                        :selected-values="state.form.arrival"
-                        @handleSelect="applyArrival"
-                    />
-                </j-form>
-                <j-form title="航空会社">
-                    <j-select
-                        :options="airlineOptions"
-                        :selected-values="state.form.airline"
-                        @handleSelect="applyAirline"
-                    />
-                </j-form>
-                <j-form title="搭乗機材／レジ">
-                    <j-select
-                        :options="boardingTypeOptions"
-                        :selected-values="state.form.boardingType"
-                        @handleSelect="applyBoardingType"
-                    />
-                    <j-input @handleInput="applyRegistration" />
-                </j-form>
+  <main-template :user-status="userStatus">
+    <j-modal
+      title="Flightを追加"
+      :handle-cancel-click-callback="cancel"
+      :handle-submit-click-callback="submit"
+    >
+      <div style="width: 100%; text-align: left;">
+        <j-form title="搭乗時間">
+          <j-range-picker
+            ref="single-picker"
+            :single-date-picker="datePicker.singleDatePicker"
+            :show-dropdown="datePicker.showDropdown"
+            :auto-apply="datePicker.autoApply"
+            :linked-calendars="datePicker.linkedCalendars"
+            :date-range="dateRange"
+            :ranges="null"
+            opens="right"
+            :date-format="dateFormat"
+            transition-type="slide-fade"
+            @update="updateValues"
+            @toggle="checkOpen"
+          >
+            <div
+              slot="input"
+              slot-scope="picker"
+              style="min-width: 350px;"
+            >
+              {{ picker.startDate }}
             </div>
-        </j-modal>
+          </j-range-picker>
+        </j-form>
+        <j-form title="出発／到着">
+          <j-select
+            :options="airportOptions"
+            :selected-values="state.form.departure"
+            @handleSelect="applyDeparture"
+          />
+          <j-select
+            :options="airportOptions"
+            :selected-values="state.form.arrival"
+            @handleSelect="applyArrival"
+          />
+        </j-form>
+        <j-form title="航空会社">
+          <j-select
+            :options="airlineOptions"
+            :selected-values="state.form.airline"
+            @handleSelect="applyAirline"
+          />
+        </j-form>
+        <j-form title="搭乗機材／レジ">
+          <j-select
+            :options="boardingTypeOptions"
+            :selected-values="state.form.boardingType"
+            @handleSelect="applyBoardingType"
+          />
+          <j-input @handleInput="applyRegistration" />
+        </j-form>
+      </div>
+    </j-modal>
 
-        <template v-if="state.flights">
-            <div v-for="item in state.flights.item" :key="item.id">
-                <j-form :title="timeFormat(item.data.time)">
-                    <div>
-                        {{ `${departure(item.data.departure)}-${arrival(item.data.arrival)}` }}
-                    </div>
-                    <div style="margin-bottom: 12px;">
-                        <j-label
-                            :tag-text="item.data.registration"
-                            style="margin: 2px;"
-                        />
-                        <j-label
-                            :tag-text="boardingType(item.data.boardingType)"
-                            style="margin: 2px;"
-                        />
-                    </div>
-                </j-form>
-            </div>
-            <!--
+    <template v-if="state.flights">
+      <div
+        v-for="item in state.flights.item"
+        :key="item.id"
+      >
+        <j-form :title="timeFormat(item.data.time)">
+          <div>
+            {{ `${departure(item.data.departure)}-${arrival(item.data.arrival)}` }}
+          </div>
+          <div style="margin-bottom: 12px;">
+            <j-label
+              :tag-text="item.data.registration"
+              style="margin: 2px;"
+            />
+            <j-label
+              :tag-text="boardingType(item.data.boardingType)"
+              style="margin: 2px;"
+            />
+          </div>
+        </j-form>
+      </div>
+      <!--
             <pagination
                 :page="state.page"
                 :max="Math.ceil(state.flights.item.length / 20)"
                 @form-data="applyPage"
             />
             -->
-        </template>
-    </main-template>
+    </template>
+  </main-template>
 </template>
 
 <script lang="ts">

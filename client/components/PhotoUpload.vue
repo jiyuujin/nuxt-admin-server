@@ -1,29 +1,35 @@
 <template>
+  <div>
+    <j-input
+      placeholder="名前"
+      input-type="text"
+      style="margin: 20px 0;"
+      @handleInput="applyName"
+    />
+    <input
+      type="file"
+      @change="onFileChange"
+    >
     <div>
-        <j-input
-            placeholder="名前"
-            input-type="text"
-            style="margin: 20px 0;"
-            @handleInput="applyName"
-        />
-        <input type="file" @change="onFileChange" />
-        <div>
-            アップロード結果:
-            <div v-if="form.content" class="preview">
-                <img
-                    :src="form.content"
-                    :alt="form.name"
-                    decoding="async"
-                />
-            </div>
-        </div>
-        <j-button
-            text="Photoを追加"
-            variant-style="text"
-            style="margin: 20px 0;"
-            @handleClick="postPhoto"
-        />
+      アップロード結果:
+      <div
+        v-if="form.content"
+        class="preview"
+      >
+        <img
+          :src="form.content"
+          :alt="form.name"
+          decoding="async"
+        >
+      </div>
     </div>
+    <j-button
+      text="Photoを追加"
+      variant-style="text"
+      style="margin: 20px 0;"
+      @handleClick="postPhoto"
+    />
+  </div>
 </template>
 
 <script lang="ts">

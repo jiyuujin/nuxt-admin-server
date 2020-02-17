@@ -1,6 +1,6 @@
-import { ItemDataList } from '@/types/database.types';
-import { connectCollection } from './collectionService';
-import { PAGE_SIZE } from './paginationService';
+import { ItemDataList } from '@/types/database.types'
+import { connectCollection } from './collectionService'
+import { PAGE_SIZE } from './paginationService'
 
 const collection = connectCollection('contacts')
 

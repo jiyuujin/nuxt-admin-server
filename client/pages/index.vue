@@ -1,29 +1,32 @@
 <template>
-    <main-template :user-status="userStatus">
-        <template v-if="state.contacts">
-            <div v-for="item in state.contacts.item" :key="item.id">
-                <j-form :title="timeFormat(item.data.time)">
-                    <h3>
-                        <j-label
-                            :tag-text="item.data.category.text"
-                            style="margin-right: 2px;"
-                        />
-                        {{ item.data.title }}
-                    </h3>
-                    <div style="margin-bottom: 12px;">
-                        {{ item.data.description }}
-                    </div>
-                </j-form>
-            </div>
-            <!--
+  <main-template :user-status="userStatus">
+    <template v-if="state.contacts">
+      <div
+        v-for="item in state.contacts.item"
+        :key="item.id"
+      >
+        <j-form :title="timeFormat(item.data.time)">
+          <h3>
+            <j-label
+              :tag-text="item.data.category.text"
+              style="margin-right: 2px;"
+            />
+            {{ item.data.title }}
+          </h3>
+          <div style="margin-bottom: 12px;">
+            {{ item.data.description }}
+          </div>
+        </j-form>
+      </div>
+      <!--
             <pagination
                 :page="state.page"
                 :max="Math.ceil(state.contacts.item.length / 20)"
                 @form-data="applyPage"
             />
             -->
-        </template>
-    </main-template>
+    </template>
+  </main-template>
 </template>
 
 <script lang="ts">

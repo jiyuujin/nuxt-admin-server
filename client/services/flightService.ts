@@ -1,7 +1,7 @@
-import { ItemDataList } from '@/types/database.types';
-import { connectCollection } from './collectionService';
-import { PAGE_SIZE } from './paginationService';
-import { isValidText } from '~/store/utils';
+import { ItemDataList } from '@/types/database.types'
+import { connectCollection } from './collectionService'
+import { PAGE_SIZE } from './paginationService'
+import { isValidText } from '~/store/utils'
 
 const collection = connectCollection('flights')
 

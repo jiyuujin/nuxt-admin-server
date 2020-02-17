@@ -24,7 +24,7 @@ export const mutations: MutationTree<State> = {
     setUserStatus (state, payload) {
         state.userStatus = payload
     }
-};
+}
 
 export const actions: RootActionTree<State, RootState> = {
     async signIn({ commit }, params) {
@@ -50,7 +50,7 @@ export interface RootActionTree<State, RootState> extends ActionTree<State, Root
 
 export const getters = {
     //
-};
+}
 
 export const product: Module<State, RootState> = {
     namespaced,
