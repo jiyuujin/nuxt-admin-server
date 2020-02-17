@@ -1,28 +1,31 @@
 <template>
-    <main-template :user-status="userStatus" class="login">
-        <div style="margin: 20px;">
-            <j-input
-                placeholder="メールアドレス"
-                input-type="text"
-                @handleInput="applyEmail"
-            />
-        </div>
-        <div style="margin: 20px;">
-            <j-input
-                placeholder="パスワード"
-                input-type="password"
-                password
-                @handleInput="applyPassword"
-            />
-        </div>
-        <div style="margin: 20px;">
-            <j-button
-                text="ログイン"
-                variant-style="text"
-                @handleClick="login"
-            />
-        </div>
-    </main-template>
+  <main-template
+    :user-status="userStatus"
+    class="login"
+  >
+    <div style="margin: 20px;">
+      <j-input
+        placeholder="メールアドレス"
+        input-type="text"
+        @handleInput="applyEmail"
+      />
+    </div>
+    <div style="margin: 20px;">
+      <j-input
+        placeholder="パスワード"
+        input-type="password"
+        password
+        @handleInput="applyPassword"
+      />
+    </div>
+    <div style="margin: 20px;">
+      <j-button
+        text="ログイン"
+        variant-style="text"
+        @handleClick="login"
+      />
+    </div>
+  </main-template>
 </template>
 
 <script lang="ts">

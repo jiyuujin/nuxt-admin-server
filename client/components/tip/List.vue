@@ -1,28 +1,35 @@
 <template>
-    <div>
-        <h3>Tip <span>{{ list.length }} 件登録中</span></h3>
-        <div v-for="item in list" :key="item.id">
-            <template v-if="item.page === number">
-                <j-form :title="diffTime(item.data.time)">
-                    <a :href="item.data.url" target="_blank" rel="noopener">
-                        {{ item.data.title }}
-                    </a>
-                    <div>
-                        {{ item.data.description }}
-                    </div>
-                    <div>
-                        <template v-for="tag in item.data.tags">
-                            <j-label
-                                :key="tag"
-                                :tag-text="tagText(tag)"
-                                style="margin: 2px;"
-                            />
-                        </template>
-                    </div>
-                </j-form>
+  <div>
+    <h3>Tip <span>{{ list.length }} 件登録中</span></h3>
+    <div
+      v-for="item in list"
+      :key="item.id"
+    >
+      <template v-if="item.page === number">
+        <j-form :title="diffTime(item.data.time)">
+          <a
+            :href="item.data.url"
+            target="_blank"
+            rel="noopener"
+          >
+            {{ item.data.title }}
+          </a>
+          <div>
+            {{ item.data.description }}
+          </div>
+          <div>
+            <template v-for="tag in item.data.tags">
+              <j-label
+                :key="tag"
+                :tag-text="tagText(tag)"
+                style="margin: 2px;"
+              />
             </template>
-        </div>
+          </div>
+        </j-form>
+      </template>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

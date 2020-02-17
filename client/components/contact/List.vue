@@ -1,16 +1,19 @@
 <template>
-    <div>
-        <div v-for="item in list" :key="item.id">
-            <template v-if="item.page === number">
-                <div class="title">
-                    {{ item.data.title }}
-                </div>
-                <div class="description">
-                    {{ item.data.description }}
-                </div>
-            </template>
+  <div>
+    <div
+      v-for="item in list"
+      :key="item.id"
+    >
+      <template v-if="item.page === number">
+        <div class="title">
+          {{ item.data.title }}
         </div>
+        <div class="description">
+          {{ item.data.description }}
+        </div>
+      </template>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

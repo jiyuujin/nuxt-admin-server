@@ -1,29 +1,35 @@
 <template>
+  <div>
+    <j-input
+      placeholder="名前"
+      input-type="text"
+      style="margin: 20px 0;"
+      @handleInput="applyName"
+    />
+    <input
+      type="file"
+      @change="onFileChange"
+    >
     <div>
-        <j-input
-            placeholder="名前"
-            input-type="text"
-            style="margin: 20px 0;"
-            @handleInput="applyName"
-        />
-        <input type="file" @change="onFileChange" />
-        <div>
-            アップロード結果:
-            <div v-if="form.content" class="preview">
-                <img
-                    :src="form.content"
-                    :alt="form.name"
-                    decoding="async"
-                />
-            </div>
-        </div>
-        <j-button
-            text="Photoを追加"
-            variant-style="text"
-            style="margin: 20px 0;"
-            @handleClick="postPhoto"
-        />
+      アップロード結果:
+      <div
+        v-if="form.content"
+        class="preview"
+      >
+        <img
+          :src="form.content"
+          :alt="form.name"
+          decoding="async"
+        >
+      </div>
     </div>
+    <j-button
+      text="Photoを追加"
+      variant-style="text"
+      style="margin: 20px 0;"
+      @handleClick="postPhoto"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -63,18 +69,18 @@ export default class New extends Vue {
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
             this.upload(files[0])
-        });
+        })
     }
 
     upload (file) {
-        const storageRef = firebase.storage().ref().child(this.form.name);
+        const storageRef = firebase.storage().ref().child(this.form.name)
         storageRef.put(file)
             .then(snapshot => {
                 snapshot.ref.getDownloadURL()
                     .then(downloadURL => {
-                        this.form.content = downloadURL;
-                    });
-            });
+                        this.form.content = downloadURL
+                    })
+            })
     }
 }
 </script>

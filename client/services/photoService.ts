@@ -1,5 +1,5 @@
-import { connectCollection } from './collectionService';
-import { isValidText } from '~/store/utils';
+import { connectCollection } from './collectionService'
+import { isValidText } from '~/store/utils'
 
 const collection = connectCollection('photos')
 

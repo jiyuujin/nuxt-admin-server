@@ -1,25 +1,31 @@
 <template>
-    <div>
-        <h3>Flight <span>({{ list.length }} レグ搭乗中)</span></h3>
-        <chart :chart-data="datasets(list)" />
-        <div class="flights">
-            <div v-for="item in list" :key="item.id">
-                <div v-if="item.page === number" class="flight-card">
-                    <div class="flight-card-text">
-                        <div class="title">
-                            {{ departure(item.data.departure) }}<br>{{ arrival(item.data.arrival) }}
-                        </div>
-                        <div class="route">
-                            {{ item.data.registration }}({{ boardingType(item.data.boardingType) }})
-                        </div>
-                    </div>
-                    <div class="flight-card-time">
-                        {{ timeFormat(item.data.time) }}
-                    </div>
-                </div>
+  <div>
+    <h3>Flight <span>({{ list.length }} レグ搭乗中)</span></h3>
+    <chart :chart-data="datasets(list)" />
+    <div class="flights">
+      <div
+        v-for="item in list"
+        :key="item.id"
+      >
+        <div
+          v-if="item.page === number"
+          class="flight-card"
+        >
+          <div class="flight-card-text">
+            <div class="title">
+              {{ departure(item.data.departure) }}<br>{{ arrival(item.data.arrival) }}
             </div>
+            <div class="route">
+              {{ item.data.registration }}({{ boardingType(item.data.boardingType) }})
+            </div>
+          </div>
+          <div class="flight-card-time">
+            {{ timeFormat(item.data.time) }}
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

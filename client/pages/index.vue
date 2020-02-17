@@ -1,15 +1,18 @@
 <template>
-    <main-template v-if="contacts" :user-status="userStatus">
-        <contact-list
-            :list="contacts.item"
-            :number="contact"
-        />
-        <pagination
-            :page="contact"
-            :max="Math.ceil(contacts.item.length / 20)"
-            @form-data="applyPageInContact"
-        />
-    </main-template>
+  <main-template
+    v-if="contacts"
+    :user-status="userStatus"
+  >
+    <contact-list
+      :list="contacts.item"
+      :number="contact"
+    />
+    <pagination
+      :page="contact"
+      :max="Math.ceil(contacts.item.length / 20)"
+      @form-data="applyPageInContact"
+    />
+  </main-template>
 </template>
 
 <script lang="ts">

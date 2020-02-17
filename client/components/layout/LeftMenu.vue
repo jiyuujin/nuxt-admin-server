@@ -1,20 +1,20 @@
 <template>
-    <div class="menu">
-        <div
-            v-for="value in menu"
-            :key="value.title"
+  <div class="menu">
+    <div
+      v-for="value in menu"
+      :key="value.title"
+    >
+      <nuxt-link
+        :to="value.url"
+      >
+        <img
+          :src="'/' + value.src"
+          :alt="value.src"
+          decoding="async"
         >
-            <nuxt-link
-                :to="value.url"
-            >
-                <img
-                    :src="'/' + value.src"
-                    :alt="value.src"
-                    decoding="async"
-                >
-            </nuxt-link>
-        </div>
+      </nuxt-link>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,23 +1,23 @@
 <template>
-    <div class="pager">
-        <div class="pagination">
-            <a
-                :class="page === 1 ? 'disabled' : ''"
-                :style="page === 1 ? 'opacity: 0.5;' : 'opacity: 1;'"
-                href="#"
-                @click="prev(page)"
-            >
-                &laquo;
-            </a>
-            <a
-                :class="page === max ? 'disabled' : ''"
-                href="#"
-                @click="next(page)"
-            >
-                &raquo;
-            </a>
-        </div>
+  <div class="pager">
+    <div class="pagination">
+      <a
+        :class="page === 1 ? 'disabled' : ''"
+        :style="page === 1 ? 'opacity: 0.5;' : 'opacity: 1;'"
+        href="#"
+        @click="prev(page)"
+      >
+        &laquo;
+      </a>
+      <a
+        :class="page === max ? 'disabled' : ''"
+        href="#"
+        @click="next(page)"
+      >
+        &raquo;
+      </a>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

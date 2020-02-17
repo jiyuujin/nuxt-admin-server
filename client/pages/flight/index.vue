@@ -1,71 +1,78 @@
 <template>
-    <main-template v-if="flights" :user-status="userStatus">
-        <j-modal
-            title="Flightを追加"
-            :handle-cancel-click-callback="cancel"
-            :handle-submit-click-callback="submit"
-        >
-            <div style="width: 100%;">
-                <j-form title="搭乗時間">
-                    <j-range-picker
-                        ref="single-picker"
-                        :single-date-picker="singleDatePicker"
-                        :show-dropdown="showDropdown"
-                        :auto-apply="autoApply"
-                        :linked-calendars="linkedCalendars"
-                        :date-range="dateRange"
-                        :ranges="null"
-                        opens="right"
-                        :date-format="dateFormat"
-                        transition-type="slide-fade"
-                        @update="updateValues"
-                        @toggle="checkOpen"
-                    >
-                        <div slot="input" slot-scope="picker" style="min-width: 350px;">
-                            {{ picker.startDate }}
-                        </div>
-                    </j-range-picker>
-                </j-form>
-                <j-form title="出発／到着">
-                    <j-select
-                        :options="airportOptions"
-                        :selected-values="form.departure"
-                        @handleSelect="applyDeparture"
-                    />
-                    <j-select
-                        :options="airportOptions"
-                        :selected-values="form.arrival"
-                        @handleSelect="applyArrival"
-                    />
-                </j-form>
-                <j-form title="航空会社">
-                    <j-select
-                        :options="airlineOptions"
-                        :selected-values="form.airline"
-                        @handleSelect="applyAirline"
-                    />
-                </j-form>
-                <j-form title="搭乗機材／レジ">
-                    <j-select
-                        :options="boardingTypeOptions"
-                        :selected-values="form.boardingType"
-                        @handleSelect="applyBoardingType"
-                    />
-                    <j-input @handleInput="applyRegistration" />
-                </j-form>
+  <main-template
+    v-if="flights"
+    :user-status="userStatus"
+  >
+    <j-modal
+      title="Flightを追加"
+      :handle-cancel-click-callback="cancel"
+      :handle-submit-click-callback="submit"
+    >
+      <div style="width: 100%;">
+        <j-form title="搭乗時間">
+          <j-range-picker
+            ref="single-picker"
+            :single-date-picker="singleDatePicker"
+            :show-dropdown="showDropdown"
+            :auto-apply="autoApply"
+            :linked-calendars="linkedCalendars"
+            :date-range="dateRange"
+            :ranges="null"
+            opens="right"
+            :date-format="dateFormat"
+            transition-type="slide-fade"
+            @update="updateValues"
+            @toggle="checkOpen"
+          >
+            <div
+              slot="input"
+              slot-scope="picker"
+              style="min-width: 350px;"
+            >
+              {{ picker.startDate }}
             </div>
-        </j-modal>
+          </j-range-picker>
+        </j-form>
+        <j-form title="出発／到着">
+          <j-select
+            :options="airportOptions"
+            :selected-values="form.departure"
+            @handleSelect="applyDeparture"
+          />
+          <j-select
+            :options="airportOptions"
+            :selected-values="form.arrival"
+            @handleSelect="applyArrival"
+          />
+        </j-form>
+        <j-form title="航空会社">
+          <j-select
+            :options="airlineOptions"
+            :selected-values="form.airline"
+            @handleSelect="applyAirline"
+          />
+        </j-form>
+        <j-form title="搭乗機材／レジ">
+          <j-select
+            :options="boardingTypeOptions"
+            :selected-values="form.boardingType"
+            @handleSelect="applyBoardingType"
+          />
+          <j-input @handleInput="applyRegistration" />
+        </j-form>
+      </div>
+    </j-modal>
 
-        <flight-list
-            :list="flights.item"
-            :number="page"
-        />
-        <pagination
-            :page="page"
-            :max="Math.ceil(flights.item.length / 20)"
-            @form-data="applyPage"
-        />
-    </main-template>
+    <flight-list
+      :list="flights.item"
+      :number="page"
+    />
+    <pagination
+      :page="page"
+      :max="Math.ceil(flights.item.length / 20)"
+      @form-data="applyPage"
+    />
+  </main-template>
 </template>
 
 <script lang="ts">

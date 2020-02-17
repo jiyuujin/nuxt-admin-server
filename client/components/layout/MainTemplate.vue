@@ -1,17 +1,20 @@
 <template>
-    <div>
-        <LeftMenu v-if="userStatus" />
-        <div v-if="userStatus" class="logout">
-            <j-button
-                text="ログアウト"
-                variant-style="text"
-                @handleClick="logout"
-            />
-        </div>
-        <div class="main">
-            <slot />
-        </div>
+  <div>
+    <LeftMenu v-if="userStatus" />
+    <div
+      v-if="userStatus"
+      class="logout"
+    >
+      <j-button
+        text="ログアウト"
+        variant-style="text"
+        @handleClick="logout"
+      />
     </div>
+    <div class="main">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
