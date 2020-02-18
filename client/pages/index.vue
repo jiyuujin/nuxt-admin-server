@@ -5,26 +5,29 @@
         v-for="item in state.contacts.item"
         :key="item.id"
       >
-        <j-form :title="timeFormat(item.data.time)">
-          <h3>
-            <j-label
-              :tag-text="item.data.category.text"
-              style="margin-right: 2px;"
-            />
-            {{ item.data.title }}
-          </h3>
-          <div style="margin-bottom: 12px;">
-            {{ item.data.description }}
-          </div>
-        </j-form>
+        <template v-if="item.page === state.activePage">
+          <j-form :title="timeFormat(item.data.time)">
+            <h3>
+              <j-label
+                :tag-text="item.data.category.text"
+                style="margin-right: 2px;"
+              />
+              {{ item.data.title }}
+            </h3>
+            <div style="margin-bottom: 12px;">
+              {{ item.data.description }}
+            </div>
+          </j-form>
+        </template>
       </div>
-      <!--
-            <pagination
-                :page="state.page"
-                :max="Math.ceil(state.contacts.item.length / 20)"
-                @form-data="applyPage"
-            />
-            -->
+      <pagination
+        :page="state.activePage"
+        :max="state.contacts.item !== undefined
+          ? Math.ceil(state.contacts.item.length / 20)
+          : 1
+        "
+        @form-data="applyPage"
+      />
     </template>
   </main-template>
 </template>
@@ -45,8 +48,8 @@ export default createComponent({
     },
     setup(props: {}, ctx: SetupContext) {
         const state = reactive({
-            contacts: {},
-            page: 1
+            activePage: 1,
+            contacts: {}
         })
 
         const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
@@ -58,8 +61,8 @@ export default createComponent({
         return {
             state,
             userStatus,
-            applyPage(value) {
-                return value
+            applyPage(value: number) {
+                state.activePage = value
             },
             timeFormat(t) {
                 return getTimeFormat(t)

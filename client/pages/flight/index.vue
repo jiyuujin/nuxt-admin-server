@@ -55,7 +55,10 @@
             :selected-values="state.form.boardingType"
             @handleSelect="applyBoardingType"
           />
-          <j-input @handleInput="applyRegistration" />
+          <j-input
+            :input-text="state.form.registration"
+            @handleInput="applyRegistration"
+          />
         </j-form>
       </div>
     </j-modal>
@@ -65,29 +68,35 @@
         v-for="item in state.flights.item"
         :key="item.id"
       >
-        <j-form :title="timeFormat(item.data.time)">
-          <div>
-            {{ `${departure(item.data.departure)}-${arrival(item.data.arrival)}` }}
-          </div>
-          <div style="margin-bottom: 12px;">
-            <j-label
-              :tag-text="item.data.registration"
-              style="margin: 2px;"
-            />
-            <j-label
-              :tag-text="boardingType(item.data.boardingType)"
-              style="margin: 2px;"
-            />
-          </div>
-        </j-form>
+        <template v-if="item.page === state.activePage">
+          <j-form :title="timeFormat(item.data.time)">
+            <div>
+              {{ `Dep: ${departure(item.data.departure)}` }}
+            </div>
+            <div>
+              {{ `Arr: ${arrival(item.data.arrival)}` }}
+            </div>
+            <div style="margin-bottom: 12px;">
+              <j-label
+                :tag-text="item.data.registration"
+                style="margin: 2px;"
+              />
+              <j-label
+                :tag-text="boardingType(item.data.boardingType)"
+                style="margin: 2px;"
+              />
+            </div>
+          </j-form>
+        </template>
       </div>
-      <!--
-            <pagination
-                :page="state.page"
-                :max="Math.ceil(state.flights.item.length / 20)"
-                @form-data="applyPage"
-            />
-            -->
+      <pagination
+        :page="state.page"
+        :max="state.flights.item !== undefined
+          ? Math.ceil(state.flights.item.length / 20)
+          : 1
+        "
+        @form-data="applyPage"
+      />
     </template>
   </main-template>
 </template>
@@ -122,7 +131,7 @@ export default createComponent({
         })
 
         const state = reactive({
-            page: 1 as number,
+            activePage: 1 as number,
             flights: {} as ItemDataList,
             form: {
                 time: '' as string,
@@ -150,7 +159,7 @@ export default createComponent({
             userStatus,
             dateRange,
             applyPage(value) {
-                state.page = value
+                state.activePage = value
             },
             updateValues(value: DateRange): void {
                 datePicker.requestDate = value

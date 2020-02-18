@@ -2,7 +2,7 @@
   <div>
     <j-input
       placeholder="名前"
-      input-type="text"
+      :input-text="form.name"
       style="margin: 20px 0;"
       @handleInput="applyName"
     />
@@ -42,8 +42,8 @@ export default Vue.extend({
     data() {
         return {
             form: {
-                name: '',
-                content: ''
+                name: '' as string,
+                content: '' as string
             } as PhotoForm
         }
     },

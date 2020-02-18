@@ -11,13 +11,22 @@
         style="width: 100%;"
       >
         <j-form title="タイトル">
-          <j-input @handleInput="applyTitle" />
+          <j-input
+            :input-text="state.form.title"
+            @handleInput="applyTitle"
+          />
         </j-form>
         <j-form title="URL">
-          <j-input @handleInput="applyUrl" />
+          <j-input
+            :input-text="state.form.url"
+            @handleInput="applyUrl"
+          />
         </j-form>
         <j-form title="詳細">
-          <j-input @handleInput="applyDescription" />
+          <j-input
+            :input-text="state.form.description"
+            @handleInput="applyDescription"
+          />
         </j-form>
         <j-form title="カテゴリー">
           <j-select
@@ -27,14 +36,14 @@
           />
         </j-form>
         <!--
-                <j-form title="イベント">
-                    <j-select
-                        :options="eventOptions"
-                        :selected-values="state.form.event"
-                        @handleSelect="applyEvent"
-                    />
-                </j-form>
-                -->
+        <j-form title="イベント">
+          <j-select
+            :options="eventOptions"
+            :selected-values="state.form.event"
+            @handleSelect="applyEvent"
+          />
+        </j-form>
+        -->
       </div>
     </j-modal>
 
@@ -45,32 +54,35 @@
         v-for="item in state.tips.item"
         :key="item.id"
       >
-        <j-form :title="timeFormat(item.data.time)">
-          <a
-            :href="item.data.url"
-            target="_blank"
-            rel="noopener"
-          >
-            {{ item.data.title }}
-          </a>
-          <div style="margin-bottom: 12px;">
-            <template v-for="tag in item.data.tags">
-              <j-label
-                :key="tag"
-                :tag-text="tagText(tag)"
-                style="margin: 2px;"
-              />
-            </template>
-          </div>
-        </j-form>
+        <template v-if="item.page === state.activePage">
+          <j-form :title="timeFormat(item.data.time)">
+            <a
+              :href="item.data.url"
+              target="_blank"
+              rel="noopener"
+            >
+              {{ item.data.title }}
+            </a>
+            <div style="margin-bottom: 12px;">
+              <template v-for="tag in item.data.tags">
+                <j-label
+                  :key="tag"
+                  :tag-text="tagText(tag)"
+                  style="margin: 2px;"
+                />
+              </template>
+            </div>
+          </j-form>
+        </template>
       </div>
-      <!--
-            <pagination
-                :page="state.page"
-                :max="Math.ceil(state.tips.item.length / 20)"
-                @form-data="applyPage"
-            />
-            -->
+      <pagination
+        :page="state.activePage"
+        :max="state.tips.item !== undefined
+          ? Math.ceil(state.tips.item.length / 20)
+          : 1
+        "
+        @form-data="applyPage"
+      />
     </template>
   </main-template>
 </template>
@@ -96,7 +108,7 @@ export default createComponent({
     },
     setup(props: {}, ctx: SetupContext) {
         const state = reactive({
-            page: 1 as number,
+            activePage: 1 as number,
             tips: {} as ItemDataList,
             events: {} as ItemDataList,
             form: {
@@ -121,8 +133,10 @@ export default createComponent({
         })
 
         onMounted(async () => {
-            state.events = await fetchEvents()
-            state.tips = await fetchTips()
+            Promise.all([
+                state.events = await fetchEvents(),
+                state.tips = await fetchTips()
+            ])
         })
 
         return {
@@ -131,7 +145,7 @@ export default createComponent({
             categoryOptions: CATEGORIES,
             eventOptions,
             applyPage(value: number) {
-                state.page = value
+                state.activePage = value
             },
             applyTitle(value: string) {
                 state.form.title = value
