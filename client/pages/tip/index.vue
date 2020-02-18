@@ -35,7 +35,6 @@
             @handleSelect="applyTags"
           />
         </j-form>
-        <!--
         <j-form title="イベント">
           <j-select
             :options="eventOptions"
@@ -43,7 +42,6 @@
             @handleSelect="applyEvent"
           />
         </j-form>
-        -->
       </div>
     </j-modal>
 
@@ -123,12 +121,14 @@ export default createComponent({
         const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
         const eventOptions = computed(() => {
             let array: object[] = []
-            state.events.item.forEach((item) => {
-                array.push({
-                    value: item.data.id,
-                    text: item.data.name
+            if (state.events.item !== undefined) {
+                state.events.item.forEach((item) => {
+                    array.push({
+                        value: item.data.id,
+                        text: item.data.name
+                    })
                 })
-            })
+            }
             return array
         })
 
