@@ -20,7 +20,7 @@
     "@nuxtjs/pwa": "3.0.0-beta.20",
     "chart.js": "2.9.3",
     "core-js": "2.6.11",
-    "dayjs": "1.8.20",
+    "dayjs": "1.8.21",
     "firebase": "7.9.2",
     "nuxt": "2.11.0",
     "nuxt-property-decorator": "2.5.1",
