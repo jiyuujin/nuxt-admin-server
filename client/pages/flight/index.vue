@@ -71,10 +71,7 @@
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
             <div>
-              {{ `Dep: ${departure(item.data.departure)}` }}
-            </div>
-            <div>
-              {{ `Arr: ${arrival(item.data.arrival)}` }}
+              {{ `${airline(item.data.airline)} : ${departure(item.data.departure)} - ${arrival(item.data.arrival)}` }}
             </div>
             <div style="margin-bottom: 12px;">
               <j-label
@@ -107,7 +104,14 @@ import dayjs from 'dayjs'
 import { fetchFlights, addFlight } from '~/services/flightService'
 import { DateRange } from '~/types/utils'
 import { ItemDataList } from '~/types/database.types'
-import { AIRLINE_LIST, AIRPORT_LIST, BOARDING_TYPE_LIST, getAirportName, getBoardingTypeName } from '~/utils/flight'
+import {
+    AIRLINE_LIST,
+    AIRPORT_LIST,
+    BOARDING_TYPE_LIST,
+    getAirlineName,
+    getAirportName,
+    getBoardingTypeName
+} from '~/utils/flight'
 import { getTimeFormat } from '~/utils/date'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
@@ -188,6 +192,9 @@ export default createComponent({
             },
             timeFormat(t) {
                 return getTimeFormat(t)
+            },
+            airline(id) {
+                return getAirlineName(id)
             },
             departure(id) {
                 return getAirportName(id)
