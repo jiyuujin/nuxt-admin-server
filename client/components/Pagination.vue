@@ -21,26 +21,37 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Vue, { PropType } from 'vue'
 
-@Component({})
-export default class Pagination extends Vue {
-    @Prop() page: number;
-    @Prop() max: number;
-
-    disabled: boolean = true;
-
-    prev(newVal: number) {
-        if (this.page !== 1) {
-            this.$emit('form-data', newVal - 1)
+export default Vue.extend({
+    props: {
+        page: {
+            type: Number as PropType<number>,
+            default: 1
+        },
+        max: {
+            type: Number as PropType<number>,
+            default: 1
+        }
+    },
+    data() {
+        return {
+            disabled: true as boolean
+        }
+    },
+    methods: {
+        prev(newVal: number) {
+            if (this.page !== 1) {
+                this.$emit('form-data', newVal - 1)
+            }
+        },
+        next(newVal: number) {
+            if (this.page !== this.max) {
+                this.$emit('form-data', newVal + 1)
+            }
         }
     }
-    next(newVal: number) {
-        if (this.page !== this.max) {
-            this.$emit('form-data', newVal + 1)
-        }
-    }
-}
+})
 </script>
 
 <style scoped>

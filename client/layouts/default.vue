@@ -6,15 +6,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-const CookieFooter = () => import('~/components/layout/CookieFooter.vue')
+import { createComponent } from '@vue/composition-api'
 
-@Component({
+const CookieFooter = () => import('~/components/CookieFooter.vue')
+
+export default createComponent({
     components: {
         CookieFooter
     }
 })
-export default class Default extends Vue {}
 </script>
 
 <style>
