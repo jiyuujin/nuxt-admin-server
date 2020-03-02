@@ -1,18 +1,18 @@
 export interface Menu {
-    title: string,
-    url: string,
-    src: string,
-    flex: number
+  title: string
+  url: string
+  src: string
+  flex: number
 }
 
 export interface List {
-    value: number,
-    text: string,
-    backgroundColor?: string,
-    color?: string
+  value: number
+  text: string
+  backgroundColor?: string
+  color?: string
 }
 
 export interface DateRange {
-    startDate: string,
-    endDate?: string
+  startDate: string
+  endDate?: string
 }

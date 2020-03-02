@@ -6,18 +6,18 @@ import Vue from 'vue'
  * @param title
  * @returns {Promise<any>|Promise<void>}
  */
-export function setDialog (error, title) {
-    if (error) {
-        setTimeout(() => {
-            Vue.toasted.error(`${title}を入力してください`)
-        }, 5000)
-        Vue.toasted.clear()
-    }
-
+export function setDialog(error, title) {
+  if (error) {
     setTimeout(() => {
-        Vue.toasted.error(title)
+      Vue.toasted.error(`${title}を入力してください`)
     }, 5000)
     Vue.toasted.clear()
+  }
+
+  setTimeout(() => {
+    Vue.toasted.error(title)
+  }, 5000)
+  Vue.toasted.clear()
 }
 
 /**
@@ -25,12 +25,12 @@ export function setDialog (error, title) {
  * @param value
  * @returns {boolean}
  */
-export function isValidText (value) {
-    if (value === '') {
-        return true
-    } else {
-        return false
-    }
+export function isValidText(value) {
+  if (value === '') {
+    return true
+  } else {
+    return false
+  }
 }
 
 /**
@@ -38,12 +38,12 @@ export function isValidText (value) {
  * @param value
  * @returns {boolean}
  */
-export function isValidNumber (value) {
-    if (value === '') {
-        return true
-    } else {
-        return false
-    }
+export function isValidNumber(value) {
+  if (value === '') {
+    return true
+  } else {
+    return false
+  }
 }
 
 /**
@@ -51,12 +51,12 @@ export function isValidNumber (value) {
  * @param array
  * @returns {boolean}
  */
-export function isValidArray (array) {
-    if (array.length === 0) {
-        return true
-    } else {
-        return false
-    }
+export function isValidArray(array) {
+  if (array.length === 0) {
+    return true
+  } else {
+    return false
+  }
 }
 
 export default {}
