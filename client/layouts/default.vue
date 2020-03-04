@@ -11,15 +11,15 @@ import { createComponent } from '@vue/composition-api'
 const CookieFooter = () => import('~/components/CookieFooter.vue')
 
 export default createComponent({
-    components: {
-        CookieFooter
-    }
+  components: {
+    CookieFooter
+  }
 })
 </script>
 
 <style>
 html {
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -29,7 +29,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
   margin: 0;
 }

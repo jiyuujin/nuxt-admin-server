@@ -5,8 +5,8 @@ import dayjs from 'dayjs'
  * @param time
  * @returns {*}
  */
-export function getTimeFormat (time) {
-    return dayjs(time).format('YYYY年MM月DD日')
+export function getTimeFormat(time) {
+  return dayjs(time).format('YYYY年MM月DD日')
 }
 
 /**
@@ -14,9 +14,11 @@ export function getTimeFormat (time) {
  * @param time
  * @returns {string}
  */
-export function getDiffTime (time) {
-    if (dayjs().diff(time, 'day') !== 0) return dayjs().diff(time, 'day') + 'day'
-    if (dayjs().diff(time, 'hour') !== 0) return dayjs().diff(time, 'hour') + 'hour'
-    if (dayjs().diff(time, 'minute') !== 0) return dayjs().diff(time, 'minute') + 'min'
-    return dayjs().diff(time, 'second') + 'sec'
+export function getDiffTime(time) {
+  if (dayjs().diff(time, 'day') !== 0) return dayjs().diff(time, 'day') + 'day'
+  if (dayjs().diff(time, 'hour') !== 0)
+    return dayjs().diff(time, 'hour') + 'hour'
+  if (dayjs().diff(time, 'minute') !== 0)
+    return dayjs().diff(time, 'minute') + 'min'
+  return dayjs().diff(time, 'second') + 'sec'
 }

@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import {
-    VueClass,
-    mount,
-    createLocalVue,
-    MountOptions,
-    Wrapper
+  VueClass,
+  mount,
+  createLocalVue,
+  MountOptions,
+  Wrapper
 } from '@vue/test-utils'
 
 /**
@@ -14,15 +14,15 @@ import {
  * @constructor
  */
 export const wrapVueComponent = (
-    VueComponent: VueClass<Vue>,
-    options: Object
+  VueComponent: VueClass<Vue>,
+  options: Object
 ): Wrapper<Vue> => {
-    // プラグインを使ってテストを書ける
-    const localVue: typeof Vue = createLocalVue()
+  // プラグインを使ってテストを書ける
+  const localVue: typeof Vue = createLocalVue()
 
-    // 子コンポーネントの影響を受けずにテストを書ける
-    return mount(
-        VueComponent,
-        Object.assign(localVue, options) as MountOptions<Vue>
-    ) as Wrapper<Vue>
+  // 子コンポーネントの影響を受けずにテストを書ける
+  return mount(
+    VueComponent,
+    Object.assign(localVue, options) as MountOptions<Vue>
+  ) as Wrapper<Vue>
 }

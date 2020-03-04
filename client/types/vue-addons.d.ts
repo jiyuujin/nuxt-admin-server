@@ -7,22 +7,18 @@ import { firestore } from 'firebase'
 import { RouteOption } from './route.types'
 
 type QueryOption = {
-  query: Object,
+  query: Object
   variables: Object
 }
 
 type MutateOption = {
-  mutation: Object,
+  mutation: Object
   variables: Object
 }
 
 interface Apollo {
-  query(
-    queryOption: QueryOption
-  );
-  mutate(
-    mutateOption: MutateOption
-  );
+  query(queryOption: QueryOption)
+  mutate(mutateOption: MutateOption)
 }
 
 interface ApolloHelpers {
@@ -34,9 +30,7 @@ interface ApolloHelpers {
   // onLogout(
   //   apolloClient?: ApolloClient<{}>
   // ): Promise<void>;
-  getToken(
-    tokenName?: string
-  ): string;
+  getToken(tokenName?: string): string
 }
 
 declare module 'vue/types/vue' {
@@ -50,8 +44,8 @@ declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
     // asyncData?: (ctx: NuxtContext) => Promise<any>;
     // fetch?: (ctx: NuxtContext) => Promise<any>;
-    layout?: string;
-    middleware?: string | string[];
+    layout?: string
+    middleware?: string | string[]
     head?: MetaInfo | (() => MetaInfo)
     key?: string | ((to: Route) => string)
     scrollToTop?: boolean
@@ -64,28 +58,22 @@ declare module 'vue-router/types/router' {
     pushTo<T extends keyof RouteOption>(
       to: T,
       option: RouteOption[T]
-    ): Promise<void>;
+    ): Promise<void>
   }
 }
 
 declare module 'vuex-type-helper' {
   interface BindOptions {
-    maxRefDepth?: number;
+    maxRefDepth?: number
   }
 
-  export interface ActionContext<
-    State,
-    Getters,
-    Actions,
-    Mutations
-  > extends BaseActionContext<State, any> {
+  export interface ActionContext<State, Getters, Actions, Mutations>
+    extends BaseActionContext<State, any> {
     bindFirebaseRef: (
       key: string,
       ref: firestore.Query,
       options?: BindOptions
-    ) => Promise<void>;
-    unbindFirebaseRef: (
-      key: string
-    ) => void;
+    ) => Promise<void>
+    unbindFirebaseRef: (key: string) => void
   }
 }

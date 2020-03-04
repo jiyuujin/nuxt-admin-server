@@ -21,11 +21,7 @@
             @update="updateValues"
             @toggle="checkOpen"
           >
-            <div
-              slot="input"
-              slot-scope="picker"
-              style="min-width: 350px;"
-            >
+            <div slot="input" slot-scope="picker" style="min-width: 350px;">
               {{ picker.startDate }}
             </div>
           </j-range-picker>
@@ -64,14 +60,15 @@
     </j-modal>
 
     <template v-if="state.flights">
-      <div
-        v-for="item in state.flights.item"
-        :key="item.id"
-      >
+      <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
             <div>
-              {{ `${airline(item.data.airline)} : ${departure(item.data.departure)} - ${arrival(item.data.arrival)}` }}
+              {{
+                `${airline(item.data.airline)} : ${departure(
+                  item.data.departure
+                )} - ${arrival(item.data.arrival)}`
+              }}
             </div>
             <div style="margin-bottom: 12px;">
               <j-label
@@ -88,9 +85,10 @@
       </div>
       <pagination
         :page="state.page"
-        :max="state.flights.item !== undefined
-          ? Math.ceil(state.flights.item.length / 20)
-          : 1
+        :max="
+          state.flights.item !== undefined
+            ? Math.ceil(state.flights.item.length / 20)
+            : 1
         "
         @form-data="applyPage"
       />
@@ -99,18 +97,24 @@
 </template>
 
 <script lang="ts">
-import { createComponent, SetupContext, reactive, computed, onMounted } from '@vue/composition-api'
+import {
+  createComponent,
+  SetupContext,
+  reactive,
+  computed,
+  onMounted
+} from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { fetchFlights, addFlight } from '~/services/flightService'
 import { DateRange } from '~/types/utils'
 import { ItemDataList } from '~/types/database.types'
 import {
-    AIRLINE_LIST,
-    AIRPORT_LIST,
-    BOARDING_TYPE_LIST,
-    getAirlineName,
-    getAirportName,
-    getBoardingTypeName
+  AIRLINE_LIST,
+  AIRPORT_LIST,
+  BOARDING_TYPE_LIST,
+  getAirlineName,
+  getAirportName,
+  getBoardingTypeName
 } from '~/utils/flight'
 import { getTimeFormat } from '~/utils/date'
 
@@ -118,109 +122,109 @@ const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
 
 export default createComponent({
-    middleware: 'auth',
-    components: {
-        MainTemplate,
-        Pagination
-    },
-    setup(props: {}, ctx: SetupContext) {
-        const datePicker = reactive({
-            singleDatePicker: true as boolean,
-            showDropdown: true as boolean,
-            autoApply: false as boolean,
-            linkedCalendars: true as boolean,
-            requestDate: {
-                startDate: dayjs().format('YYYY/MM/DD')
-            } as DateRange
-        })
+  middleware: 'auth',
+  components: {
+    MainTemplate,
+    Pagination
+  },
+  setup(props: {}, ctx: SetupContext) {
+    const datePicker = reactive({
+      singleDatePicker: true as boolean,
+      showDropdown: true as boolean,
+      autoApply: false as boolean,
+      linkedCalendars: true as boolean,
+      requestDate: {
+        startDate: dayjs().format('YYYY/MM/DD')
+      } as DateRange
+    })
 
-        const state = reactive({
-            activePage: 1 as number,
-            flights: {} as ItemDataList,
-            form: {
-                time: '' as string,
-                departure: 0 as number,
-                arrival: 0 as number,
-                airline: 0 as number,
-                boardingType: 0 as number,
-                registration: '' as string
-            }
-        })
+    const state = reactive({
+      activePage: 1 as number,
+      flights: {} as ItemDataList,
+      form: {
+        time: '' as string,
+        departure: 0 as number,
+        arrival: 0 as number,
+        airline: 0 as number,
+        boardingType: 0 as number,
+        registration: '' as string
+      }
+    })
 
-        const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-        const dateRange = computed(() => datePicker.requestDate)
+    const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
+    const dateRange = computed(() => datePicker.requestDate)
 
-        onMounted(async () => {
-            state.flights = await fetchFlights()
-        })
+    onMounted(async () => {
+      state.flights = await fetchFlights()
+    })
 
-        return {
-            datePicker,
-            state,
-            airportOptions: AIRPORT_LIST,
-            airlineOptions: AIRLINE_LIST,
-            boardingTypeOptions: BOARDING_TYPE_LIST,
-            userStatus,
-            dateRange,
-            applyPage(value) {
-                state.activePage = value
-            },
-            updateValues(value: DateRange): void {
-                datePicker.requestDate = value
-                state.form.time = dayjs(value.startDate).format()
-            },
-            checkOpen(open: any): void {
-                // console.log('event: ' + open)
-            },
-            dateFormat(classes: any, date: Date) {
-                return classes
-            },
-            applyDeparture(value) {
-                state.form.departure = value
-            },
-            applyArrival(value) {
-                state.form.arrival = value
-            },
-            applyAirline(value) {
-                state.form.airline = value
-            },
-            applyBoardingType(value) {
-                state.form.boardingType = value
-            },
-            applyRegistration(value) {
-                state.form.registration = value
-            },
-            timeFormat(t) {
-                return getTimeFormat(t)
-            },
-            airline(id) {
-                return getAirlineName(id)
-            },
-            departure(id) {
-                return getAirportName(id)
-            },
-            arrival(id) {
-                return getAirportName(id)
-            },
-            boardingType(id) {
-                return getBoardingTypeName(id)
-            },
-            reset () {
-                state.form.time =''
-                state.form.departure = 0
-                state.form.arrival = 0
-                state.form.airline = 0
-                state.form.boardingType = 0
-                state.form.registration = ''
-            },
-            cancel() {
-                // this.reset()
-            },
-            async submit() {
-                await addFlight(state.form)
-                // this.reset()
-            }
-        }
+    return {
+      datePicker,
+      state,
+      airportOptions: AIRPORT_LIST,
+      airlineOptions: AIRLINE_LIST,
+      boardingTypeOptions: BOARDING_TYPE_LIST,
+      userStatus,
+      dateRange,
+      applyPage(value) {
+        state.activePage = value
+      },
+      updateValues(value: DateRange): void {
+        datePicker.requestDate = value
+        state.form.time = dayjs(value.startDate).format()
+      },
+      checkOpen(open: any): void {
+        // console.log('event: ' + open)
+      },
+      dateFormat(classes: any, date: Date) {
+        return classes
+      },
+      applyDeparture(value) {
+        state.form.departure = value
+      },
+      applyArrival(value) {
+        state.form.arrival = value
+      },
+      applyAirline(value) {
+        state.form.airline = value
+      },
+      applyBoardingType(value) {
+        state.form.boardingType = value
+      },
+      applyRegistration(value) {
+        state.form.registration = value
+      },
+      timeFormat(t) {
+        return getTimeFormat(t)
+      },
+      airline(id) {
+        return getAirlineName(id)
+      },
+      departure(id) {
+        return getAirportName(id)
+      },
+      arrival(id) {
+        return getAirportName(id)
+      },
+      boardingType(id) {
+        return getBoardingTypeName(id)
+      },
+      reset() {
+        state.form.time = ''
+        state.form.departure = 0
+        state.form.arrival = 0
+        state.form.airline = 0
+        state.form.boardingType = 0
+        state.form.registration = ''
+      },
+      cancel() {
+        // this.reset()
+      },
+      async submit() {
+        await addFlight(state.form)
+        // this.reset()
+      }
     }
+  }
 })
 </script>
