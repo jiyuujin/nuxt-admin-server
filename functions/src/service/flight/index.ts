@@ -6,11 +6,11 @@ import { sendToSlack } from '../../utils'
  * @param context
  */
 export const notifyNewFlight = (snapshot, context): boolean => {
-    const item = snapshot.data()
-    console.log(context.params.id + ' : ' + item.registration)
+  const item = snapshot.data()
+  console.log(context.params.id + ' : ' + item.registration)
 
-    // Slackに通知する
-    return sendToSlack(`${item.registration} 追加しました`)
+  // Slackに通知する
+  return sendToSlack(`${item.registration} 追加しました`)
 }
 
 /**
@@ -19,11 +19,11 @@ export const notifyNewFlight = (snapshot, context): boolean => {
  * @param context
  */
 export const notifyEditFlight = (change, context): boolean => {
-    const item = change.after.data()
-    console.log(context.params.id + ' : ' + item.registration)
+  const item = change.after.data()
+  console.log(context.params.id + ' : ' + item.registration)
 
-    // Slackに通知する
-    return sendToSlack(`${item.registration} 更新しました`)
+  // Slackに通知する
+  return sendToSlack(`${item.registration} 更新しました`)
 }
 
 /**
@@ -32,9 +32,9 @@ export const notifyEditFlight = (change, context): boolean => {
  * @param context
  */
 export const notifyRemoveFlight = (snapshot, context): boolean => {
-    const item = snapshot.data()
-    console.log(context.params.id + ' : ' + item.registration)
+  const item = snapshot.data()
+  console.log(context.params.id + ' : ' + item.registration)
 
-    // Slackに通知する
-    return sendToSlack(`${item.registration} 削除しました`)
+  // Slackに通知する
+  return sendToSlack(`${item.registration} 削除しました`)
 }
