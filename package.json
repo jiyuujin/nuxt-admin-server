@@ -28,7 +28,7 @@
     "vue-chartjs": "3.5.0",
     "vue-cookie-law": "1.12.0",
     "vue-no-ssr": "1.1.1",
-    "vue-toasted": "1.1.27",
+    "vue-toasted": "1.1.28",
     "vuex-type-helper": "1.2.2"
   },
   "devDependencies": {
