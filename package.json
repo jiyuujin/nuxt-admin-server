@@ -21,7 +21,7 @@
     "@vue/composition-api": "0.4.0",
     "chart.js": "2.9.3",
     "core-js": "2.6.11",
-    "dayjs": "1.8.22",
+    "dayjs": "1.8.23",
     "firebase": "7.11.0",
     "nuxt": "2.11.0",
     "ts-node": "8.6.2",
