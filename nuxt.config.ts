@@ -3,6 +3,9 @@ import { Context } from '@nuxt/types'
 
 require('dotenv').config()
 
+const sass = require('sass')
+const fiber = require('fibers')
+
 export default {
   srcDir: './client',
 
@@ -30,6 +33,14 @@ export default {
     extend(config: Configuration, { isClient }: Context) {
       if (isClient) {
         config.devtool = '#source-map'
+      }
+    },
+    loaders: {
+      scss: {
+        implementation: sass,
+        sassOptions: {
+          fiber: fiber
+        }
       }
     },
     postcss: {
