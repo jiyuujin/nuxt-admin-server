@@ -22,7 +22,7 @@
         <j-form title="カテゴリー">
           <j-select
             :options="categoryOptions"
-            :selected-values="state.form.tags"
+            :values="state.form.tags"
             @handleSelect="applyTags"
           />
         </j-form>
