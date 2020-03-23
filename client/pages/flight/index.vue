@@ -71,10 +71,7 @@
               }}
             </div>
             <div style="margin-bottom: 12px;">
-              <j-label
-                :text="item.data.registration"
-                style="margin: 2px;"
-              />
+              <j-label :text="item.data.registration" style="margin: 2px;" />
               <j-label
                 :text="boardingType(item.data.boardingType)"
                 style="margin: 2px;"

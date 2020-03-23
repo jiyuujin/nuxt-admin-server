@@ -1,10 +1,6 @@
 <template>
   <div>
-    <j-input
-      placeholder="名前"
-      :text="form.name"
-      @handleInput="applyName"
-    />
+    <j-input placeholder="名前" :text="form.name" @handleInput="applyName" />
     <input type="file" @change="onFileChange" />
     <div style="margin-top: 12px;">
       アップロード結果:

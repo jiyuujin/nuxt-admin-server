@@ -47,11 +47,7 @@
             </a>
             <div style="margin-bottom: 12px;">
               <template v-for="tag in item.data.tags">
-                <j-label
-                  :key="tag"
-                  :text="tagText(tag)"
-                  style="margin: 2px;"
-                />
+                <j-label :key="tag" :text="tagText(tag)" style="margin: 2px;" />
               </template>
             </div>
           </j-form>
