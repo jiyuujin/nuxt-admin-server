@@ -24,7 +24,7 @@
     "dayjs": "1.8.23",
     "firebase": "7.12.0",
     "nuxt": "2.12.0",
-    "ts-node": "8.7.0",
+    "ts-node": "8.8.1",
     "vue-chartjs": "3.5.0",
     "vue-cookie-law": "1.12.0",
     "vue-no-ssr": "1.1.1",
