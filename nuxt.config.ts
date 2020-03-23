@@ -29,6 +29,13 @@ export default {
 
   loading: { color: '#fff' },
 
+  css: [
+    {
+      src: '~/assets/main.scss',
+      lang: 'css'
+    }
+  ],
+
   build: {
     extend(config: Configuration, { isClient }: Context) {
       if (isClient) {

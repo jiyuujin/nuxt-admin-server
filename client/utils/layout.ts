@@ -6,6 +6,12 @@ import { Menu } from '~/types/utils'
  */
 export const MENU_LIST: Menu[] = [
   {
+    title: 'top',
+    url: '/',
+    src: '',
+    flex: 3
+  },
+  {
     title: 'tip',
     url: '/tip',
     src: 'nyanko.png',

@@ -29,7 +29,7 @@
         <j-form title="イベント">
           <j-select
             :options="eventOptions"
-            :selected-values="state.form.event"
+            :values="state.form.event"
             @handleSelect="applyEvent"
           />
         </j-form>
