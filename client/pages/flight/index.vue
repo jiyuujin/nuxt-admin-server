@@ -72,11 +72,11 @@
             </div>
             <div style="margin-bottom: 12px;">
               <j-label
-                :tag-text="item.data.registration"
+                :text="item.data.registration"
                 style="margin: 2px;"
               />
               <j-label
-                :tag-text="boardingType(item.data.boardingType)"
+                :text="boardingType(item.data.boardingType)"
                 style="margin: 2px;"
               />
             </div>

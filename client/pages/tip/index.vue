@@ -49,7 +49,7 @@
               <template v-for="tag in item.data.tags">
                 <j-label
                   :key="tag"
-                  :tag-text="tagText(tag)"
+                  :text="tagText(tag)"
                   style="margin: 2px;"
                 />
               </template>
