@@ -52,7 +52,7 @@
             @handleSelect="applyBoardingType"
           />
           <j-input
-            :input-text="state.form.registration"
+            :text="state.form.registration"
             @handleInput="applyRegistration"
           />
         </j-form>

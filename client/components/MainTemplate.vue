@@ -8,7 +8,7 @@
       </div>
     </div>
     <div v-if="userStatus" class="logout">
-      <j-button text="ログアウト" variant-style="text" @handleClick="logout" />
+      <j-button text="ログアウト" fill="text" @handleClick="logout" />
     </div>
     <div class="main">
       <slot />

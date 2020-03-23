@@ -8,14 +8,14 @@
     >
       <div v-if="state.events" style="width: 100%;">
         <j-form title="タイトル">
-          <j-input :input-text="state.form.title" @handleInput="applyTitle" />
+          <j-input :text="state.form.title" @handleInput="applyTitle" />
         </j-form>
         <j-form title="URL">
-          <j-input :input-text="state.form.url" @handleInput="applyUrl" />
+          <j-input :text="state.form.url" @handleInput="applyUrl" />
         </j-form>
         <j-form title="詳細">
           <j-input
-            :input-text="state.form.description"
+            :text="state.form.description"
             @handleInput="applyDescription"
           />
         </j-form>

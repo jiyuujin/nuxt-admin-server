@@ -2,7 +2,7 @@
   <div>
     <j-input
       placeholder="名前"
-      :input-text="form.name"
+      :text="form.name"
       style="margin: 20px 0;"
       @handleInput="applyName"
     />
@@ -15,7 +15,7 @@
     </div>
     <j-button
       text="Photoを追加"
-      variant-style="text"
+      fill="text"
       style="margin: 20px 0;"
       @handleClick="postPhoto"
     />
