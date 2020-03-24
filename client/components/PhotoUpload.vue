@@ -8,7 +8,7 @@
         <img :src="form.content" :alt="form.name" decoding="async" />
       </div>
     </div>
-    <j-button text="Photoを追加" fill="text" @handleClick="postPhoto" />
+    <j-button text="Photoを追加" @handleClick="postPhoto" />
   </div>
 </template>
 

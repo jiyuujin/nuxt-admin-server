@@ -17,7 +17,7 @@
       />
     </div>
     <div style="margin: 20px;">
-      <j-button text="ログイン" fill="text" @handleClick="login" />
+      <j-button text="ログイン" @handleClick="login" />
     </div>
   </main-template>
 </template>
