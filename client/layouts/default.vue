@@ -17,11 +17,13 @@ export default createComponent({
 })
 </script>
 
-<style>
+<style lang="scss">
 html {
   font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
+  background-color: #fff;
+  color: #000;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -34,5 +36,12 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #303030;
+    color: #fff;
+  }
 }
 </style>

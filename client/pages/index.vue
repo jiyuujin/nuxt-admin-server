@@ -6,7 +6,7 @@
           <j-form :title="timeFormat(item.data.time)">
             <h3>
               <j-label
-                :tag-text="item.data.category.text"
+                :text="item.data.category.text"
                 style="margin-right: 2px;"
               />
               {{ item.data.title }}

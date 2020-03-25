@@ -29,30 +29,30 @@
         <j-form title="出発／到着">
           <j-select
             :options="airportOptions"
-            :selected-values="state.form.departure"
+            :values="state.form.departure"
             @handleSelect="applyDeparture"
           />
           <j-select
             :options="airportOptions"
-            :selected-values="state.form.arrival"
+            :values="state.form.arrival"
             @handleSelect="applyArrival"
           />
         </j-form>
         <j-form title="航空会社">
           <j-select
             :options="airlineOptions"
-            :selected-values="state.form.airline"
+            :values="state.form.airline"
             @handleSelect="applyAirline"
           />
         </j-form>
         <j-form title="搭乗機材／レジ">
           <j-select
             :options="boardingTypeOptions"
-            :selected-values="state.form.boardingType"
+            :values="state.form.boardingType"
             @handleSelect="applyBoardingType"
           />
           <j-input
-            :input-text="state.form.registration"
+            :text="state.form.registration"
             @handleInput="applyRegistration"
           />
         </j-form>
@@ -71,12 +71,9 @@
               }}
             </div>
             <div style="margin-bottom: 12px;">
+              <j-label :text="item.data.registration" style="margin: 2px;" />
               <j-label
-                :tag-text="item.data.registration"
-                style="margin: 2px;"
-              />
-              <j-label
-                :tag-text="boardingType(item.data.boardingType)"
+                :text="boardingType(item.data.boardingType)"
                 style="margin: 2px;"
               />
             </div>

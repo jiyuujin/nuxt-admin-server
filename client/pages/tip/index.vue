@@ -8,28 +8,28 @@
     >
       <div v-if="state.events" style="width: 100%;">
         <j-form title="タイトル">
-          <j-input :input-text="state.form.title" @handleInput="applyTitle" />
+          <j-input :text="state.form.title" @handleInput="applyTitle" />
         </j-form>
         <j-form title="URL">
-          <j-input :input-text="state.form.url" @handleInput="applyUrl" />
+          <j-input :text="state.form.url" @handleInput="applyUrl" />
         </j-form>
         <j-form title="詳細">
           <j-input
-            :input-text="state.form.description"
+            :text="state.form.description"
             @handleInput="applyDescription"
           />
         </j-form>
         <j-form title="カテゴリー">
           <j-select
             :options="categoryOptions"
-            :selected-values="state.form.tags"
+            :values="state.form.tags"
             @handleSelect="applyTags"
           />
         </j-form>
         <j-form title="イベント">
           <j-select
             :options="eventOptions"
-            :selected-values="state.form.event"
+            :values="state.form.event"
             @handleSelect="applyEvent"
           />
         </j-form>
@@ -47,11 +47,7 @@
             </a>
             <div style="margin-bottom: 12px;">
               <template v-for="tag in item.data.tags">
-                <j-label
-                  :key="tag"
-                  :tag-text="tagText(tag)"
-                  style="margin: 2px;"
-                />
+                <j-label :key="tag" :text="tagText(tag)" style="margin: 2px;" />
               </template>
             </div>
           </j-form>

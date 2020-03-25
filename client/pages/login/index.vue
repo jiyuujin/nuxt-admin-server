@@ -3,8 +3,7 @@
     <div style="margin: 20px;">
       <j-input
         placeholder="メールアドレス"
-        input-type="text"
-        :input-text="state.email"
+        :text="state.email"
         @handleInput="applyEmail"
       />
     </div>
@@ -12,13 +11,13 @@
       <j-input
         placeholder="パスワード"
         input-type="password"
-        :input-text="state.password"
+        :text="state.password"
         password
         @handleInput="applyPassword"
       />
     </div>
     <div style="margin: 20px;">
-      <j-button text="ログイン" variant-style="text" @handleClick="login" />
+      <j-button text="ログイン" @handleClick="login" />
     </div>
   </main-template>
 </template>
