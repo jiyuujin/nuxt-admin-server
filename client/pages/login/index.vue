@@ -121,14 +121,14 @@
           </div>
           <div class="login--row-card-inner">
             <div class="login--row-card-inner-description">
-              <div style="margin: 20px;">
+              <div style="margin: 20px 0;">
                 <j-input
                   placeholder="メールアドレス"
                   :text="state.email"
                   @handleInput="applyEmail"
                 />
               </div>
-              <div style="margin: 20px;">
+              <div style="margin: 20px 0;">
                 <j-input
                   placeholder="パスワード"
                   input-type="password"
@@ -137,7 +137,7 @@
                   @handleInput="applyPassword"
                 />
               </div>
-              <div style="margin: 20px;">
+              <div style="margin: 20px 0;">
                 <j-button text="ログイン" @handleClick="login" />
               </div>
             </div>
@@ -255,9 +255,8 @@ export default createComponent({
   &--sec {
     padding: 10px;
     margin: 0 48px 16px;
-    border: 1px #eee solid;
-    border-radius: 4px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #ccc;
 
     &-header {
       display: flex;
@@ -307,9 +306,8 @@ export default createComponent({
         display: flex;
         flex-flow: column;
         justify-content: space-between;
-        border: 1px #eee solid;
-        border-radius: 4px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px #ccc;
         height: 180px;
 
         &-header {

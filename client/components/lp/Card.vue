@@ -12,13 +12,13 @@
           </span>
         </div>
       </div>
-      <div v-if="purchased" class="right">
+      <div class="right">
         <div class="price" style="margin: 0 4px;">
           {{ `${price}/年間` }}
         </div>
         <j-tooltip :title="tooltip" style="margin: 0 4px;" />
         <j-button
-          text="購入へ進む"
+          text="リポジトリへ進む"
           style="margin: 0 4px;"
           @handleClick="handleSubmitClickCallback"
         />
@@ -55,10 +55,6 @@ export default Vue.extend({
       default: function() {
         return []
       }
-    },
-    purchased: {
-      type: Boolean as PropType<boolean>,
-      default: false
     },
     price: {
       type: String as PropType<string>,
