@@ -1,0 +1,127 @@
+.slideshow {
+  position: relative;
+  overflow: hidden;
+
+  &-contents {
+    position: relative;
+    background-color: #404040;
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: transform .6s;
+  
+    section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform: translateX(100%);
+      transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  
+      img {
+        max-width: 100%;
+        padding: 0 50px;
+        box-sizing: border-box;
+        vertical-align: middle;
+      }
+    }
+  }  
+}
+
+input[name="slideshow"] {
+  display: none;
+}
+
+.prev {
+  left: 0;
+
+  .ico {
+    left: 50%;
+    border-left: 3px solid #fff;
+    transform: rotate(-45deg);
+    transition: left .3s cubic-bezier(0.215, 0.61, 0.355, 1), opacity .3s;
+  }
+
+  :hover .ico {
+    left: calc(50% - 6px);
+  }
+}
+
+.next {
+  right: 0;
+
+  .ico {
+    right: 50%;
+    border-right: 3px solid #fff;
+    transform: rotate(45deg);
+    transition: right .3s cubic-bezier(0.215, 0.61, 0.355, 1), opacity .3s;
+  }
+
+  :hover .ico {
+    right: calc(50% - 6px);
+  }
+}
+
+.arrow,
+.arrow label,
+.arrow .ico {
+  position: absolute;
+}
+
+.arrow,
+.arrow label {
+  cursor: pointer;
+  width: 50px;
+  height: 100%;
+}
+
+.arrow label {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.arrow .ico {
+  top: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  border-top: 3px solid #fff;
+  opacity: 0;
+}
+
+.arrow {
+  top: 0;
+  margin: 0;
+  transition: background .3s;
+
+  :hover {
+    background: rgba(255,255,255,.2);
+  }
+}
+
+.arrow:hover .ico {
+  opacity: .6;
+}
+
+#switch1:checked ~ .slideshow-contents #slide1,
+#switch2:checked ~ .slideshow-contents #slide2,
+#switch3:checked ~ .slideshow-contents #slide3,
+#switch4:checked ~ .slideshow-contents #slide4 {
+  position: relative;
+  transform: none;
+}
+
+.arrow label {
+  pointer-events: none;
+}
+
+#switch1:checked ~ .prev label[for="switch4"],
+#switch2:checked ~ .prev label[for="switch1"],
+#switch3:checked ~ .prev label[for="switch2"],
+#switch4:checked ~ .prev label[for="switch3"],
+#switch1:checked ~ .next label[for="switch2"],
+#switch2:checked ~ .next label[for="switch3"],
+#switch3:checked ~ .next label[for="switch4"],
+#switch4:checked ~ .next label[for="switch1"] {
+  pointer-events: auto;
+}
