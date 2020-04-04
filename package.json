@@ -59,6 +59,7 @@
     "eslint-loader": "3.0.4",
     "eslint-plugin-vue": "6.2.2",
     "fibers": "4.0.2",
+    "firestore-jest-mock": "^0.3.0",
     "jest": "25.2.6",
     "jest-transform-stub": "2.0.0",
     "sass": "1.26.3",
