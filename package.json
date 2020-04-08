@@ -14,7 +14,7 @@
     "test:unit": "jest"
   },
   "dependencies": {
-    "@nekohack/j-stylebook": "0.4.0",
+    "@nekohack/j-stylebook": "0.4.1",
     "@nuxtjs/axios": "5.9.7",
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/pwa": "3.0.0-beta.20",
