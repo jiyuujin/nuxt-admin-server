@@ -19,8 +19,9 @@
         <j-tooltip :title="tooltip" style="margin: 0 4px;" />
         <j-button
           text="リポジトリへ進む"
-          style="margin: 0 4px;"
-          @handleClick="handleSubmitClickCallback"
+          :disabled="disabled"
+          style="margin: 0 8px;"
+          @handleClick="link(url)"
         />
       </div>
     </div>
@@ -64,9 +65,13 @@ export default Vue.extend({
       type: String as PropType<string>,
       default: ''
     },
-    handleSubmitClickCallback: {
-      type: Function as PropType<Function>,
-      required: true
+    url: {
+      type: String as PropType<string>,
+      default: ''
+    },
+    disabled: {
+      type: Boolean as PropType<boolean>,
+      default: false
     },
     promotion: {
       type: String as PropType<string>,
@@ -84,6 +89,11 @@ export default Vue.extend({
   methods: {
     replace(number: number): string {
       return String(number).replace('.', '-')
+    },
+    link(url: string) {
+      if (url) {
+        location.href = url
+      }
     }
   }
 })
