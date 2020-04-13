@@ -36,7 +36,7 @@
     "@babel/plugin-transform-runtime": "7.9.0",
     "@babel/preset-env": "7.9.5",
     "@nekohack/eslint-config-vue": "0.2.2",
-    "@nuxt/types": "0.7.3",
+    "@nuxt/types": "0.7.4",
     "@nuxt/typescript-build": "0.6.4",
     "@nuxt/typescript-runtime": "0.4.4",
     "@testing-library/jest-dom": "5.5.0",
