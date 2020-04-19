@@ -4,41 +4,35 @@ import { ChartData, ChartOptions } from 'chart.js'
 import { Bar, mixins } from 'vue-chartjs'
 
 type VCData = {
-    chartData: ChartData
+  chartData: ChartData
 }
 
 type VCMethod = {
-    renderChart(
-        chartData: ChartData,
-        options: ChartOptions
-    ): void
+  renderChart(chartData: ChartData, options: ChartOptions): void
 }
 
 type VCComputed = unknown
 
 type VCProps = {
-    options: Object
+  options: Object
 }
 
 const VueChartPlugin: Plugin = () => {
-    const { reactiveProp } = mixins
+  const { reactiveProp } = mixins
 
-    Vue.component<VCData, VCMethod, VCComputed, VCProps>(
-        'bar',
-        {
-            extends: Bar,
-            mixins: [reactiveProp],
-            props: {
-                options: {
-                    type: Object,
-                    default: () => {}
-                }
-            },
-            mounted(): void {
-                this.renderChart(this.chartData, this.options)
-            }
-        }
-    )
+  Vue.component<VCData, VCMethod, VCComputed, VCProps>('bar', {
+    extends: Bar,
+    mixins: [reactiveProp],
+    props: {
+      options: {
+        type: Object,
+        default: () => {}
+      }
+    },
+    mounted(): void {
+      this.renderChart(this.chartData, this.options)
+    }
+  })
 }
 
 export default VueChartPlugin

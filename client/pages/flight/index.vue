@@ -61,9 +61,8 @@
 
     <template v-if="state.flights">
       <bar
-        v-if="state.flights.item"
         chart-id="flight-bar-chart"
-        :chart-data="state.flights.item"
+        :chart-data="flightItems"
         :options="chartOptions"
         :height="240"
       />
@@ -161,6 +160,7 @@ export default createComponent({
 
     const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
     const dateRange = computed(() => datePicker.requestDate)
+    const flightItems = computed(() => state.flights.item)
 
     onMounted(async () => {
       state.flights = await fetchFlights()
@@ -175,6 +175,7 @@ export default createComponent({
       chartOptions: CHART_OPTIONS,
       userStatus,
       dateRange,
+      flightItems,
       applyPage(value) {
         state.activePage = value
       },
