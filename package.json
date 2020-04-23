@@ -45,7 +45,7 @@
     "@types/jest": "25.2.1",
     "@types/node": "11.15.12",
     "@types/webpack": "4.41.12",
-    "@types/webpack-env": "1.15.1",
+    "@types/webpack-env": "1.15.2",
     "@typescript-eslint/eslint-plugin": "2.29.0",
     "@typescript-eslint/parser": "1.13.0",
     "@vue/test-utils": "1.0.0-beta.33",
