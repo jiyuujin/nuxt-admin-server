@@ -74,6 +74,13 @@
       font-size: 16px;
       margin-bottom: 12px;
     }
+
+    &-list {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
   }
 
   &--list {

@@ -5,9 +5,22 @@
         最新のお知らせ
       </div>
       <div class="content--sec">
-        <div class="content--row-card-inner-description">
-          現在はありません
-        </div>
+        <template v-for="issue in notifications.repository.issues.nodes">
+          <div :key="issue.id" class="content--sec-list">
+            <div>
+              <a
+                :href="issue.url"
+                target="_blank"
+                rel="noopener"
+              >
+                {{ issue.title }}
+              </a>
+            </div>
+            <div>
+              {{ issue.updatedAt }}
+            </div>
+          </div>
+        </template>
       </div>
 
       <card
@@ -101,15 +114,81 @@ import {
   reactive,
   computed
 } from '@vue/composition-api'
-import { products } from '~/utils/product'
+
+const gql = require('graphql-tag')
+const { ApolloClient } = require('apollo-client')
+const { HttpLink } = require('apollo-link-http')
+const { ApolloLink, concat } = require('apollo-link')
+const { InMemoryCache } = require('apollo-cache-inmemory')
+const fetch = require('node-fetch')
+
+const GITHUB_USER: string = 'jiyuujin'
+const GITHUB_REPO_NAME: string = 'admin'
+const GITHUB_API_V4: string = 'https://api.github.com/graphql'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Card = () => import('@/components/lp/Card.vue')
+
+import { products } from '~/utils/product'
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      Authorization: `bearer ${process.env.NUXT_APP_GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github.v4.idl',
+    }
+  })
+  return forward(operation)
+})
+
+const httpLink = new HttpLink({
+  uri: GITHUB_API_V4,
+  fetch
+})
+const client = new ApolloClient({
+  link: concat(authMiddleware, httpLink),
+  cache: new InMemoryCache()
+})
 
 export default createComponent({
   components: {
     MainTemplate,
     Card
+  },
+  async asyncData({ app }) {
+    let data = null
+
+    await client.query({
+      query: gql`{
+        repository(owner: "${GITHUB_USER}", name: "${GITHUB_REPO_NAME}") {
+          id,
+          name,
+          description,
+          issues(first: 4, orderBy: {field: UPDATED_AT, direction: DESC}, states: OPEN) {
+            totalCount,
+            nodes {
+              title,
+              body,
+              url,
+              createdAt,
+              updatedAt
+            }
+          },
+          labels(first: 10) {
+            nodes {
+              name,
+              id
+            }
+          }
+        }
+      }`
+    })
+    .then(res => data = res.data)
+    // .then(console.log)
+
+    return {
+      notifications: data
+    }
   },
   setup(props: {}, ctx: SetupContext) {
     const icon = require('../../static/bakeneko.png')

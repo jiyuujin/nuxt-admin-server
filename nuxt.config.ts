@@ -6,6 +6,8 @@ require('dotenv').config()
 const sass = require('sass')
 const fiber = require('fibers')
 
+const GITHUB_API_V4: string = 'https://api.github.com/graphql'
+
 export default {
   srcDir: './client',
 
@@ -79,8 +81,17 @@ export default {
   modules: [
     // '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/apollo'
   ],
+
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: GITHUB_API_V4
+      }
+    }
+  },
 
   plugins: [
     '~/plugins/axios.ts',
@@ -93,6 +104,7 @@ export default {
   env: {
     NUXT_APP_API_KEY: process.env.NUXT_APP_API_KEY,
     NUXT_APP_AUTH_DOMAIN: process.env.NUXT_APP_AUTH_DOMAIN,
-    NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID
+    NUXT_APP_PROJECT_ID: process.env.NUXT_APP_PROJECT_ID,
+    NUXT_APP_GITHUB_TOKEN: process.env.NUXT_APP_GITHUB_TOKEN
   }
 }
