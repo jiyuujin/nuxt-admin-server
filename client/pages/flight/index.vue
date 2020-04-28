@@ -7,7 +7,7 @@
     >
       <div style="width: 100%; text-align: left;">
         <j-form title="搭乗時間">
-          <j-range-picker
+          <v-range-picker
             ref="single-picker"
             :single-date-picker="datePicker.singleDatePicker"
             :show-dropdown="datePicker.showDropdown"
@@ -24,7 +24,7 @@
             <div slot="input" slot-scope="picker" style="min-width: 350px;">
               {{ picker.startDate }}
             </div>
-          </j-range-picker>
+          </v-range-picker>
         </j-form>
         <j-form title="出発／到着">
           <j-select
