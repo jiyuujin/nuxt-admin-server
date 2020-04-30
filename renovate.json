@@ -12,6 +12,22 @@
         "node"
       ],
       "enabled": false
+    },
+    {
+      "paths": [
+        "/**"
+      ],
+      "labels": [
+        "Package:Client"
+      ]
+    },
+    {
+      "paths": [
+        "functions/**"
+      ],
+      "labels": [
+        "Package:Functions"
+      ]
     }
   ],
   "schedule": [
