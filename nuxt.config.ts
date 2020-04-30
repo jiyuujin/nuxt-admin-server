@@ -3,6 +3,9 @@ import { Context } from '@nuxt/types'
 
 require('dotenv').config()
 
+const sass = require('sass')
+const fiber = require('fibers')
+
 export default {
   srcDir: './client',
 
@@ -26,10 +29,25 @@ export default {
 
   loading: { color: '#fff' },
 
+  css: [
+    {
+      src: '~/assets/main.scss',
+      lang: 'css'
+    }
+  ],
+
   build: {
     extend(config: Configuration, { isClient }: Context) {
       if (isClient) {
         config.devtool = '#source-map'
+      }
+    },
+    loaders: {
+      scss: {
+        implementation: sass,
+        sassOptions: {
+          fiber: fiber
+        }
       }
     },
     postcss: {
@@ -68,6 +86,7 @@ export default {
     '~/plugins/axios.ts',
     '~/plugins/firebase.ts',
     '~/plugins/j-stylebook.ts',
+    '~/plugins/range-picker.ts',
     '~/plugins/composition-api.ts',
     '~/plugins/vue-chart.ts'
     // '~/plugins/vue-toasted.ts'

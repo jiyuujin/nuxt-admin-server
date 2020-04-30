@@ -6,6 +6,30 @@
   "major": {
     "automerge": false
   },
+  "packageRules": [
+    {
+      "packageNames": [
+        "node"
+      ],
+      "enabled": false
+    },
+    {
+      "paths": [
+        "/**"
+      ],
+      "labels": [
+        "Package:Client"
+      ]
+    },
+    {
+      "paths": [
+        "functions/**"
+      ],
+      "labels": [
+        "Package:Functions"
+      ]
+    }
+  ],
   "schedule": [
     "after 10pm and before 6am on every weekday"
   ],

@@ -6,7 +6,7 @@
           <j-form :title="timeFormat(item.data.time)">
             <h3>
               <j-label
-                :tag-text="item.data.category.text"
+                :text="item.data.category.text"
                 style="margin-right: 2px;"
               />
               {{ item.data.title }}
@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   onMounted,
   reactive,
@@ -44,7 +44,7 @@ import { getTimeFormat } from '~/utils/date'
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
 
-export default createComponent({
+export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,

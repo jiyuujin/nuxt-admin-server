@@ -7,7 +7,7 @@
     >
       <div style="width: 100%; text-align: left;">
         <j-form title="搭乗時間">
-          <j-range-picker
+          <v-range-picker
             ref="single-picker"
             :single-date-picker="datePicker.singleDatePicker"
             :show-dropdown="datePicker.showDropdown"
@@ -24,35 +24,35 @@
             <div slot="input" slot-scope="picker" style="min-width: 350px;">
               {{ picker.startDate }}
             </div>
-          </j-range-picker>
+          </v-range-picker>
         </j-form>
         <j-form title="出発／到着">
           <j-select
             :options="airportOptions"
-            :selected-values="state.form.departure"
+            :values="state.form.departure"
             @handleSelect="applyDeparture"
           />
           <j-select
             :options="airportOptions"
-            :selected-values="state.form.arrival"
+            :values="state.form.arrival"
             @handleSelect="applyArrival"
           />
         </j-form>
         <j-form title="航空会社">
           <j-select
             :options="airlineOptions"
-            :selected-values="state.form.airline"
+            :values="state.form.airline"
             @handleSelect="applyAirline"
           />
         </j-form>
         <j-form title="搭乗機材／レジ">
           <j-select
             :options="boardingTypeOptions"
-            :selected-values="state.form.boardingType"
+            :values="state.form.boardingType"
             @handleSelect="applyBoardingType"
           />
           <j-input
-            :input-text="state.form.registration"
+            :text="state.form.registration"
             @handleInput="applyRegistration"
           />
         </j-form>
@@ -77,12 +77,9 @@
               }}
             </div>
             <div style="margin-bottom: 12px;">
+              <j-label :text="item.data.registration" style="margin: 2px;" />
               <j-label
-                :tag-text="item.data.registration"
-                style="margin: 2px;"
-              />
-              <j-label
-                :tag-text="boardingType(item.data.boardingType)"
+                :text="boardingType(item.data.boardingType)"
                 style="margin: 2px;"
               />
             </div>
@@ -104,7 +101,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   reactive,
   computed,
@@ -128,7 +125,7 @@ import { CHART_OPTIONS } from '~/utils/flight'
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
 
-export default createComponent({
+export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,
