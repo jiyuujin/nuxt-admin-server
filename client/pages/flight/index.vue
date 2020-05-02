@@ -60,6 +60,12 @@
     </j-modal>
 
     <template v-if="state.flights">
+      <bar
+        chart-id="flight-bar-chart"
+        :chart-data="flightItems"
+        :options="chartOptions"
+        :height="240"
+      />
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
@@ -114,6 +120,7 @@ import {
   getBoardingTypeName
 } from '~/utils/flight'
 import { getTimeFormat } from '~/utils/date'
+import { CHART_OPTIONS } from '~/utils/flight'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
@@ -150,6 +157,7 @@ export default defineComponent({
 
     const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
     const dateRange = computed(() => datePicker.requestDate)
+    const flightItems = computed(() => state.flights.item)
 
     onMounted(async () => {
       state.flights = await fetchFlights()
@@ -161,8 +169,10 @@ export default defineComponent({
       airportOptions: AIRPORT_LIST,
       airlineOptions: AIRLINE_LIST,
       boardingTypeOptions: BOARDING_TYPE_LIST,
+      chartOptions: CHART_OPTIONS,
       userStatus,
       dateRange,
+      flightItems,
       applyPage(value) {
         state.activePage = value
       },

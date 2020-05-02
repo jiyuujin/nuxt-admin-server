@@ -87,7 +87,8 @@ export default {
     '~/plugins/firebase.ts',
     '~/plugins/j-stylebook.ts',
     '~/plugins/range-picker.ts',
-    '~/plugins/composition-api.ts'
+    '~/plugins/composition-api.ts',
+    '~/plugins/vue-chart.ts'
     // '~/plugins/vue-toasted.ts'
   ],
 
