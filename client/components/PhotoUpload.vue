@@ -50,12 +50,9 @@ export default Vue.extend({
       })
     },
     upload(file) {
-      const storageRef = firebase
-        .storage()
-        .ref()
-        .child(this.form.name)
-      storageRef.put(file).then(snapshot => {
-        snapshot.ref.getDownloadURL().then(downloadURL => {
+      const storageRef = firebase.storage().ref().child(this.form.name)
+      storageRef.put(file).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
           this.form.content = downloadURL
         })
       })
