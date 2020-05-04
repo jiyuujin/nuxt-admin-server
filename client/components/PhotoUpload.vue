@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import firebase from 'firebase'
-import { PhotoForm } from '~/types/database.types'
+import { PhotoForm } from '~/types/database'
 import { addPhoto } from '~/services/photoService'
 
 export default Vue.extend({

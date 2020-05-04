@@ -76,7 +76,7 @@ import {
 } from '@vue/composition-api'
 import { fetchTips, addTip } from '~/services/tipService'
 import { fetchEvents } from '~/services/eventService'
-import { ItemDataList } from '~/types/database.types'
+import { ItemDataList } from '~/types/database'
 import { CATEGORIES } from '~/utils/tip'
 import { getTimeFormat } from '~/utils/date'
 

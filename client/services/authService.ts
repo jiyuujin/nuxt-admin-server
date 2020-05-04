@@ -10,7 +10,7 @@ export const signIn = async (params: Params) => {
   await firebase
     .auth()
     .signInWithEmailAndPassword(params.email, params.password)
-    .then(response => {
+    .then((response) => {
       result = true
     })
   return result
@@ -21,7 +21,7 @@ export const signOut = async () => {
   await firebase
     .auth()
     .signOut()
-    .then(response => {
+    .then((response) => {
       result = false
     })
   return result
