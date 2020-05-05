@@ -17,7 +17,7 @@
     "firebase-admin": "8.11.0",
     "firebase-functions": "3.6.1",
     "memory-cache": "0.2.0",
-    "moment": "2.25.1",
+    "moment": "2.25.3",
     "request": "2.88.2",
     "request-promise": "4.2.5"
   },
