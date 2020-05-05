@@ -1,8 +1,6 @@
 language: node_js
 
 stages:
-  - lint
-  - test
   - compile
 
 node_js:
@@ -12,18 +10,6 @@ cache: npm
 
 jobs:
   include:
-    # ESLint
-    - stage: "lint"
-      name: "ESLint"
-      install:
-        - npm install
-      script:
-        - npm run lint
-    # Unit Test
-    - stage: "test"
-      name: "Unit Test"
-      script:
-        - npm run test:unit
     # Build Compile
     - stage: "compile"
       name: "Build Compile"
