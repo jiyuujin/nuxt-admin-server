@@ -259,6 +259,17 @@ export default defineComponent({
       applyEvent(value: number) {
         state.form.event = value
       },
+      applyTags(value: number) {
+        let isSame: boolean = false
+        state.form.tags.map((tag) => {
+          if (tag === value) {
+            isSame = true
+          }
+        })
+        if (!isSame) {
+          state.form.tags.push(value)
+        }
+      },
       timeFormat(t) {
         return getTimeFormat(t)
       },
