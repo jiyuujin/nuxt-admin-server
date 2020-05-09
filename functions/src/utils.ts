@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import * as moment from 'moment'
+import dayjs from 'dayjs'
 import * as rp from 'request-promise'
 
 /**
@@ -8,7 +8,7 @@ import * as rp from 'request-promise'
  */
 export const sendToSlack = (message): boolean => {
   const timeText: string =
-    '(' + moment().add(9, 'hours').format('MM/DD hh:mm') + ')'
+    '(' + dayjs().add(9, 'hours').format('MM/DD hh:mm') + ')'
 
   // request-promiseを使うために前提としてrequestをインストールする必要がある
   rp.post({
