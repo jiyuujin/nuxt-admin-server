@@ -1,32 +1,27 @@
 <template>
   <main-template :user-status="userStatus">
-    <template v-if="state.contacts">
-      <div v-for="item in state.contacts.item" :key="item.id">
-        <template v-if="item.page === state.activePage">
-          <j-form :title="timeFormat(item.data.time)">
-            <h3>
-              <j-label
-                :text="item.data.category.text"
-                style="margin-right: 2px;"
-              />
-              {{ item.data.title }}
-            </h3>
-            <div style="margin-bottom: 12px;">
-              {{ item.data.description }}
-            </div>
-          </j-form>
-        </template>
-      </div>
-      <pagination
-        :page="state.activePage"
-        :max="
-          state.contacts.item !== undefined
-            ? Math.ceil(state.contacts.item.length / 20)
-            : 1
-        "
-        @form-data="applyPage"
-      />
-    </template>
+    <div v-for="item in state.contacts.item" :key="item.id">
+      <template v-if="item.page === state.activePage">
+        <j-form :title="timeFormat(item.data.time)">
+          <div class="font-bold">
+            {{ titleText(item) }}
+          </div>
+          <div class="text-gray-400 font-thin">
+            {{ item.data.description }}
+          </div>
+        </j-form>
+      </template>
+    </div>
+
+    <pagination
+      :page="state.activePage"
+      :max="
+        state.contacts.item !== undefined
+          ? Math.ceil(state.contacts.item.length / 20)
+          : 1
+      "
+      @form-data="applyPage"
+    />
   </main-template>
 </template>
 
@@ -65,6 +60,9 @@ export default defineComponent({
     return {
       state,
       userStatus,
+      titleText(item: any) {
+        return `${item.data.category.text} / ${item.data.title}`
+      },
       applyPage(value: number) {
         state.activePage = value
       },
