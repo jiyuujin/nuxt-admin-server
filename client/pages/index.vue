@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   onMounted,
   reactive,
@@ -44,7 +44,7 @@ import { getTimeFormat } from '~/utils/date'
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
 
-export default createComponent({
+export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,

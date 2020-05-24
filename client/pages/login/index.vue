@@ -109,7 +109,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   reactive,
   computed
@@ -150,7 +150,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-export default createComponent({
+export default defineComponent({
   components: {
     MainTemplate,
     Card

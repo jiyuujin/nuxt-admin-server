@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   reactive,
   computed,
@@ -76,7 +76,7 @@ import {
 } from '@vue/composition-api'
 import { fetchTips, addTip } from '~/services/tipService'
 import { fetchEvents } from '~/services/eventService'
-import { ItemDataList } from '~/types/database.types'
+import { ItemDataList } from '~/types/database'
 import { CATEGORIES } from '~/utils/tip'
 import { getTimeFormat } from '~/utils/date'
 
@@ -84,7 +84,7 @@ const MainTemplate = () => import('~/components/MainTemplate.vue')
 const PhotoUpload = () => import('~/components/PhotoUpload.vue')
 const Pagination = () => import('~/components/Pagination.vue')
 
-export default createComponent({
+export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,
@@ -109,7 +109,7 @@ export default createComponent({
     const eventOptions = computed(() => {
       let array: object[] = []
       if (state.events.item !== undefined) {
-        state.events.item.forEach(item => {
+        state.events.item.forEach((item) => {
           array.push({
             value: item.data.id,
             text: item.data.name
@@ -148,7 +148,7 @@ export default createComponent({
       },
       applyTags(value: number) {
         let isSame: boolean = false
-        state.form.tags.map(tag => {
+        state.form.tags.map((tag) => {
           if (tag === value) {
             isSame = true
           }
@@ -162,7 +162,7 @@ export default createComponent({
       },
       tagText(tagId: number) {
         let result: string = ''
-        CATEGORIES.map(category => {
+        CATEGORIES.map((category) => {
           if (category.value === tagId) {
             result = category.text
           }

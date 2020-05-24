@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import firebase from 'firebase'
-import { PhotoForm } from '~/types/database.types'
+import { PhotoForm } from '~/types/database'
 import { addPhoto } from '~/services/photoService'
 
 export default Vue.extend({
@@ -50,12 +50,9 @@ export default Vue.extend({
       })
     },
     upload(file) {
-      const storageRef = firebase
-        .storage()
-        .ref()
-        .child(this.form.name)
-      storageRef.put(file).then(snapshot => {
-        snapshot.ref.getDownloadURL().then(downloadURL => {
+      const storageRef = firebase.storage().ref().child(this.form.name)
+      storageRef.put(file).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
           this.form.content = downloadURL
         })
       })
