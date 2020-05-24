@@ -1,4 +1,4 @@
-import { ItemDataList } from '@/types/database.types'
+import { ItemDataList } from '~/types/database'
 import { connectCollection } from './collectionService'
 import { PAGE_SIZE } from './paginationService'
 import { isValidText } from '~/store/utils'
@@ -13,9 +13,9 @@ export const fetchEvents = async () => {
   await collection
     .orderBy('id', 'asc')
     .get()
-    .then(snapshot => {
+    .then((snapshot) => {
       let i = 1
-      snapshot.forEach(doc => {
+      snapshot.forEach((doc) => {
         // console.log(doc.id + ' ' + doc.data())
         result.item.push({
           id: doc.id,

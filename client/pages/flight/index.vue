@@ -102,7 +102,7 @@ import {
 import dayjs from 'dayjs'
 import { fetchFlights, addFlight } from '~/services/flightService'
 import { DateRange } from '~/types/utils'
-import { ItemDataList } from '~/types/database.types'
+import { ItemDataList } from '~/types/database'
 import {
   AIRLINE_LIST,
   AIRPORT_LIST,

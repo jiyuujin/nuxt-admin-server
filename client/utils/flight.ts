@@ -74,7 +74,7 @@ export const BOARDING_TYPE_LIST: List[] = [
  */
 export function getAirportName(id) {
   let text: string = ''
-  AIRPORT_LIST.forEach(airport => {
+  AIRPORT_LIST.forEach((airport) => {
     if (airport.value === id) {
       text = airport.text
     }
@@ -89,7 +89,7 @@ export function getAirportName(id) {
  */
 export function getAirlineName(id) {
   let text: string = ''
-  AIRLINE_LIST.forEach(airline => {
+  AIRLINE_LIST.forEach((airline) => {
     if (airline.value === id) {
       text = airline.text
     }
@@ -104,7 +104,7 @@ export function getAirlineName(id) {
  */
 export function getBoardingTypeName(id) {
   let text: string = ''
-  BOARDING_TYPE_LIST.forEach(boardingType => {
+  BOARDING_TYPE_LIST.forEach((boardingType) => {
     if (boardingType.value === id) {
       text = boardingType.text
     }
@@ -168,7 +168,7 @@ export const CHART_OPTIONS = {
           fontColor: '#000',
           fontSize: 12,
           stepSize: 5,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return value + 'レグ'
           }
         }
@@ -187,7 +187,7 @@ export const filledChartData = (allData: any) => {
   let dataset: number[] = []
   for (let yearIndex = 0; yearIndex < YEARS.length; yearIndex++) {
     const size =
-      allData.filter(item => {
+      allData.filter((item) => {
         return item.data.time.includes(String(YEARS[yearIndex]))
       }) || 0
 

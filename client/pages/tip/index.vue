@@ -76,7 +76,7 @@ import {
 } from '@vue/composition-api'
 import { fetchTips, addTip } from '~/services/tipService'
 import { fetchEvents } from '~/services/eventService'
-import { ItemDataList } from '~/types/database.types'
+import { ItemDataList } from '~/types/database'
 import { CATEGORIES } from '~/utils/tip'
 import { getTimeFormat } from '~/utils/date'
 
@@ -109,7 +109,7 @@ export default defineComponent({
     const eventOptions = computed(() => {
       let array: object[] = []
       if (state.events.item !== undefined) {
-        state.events.item.forEach(item => {
+        state.events.item.forEach((item) => {
           array.push({
             value: item.data.id,
             text: item.data.name
@@ -148,7 +148,7 @@ export default defineComponent({
       },
       applyTags(value: number) {
         let isSame: boolean = false
-        state.form.tags.map(tag => {
+        state.form.tags.map((tag) => {
           if (tag === value) {
             isSame = true
           }
@@ -165,7 +165,7 @@ export default defineComponent({
       },
       tagText(tagId: number) {
         let result: string = ''
-        CATEGORIES.map(category => {
+        CATEGORIES.map((category) => {
           if (category.value === tagId) {
             result = category.text
           }
