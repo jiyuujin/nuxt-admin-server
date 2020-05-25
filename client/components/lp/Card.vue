@@ -1,5 +1,7 @@
 <template>
-  <div class="card">
+  <div
+    class="p-4 mb-4 border-solid border rounded-lg shadow-md border-gray-200"
+  >
     <div class="card-content">
       <div class="left">
         <img :src="icon" :alt="title" />

@@ -1,18 +1,16 @@
 <template>
   <main-template :user-status="userStatus">
-    <div class="content">
-      <div class="content--title-left">
+    <div class="mb-8">
+      <div class="font-bold">
         最新のお知らせ
       </div>
-      <div class="content--sec">
+      <div
+        class="p-4 mb-6 border-solid border rounded-lg shadow-md border-gray-200"
+      >
         <template v-for="issue in notifications.repository.issues.nodes">
-          <div :key="issue.id" class="content--sec-list">
+          <div :key="issue.id" class="flex justify-between">
             <div>
-              <a
-                :href="issue.url"
-                target="_blank"
-                rel="noopener"
-              >
+              <a :href="issue.url" target="_blank" rel="noopener">
                 {{ issue.title }}
               </a>
             </div>
@@ -38,69 +36,71 @@
         :description="product.description"
       />
 
-      <div class="content--row">
-        <div class="content--row-card">
-          <div class="content--row-card-title">
+      <div class="flex justify-around pb-4 mb-8">
+        <div style="width: calc(50% - 4px); margin-right: 4px;">
+          <div class="font-bold">
             このアプリの情報
           </div>
-          <div class="content--row-card-inner">
-            <div class="content--row-card-inner-description">
-              <div class="subtitle">
-                サポートサイト
+          <div
+            class="p-4 h-64 justify-between border-solid border rounded-lg shadow-md border-gray-200"
+          >
+            <div class="my-4 flex justify-between">
+              <div>サポートサイト</div>
+              <div class="text-ellipsis">
+                <a href="https://yuukit.me/">
+                  https://yuukit.me/
+                </a>
               </div>
-              <p>
-                <a href="https://yuukit.me/">https://yuukit.me/</a>
-              </p>
-              <div class="subtitle">
-                プライバシーポリシー
-              </div>
-              <p>
+            </div>
+            <div class="my-4 flex justify-between">
+              <div>プライバシーポリシー</div>
+              <div class="text-ellipsis">
                 <a href="https://webneko.dev/contact">
                   https://webneko.dev/contact
                 </a>
-              </p>
-              <div class="subtitle">
-                開発元
               </div>
-              <p>nekohack inc.</p>
-              <div class="subtitle">
-                公開日
-              </div>
-              <p>2020/04/02</p>
+            </div>
+            <div class="my-4 flex justify-between">
+              <div>開発元</div>
+              <div>nekohack inc.</div>
+            </div>
+            <div class="my-4 flex justify-between">
+              <div>公開日</div>
+              <div>2020/04/02</div>
             </div>
           </div>
         </div>
-        <div class="content--row-card">
-          <div class="content--row-card-title">
+        <div style="width: calc(50% - 4px);">
+          <div class="font-bold">
             ログイン
           </div>
-          <div class="content--row-card-inner">
-            <div class="content--row-card-inner-description">
-              <div style="margin: 20px 0;">
-                <j-input
-                  placeholder="メールアドレス"
-                  :text="state.email"
-                  @handleInput="applyEmail"
-                />
-              </div>
-              <div style="margin: 20px 0;">
-                <j-input
-                  placeholder="パスワード"
-                  input-type="password"
-                  :text="state.password"
-                  password
-                  @handleInput="applyPassword"
-                />
-              </div>
-              <div style="margin: 20px 0;">
-                <j-button text="ログイン" @handleClick="login" />
-              </div>
+          <div
+            class="p-4 h-64 justify-between border-solid border rounded-lg shadow-md border-gray-200"
+          >
+            <div class="my-4">
+              <j-input
+                placeholder="メールアドレス"
+                :text="state.email"
+                @handleInput="applyEmail"
+              />
+            </div>
+            <div class="my-4">
+              <j-input
+                placeholder="パスワード"
+                input-type="password"
+                :text="state.password"
+                password
+                @handleInput="applyPassword"
+              />
+            </div>
+            <div class="my-4">
+              <j-button text="ログイン" @handleClick="login" />
             </div>
           </div>
         </div>
       </div>
 
-      <div class="content--title-right">
+      <div class="flex justify-end pb-4 mb-8">
         <j-button text="問題を報告" variant="danger" @handleClick="report" />
       </div>
     </div>
@@ -135,7 +135,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
       Authorization: `bearer ${process.env.NUXT_APP_GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v4.idl',
+      Accept: 'application/vnd.github.v4.idl'
     }
   })
   return forward(operation)
@@ -158,8 +158,9 @@ export default defineComponent({
   async asyncData({ app }) {
     let data = null
 
-    await client.query({
-      query: gql`{
+    await client
+      .query({
+        query: gql`{
         repository(owner: "${GITHUB_USER}", name: "${GITHUB_REPO_NAME}") {
           id,
           name,
@@ -182,8 +183,8 @@ export default defineComponent({
           }
         }
       }`
-    })
-    .then(res => data = res.data)
+      })
+      .then((res) => (data = res.data))
     // .then(console.log)
 
     return {
@@ -230,5 +231,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/content';
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 120px;
+}
 </style>

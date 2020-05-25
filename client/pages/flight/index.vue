@@ -69,19 +69,11 @@
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
-            <div>
-              {{
-                `${airline(item.data.airline)} : ${departure(
-                  item.data.departure
-                )} - ${arrival(item.data.arrival)}`
-              }}
+            <div class="font-bold">
+              {{ titleText(item) }}
             </div>
-            <div style="margin-bottom: 12px;">
-              <j-label :text="item.data.registration" style="margin: 2px;" />
-              <j-label
-                :text="boardingType(item.data.boardingType)"
-                style="margin: 2px;"
-              />
+            <div class="text-gray-400 font-thin">
+              {{ descriptionText(item) }}
             </div>
           </j-form>
         </template>
@@ -201,20 +193,18 @@ export default defineComponent({
       applyRegistration(value) {
         state.form.registration = value
       },
+      titleText(item: any) {
+        return `${getAirlineName(item.data.airline)} : ${getAirportName(
+          item.data.departure
+        )} - ${getAirportName(item.data.arrival)}`
+      },
+      descriptionText(item: any) {
+        return `${item.data.registration} (${getBoardingTypeName(
+          item.data.boardingType
+        )})`
+      },
       timeFormat(t) {
         return getTimeFormat(t)
-      },
-      airline(id) {
-        return getAirlineName(id)
-      },
-      departure(id) {
-        return getAirportName(id)
-      },
-      arrival(id) {
-        return getAirportName(id)
-      },
-      boardingType(id) {
-        return getBoardingTypeName(id)
       },
       reset() {
         state.form.time = ''
