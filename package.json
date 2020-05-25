@@ -57,7 +57,7 @@
     "cssnano": "4.1.10",
     "eslint": "6.8.0",
     "fibers": "4.0.3",
-    "firestore-jest-mock": "0.3.0",
+    "firestore-jest-mock": "0.4.0",
     "jest": "25.5.4",
     "jest-transform-stub": "2.0.0",
     "sass": "1.26.5",
