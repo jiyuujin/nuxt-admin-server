@@ -7,8 +7,30 @@ npm install -g firebase-tools
 firebase login
 ```
 
-## Deploy
+## Commands
+
+Use Node.js 8 runtime
+
+### Serve
 
 ```bash
-yarn deploy
+firebase serve --only functions
+```
+
+### Shell
+
+```bash
+firebase functions:shell
+```
+
+### Deploy
+
+```bash
+firebase deploy --only functions
+```
+
+### Log
+
+```bash
+firebase functions:log
 ```
