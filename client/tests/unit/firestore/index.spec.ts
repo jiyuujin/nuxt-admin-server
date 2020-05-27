@@ -23,10 +23,7 @@ describe('Single records versus queries', () => {
   })
 
   it('confirm a single record', async () => {
-    const record = await db
-      .collection('characters')
-      .doc('user-02')
-      .get()
+    const record = await db.collection('characters').doc('user-02').get()
     expect(record.exists).toBe(true)
     expect(record.id).toBe('user-02')
     const data = record.data()
@@ -38,7 +35,7 @@ describe('Single records versus queries', () => {
     db.collection('characters')
       .doc('user-01')
       .get()
-      .then(record => {
+      .then((record) => {
         expect(record.exists).toBe(true)
         expect(record.id).toBe('user-01')
         const data = record.data()
@@ -51,7 +48,7 @@ describe('Single records versus queries', () => {
   it('confirm a single record with promise without a specified collection', () => {
     db.doc('characters/user-01')
       .get()
-      .then(record => {
+      .then((record) => {
         expect(record.exists).toBe(true)
         expect(record.id).toBe('user-01')
         const data = record.data()
@@ -62,10 +59,7 @@ describe('Single records versus queries', () => {
   })
 
   it('confirm a record not existed', async () => {
-    const record = await db
-      .collection('animals')
-      .doc('monkey')
-      .get()
+    const record = await db.collection('animals').doc('monkey').get()
     expect(record.exists).toBe(false)
   })
 
@@ -94,7 +88,7 @@ describe('Single records versus queries', () => {
     db.collection('characters')
       .where('name', '==', 'jiyuujin')
       .get()
-      .then(records => {
+      .then((records) => {
         expect(records.empty).toBe(false)
         expect(records).toHaveProperty('docs', expect.any(Array))
         expect(records.docs[0]).toHaveProperty('id', 'user-01')

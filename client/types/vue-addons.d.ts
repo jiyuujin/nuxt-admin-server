@@ -4,7 +4,7 @@ import { MetaInfo } from 'vue-meta'
 import { ActionContext as BaseActionContext } from 'vuex'
 import { firestore } from 'firebase'
 
-import { RouteOption } from './route.types'
+import { RouteOption } from './route'
 
 type QueryOption = {
   query: Object

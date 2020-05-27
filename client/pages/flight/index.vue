@@ -7,7 +7,7 @@
     >
       <div style="width: 100%; text-align: left;">
         <j-form title="搭乗時間">
-          <j-range-picker
+          <v-range-picker
             ref="single-picker"
             :single-date-picker="datePicker.singleDatePicker"
             :show-dropdown="datePicker.showDropdown"
@@ -24,7 +24,7 @@
             <div slot="input" slot-scope="picker" style="min-width: 350px;">
               {{ picker.startDate }}
             </div>
-          </j-range-picker>
+          </v-range-picker>
         </j-form>
         <j-form title="出発／到着">
           <j-select
@@ -60,22 +60,20 @@
     </j-modal>
 
     <template v-if="state.flights">
+      <bar
+        chart-id="flight-bar-chart"
+        :chart-data="flightItems"
+        :options="chartOptions"
+        :height="240"
+      />
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
-            <div>
-              {{
-                `${airline(item.data.airline)} : ${departure(
-                  item.data.departure
-                )} - ${arrival(item.data.arrival)}`
-              }}
+            <div class="font-bold">
+              {{ titleText(item) }}
             </div>
-            <div style="margin-bottom: 12px;">
-              <j-label :text="item.data.registration" style="margin: 2px;" />
-              <j-label
-                :text="boardingType(item.data.boardingType)"
-                style="margin: 2px;"
-              />
+            <div class="text-gray-400 font-thin">
+              {{ descriptionText(item) }}
             </div>
           </j-form>
         </template>
@@ -95,7 +93,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   reactive,
   computed,
@@ -104,7 +102,7 @@ import {
 import dayjs from 'dayjs'
 import { fetchFlights, addFlight } from '~/services/flightService'
 import { DateRange } from '~/types/utils'
-import { ItemDataList } from '~/types/database.types'
+import { ItemDataList } from '~/types/database'
 import {
   AIRLINE_LIST,
   AIRPORT_LIST,
@@ -114,11 +112,12 @@ import {
   getBoardingTypeName
 } from '~/utils/flight'
 import { getTimeFormat } from '~/utils/date'
+import { CHART_OPTIONS } from '~/utils/flight'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const Pagination = () => import('~/components/Pagination.vue')
 
-export default createComponent({
+export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,
@@ -150,6 +149,7 @@ export default createComponent({
 
     const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
     const dateRange = computed(() => datePicker.requestDate)
+    const flightItems = computed(() => state.flights.item)
 
     onMounted(async () => {
       state.flights = await fetchFlights()
@@ -161,8 +161,10 @@ export default createComponent({
       airportOptions: AIRPORT_LIST,
       airlineOptions: AIRLINE_LIST,
       boardingTypeOptions: BOARDING_TYPE_LIST,
+      chartOptions: CHART_OPTIONS,
       userStatus,
       dateRange,
+      flightItems,
       applyPage(value) {
         state.activePage = value
       },
@@ -191,20 +193,18 @@ export default createComponent({
       applyRegistration(value) {
         state.form.registration = value
       },
+      titleText(item: any) {
+        return `${getAirlineName(item.data.airline)} : ${getAirportName(
+          item.data.departure
+        )} - ${getAirportName(item.data.arrival)}`
+      },
+      descriptionText(item: any) {
+        return `${item.data.registration} (${getBoardingTypeName(
+          item.data.boardingType
+        )})`
+      },
       timeFormat(t) {
         return getTimeFormat(t)
-      },
-      airline(id) {
-        return getAirlineName(id)
-      },
-      departure(id) {
-        return getAirportName(id)
-      },
-      arrival(id) {
-        return getAirportName(id)
-      },
-      boardingType(id) {
-        return getBoardingTypeName(id)
       },
       reset() {
         state.form.time = ''

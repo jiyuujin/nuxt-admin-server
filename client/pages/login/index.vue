@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   SetupContext,
   reactive,
   computed
@@ -32,7 +32,7 @@ import {
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 
-export default createComponent({
+export default defineComponent({
   components: {
     MainTemplate
   },
@@ -73,6 +73,7 @@ export default createComponent({
 .login {
   display: flex;
   min-height: 100vh;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
