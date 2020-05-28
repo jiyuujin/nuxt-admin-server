@@ -1,12 +1,10 @@
 <template>
   <main-template :user-status="userStatus">
     <div class="mb-8">
-      <div class="font-bold">
+      <div class="mx-12 font-bold">
         最新のお知らせ
       </div>
-      <div
-        class="p-4 mb-6 border-solid border rounded-lg shadow-md border-gray-200"
-      >
+      <div class="p-4 mx-12 rounded-lg shadow-card border-gray-200">
         <template v-for="issue in notifications.repository.issues.nodes">
           <div :key="issue.id" class="flex justify-between">
             <div>
@@ -36,13 +34,13 @@
         :description="product.description"
       />
 
-      <div class="flex justify-around pb-4 mb-8">
+      <div class="flex justify-around pb-4 mx-12">
         <div style="width: calc(50% - 4px); margin-right: 4px;">
           <div class="font-bold">
             このアプリの情報
           </div>
           <div
-            class="p-4 h-64 justify-between border-solid border rounded-lg shadow-md border-gray-200"
+            class="p-4 h-64 justify-between rounded-lg shadow-card border-gray-200"
           >
             <div class="my-4 flex justify-between">
               <div>サポートサイト</div>
@@ -75,7 +73,7 @@
             ログイン
           </div>
           <div
-            class="p-4 h-64 justify-between border-solid border rounded-lg shadow-md border-gray-200"
+            class="p-4 h-64 justify-between rounded-lg shadow-card border-gray-200"
           >
             <div class="my-4">
               <j-input
@@ -100,7 +98,7 @@
         </div>
       </div>
 
-      <div class="flex justify-end pb-4 mb-8">
+      <div class="flex justify-end mx-12">
         <j-button text="問題を報告" variant="danger" @handleClick="report" />
       </div>
     </div>
