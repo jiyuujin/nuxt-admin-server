@@ -33,6 +33,10 @@ export default {
     {
       src: '~/assets/main.scss',
       lang: 'css'
+    },
+    {
+      src: '~/assets/tailwind.scss',
+      lang: 'css'
     }
   ],
 
