@@ -9,7 +9,6 @@ import {
 } from './service/flight'
 import { notifyNewContact } from './service/contact'
 import { notifyNewEvent } from './service/event'
-import { notifyNewPhoto } from './service/photo'
 
 import { sendToSlack } from './utils'
 
@@ -105,14 +104,4 @@ export const onEventCreated = functions
   .firestore.document('/events/{id}')
   .onCreate((snapshot, context) => {
     notifyNewEvent(snapshot, context)
-  })
-
-/**
- * Eventの追加を通知する
- */
-export const onPhotoCreated = functions
-  .region('asia-northeast1')
-  .firestore.document('/photos/{id}')
-  .onCreate((snapshot, context) => {
-    notifyNewPhoto(snapshot, context)
   })
