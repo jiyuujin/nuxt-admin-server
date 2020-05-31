@@ -19,20 +19,20 @@
         </template>
       </div>
 
-      <card
-        v-for="product in products"
-        :key="product.id"
-        :title="product.name"
-        :icon="icon"
-        :tags="product.tags"
-        :price="product.price"
-        :tooltip="product.tooltip"
-        :url="product.url"
-        :disabled="product.disabled"
-        :promotion="product.promotion"
-        :rate="product.rate"
-        :description="product.description"
-      />
+      <template v-for="product in products">
+        <j-app-card
+          :key="product.id"
+          :title="product.title"
+          :icon="icon"
+          :tags="product.tags"
+          :price="product.price"
+          :tooltip="product.tooltip"
+          :handle-submit-click-callback="() => linkToUrl(product.url)"
+          :promotion="product.promotion"
+          :rate="product.rate"
+          :description="product.description"
+        />
+      </template>
 
       <div class="flex justify-around pb-4 mx-12">
         <div style="width: calc(50% - 4px); margin-right: 4px;">
@@ -53,14 +53,14 @@
             <div class="my-4 flex justify-between">
               <div>プライバシーポリシー</div>
               <div class="text-ellipsis">
-                <a href="https://webneko.dev/contact">
-                  https://webneko.dev/contact
+                <a href="https://nekohack-privacy-policy.netlify.app/">
+                  https://nekohack-privacy-policy.netlify.app/
                 </a>
               </div>
             </div>
             <div class="my-4 flex justify-between">
               <div>開発元</div>
-              <div>nekohack inc.</div>
+              <div>nekohack</div>
             </div>
             <div class="my-4 flex justify-between">
               <div>公開日</div>
@@ -112,46 +112,19 @@ import {
   reactive,
   computed
 } from '@vue/composition-api'
-
-const gql = require('graphql-tag')
-const { ApolloClient } = require('apollo-client')
-const { HttpLink } = require('apollo-link-http')
-const { ApolloLink, concat } = require('apollo-link')
-const { InMemoryCache } = require('apollo-cache-inmemory')
-const fetch = require('node-fetch')
+import gql from 'graphql-tag'
 
 const GITHUB_USER: string = 'jiyuujin'
 const GITHUB_REPO_NAME: string = 'admin'
-const GITHUB_API_V4: string = 'https://api.github.com/graphql'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
-const Card = () => import('@/components/lp/Card.vue')
 
+import { client } from '~/services/githubService'
 import { products } from '~/utils/product'
-
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: `bearer ${process.env.NUXT_APP_GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v4.idl'
-    }
-  })
-  return forward(operation)
-})
-
-const httpLink = new HttpLink({
-  uri: GITHUB_API_V4,
-  fetch
-})
-const client = new ApolloClient({
-  link: concat(authMiddleware, httpLink),
-  cache: new InMemoryCache()
-})
 
 export default defineComponent({
   components: {
-    MainTemplate,
-    Card
+    MainTemplate
   },
   async asyncData({ app }) {
     let data = null
@@ -183,14 +156,12 @@ export default defineComponent({
       }`
       })
       .then((res) => (data = res.data))
-    // .then(console.log)
 
     return {
       notifications: data
     }
   },
   setup(props: {}, ctx: SetupContext) {
-    const icon = require('../../static/bakeneko.png')
     const state = reactive({
       email: '',
       password: '',
@@ -201,7 +172,7 @@ export default defineComponent({
 
     return {
       products: products,
-      icon,
+      icon: require('../../static/bakeneko.png'),
       state,
       userStatus,
       report() {
@@ -212,6 +183,11 @@ export default defineComponent({
       },
       applyPassword(value) {
         state.password = value
+      },
+      linkToUrl(url: string) {
+        if (url) {
+          // location.href = url
+        }
       },
       async login() {
         await ctx.root.$store.dispatch('product/signIn', {
