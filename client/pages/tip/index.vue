@@ -2,11 +2,10 @@
   <main-template :user-status="userStatus">
     <j-modal
       title="Tipを追加"
-      style="margin: 20px 0;"
       :handle-cancel-click-callback="cancel"
       :handle-submit-click-callback="submit"
     >
-      <div v-if="state.events" style="width: 100%;">
+      <div v-if="state.events">
         <j-form title="タイトル">
           <j-input :text="state.form.title" @handleInput="applyTitle" />
         </j-form>
@@ -141,13 +140,14 @@
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
             <a :href="item.data.url" target="_blank" rel="noopener">
-              {{ item.data.title }}
-            </a>
-            <div style="margin-bottom: 12px;">
+              <div class="font-bold">{{ titleText(item) }}</div>
+              <div class="text-gray-400 font-thin">
+                {{ item.data.description }}
+              </div>
               <template v-for="tag in item.data.tags">
                 <j-label :key="tag" :text="tagText(tag)" style="margin: 2px;" />
               </template>
-            </div>
+            </a>
           </j-form>
         </template>
       </div>
@@ -272,6 +272,9 @@ export default defineComponent({
       },
       timeFormat(t) {
         return getTimeFormat(t)
+      },
+      titleText(item: any) {
+        return item.data.title
       },
       tagText(tagId: number) {
         let result: string = ''

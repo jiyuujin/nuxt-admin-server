@@ -11,17 +11,20 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "@firebase/app-types": "0.6.0",
+    "@firebase/app-types": "0.6.1",
     "compression": "1.7.4",
     "cors": "2.8.5",
+    "dayjs": "1.8.28",
     "firebase-admin": "8.12.1",
-    "firebase-functions": "3.6.1",
+    "firebase-functions": "3.7.0",
     "memory-cache": "0.2.0",
-    "moment": "2.25.3",
     "request": "2.88.2",
     "request-promise": "4.2.5"
   },
   "devDependencies": {
-    "typescript": "3.8.3"
+    "typescript": "3.9.5"
+  },
+  "engines": {
+    "node": "8"
   }
 }
