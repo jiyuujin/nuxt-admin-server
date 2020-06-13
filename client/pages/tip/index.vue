@@ -1,139 +1,140 @@
 <template>
   <main-template :user-status="userStatus">
-    <j-modal
-      title="Tipを追加"
-      :handle-cancel-click-callback="cancel"
-      :handle-submit-click-callback="submit"
-    >
-      <div v-if="state.events">
-        <j-form title="タイトル">
-          <j-input :text="state.form.title" @handleInput="applyTitle" />
-        </j-form>
-        <j-form title="URL">
-          <j-input :text="state.form.url" @handleInput="applyUrl" />
-        </j-form>
-        <j-form title="詳細">
-          <j-input
-            :text="state.form.description"
-            @handleInput="applyDescription"
-          />
-        </j-form>
-        <j-form title="カテゴリー">
-          <j-button
-            ref="categoryModalButton"
-            text="カテゴリーを選択"
-            fill="text"
-            @handleClick="displayModal"
-          />
+    <div v-if="state.events">
+      <j-form title="タイトル">
+        <j-input :text="state.form.title" @handleInput="applyTitle" />
+      </j-form>
+      <j-form title="URL">
+        <j-input :text="state.form.url" @handleInput="applyUrl" />
+      </j-form>
+      <j-form title="詳細">
+        <j-input
+          :text="state.form.description"
+          @handleInput="applyDescription"
+        />
+      </j-form>
+      <j-form title="カテゴリー">
+        <j-button
+          ref="categoryModalButton"
+          text="カテゴリーを選択"
+          fill="text"
+          @handleClick="displayModal"
+        />
 
-          <div v-if="state.showModal === true">
-            <div class="modal-mask" @click.self="modalClose">
-              <div :style="state.modalWrapperStyle">
-                <div class="modal-container">
-                  <div class="header">
-                    <span class="header-title">
-                      カテゴリー選択
-                    </span>
-                    <span class="header-close-btn" @click="cancel">
-                      ×
-                    </span>
-                  </div>
+        <div v-if="state.showModal === true">
+          <div class="modal-mask" @click.self="modalClose">
+            <div :style="state.modalWrapperStyle">
+              <div class="modal-container">
+                <div class="header">
+                  <span class="header-title">
+                    カテゴリー選択
+                  </span>
+                  <span class="header-close-btn" @click="cancel">
+                    ×
+                  </span>
+                </div>
 
-                  <div class="content">
-                    <div class="column">
+                <div class="content">
+                  <div class="column">
+                    <div
+                      style="
+                        padding: 0.6rem;
+                        color: #000;
+                        border-bottom: 1px solid #ddd;
+                      "
+                    >
+                      選択してください
+                    </div>
+                    <div class="list">
                       <div
-                        style="padding: 0.6rem; color: #000; border-bottom: 1px solid #ddd;"
+                        v-for="(itemClass, index) in state.itemClasses"
+                        :key="index"
+                        :index="itemClass.itemClassName"
                       >
-                        選択してください
-                      </div>
-                      <div class="list">
                         <div
-                          v-for="(itemClass, index) in state.itemClasses"
-                          :key="index"
-                          :index="itemClass.itemClassName"
+                          v-for="(item, key) in itemClass.itemClassItems"
+                          :key="item.itemClassItemName"
                         >
-                          <div
-                            v-for="(item, key) in itemClass.itemClassItems"
-                            :key="item.itemClassItemName"
-                          >
-                            <accordion
-                              :label-text="
-                                key === 0 ? itemClass.itemClassName : ''
-                              "
-                              :title="item.itemClassItemName"
-                              :items="item.items"
-                              :selected-ids="state.form.tags"
-                              @handleItemClassAll="updateItemClassAll"
-                              @handleItemClass="updateItemClass"
-                              @handleDeselectItemClassAll="deselectItemClassAll"
-                            />
-                          </div>
+                          <accordion
+                            :label-text="
+                              key === 0 ? itemClass.itemClassName : ''
+                            "
+                            :title="item.itemClassItemName"
+                            :items="item.items"
+                            :selected-ids="state.form.tags"
+                            @handleItemClassAll="updateItemClassAll"
+                            @handleItemClass="updateItemClass"
+                            @handleDeselectItemClassAll="deselectItemClassAll"
+                          />
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div class="column">
-                      <div class="selected-tags-header">
-                        <div
-                          :class="{ exists: state.form.tags.length > 0 }"
-                          class="selected-tags"
-                        >
-                          選択中のカテゴリー
-                          <span class="selected-tags-badge">
-                            {{ state.form.tags.length }}
-                          </span>
-                        </div>
-                        <j-button
-                          text="全て削除"
-                          fill="text"
-                          @handleClick="deselectTagAll"
-                        />
+                  <div class="column">
+                    <div class="selected-tags-header">
+                      <div
+                        :class="{ exists: state.form.tags.length > 0 }"
+                        class="selected-tags"
+                      >
+                        選択中のカテゴリー
+                        <span class="selected-tags-badge">
+                          {{ state.form.tags.length }}
+                        </span>
                       </div>
-                      <div class="list">
-                        <template v-if="state.form.tags.length === 0">
-                          <div class="empty-message-box">
-                            <div class="empty-message">
-                              カテゴリーを設定してください
-                              <div class="description">
-                                左パネルから、店舗を選択して下さい
-                              </div>
+                      <j-button
+                        text="全て削除"
+                        fill="text"
+                        @handleClick="deselectTagAll"
+                      />
+                    </div>
+                    <div class="list">
+                      <template v-if="state.form.tags.length === 0">
+                        <div class="empty-message-box">
+                          <div class="empty-message">
+                            カテゴリーを設定してください
+                            <div class="description">
+                              左パネルから、店舗を選択して下さい
                             </div>
                           </div>
-                        </template>
-                        <template v-else>
-                          <div v-for="tag in selectedTags" :key="tag">
-                            {{ tag }}
-                          </div>
-                        </template>
-                      </div>
+                        </div>
+                      </template>
+                      <template v-else>
+                        <div v-for="tag in selectedTags" :key="tag">
+                          {{ tagText(tag) }}
+                        </div>
+                      </template>
                     </div>
                   </div>
-
-                  <div class="footer">
-                    <j-button
-                      text="キャンセル"
-                      fill="text"
-                      style="margin-right: 0.8rem;"
-                      @handleClick="tagCancel"
-                    />
-                    <j-button text="確定" @handleClick="tagSubmit" />
-                  </div>
+                </div>
+                <div class="footer">
+                  <j-button
+                    text="キャンセル"
+                    fill="text"
+                    style="margin-right: 0.8rem;"
+                    @handleClick="tagCancel"
+                  />
+                  <j-button text="確定" @handleClick="tagSubmit" />
                 </div>
               </div>
             </div>
           </div>
-        </j-form>
-        <j-form title="イベント">
-          <j-select
-            :options="eventOptions"
-            :values="state.form.event"
-            @handleSelect="applyEvent"
-          />
-        </j-form>
-      </div>
-    </j-modal>
+        </div>
+      </j-form>
+      <j-form title="イベント">
+        <j-select
+          :options="eventOptions"
+          :values="state.form.event"
+          @handleSelect="applyEvent"
+        />
+      </j-form>
+    </div>
 
     <photo-upload />
+
+    <j-form title="">
+      <j-button text="Tipを追加" @handleClick="postTip" />
+    </j-form>
 
     <template v-if="state.tips">
       <div v-for="item in state.tips.item" :key="item.id">
@@ -259,17 +260,6 @@ export default defineComponent({
       applyEvent(value: number) {
         state.form.event = value
       },
-      applyTags(value: number) {
-        let isSame: boolean = false
-        state.form.tags.map((tag) => {
-          if (tag === value) {
-            isSame = true
-          }
-        })
-        if (!isSame) {
-          state.form.tags.push(value)
-        }
-      },
       timeFormat(t) {
         return getTimeFormat(t)
       },
@@ -295,7 +285,7 @@ export default defineComponent({
       cancel() {
         // reset()
       },
-      async submit() {
+      async postTip() {
         await addTip(state.form)
         // reset()
       },
@@ -315,14 +305,6 @@ export default defineComponent({
       modalClose() {
         state.form.tagsInMemory = [...state.form.tags]
         state.showModal = false
-      },
-      deselectTagClassAll(ids) {
-        state.form.tags = state.form.tags.filter(
-          (tagId) => !ids.includes(tagId)
-        )
-      },
-      deselectTagClass(id) {
-        state.form.tags = state.form.tags.filter((tagId) => tagId !== id)
       },
       deselectTagAll() {
         state.form.tags = []

@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <j-input placeholder="名前" :text="form.name" @handleInput="applyName" />
+  <j-form title="名前">
     <input type="file" @change="onFileChange" />
-    <div style="margin-top: 12px;">
+    <j-button text="Photoを追加" @handleClick="postPhoto" />
+    <div v-if="form.content" style="margin-top: 12px;">
       アップロード結果:
-      <div v-if="form.content" class="preview">
+      <div class="preview">
         <img :src="form.content" :alt="form.name" decoding="async" />
       </div>
     </div>
-    <j-button text="Photoを追加" @handleClick="postPhoto" />
-  </div>
+  </j-form>
 </template>
 
 <script lang="ts">
@@ -28,9 +27,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    applyName(value) {
-      this.form.name = value
-    },
     reset() {
       this.form.name = ''
       this.form.content = ''
