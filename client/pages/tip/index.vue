@@ -1,41 +1,35 @@
 <template>
   <main-template :user-status="userStatus">
-    <j-modal
-      title="Tipを追加"
-      :handle-cancel-click-callback="cancel"
-      :handle-submit-click-callback="submit"
-    >
-      <div v-if="state.events">
-        <j-form title="タイトル">
-          <j-input :text="state.form.title" @handleInput="applyTitle" />
-        </j-form>
-        <j-form title="URL">
-          <j-input :text="state.form.url" @handleInput="applyUrl" />
-        </j-form>
-        <j-form title="詳細">
-          <j-input
-            :text="state.form.description"
-            @handleInput="applyDescription"
-          />
-        </j-form>
-        <j-form title="カテゴリー">
-          <j-select
-            :options="categoryOptions"
-            :values="state.form.tags"
-            @handleSelect="applyTags"
-          />
-        </j-form>
-        <j-form title="イベント">
-          <j-select
-            :options="eventOptions"
-            :values="state.form.event"
-            @handleSelect="applyEvent"
-          />
-        </j-form>
-      </div>
-    </j-modal>
+    <div v-if="state.events">
+      <j-form title="タイトル">
+        <j-input :text="state.form.title" @handleInput="applyTitle" />
+      </j-form>
+      <j-form title="URL">
+        <j-input :text="state.form.url" @handleInput="applyUrl" />
+      </j-form>
+      <j-form title="詳細">
+        <j-input
+          :text="state.form.description"
+          @handleInput="applyDescription"
+        />
+      </j-form>
+      <j-form title="カテゴリー">
+        <tag-modal :items="state.form.tags" @update="applyTags" />
+      </j-form>
+      <j-form title="イベント">
+        <j-select
+          :options="eventOptions"
+          :values="state.form.event"
+          @handleSelect="applyEvent"
+        />
+      </j-form>
+    </div>
 
     <photo-upload />
+
+    <j-form title="">
+      <j-button text="Tipを追加" @handleClick="postTip" />
+    </j-form>
 
     <template v-if="state.tips">
       <div v-for="item in state.tips.item" :key="item.id">
@@ -83,13 +77,15 @@ import { getTimeFormat } from '~/utils/date'
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const PhotoUpload = () => import('~/components/PhotoUpload.vue')
 const Pagination = () => import('~/components/Pagination.vue')
+const TagModal = () => import('~/components/TagModal/Index.vue')
 
 export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,
     PhotoUpload,
-    Pagination
+    Pagination,
+    TagModal
   },
   setup(props: {}, ctx: SetupContext) {
     const state = reactive({
@@ -129,7 +125,6 @@ export default defineComponent({
     return {
       state,
       userStatus,
-      categoryOptions: CATEGORIES,
       eventOptions,
       applyPage(value: number) {
         state.activePage = value
@@ -145,17 +140,6 @@ export default defineComponent({
       },
       applyEvent(value: number) {
         state.form.event = value
-      },
-      applyTags(value: number) {
-        let isSame: boolean = false
-        state.form.tags.map((tag) => {
-          if (tag === value) {
-            isSame = true
-          }
-        })
-        if (!isSame) {
-          state.form.tags.push(value)
-        }
       },
       timeFormat(t) {
         return getTimeFormat(t)
@@ -182,9 +166,12 @@ export default defineComponent({
       cancel() {
         // reset()
       },
-      async submit() {
+      async postTip() {
         await addTip(state.form)
         // reset()
+      },
+      applyTags(values: number[]) {
+        state.form.tags = [...values]
       }
     }
   }
