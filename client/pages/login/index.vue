@@ -34,8 +34,8 @@
         />
       </template>
 
-      <div class="flex justify-around pb-4 mx-12">
-        <div style="width: calc(50% - 4px); margin-right: 4px;">
+      <div class="flex flex-wrap justify-around pb-4 mx-12">
+        <div class="flex-1">
           <div class="font-bold">
             このアプリの情報
           </div>
@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div style="width: calc(50% - 4px);">
+        <div class="flex-1">
           <div class="font-bold">
             ログイン
           </div>
