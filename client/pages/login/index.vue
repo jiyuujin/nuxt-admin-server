@@ -44,7 +44,7 @@
           >
             <div class="my-4 flex justify-between">
               <div>サポートサイト</div>
-              <div style="white-space: pre-wrap;">
+              <div>
                 <a href="https://yuukit.me/">
                   https://yuukit.me/
                 </a>
@@ -52,7 +52,7 @@
             </div>
             <div class="my-4 flex justify-between">
               <div>プライバシーポリシー</div>
-              <div style="white-space: pre-wrap;">
+              <div>
                 <a href="https://nekohack-privacy-policy.netlify.app/">
                   https://nekohack-privacy-policy.netlify.app/
                 </a>
