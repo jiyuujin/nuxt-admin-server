@@ -23,7 +23,7 @@
         <j-app-card
           :key="product.id"
           :title="product.title"
-          :icon="icon"
+          :icon="product.icon"
           :tags="product.tags"
           :price="product.price"
           :tooltip="product.tooltip"
@@ -44,7 +44,7 @@
           >
             <div class="my-4 flex justify-between">
               <div>サポートサイト</div>
-              <div class="text-ellipsis">
+              <div style="white-space: pre-wrap;">
                 <a href="https://yuukit.me/">
                   https://yuukit.me/
                 </a>
@@ -52,7 +52,7 @@
             </div>
             <div class="my-4 flex justify-between">
               <div>プライバシーポリシー</div>
-              <div class="text-ellipsis">
+              <div style="white-space: pre-wrap;">
                 <a href="https://nekohack-privacy-policy.netlify.app/">
                   https://nekohack-privacy-policy.netlify.app/
                 </a>
@@ -172,7 +172,6 @@ export default defineComponent({
 
     return {
       products: products,
-      icon: require('../../static/bakeneko.png'),
       state,
       userStatus,
       report() {
@@ -203,12 +202,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.text-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 120px;
-}
-</style>
