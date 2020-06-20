@@ -43,27 +43,15 @@
             class="p-4 h-64 justify-between rounded-lg shadow-card border-gray-200"
           >
             <div class="my-4 flex justify-between">
-              <div>サポートサイト</div>
-              <div>
-                <a href="https://yuukit.me/">
-                  https://yuukit.me/
-                </a>
-              </div>
-            </div>
-            <div class="my-4 flex justify-between">
-              <div>プライバシーポリシー</div>
-              <div>
-                <a href="https://nekohack-privacy-policy.netlify.app/">
-                  https://nekohack-privacy-policy.netlify.app/
-                </a>
-              </div>
-            </div>
-            <div class="my-4 flex justify-between">
               <div>開発元</div>
               <div>nekohack</div>
             </div>
             <div class="my-4 flex justify-between">
               <div>公開日</div>
+              <div>2018/05/04</div>
+            </div>
+            <div class="my-4 flex justify-between">
+              <div>改訂日</div>
               <div>2020/04/02</div>
             </div>
           </div>
