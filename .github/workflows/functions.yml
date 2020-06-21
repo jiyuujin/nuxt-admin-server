@@ -28,6 +28,7 @@ jobs:
       - name: Deploy
         run: |
           cd functions
+          npm install -g firebase-tools
           npm install
           npm run deploy
         env:
