@@ -30,6 +30,7 @@ jobs:
           cd functions
           npm install -g firebase-tools
           npm install
-          npm run deploy
+          firebase deploy --token $FIREBASE_TOKEN
         env:
           CI: true
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
