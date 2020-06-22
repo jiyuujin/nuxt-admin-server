@@ -7,9 +7,8 @@ import * as rp from 'request-promise'
  * @param message
  */
 export const sendToSlack = (message): boolean => {
-  // TODO: Argument of type '"hours"' is not assignable to parameter of type 'OpUnitType'
   const timeText: string =
-    '(' + dayjs().add(9, 'hours').format('MM/DD hh:mm' as any) + ')'
+    '(' + dayjs().add(9, 'hour').format('MM/DD hh:mm') + ')'
 
   // request-promiseを使うために前提としてrequestをインストールする必要がある
   rp.post({
