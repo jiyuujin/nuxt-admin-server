@@ -8,7 +8,7 @@ import * as rp from 'request-promise'
  */
 export const sendToSlack = (message): boolean => {
   const timeText: string =
-    '(' + dayjs().add(9, 'hours').format('MM/DD hh:mm') + ')'
+    '(' + dayjs().add(9, 'hour').format('MM/DD hh:mm') + ')'
 
   // request-promiseを使うために前提としてrequestをインストールする必要がある
   rp.post({

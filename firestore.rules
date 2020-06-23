@@ -1,0 +1,79 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function validateText(text, min, max) {
+      return text is string &&
+        text.size() <= max &&
+        text.size() >= min
+    }
+
+    function validateEmail(text) {
+      return text is string &&
+        text.matches('.*@gmail[.]com');
+    }
+
+    function incomingData() {
+      return request.resource.data;
+    }
+
+    function isAdmin() {
+      return exists(/databases/$(database)/documents/admin/$(request.auth.uid))
+    }
+
+    // contacts
+    match /contacts/{document=**} {
+      allow read,update,delete: if isAuthenticated();
+      // 誰でも問い合わせ可
+      allow create: if !isAuthenticated() &&
+        validateText(incomingData().title, 1, 200);
+    }
+
+    // events
+    match /events/{document=**} {
+      allow read: if !isAuthenticated() || isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    // flights
+    match /flights/{document=**} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // hosts
+    match /hosts/{document=**} {
+      allow read: if !isAuthenticated() || isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    // photos
+    match /photos/{document=**} {
+      // 誰でも閲覧可
+      allow read: if !isAuthenticated() || isAdmin();
+      allow create,update,delete: if isAuthenticated();
+    }
+
+    // surveys (NOT USED)
+    match /surveys/{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if !isAuthenticated();
+    }
+
+    // tips
+    match /tips/{document=**} {
+      allow read, write: if isAuthenticated() || !isAuthenticated();
+    }
+
+    // tweets (NOT USED)
+    match /tweets/{document=**} {
+      allow read, write: if !isAuthenticated();
+    }
+
+    // videos (NOT USED)
+    match /videos/{document=**} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}

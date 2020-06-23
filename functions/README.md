@@ -7,6 +7,14 @@ npm install -g firebase-tools
 firebase login
 ```
 
+## First only
+
+Initialize as the firebase project
+
+```bash
+firebase init
+```
+
 ## Commands
 
 Use Node.js 8 runtime

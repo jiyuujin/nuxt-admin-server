@@ -1,12 +1,14 @@
 {
-  "name": "function",
+  "name": "functions",
   "description": "Firebase project",
   "author": "yuukit <yuma.kitamura@ponos.co.jp>",
   "private": true,
   "main": "lib/index.js",
   "scripts": {
-    "serve": "firebase serve --only functions",
-    "shell": "firebase functions:shell",
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -22,9 +24,10 @@
     "request-promise": "4.2.5"
   },
   "devDependencies": {
-    "typescript": "3.9.5"
+    "typescript": "3.9.5",
+    "firebase-functions-test": "^0.2.0"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   }
 }
