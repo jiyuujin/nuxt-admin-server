@@ -48,7 +48,7 @@
     "@nuxt/types": "2.13.1",
     "@nuxt/typescript-build": "1.0.3",
     "@nuxt/typescript-runtime": "0.4.10",
-    "@testing-library/jest-dom": "5.10.1",
+    "@testing-library/jest-dom": "5.11.0",
     "@testing-library/vue": "4.2.0",
     "@types/chart.js": "2.9.22",
     "@types/jest": "26.0.3",
