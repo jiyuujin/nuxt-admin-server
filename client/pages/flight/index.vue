@@ -1,32 +1,24 @@
 <template>
   <main-template :user-status="userStatus">
-    <j-modal
-      title="Flightを追加"
-      :handle-cancel-click-callback="cancel"
-      :handle-submit-click-callback="submit"
-    >
-      <div style="width: 100%; text-align: left;">
-        <j-form title="搭乗時間">
-          <v-range-picker
-            ref="single-picker"
-            :single-date-picker="datePicker.singleDatePicker"
-            :show-dropdown="datePicker.showDropdown"
-            :auto-apply="datePicker.autoApply"
-            :linked-calendars="datePicker.linkedCalendars"
-            :date-range="dateRange"
-            :ranges="null"
-            opens="right"
-            :date-format="dateFormat"
-            transition-type="slide-fade"
-            @update="updateValues"
-            @toggle="checkOpen"
-          >
-            <div slot="input" slot-scope="picker" style="min-width: 350px;">
-              {{ picker.startDate }}
-            </div>
-          </v-range-picker>
-        </j-form>
-        <j-form title="出発／到着">
+    <div style="width: 100%; text-align: left;">
+      <j-form title="搭乗時間">
+        <v-single-picker
+          ref="single-picker"
+          :show-dropdown="datePicker.showDropdown"
+          :auto-apply="datePicker.autoApply"
+          :linked-calendars="datePicker.linkedCalendars"
+          :date="datePicker.requestDate"
+          opens="right"
+          @update="updateValues"
+          @toggle="checkOpen"
+        >
+          <div slot="input" slot-scope="picker" style="min-width: 350px;">
+            {{ picker }}
+          </div>
+        </v-single-picker>
+      </j-form>
+      <j-form title="出発／到着">
+        <div class="flex">
           <j-select
             :options="airportOptions"
             :values="state.form.departure"
@@ -37,27 +29,33 @@
             :values="state.form.arrival"
             @handleSelect="applyArrival"
           />
-        </j-form>
-        <j-form title="航空会社">
-          <j-select
-            :options="airlineOptions"
-            :values="state.form.airline"
-            @handleSelect="applyAirline"
-          />
-        </j-form>
-        <j-form title="搭乗機材／レジ">
-          <j-select
-            :options="boardingTypeOptions"
-            :values="state.form.boardingType"
-            @handleSelect="applyBoardingType"
-          />
-          <j-input
-            :text="state.form.registration"
-            @handleInput="applyRegistration"
-          />
-        </j-form>
-      </div>
-    </j-modal>
+        </div>
+      </j-form>
+      <j-form title="航空会社">
+        <j-select
+          :options="airlineOptions"
+          :values="state.form.airline"
+          @handleSelect="applyAirline"
+        />
+      </j-form>
+      <j-form title="搭乗機材">
+        <j-select
+          :options="boardingTypeOptions"
+          :values="state.form.boardingType"
+          @handleSelect="applyBoardingType"
+        />
+      </j-form>
+      <j-form title="レジ">
+        <j-input
+          :text="state.form.registration"
+          @handleInput="applyRegistration"
+        />
+      </j-form>
+    </div>
+
+    <j-form title="">
+      <j-button text="Flightを追加" @handleClick="postFlight" />
+    </j-form>
 
     <template v-if="state.flights">
       <bar
@@ -101,7 +99,6 @@ import {
 } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { fetchFlights, addFlight } from '~/services/flightService'
-import { DateRange } from '~/types/utils'
 import { ItemDataList } from '~/types/database'
 import {
   AIRLINE_LIST,
@@ -125,13 +122,10 @@ export default defineComponent({
   },
   setup(props: {}, ctx: SetupContext) {
     const datePicker = reactive({
-      singleDatePicker: true as boolean,
       showDropdown: true as boolean,
       autoApply: false as boolean,
       linkedCalendars: true as boolean,
-      requestDate: {
-        startDate: dayjs().format('YYYY/MM/DD')
-      } as DateRange
+      requestDate: dayjs().format('YYYY/MM/DD') as string
     })
 
     const state = reactive({
@@ -148,7 +142,6 @@ export default defineComponent({
     })
 
     const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-    const dateRange = computed(() => datePicker.requestDate)
     const flightItems = computed(() => state.flights.item)
 
     onMounted(async () => {
@@ -163,20 +156,16 @@ export default defineComponent({
       boardingTypeOptions: BOARDING_TYPE_LIST,
       chartOptions: CHART_OPTIONS,
       userStatus,
-      dateRange,
       flightItems,
       applyPage(value) {
         state.activePage = value
       },
-      updateValues(value: DateRange): void {
+      updateValues(value: string): void {
         datePicker.requestDate = value
-        state.form.time = dayjs(value.startDate).format()
+        state.form.time = dayjs(value).format()
       },
       checkOpen(open: any): void {
         // console.log('event: ' + open)
-      },
-      dateFormat(classes: any, date: Date) {
-        return classes
       },
       applyDeparture(value) {
         state.form.departure = value
@@ -217,7 +206,7 @@ export default defineComponent({
       cancel() {
         // this.reset()
       },
-      async submit() {
+      async postFlight() {
         await addFlight(state.form)
         // this.reset()
       }

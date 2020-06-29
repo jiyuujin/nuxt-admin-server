@@ -1,3 +1,17 @@
 a {
   color: #c71582;
 }
+
+@media (prefers-color-scheme: dark) {
+  .drp-buttons {
+    input {
+      color: #000;
+    }
+  }
+
+  .calendar-table {
+    tr, td {
+      color: #000;
+    }
+  }
+}
