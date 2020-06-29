@@ -28,7 +28,7 @@
     "core-js": "2.6.11",
     "dayjs": "1.8.28",
     "firebase": "7.15.5",
-    "graphql": "15.1.0",
+    "graphql": "15.2.0",
     "graphql-tag": "2.10.3",
     "node-fetch": "2.6.0",
     "nuxt": "2.13.2",
