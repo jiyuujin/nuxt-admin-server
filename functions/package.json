@@ -24,7 +24,7 @@
     "request-promise": "4.2.5"
   },
   "devDependencies": {
-    "typescript": "3.9.5",
+    "typescript": "3.9.6",
     "firebase-functions-test": "0.2.1"
   },
   "engines": {
