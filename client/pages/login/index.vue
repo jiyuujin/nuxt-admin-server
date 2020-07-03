@@ -19,20 +19,25 @@
         </template>
       </div>
 
-      <template v-for="product in products">
-        <j-app-card
-          :key="product.id"
-          :title="product.title"
-          :icon="product.icon"
-          :tags="product.tags"
-          :price="product.price"
-          :tooltip="product.tooltip"
-          :handle-submit-click-callback="() => linkToUrl(product.url)"
-          :promotion="product.promotion"
-          :rate="product.rate"
-          :description="product.description"
-        />
-      </template>
+      <div class="mx-12 font-bold">
+        アプリ一覧
+      </div>
+      <div>
+        <template v-for="product in products">
+          <app-card
+            :key="product.id"
+            :title="product.title"
+            :icon="product.icon"
+            :tags="product.tags"
+            :price="product.price"
+            :tooltip="product.tooltip"
+            :handle-submit-click-callback="() => linkToUrl(product.url)"
+            :promotion="product.promotion"
+            :rate="product.rate"
+            :description="product.description"
+          />
+        </template>
+      </div>
 
       <div class="flex flex-wrap justify-around pb-4 mx-12">
         <div class="flex-1">
@@ -106,13 +111,15 @@ const GITHUB_USER: string = 'jiyuujin'
 const GITHUB_REPO_NAME: string = 'admin'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
+const AppCard = () => import('~/components/Card/App.vue')
 
 import { client } from '~/services/githubService'
 import { products } from '~/utils/product'
 
 export default defineComponent({
   components: {
-    MainTemplate
+    MainTemplate,
+    AppCard
   },
   async asyncData({ app }) {
     let data = null
