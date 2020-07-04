@@ -5,14 +5,22 @@
         最新のお知らせ
       </div>
       <div class="p-4 mx-12 rounded-lg shadow-card border-gray-200">
-        <template v-for="issue in notifications.repository.issues.nodes">
-          <div :key="issue.id" class="flex justify-between">
-            <div>
+        <template v-for="issue in issues">
+          <div
+            :key="issue.id"
+            :class="
+              $device.isDesktop
+                ? 'flex justify-between items-center align-middle'
+                : 'flex flex-col'
+            "
+          >
+            <div :class="$device.isDesktop ? 'mb-2' : ''">
+              <div>{{ issue.repositoryName }}</div>
               <a :href="issue.url" target="_blank" rel="noopener">
                 {{ issue.title }}
               </a>
             </div>
-            <div>
+            <div class="mb-2">
               {{ issue.updatedAt }}
             </div>
           </div>
@@ -107,8 +115,8 @@ import {
 } from '@vue/composition-api'
 import gql from 'graphql-tag'
 
-const GITHUB_USER: string = 'jiyuujin'
-const GITHUB_REPO_NAME: string = 'admin'
+// const GITHUB_USER: string = 'jiyuujin'
+// const GITHUB_REPO_NAME: string = 'admin'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const AppCard = () => import('~/components/Card/App.vue')
@@ -122,38 +130,61 @@ export default defineComponent({
     AppCard
   },
   async asyncData({ app }) {
-    let data = null
+    let issues: Array<{
+      repositoryName: string
+      title: string
+      url: string
+      createdAt: string
+      updatedAt: string
+    }> = []
 
     await client
       .query({
-        query: gql`{
-        repository(owner: "${GITHUB_USER}", name: "${GITHUB_REPO_NAME}") {
-          id,
-          name,
-          description,
-          issues(first: 4, orderBy: {field: UPDATED_AT, direction: DESC}, states: OPEN) {
-            totalCount,
-            nodes {
-              title,
-              body,
-              url,
-              createdAt,
-              updatedAt
-            }
-          },
-          labels(first: 10) {
-            nodes {
-              name,
-              id
+        query: gql`
+          {
+            viewer {
+              login
+              repositories(last: 40) {
+                edges {
+                  node {
+                    id
+                    url
+                    name
+                    issues(last: 10, filterBy: { states: OPEN }) {
+                      nodes {
+                        title
+                        url
+                        createdAt
+                        updatedAt
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-        }
-      }`
+        `
       })
-      .then((res) => (data = res.data))
+      .then((res) =>
+        res.data.viewer.repositories.edges.map((e: any) => {
+          e.node.issues.nodes.map((n: any) => {
+            issues.push({
+              repositoryName: e.node.name,
+              title: n.title,
+              url: n.url,
+              createdAt: n.createdAt,
+              updatedAt: n.updatedAt
+            })
+          })
+        })
+      )
 
     return {
-      notifications: data
+      issues: issues.sort((a, b) => {
+        if (a.updatedAt < b.updatedAt) return 1
+        if (a.updatedAt > b.updatedAt) return -1
+        return 0
+      })
     }
   },
   setup(props: {}, ctx: SetupContext) {

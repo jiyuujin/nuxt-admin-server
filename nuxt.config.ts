@@ -86,7 +86,8 @@ export default {
     // '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    '@nuxtjs/device'
   ],
 
   apollo: {
