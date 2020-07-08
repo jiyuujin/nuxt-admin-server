@@ -14,7 +14,7 @@
     "test:unit": "jest"
   },
   "dependencies": {
-    "@nekohack/j-stylebook": "0.5.2",
+    "@nekohack/j-stylebook": "0.6.0",
     "@nuxtjs/apollo": "4.0.1-rc.1",
     "@nuxtjs/axios": "5.11.0",
     "@nuxtjs/device": "1.2.7",
