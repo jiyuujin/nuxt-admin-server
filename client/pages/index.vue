@@ -13,14 +13,10 @@
       </template>
     </div>
 
-    <pagination
+    <j-pagination
+      :items="state.contacts.item !== undefined ? state.contacts.item : []"
       :page="state.activePage"
-      :max="
-        state.contacts.item !== undefined
-          ? Math.ceil(state.contacts.item.length / 20)
-          : 1
-      "
-      @form-data="applyPage"
+      @handlePage="applyPage"
     />
   </main-template>
 </template>
@@ -37,13 +33,11 @@ import { fetchContacts } from '~/services/contactService'
 import { getTimeFormat } from '~/utils/date'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
-const Pagination = () => import('~/components/Pagination.vue')
 
 export default defineComponent({
   middleware: 'auth',
   components: {
-    MainTemplate,
-    Pagination
+    MainTemplate
   },
   setup(props: {}, ctx: SetupContext) {
     const state = reactive({

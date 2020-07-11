@@ -47,14 +47,10 @@
           </j-form>
         </template>
       </div>
-      <pagination
-        :page="state.activePage"
-        :max="
-          state.tips.item !== undefined
-            ? Math.ceil(state.tips.item.length / 20)
-            : 1
-        "
-        @form-data="applyPage"
+      <j-pagination
+        :items="state.tips.item !== undefined ? state.tips.item : []"
+        :current-page="state.activePage"
+        @handlePage="applyPage"
       />
     </template>
   </main-template>
@@ -76,7 +72,6 @@ import { getTimeFormat } from '~/utils/date'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const PhotoUpload = () => import('~/components/PhotoUpload.vue')
-const Pagination = () => import('~/components/Pagination.vue')
 const TagModal = () => import('~/components/TagModal/Index.vue')
 
 export default defineComponent({
@@ -84,7 +79,6 @@ export default defineComponent({
   components: {
     MainTemplate,
     PhotoUpload,
-    Pagination,
     TagModal
   },
   setup(props: {}, ctx: SetupContext) {
