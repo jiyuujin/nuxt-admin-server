@@ -6,6 +6,12 @@
       @handleClick="displayModal"
     />
 
+    <div>
+      <template v-for="tag in state.tags">
+        <j-label :key="tag" :text="tagText(tag)" />
+      </template>
+    </div>
+
     <div v-if="state.showModal === true">
       <div class="modal-mask" @click.self="modalClose">
         <div :style="state.modalWrapperStyle">
