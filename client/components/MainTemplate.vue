@@ -6,7 +6,7 @@
           {{ menu.url }}
         </nuxt-link>
       </div>
-      <j-button text="ログアウト" fill="text" @handleClick="logout" />
+      <j-button text="ログアウト" @handleClick="logout" />
     </div>
     <slot />
   </div>

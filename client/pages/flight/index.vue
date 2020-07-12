@@ -58,12 +58,14 @@
     </j-form>
 
     <template v-if="state.flights">
+      <!--
       <bar
         chart-id="flight-bar-chart"
-        :chart-data="flightItems"
+        :chart-data="state.flights.item !== undefined ? state.flights.item : []"
         :options="chartOptions"
         :height="240"
       />
+      -->
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
           <j-form :title="timeFormat(item.data.time)">
@@ -76,14 +78,10 @@
           </j-form>
         </template>
       </div>
-      <pagination
-        :page="state.page"
-        :max="
-          state.flights.item !== undefined
-            ? Math.ceil(state.flights.item.length / 20)
-            : 1
-        "
-        @form-data="applyPage"
+      <j-pagination
+        :items="state.flights.item !== undefined ? state.flights.item : []"
+        :current-page="state.activePage"
+        @handlePage="applyPage"
       />
     </template>
   </main-template>
@@ -112,13 +110,11 @@ import { getTimeFormat } from '~/utils/date'
 import { CHART_OPTIONS } from '~/utils/flight'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
-const Pagination = () => import('~/components/Pagination.vue')
 
 export default defineComponent({
   middleware: 'auth',
   components: {
-    MainTemplate,
-    Pagination
+    MainTemplate
   },
   setup(props: {}, ctx: SetupContext) {
     const datePicker = reactive({
@@ -142,7 +138,6 @@ export default defineComponent({
     })
 
     const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-    const flightItems = computed(() => state.flights.item)
 
     onMounted(async () => {
       state.flights = await fetchFlights()
@@ -156,7 +151,6 @@ export default defineComponent({
       boardingTypeOptions: BOARDING_TYPE_LIST,
       chartOptions: CHART_OPTIONS,
       userStatus,
-      flightItems,
       applyPage(value) {
         state.activePage = value
       },

@@ -100,7 +100,7 @@
       </div>
 
       <div class="flex justify-end mx-12">
-        <j-button text="問題を報告" variant="danger" @handleClick="report" />
+        <j-button text="問題を報告" @handleClick="report" />
       </div>
     </div>
   </main-template>

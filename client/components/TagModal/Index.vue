@@ -3,9 +3,14 @@
     <j-button
       ref="categoryModalButton"
       text="カテゴリーを選択"
-      fill="text"
       @handleClick="displayModal"
     />
+
+    <div>
+      <template v-for="tag in state.tags">
+        <j-label :key="tag" :text="tagText(tag)" />
+      </template>
+    </div>
 
     <div v-if="state.showModal === true">
       <div class="modal-mask" @click.self="modalClose">
@@ -66,11 +71,7 @@
                       {{ state.tags.length }}
                     </span>
                   </div>
-                  <j-button
-                    text="全て削除"
-                    fill="text"
-                    @handleClick="deselectTagAll"
-                  />
+                  <j-button text="全て削除" @handleClick="deselectTagAll" />
                 </div>
                 <div class="list">
                   <template v-if="state.tags.length === 0">
@@ -94,11 +95,10 @@
             <div class="footer">
               <j-button
                 text="キャンセル"
-                fill="text"
                 style="margin-right: 0.8rem;"
                 @handleClick="cancel"
               />
-              <j-button text="確定" @handleClick="submit" />
+              <j-button text="確定" fill @handleClick="submit" />
             </div>
           </div>
         </div>
