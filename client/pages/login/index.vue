@@ -108,16 +108,12 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
-import gql from 'graphql-tag'
 import UserComposable from '~/composables/user'
-
-// const GITHUB_USER: string = 'jiyuujin'
-// const GITHUB_REPO_NAME: string = 'admin'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const AppCard = () => import('~/components/Card/App.vue')
 
-import { client } from '~/services/githubService'
+import { fetchRepositories } from '~/services/githubService'
 import { products } from '~/utils/product'
 
 export default defineComponent({
@@ -125,62 +121,9 @@ export default defineComponent({
     MainTemplate,
     AppCard
   },
-  async asyncData({ app }) {
-    let issues: Array<{
-      repositoryName: string
-      title: string
-      url: string
-      createdAt: string
-      updatedAt: string
-    }> = []
-
-    await client
-      .query({
-        query: gql`
-          {
-            viewer {
-              login
-              repositories(last: 40) {
-                edges {
-                  node {
-                    id
-                    url
-                    name
-                    issues(last: 10, filterBy: { states: OPEN }) {
-                      nodes {
-                        title
-                        url
-                        createdAt
-                        updatedAt
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        `
-      })
-      .then((res) =>
-        res.data.viewer.repositories.edges.map((e: any) => {
-          e.node.issues.nodes.map((n: any) => {
-            issues.push({
-              repositoryName: e.node.name,
-              title: n.title,
-              url: n.url,
-              createdAt: n.createdAt,
-              updatedAt: n.updatedAt
-            })
-          })
-        })
-      )
-
+  async asyncData() {
     return {
-      issues: issues.sort((a, b) => {
-        if (a.updatedAt < b.updatedAt) return 1
-        if (a.updatedAt > b.updatedAt) return -1
-        return 0
-      })
+      issues: await fetchRepositories()
     }
   },
   setup(props: {}, ctx: SetupContext) {

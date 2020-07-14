@@ -1,27 +1,59 @@
-const { ApolloClient } = require('apollo-client')
-const { HttpLink } = require('apollo-link-http')
-const { ApolloLink, concat } = require('apollo-link')
-const { InMemoryCache } = require('apollo-cache-inmemory')
-const fetch = require('node-fetch')
+import gql from 'graphql-tag'
 
-const GITHUB_API_V4: string = 'https://api.github.com/graphql'
+import { client } from '../plugins/apollo'
 
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: `bearer ${process.env.NUXT_APP_GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v4.idl'
-    }
+export const fetchRepositories = async () => {
+  let issues: Array<{
+    repositoryName: string
+    title: string
+    url: string
+    createdAt: string
+    updatedAt: string
+  }> = []
+
+  await client.query({
+    query: gql`
+      {
+        viewer {
+          login
+          repositories(last: 40) {
+            edges {
+              node {
+                id
+                url
+                name
+                issues(last: 10, filterBy: { states: OPEN }) {
+                  nodes {
+                    title
+                    url
+                    createdAt
+                    updatedAt
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `
   })
-  return forward(operation)
-})
+  .then((res) =>
+    res.data.viewer.repositories.edges.map((e: any) => {
+      e.node.issues.nodes.map((n: any) => {
+        issues.push({
+          repositoryName: e.node.name,
+          title: n.title,
+          url: n.url,
+          createdAt: n.createdAt,
+          updatedAt: n.updatedAt
+        })
+      })
+    })
+  )
 
-const httpLink = new HttpLink({
-  uri: GITHUB_API_V4,
-  fetch
-})
-
-export const client = new ApolloClient({
-  link: concat(authMiddleware, httpLink),
-  cache: new InMemoryCache()
-})
+  return issues.sort((a, b) => {
+    if (a.updatedAt < b.updatedAt) return 1
+    if (a.updatedAt > b.updatedAt) return -1
+    return 0
+  })
+}
