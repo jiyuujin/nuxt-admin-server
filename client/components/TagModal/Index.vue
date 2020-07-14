@@ -127,7 +127,7 @@ export default defineComponent({
   props: {
     items: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     }

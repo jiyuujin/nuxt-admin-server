@@ -57,18 +57,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  SetupContext,
-  reactive,
-  computed,
-  onMounted
-} from '@vue/composition-api'
-import { fetchTips, addTip } from '~/services/tipService'
-import { fetchEvents } from '~/services/eventService'
-import { ItemDataList } from '~/types/database'
-import { CATEGORIES } from '~/utils/tip'
-import { getTimeFormat } from '~/utils/date'
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import UserComposable from '~/composables/user'
+import TipComposable from '~/composables/tip'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const PhotoUpload = () => import('~/components/PhotoUpload.vue')
@@ -82,92 +73,9 @@ export default defineComponent({
     TagModal
   },
   setup(props: {}, ctx: SetupContext) {
-    const state = reactive({
-      activePage: 1 as number,
-      tips: {} as ItemDataList,
-      events: {} as ItemDataList,
-      form: {
-        title: '' as string,
-        url: '' as string,
-        description: '' as string,
-        tags: [] as number[],
-        event: 0 as number
-      }
-    })
-
-    const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-    const eventOptions = computed(() => {
-      let array: object[] = []
-      if (state.events.item !== undefined) {
-        state.events.item.forEach((item) => {
-          array.push({
-            value: item.data.id,
-            text: item.data.name
-          })
-        })
-      }
-      return array
-    })
-
-    onMounted(async () => {
-      Promise.all([
-        (state.events = await fetchEvents()),
-        (state.tips = await fetchTips())
-      ])
-    })
-
-    return {
-      state,
-      userStatus,
-      eventOptions,
-      applyPage(value: number) {
-        state.activePage = value
-      },
-      applyTitle(value: string) {
-        state.form.title = value
-      },
-      applyUrl(value: string) {
-        state.form.url = value
-      },
-      applyDescription(value: string) {
-        state.form.description = value
-      },
-      applyEvent(value: number) {
-        state.form.event = value
-      },
-      timeFormat(t) {
-        return getTimeFormat(t)
-      },
-      titleText(item: any) {
-        return item.data.title
-      },
-      tagText(tagId: number) {
-        let result: string = ''
-        CATEGORIES.map((category) => {
-          if (category.value === tagId) {
-            result = category.text
-          }
-        })
-        return result
-      },
-      reset() {
-        state.form.title = ''
-        state.form.url = ''
-        state.form.description = ''
-        state.form.tags = [0]
-        state.form.event = 0
-      },
-      cancel() {
-        // reset()
-      },
-      async postTip() {
-        await addTip(state.form)
-        // reset()
-      },
-      applyTags(values: number[]) {
-        state.form.tags = [...values]
-      }
-    }
+    const userModule = UserComposable(props, ctx)
+    const tipModule = TipComposable(props, ctx)
+    return { ...userModule, ...tipModule }
   }
 })
 </script>

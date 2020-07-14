@@ -13,27 +13,21 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import UserComposable from '~/composables/user'
+
 import { MENU_LIST } from '~/utils/layout'
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     userStatus: {
       type: Boolean
     }
   },
-  data() {
-    return {
-      menus: MENU_LIST
-    }
-  },
-  methods: {
-    async logout() {
-      await this.$store.dispatch('product/signOut')
-      if (!this.$store.state.product.userStatus) {
-        this.$router.push('/login')
-      }
-    }
+  setup(props, ctx: SetupContext) {
+    const menus = MENU_LIST
+    const userModule = UserComposable(props, ctx)
+    return { menus, ...userModule }
   }
 })
 </script>

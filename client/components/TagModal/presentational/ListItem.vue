@@ -14,115 +14,66 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import { defineComponent, SetupContext, computed } from '@vue/composition-api'
 
-export default Vue.extend({
+type ListItemProps = {
+  itemId: number
+  itemName: string
+  isSelected: boolean
+  handleClickCallback: Function
+  isSelectedItems: boolean
+}
+
+export default defineComponent({
   props: {
     itemId: {
-      type: Number as PropType<number>,
+      type: Number,
       required: true
     },
     itemName: {
-      type: String as PropType<string>,
+      type: String,
       required: true
     },
     isSelected: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean,
       required: true
     },
     handleClickCallback: {
-      type: Function as PropType<Function>,
+      type: Function,
       required: true
     },
     isSelectedItems: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean,
       default: false
     }
   },
-  computed: {
-    getSelectedClass() {
-      return this.isSelected ? 'is-selected' : ''
-    },
+  setup(props: ListItemProps, ctx: SetupContext) {
+    const getSelectedClass = computed(() => {
+      return props.isSelected ? 'is-selected' : ''
+    })
 
-    getSelectedItemsClass() {
-      return this.isSelectedItems ? 'is-selected-items' : ''
-    },
+    const getSelectedItemsClass = computed(() => {
+      return props.isSelectedItems ? 'is-selected-items' : ''
+    })
 
-    getIconStyle() {
-      return this.isSelected ? 'times' : 'plus'
+    const getIconStyle = computed(() => {
+      return props.isSelected ? 'times' : 'plus'
+    })
+
+    const handleClick = () => {
+      props.handleClickCallback(props.itemId)
     }
-  },
-  methods: {
-    handleClick() {
-      ;(this as any).handleClickCallback((this as any).itemId)
+
+    return {
+      getSelectedClass,
+      getSelectedItemsClass,
+      getIconStyle,
+      handleClick
     }
   }
 })
 </script>
 
-<style lang="sass" scoped>
-.item-list-item
-    display: flex
-    justify-content: space-between
-    align-items: stretch
-    transition: all 0.15s linear
-    .item-name
-        padding: 0.65rem
-        padding-left: 3rem
-        width: 100%
-        color: #000
-        text-align: left
-        cursor: pointer
-        .warehouse
-            color: #fff
-            background-color: #00aaac
-            padding: 4px 4px
-            display: inline-block
-            line-height: 100%
-            cursor: default
-            font-size: 11px
-            border-radius: 4px
-            margin-right: 4px
-        .ec
-            color: #fff
-            background-color: #ffb900
-            padding: 4px 4px
-            display: inline-block
-            line-height: 100%
-            cursor: default
-            font-size: 11px
-            border-radius: 4px
-            margin-right: 4px
-        .pause
-            color: #fff
-            background-color: #bbb
-            padding: 4px 4px
-            display: inline-block
-            line-height: 100%
-            cursor: default
-            font-size: 11px
-            border-radius: 4px
-    .add-tag
-        width: 47px
-        display: flex
-        justify-content: center
-        align-items: center
-        color: #0084cf
-        cursor: pointer
-
-    &:hover
-        background-color: #f7f7f7
-
-    &.is-selected
-        .item-name
-            opacity: 0.5
-        .add-tag
-            color: #bc0000
-
-    &.is-selected-items
-        .item-name
-            padding-left: 0.65rem
-        &.is-selected
-            .item-name
-                opacity: 1
+<style lang="scss" scoped>
+@import './list-item';
 </style>

@@ -22,15 +22,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  SetupContext,
-  onMounted,
-  reactive,
-  computed
-} from '@vue/composition-api'
-import { fetchContacts } from '~/services/contactService'
-import { getTimeFormat } from '~/utils/date'
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import UserComposable from '~/composables/user'
+import ContactComposable from '~/composables/contact'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 
@@ -40,30 +34,9 @@ export default defineComponent({
     MainTemplate
   },
   setup(props: {}, ctx: SetupContext) {
-    const state = reactive({
-      activePage: 1,
-      contacts: {}
-    })
-
-    const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-
-    onMounted(async () => {
-      state.contacts = await fetchContacts()
-    })
-
-    return {
-      state,
-      userStatus,
-      titleText(item: any) {
-        return `${item.data.category.text} / ${item.data.title}`
-      },
-      applyPage(value: number) {
-        state.activePage = value
-      },
-      timeFormat(t) {
-        return getTimeFormat(t)
-      }
-    }
+    const userModule = UserComposable(props, ctx)
+    const contactModule = ContactComposable(props, ctx)
+    return { ...userModule, ...contactModule }
   }
 })
 </script>

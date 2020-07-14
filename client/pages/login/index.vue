@@ -107,13 +107,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  SetupContext,
-  reactive,
-  computed
-} from '@vue/composition-api'
+import { defineComponent, SetupContext } from '@vue/composition-api'
 import gql from 'graphql-tag'
+import UserComposable from '~/composables/user'
 
 // const GITHUB_USER: string = 'jiyuujin'
 // const GITHUB_REPO_NAME: string = 'admin'
@@ -188,40 +184,16 @@ export default defineComponent({
     }
   },
   setup(props: {}, ctx: SetupContext) {
-    const state = reactive({
-      email: '',
-      password: '',
-      isForm: true
-    })
-
-    const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-
+    const userModule = UserComposable(props, ctx)
     return {
+      ...userModule,
       products: products,
-      state,
-      userStatus,
       report() {
         location.href = 'https://webneko.dev/contact'
-      },
-      applyEmail(value) {
-        state.email = value
-      },
-      applyPassword(value) {
-        state.password = value
       },
       linkToUrl(url: string) {
         if (url) {
           // location.href = url
-        }
-      },
-      async login() {
-        await ctx.root.$store.dispatch('product/signIn', {
-          email: state.email,
-          password: state.password
-        })
-
-        if (ctx.root.$store.state.product.userStatus) {
-          await ctx.root.$router.push('/')
         }
       }
     }

@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from '@vue/composition-api'
 import CookieLaw from 'vue-cookie-law'
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     CookieLaw
   }
