@@ -19,12 +19,7 @@ import UserComposable from '~/composables/user'
 import { MENU_LIST } from '~/utils/layout'
 
 export default defineComponent({
-  props: {
-    userStatus: {
-      type: Boolean
-    }
-  },
-  setup(props, ctx: SetupContext) {
+  setup(props: {}, ctx: SetupContext) {
     const menus = MENU_LIST
     const userModule = UserComposable(props, ctx)
     return { menus, ...userModule }
