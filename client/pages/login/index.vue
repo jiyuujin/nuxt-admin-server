@@ -56,6 +56,10 @@
             class="p-4 h-64 justify-between rounded-lg shadow-card border-gray-200"
           >
             <div class="my-4 flex justify-between">
+              <div>モード</div>
+              <div>{{ mode }} mode</div>
+            </div>
+            <div class="my-4 flex justify-between">
               <div>開発元</div>
               <div>nekohack</div>
             </div>
@@ -109,6 +113,7 @@
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
 import UserComposable from '~/composables/user'
+import { useLayout } from '~/composables/layout'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const AppCard = () => import('~/components/Card/App.vue')
@@ -128,8 +133,10 @@ export default defineComponent({
   },
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
+    const { mode } = useLayout()
     return {
       ...userModule,
+      mode,
       products: products,
       report() {
         location.href = 'https://webneko.dev/contact'
