@@ -1,7 +1,7 @@
 <template>
   <main-template :user-status="userStatus">
     <div style="width: 100%; text-align: left;">
-      <j-form title="搭乗時間">
+      <div style="padding: 8px 0;">
         <v-single-picker
           ref="single-picker"
           :show-dropdown="datePicker.showDropdown"
@@ -16,46 +16,47 @@
             {{ picker }}
           </div>
         </v-single-picker>
-      </j-form>
-      <j-form title="出発／到着">
-        <div class="flex">
-          <j-select
-            :options="airportOptions"
-            :values="state.form.departure"
-            @handleSelect="applyDeparture"
-          />
-          <j-select
-            :options="airportOptions"
-            :values="state.form.arrival"
-            @handleSelect="applyArrival"
-          />
-        </div>
-      </j-form>
-      <j-form title="航空会社">
+      </div>
+      <div style="padding: 8px 0;">
+        <j-select
+          :options="airportOptions"
+          :values="state.form.departure"
+          @handleSelect="applyDeparture"
+        />
+      </div>
+      <div style="padding: 8px 0;">
+        <j-select
+          :options="airportOptions"
+          :values="state.form.arrival"
+          @handleSelect="applyArrival"
+        />
+      </div>
+      <div style="padding: 8px 0;">
         <j-select
           :options="airlineOptions"
           :values="state.form.airline"
           @handleSelect="applyAirline"
         />
-      </j-form>
-      <j-form title="搭乗機材">
+      </div>
+      <div style="padding: 8px 0;">
         <j-select
           :options="boardingTypeOptions"
           :values="state.form.boardingType"
           @handleSelect="applyBoardingType"
         />
-      </j-form>
-      <j-form title="レジ">
+      </div>
+      <div style="padding: 8px 0;">
         <j-input
           :text="state.form.registration"
+          placeholder="レジ"
           @handleInput="applyRegistration"
         />
-      </j-form>
+      </div>
     </div>
 
-    <j-form title="">
+    <div style="padding: 8px 0;">
       <j-button text="Flightを追加" @handleClick="postFlight" />
-    </j-form>
+    </div>
 
     <template v-if="state.flights">
       <!--
@@ -68,14 +69,15 @@
       -->
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
-          <j-form :title="timeFormat(item.data.time)">
-            <div class="font-bold">
-              {{ titleText(item) }}
-            </div>
-            <div class="text-gray-400 font-thin">
-              {{ descriptionText(item) }}
-            </div>
-          </j-form>
+          <div class="font-bold">
+            {{ timeFormat(item.data.time) }}
+          </div>
+          <div class="font-bold">
+            {{ titleText(item) }}
+          </div>
+          <div class="text-gray-600 font-thin">
+            {{ descriptionText(item) }}
+          </div>
         </template>
       </div>
       <j-pagination

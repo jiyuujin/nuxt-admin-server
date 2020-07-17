@@ -1,4 +1,6 @@
-import { ref, provide, inject } from '@vue/composition-api'
+import { ref, provide, inject, SetupContext } from '@vue/composition-api'
+
+import { MENU_LIST } from '~/utils/layout'
 
 export const key = Symbol()
 
@@ -38,4 +40,14 @@ export const provideLayout = () => {
 
 export const useLayout = (): any => {
   return inject(key)
+}
+
+export default (props: {}, ctx: SetupContext) => {
+  const menu = ref(0)
+  const selectMenu = (m: number) => {
+    menu.value = m
+    const name = MENU_LIST.find((ml: any) => ml.value === m)
+    ctx.root.$router.push(`/${name?.text}`)
+  }
+  return { menu, selectMenu }
 }

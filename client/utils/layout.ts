@@ -6,19 +6,22 @@ import { Menu } from '~/types/utils'
  */
 export const MENU_LIST: Menu[] = [
   {
-    title: 'top',
+    value: 0,
+    text: '',
     url: '/',
     src: '',
     flex: 3
   },
   {
-    title: 'tip',
+    value: 1,
+    text: 'tip',
     url: '/tip',
     src: 'nyanko.png',
     flex: 3
   },
   {
-    title: 'flight',
+    value: 2,
+    text: 'flight',
     url: '/flight',
     src: 'takeoff.png',
     flex: 3

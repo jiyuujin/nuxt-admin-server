@@ -1,14 +1,14 @@
 <template>
-  <j-form title="名前">
+  <div style="padding: 8px 0;">
     <input type="file" @change="onFileChange" />
-    <j-button text="Photoを追加" @handleClick="postPhoto" />
     <div v-if="state.content" style="margin-top: 12px;">
       アップロード結果:
       <div class="preview">
         <img :src="state.content" :alt="state.name" decoding="async" />
       </div>
     </div>
-  </j-form>
+    <j-button text="Photoを追加" @handleClick="postPhoto" />
+  </div>
 </template>
 
 <script lang="ts">

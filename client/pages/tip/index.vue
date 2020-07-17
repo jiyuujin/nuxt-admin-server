@@ -1,50 +1,58 @@
 <template>
   <main-template :user-status="userStatus">
     <div v-if="state.events">
-      <j-form title="タイトル">
-        <j-input :text="state.form.title" @handleInput="applyTitle" />
-      </j-form>
-      <j-form title="URL">
-        <j-input :text="state.form.url" @handleInput="applyUrl" />
-      </j-form>
-      <j-form title="詳細">
+      <div style="padding: 8px 0;">
+        <j-input
+          :text="state.form.title"
+          placeholder="タイトル"
+          @handleInput="applyTitle"
+        />
+      </div>
+      <div style="padding: 8px 0;">
+        <j-input
+          :text="state.form.url"
+          placeholder="URL"
+          @handleInput="applyUrl"
+        />
+      </div>
+      <div style="padding: 8px 0;">
         <j-input
           :text="state.form.description"
+          placeholder="詳細"
           @handleInput="applyDescription"
         />
-      </j-form>
-      <j-form title="カテゴリー">
+      </div>
+      <div style="padding: 8px 0;">
         <tag-modal :items="state.form.tags" @update="applyTags" />
-      </j-form>
-      <j-form title="イベント">
+      </div>
+      <div style="padding: 8px 0;">
         <j-select
           :options="eventOptions"
           :values="state.form.event"
           @handleSelect="applyEvent"
         />
-      </j-form>
+      </div>
+    </div>
+
+    <div style="padding: 8px 0;">
+      <j-button text="Tipを追加" @handleClick="postTip" />
     </div>
 
     <photo-upload />
 
-    <j-form title="">
-      <j-button text="Tipを追加" @handleClick="postTip" />
-    </j-form>
-
     <template v-if="state.tips">
       <div v-for="item in state.tips.item" :key="item.id">
         <template v-if="item.page === state.activePage">
-          <j-form :title="timeFormat(item.data.time)">
-            <a :href="item.data.url" target="_blank" rel="noopener">
-              <div class="font-bold">{{ titleText(item) }}</div>
-              <div class="text-gray-400 font-thin">
-                {{ item.data.description }}
-              </div>
-              <template v-for="tag in item.data.tags">
-                <j-label :key="tag" :text="tagText(tag)" style="margin: 2px;" />
-              </template>
-            </a>
-          </j-form>
+          <a :href="item.data.url" target="_blank" rel="noopener">
+            <div class="font-bold">{{ timeFormat(item.data.time) }}</div>
+            <div class="font-bold">{{ titleText(item) }}</div>
+            <div class="text-gray-600 font-thin">
+              {{ item.data.description }}
+            </div>
+            <template v-for="tag in item.data.tags">
+              <j-label :key="tag" :text="tagText(tag)" style="margin: 2px;" />
+            </template>
+          </a>
         </template>
       </div>
       <j-pagination
