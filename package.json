@@ -30,7 +30,7 @@
     "dayjs": "1.8.30",
     "firebase": "7.17.1",
     "graphql": "15.3.0",
-    "graphql-tag": "2.10.4",
+    "graphql-tag": "2.11.0",
     "node-fetch": "2.6.0",
     "nuxt": "2.14.0",
     "ts-node": "8.10.2",
