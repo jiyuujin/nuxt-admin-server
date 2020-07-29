@@ -30,7 +30,7 @@
     "dayjs": "1.8.30",
     "firebase": "7.17.1",
     "graphql": "15.3.0",
-    "graphql-tag": "2.10.4",
+    "graphql-tag": "2.11.0",
     "node-fetch": "2.6.0",
     "nuxt": "2.14.0",
     "ts-node": "8.10.2",
@@ -71,7 +71,7 @@
     "jest-transform-stub": "2.0.0",
     "sass": "1.26.10",
     "sass-loader": "9.0.2",
-    "tailwindcss": "1.5.2",
+    "tailwindcss": "1.6.0",
     "ts-jest": "26.1.4",
     "vue-jest": "3.0.6"
   }
