@@ -8,13 +8,17 @@
       {{ itemName }}
     </div>
     <div class="add-tag">
-      <font-awesome-icon :icon="getIconStyle" class="icons" />
+      <!--
+      <svg-element :name="getIconStyle" />
+      -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, SetupContext, computed } from '@vue/composition-api'
+
+// const SvgElement = () => import('~/components/SvgElement.vue')
 
 type ListItemProps = {
   itemId: number
@@ -25,6 +29,9 @@ type ListItemProps = {
 }
 
 export default defineComponent({
+  components: {
+    // SvgElement
+  },
   props: {
     itemId: {
       type: Number,

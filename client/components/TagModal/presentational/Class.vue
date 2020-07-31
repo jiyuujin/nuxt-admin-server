@@ -6,7 +6,9 @@
           class="item-class-name"
           @click.prevent="state.isAccordionOpened = !state.isAccordionOpened"
         >
-          <font-awesome-icon icon="caret-right" class="icon" />
+          <!--
+          <svg-element name="caret-right" />
+          -->
           {{ title }}
           <small class="item-count">({{ itemLength }})</small>
         </a>
@@ -16,7 +18,9 @@
             class="add-tag-btn"
             @click.prevent="handleClickFolderIcon"
           >
-            <font-awesome-icon :icon="getIconsStyle" class="icons" />
+            <!--
+            <svg-element :name="getIconsStyle" />
+            -->
           </div>
         </a>
       </div>
@@ -42,6 +46,8 @@ import {
   reactive
 } from '@vue/composition-api'
 
+// const SvgElement = () => import('~/components/SvgElement.vue')
+
 type ClassProps = {
   title: string
   itemLength: number
@@ -50,6 +56,9 @@ type ClassProps = {
 }
 
 export default defineComponent({
+  components: {
+    // SvgElement
+  },
   props: {
     title: {
       type: String,
