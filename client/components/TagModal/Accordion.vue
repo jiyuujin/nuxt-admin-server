@@ -24,32 +24,40 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import AccordionComposable from '~/composables/accordion'
 import PresentationalClass from './presentational/Class.vue'
 import PresentationalListItem from './presentational/ListItem.vue'
 
-export default Vue.extend({
+type AccordionProps = {
+  labelText: string
+  title: string
+  items: object[]
+  selectedIds: string[]
+}
+
+export default defineComponent({
   components: {
     PresentationalClass,
     PresentationalListItem
   },
   props: {
     labelText: {
-      type: String as PropType<string>,
+      type: String,
       default: ''
     },
     title: {
-      type: String as PropType<string>,
+      type: String,
       required: true
     },
     items: {
-      type: Array as PropType<object[]>,
+      type: Array,
       default: function () {
         return []
       }
     },
     selectedIds: {
-      type: Array as PropType<string[]>,
+      type: Array,
       required: true
     }
   },
@@ -58,91 +66,13 @@ export default Vue.extend({
       isOpened: false
     }
   },
-  computed: {
-    updatedIds() {
-      return this.selectedIds
-    },
-    filteredDetail() {
-      if (this.items === null) {
-        return []
-      }
-      return this.items
-    },
-    isSelectedAll() {
-      const allItemIds = this.items.map((item: any) => item.itemId)
-      for (let i = 0; i < allItemIds.length; i++) {
-        if (!this.updatedIds.includes(allItemIds[i])) {
-          return false
-        }
-      }
-      return true
-    },
-    getIconsColorClass() {
-      if (this.isSelectedAll) {
-        return 'exists'
-      }
-      return ''
-    },
-    getIconsStyle() {
-      if (this.isSelectedAll) {
-        return 'folder-minus'
-      }
-      return 'folder-plus'
-    }
-  },
-  methods: {
-    getItemName(id: string) {
-      let name = ''
-      this.items.map((item: any) => {
-        if (item.itemId === id) {
-          name = item.itemName
-        }
-      })
-      return name
-    },
-    includeInSelected(id: string) {
-      return this.updatedIds.indexOf(id) !== -1
-    },
-    getIconStyle(id: string) {
-      return this.includeInSelected(id) ? 'times' : 'plus'
-    },
-    handleClickTitleIcon() {
-      if (this.isSelectedAll) {
-        this.deselectItemClassAll()
-        return
-      }
-      this.updateItemClassAll()
-    },
-    updateItemClassAll() {
-      const ids = this.filteredDetail.map((item: any) => item.itemId)
-      this.$emit('handleItemClassAll', ids)
-    },
-    updateItemClass(id: string) {
-      this.$emit('handleItemClass', id)
-    },
-    deselectItemClassAll() {
-      this.$emit(
-        'handleDeselectItemClassAll',
-        this.items.map((item: any) => item.itemId)
-      )
-    }
+  setup(props: AccordionProps, ctx: SetupContext) {
+    const accordionModule = AccordionComposable(props, ctx)
+    return { ...accordionModule }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.atoms-accordion-label {
-  margin-top: 1rem;
-  padding: 0 0.6rem 0.6rem;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  width: 100%;
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: left;
-  color: #0084cf;
-}
+@import '@/assets/accordion';
 </style>

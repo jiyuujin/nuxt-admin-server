@@ -8,19 +8,14 @@ type RootState = {
 }
 
 export const state = (): State => ({
-  isCookieAccepted: false,
   userStatus: false
 })
 
 interface State {
-  isCookieAccepted: boolean | false
   userStatus: boolean | false
 }
 
 export const mutations: MutationTree<State> = {
-  acceptCookie(state) {
-    state.isCookieAccepted = true
-  },
   setUserStatus(state, payload) {
     state.userStatus = payload
   }

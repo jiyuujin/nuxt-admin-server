@@ -1,0 +1,63 @@
+.item-class-accordion {
+  border-bottom: 1px solid #ddd;
+}
+
+.item-class {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+
+  .item-class-name {
+    padding: 0.65rem;
+    width: 100%;
+    color: #333;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+
+    .icon {
+      margin: 0 0.65rem;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .item-count {
+      color: #999;
+    }
+  }
+
+  .add-tag {
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .add-tag-btn {
+      padding: 0.4rem;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      line-height: 0;
+      cursor: pointer;
+
+      &.isSelected {
+         color: #bc0000;
+      }
+    }
+  }
+}
+
+.is-opened {
+  .item-class-name {
+    .icon {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.item-list {
+  transition: height 0.15s ease-in-out;
+  overflow: hidden;
+}

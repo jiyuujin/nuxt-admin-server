@@ -1,18 +1,25 @@
 <template>
   <div class="container mx-auto">
+    <mode-change />
     <nuxt />
     <cookie-footer />
   </div>
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import { provideLayout } from '~/composables/layout'
 
+const ModeChange = () => import('~/components/ModeChange.vue')
 const CookieFooter = () => import('~/components/CookieFooter.vue')
 
-export default createComponent({
+export default defineComponent({
   components: {
+    ModeChange,
     CookieFooter
+  },
+  setup(props: {}, ctx: SetupContext) {
+    provideLayout()
   }
 })
 </script>
@@ -36,12 +43,5 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    background-color: #303030;
-    color: #fff;
-  }
 }
 </style>

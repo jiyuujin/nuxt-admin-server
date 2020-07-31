@@ -1,5 +1,6 @@
 export interface Menu {
-  title: string
+  value: number
+  text: string
   url: string
   src: string
   flex: number

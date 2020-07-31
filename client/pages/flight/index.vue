@@ -1,7 +1,7 @@
 <template>
   <main-template :user-status="userStatus">
     <div style="width: 100%; text-align: left;">
-      <j-form title="搭乗時間">
+      <div style="padding: 8px 0;">
         <v-single-picker
           ref="single-picker"
           :show-dropdown="datePicker.showDropdown"
@@ -16,46 +16,47 @@
             {{ picker }}
           </div>
         </v-single-picker>
-      </j-form>
-      <j-form title="出発／到着">
-        <div class="flex">
-          <j-select
-            :options="airportOptions"
-            :values="state.form.departure"
-            @handleSelect="applyDeparture"
-          />
-          <j-select
-            :options="airportOptions"
-            :values="state.form.arrival"
-            @handleSelect="applyArrival"
-          />
-        </div>
-      </j-form>
-      <j-form title="航空会社">
+      </div>
+      <div style="padding: 8px 0;">
+        <j-select
+          :options="airportOptions"
+          :values="state.form.departure"
+          @handleSelect="applyDeparture"
+        />
+      </div>
+      <div style="padding: 8px 0;">
+        <j-select
+          :options="airportOptions"
+          :values="state.form.arrival"
+          @handleSelect="applyArrival"
+        />
+      </div>
+      <div style="padding: 8px 0;">
         <j-select
           :options="airlineOptions"
           :values="state.form.airline"
           @handleSelect="applyAirline"
         />
-      </j-form>
-      <j-form title="搭乗機材">
+      </div>
+      <div style="padding: 8px 0;">
         <j-select
           :options="boardingTypeOptions"
           :values="state.form.boardingType"
           @handleSelect="applyBoardingType"
         />
-      </j-form>
-      <j-form title="レジ">
+      </div>
+      <div style="padding: 8px 0;">
         <j-input
           :text="state.form.registration"
+          placeholder="レジ"
           @handleInput="applyRegistration"
         />
-      </j-form>
+      </div>
     </div>
 
-    <j-form title="">
+    <div style="padding: 8px 0;">
       <j-button text="Flightを追加" @handleClick="postFlight" />
-    </j-form>
+    </div>
 
     <template v-if="state.flights">
       <!--
@@ -68,14 +69,15 @@
       -->
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
-          <j-form :title="timeFormat(item.data.time)">
-            <div class="font-bold">
-              {{ titleText(item) }}
-            </div>
-            <div class="text-gray-400 font-thin">
-              {{ descriptionText(item) }}
-            </div>
-          </j-form>
+          <div class="font-bold">
+            {{ timeFormat(item.data.time) }}
+          </div>
+          <div class="font-bold">
+            {{ titleText(item) }}
+          </div>
+          <div class="text-gray-600 font-thin">
+            {{ descriptionText(item) }}
+          </div>
         </template>
       </div>
       <j-pagination
@@ -88,26 +90,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  SetupContext,
-  reactive,
-  computed,
-  onMounted
-} from '@vue/composition-api'
-import dayjs from 'dayjs'
-import { fetchFlights, addFlight } from '~/services/flightService'
-import { ItemDataList } from '~/types/database'
-import {
-  AIRLINE_LIST,
-  AIRPORT_LIST,
-  BOARDING_TYPE_LIST,
-  getAirlineName,
-  getAirportName,
-  getBoardingTypeName
-} from '~/utils/flight'
-import { getTimeFormat } from '~/utils/date'
-import { CHART_OPTIONS } from '~/utils/flight'
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import UserComposable from '~/composables/user'
+import FlightComposable from '~/composables/flight'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 
@@ -117,94 +102,9 @@ export default defineComponent({
     MainTemplate
   },
   setup(props: {}, ctx: SetupContext) {
-    const datePicker = reactive({
-      showDropdown: true as boolean,
-      autoApply: false as boolean,
-      linkedCalendars: true as boolean,
-      requestDate: dayjs().format('YYYY/MM/DD') as string
-    })
-
-    const state = reactive({
-      activePage: 1 as number,
-      flights: {} as ItemDataList,
-      form: {
-        time: '' as string,
-        departure: 0 as number,
-        arrival: 0 as number,
-        airline: 0 as number,
-        boardingType: 0 as number,
-        registration: '' as string
-      }
-    })
-
-    const userStatus = computed(() => ctx.root.$store.state.product.userStatus)
-
-    onMounted(async () => {
-      state.flights = await fetchFlights()
-    })
-
-    return {
-      datePicker,
-      state,
-      airportOptions: AIRPORT_LIST,
-      airlineOptions: AIRLINE_LIST,
-      boardingTypeOptions: BOARDING_TYPE_LIST,
-      chartOptions: CHART_OPTIONS,
-      userStatus,
-      applyPage(value) {
-        state.activePage = value
-      },
-      updateValues(value: string): void {
-        datePicker.requestDate = value
-        state.form.time = dayjs(value).format()
-      },
-      checkOpen(open: any): void {
-        // console.log('event: ' + open)
-      },
-      applyDeparture(value) {
-        state.form.departure = value
-      },
-      applyArrival(value) {
-        state.form.arrival = value
-      },
-      applyAirline(value) {
-        state.form.airline = value
-      },
-      applyBoardingType(value) {
-        state.form.boardingType = value
-      },
-      applyRegistration(value) {
-        state.form.registration = value
-      },
-      titleText(item: any) {
-        return `${getAirlineName(item.data.airline)} : ${getAirportName(
-          item.data.departure
-        )} - ${getAirportName(item.data.arrival)}`
-      },
-      descriptionText(item: any) {
-        return `${item.data.registration} (${getBoardingTypeName(
-          item.data.boardingType
-        )})`
-      },
-      timeFormat(t) {
-        return getTimeFormat(t)
-      },
-      reset() {
-        state.form.time = ''
-        state.form.departure = 0
-        state.form.arrival = 0
-        state.form.airline = 0
-        state.form.boardingType = 0
-        state.form.registration = ''
-      },
-      cancel() {
-        // this.reset()
-      },
-      async postFlight() {
-        await addFlight(state.form)
-        // this.reset()
-      }
-    }
+    const userModule = UserComposable(props, ctx)
+    const flightModule = FlightComposable(props, ctx)
+    return { ...userModule, ...flightModule }
   }
 })
 </script>
