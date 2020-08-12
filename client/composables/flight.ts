@@ -1,7 +1,7 @@
 import { SetupContext, reactive, onMounted } from '@vue/composition-api'
 import dayjs from 'dayjs'
 
-import { fetchFlights, addFlight } from '~/services/flightService'
+import { fetchFlights, addFlight, drawChart } from '~/services/flightService'
 import { ItemDataList } from '~/types/database'
 import {
   AIRLINE_LIST,
@@ -25,6 +25,10 @@ export default (props: {}, ctx: SetupContext) => {
   const state = reactive({
     activePage: 1 as number,
     flights: {} as ItemDataList,
+    chartData: [] as any,
+    chartOptions: {
+      bars: 'horizontal'
+    },
     form: {
       time: '' as string,
       departure: 0 as number,
@@ -37,12 +41,17 @@ export default (props: {}, ctx: SetupContext) => {
 
   onMounted(async () => {
     state.flights = await fetchFlights()
+    state.chartData = drawChart(state.flights.item)
   })
 
   const titleText = (item: any) => {
-    return `${getAirlineName(item.data.airline)} : ${getAirportName(
-      item.data.departure
-    )} - ${getAirportName(item.data.arrival)}`
+    return `${getAirportName(item.data.departure)} - ${getAirportName(
+      item.data.arrival
+    )}`
+  }
+
+  const airlineText = (value: number) => {
+    return getAirlineName(value)
   }
 
   const descriptionText = (item: any) => {
@@ -114,6 +123,7 @@ export default (props: {}, ctx: SetupContext) => {
     boardingTypeOptions: BOARDING_TYPE_LIST,
     chartOptions: CHART_OPTIONS,
     titleText,
+    airlineText,
     descriptionText,
     timeFormat,
     applyPage,
