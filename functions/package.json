@@ -18,7 +18,7 @@
     "cors": "2.8.5",
     "dayjs": "1.8.33",
     "firebase-admin": "9.0.0",
-    "firebase-functions": "3.8.0",
+    "firebase-functions": "3.9.1",
     "memory-cache": "0.2.0",
     "request": "2.88.2",
     "request-promise": "4.2.6"
