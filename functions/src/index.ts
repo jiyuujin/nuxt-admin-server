@@ -19,7 +19,7 @@ admin.initializeApp(functions.config().firebase)
  */
 export const helloWorld = functions
   .region('asia-northeast1')
-  .https.onRequest((request, response) => {
+  .https.onRequest((request, response): any => {
     const bodyText: string = request.body.text
 
     // Slackに通知する
