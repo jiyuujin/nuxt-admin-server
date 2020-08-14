@@ -48,6 +48,19 @@ export default {
         config.devtool = '#source-map'
       }
     },
+    presets({ isServer }: Context) {
+      return [
+        [
+          require.resolve('@nuxt/babel-preset-app'),
+          {
+            buildTarget: isServer ? 'server' : 'client',
+            corejs: {
+              version: 3
+            }
+          }
+        ]
+      ]
+    },
     loaders: {
       scss: {
         implementation: sass,
