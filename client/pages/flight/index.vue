@@ -67,16 +67,30 @@
         :height="240"
       />
       -->
+      <google-chart
+        chart-type="ColumnChart"
+        :chart-data="state.chartData"
+        :chart-options="state.chartOptions"
+      />
       <div v-for="item in state.flights.item" :key="item.id">
         <template v-if="item.page === state.activePage">
-          <div class="font-bold">
-            {{ timeFormat(item.data.time) }}
-          </div>
-          <div class="font-bold">
-            {{ titleText(item) }}
-          </div>
-          <div class="text-gray-600 font-thin">
-            {{ descriptionText(item) }}
+          <div class="flex space-around">
+            <div class="w-4/5 text-left">
+              <div class="font-bold">
+                {{ timeFormat(item.data.time) }}
+              </div>
+              <div class="font-bold">
+                {{ titleText(item) }}
+              </div>
+              <div class="text-gray-600 font-thin">
+                {{ descriptionText(item) }}
+              </div>
+            </div>
+            <div class="w-1/5 text-right">
+              <div class="font-bold">
+                {{ airlineText(item.data.airline) }}
+              </div>
+            </div>
           </div>
         </template>
       </div>
@@ -95,11 +109,13 @@ import UserComposable from '~/composables/user'
 import FlightComposable from '~/composables/flight'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
+const GoogleChart = () => import('~/components/GoogleChart.vue')
 
 export default defineComponent({
   middleware: 'auth',
   components: {
-    MainTemplate
+    MainTemplate,
+    GoogleChart
   },
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
