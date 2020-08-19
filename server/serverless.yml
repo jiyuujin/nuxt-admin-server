@@ -1,0 +1,39 @@
+service: nestjs-server
+
+plugins:
+  - serverless-layers
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-1
+  memorySize: 256
+  logRetentionInDays: 1
+  apiGateway:
+    minimumCompressionSize: 1024
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    LANG: ja_JP.UTF-8
+  versionFunctions: false
+  deploymentBucket:
+    name: nestjs-hello-lambda-layer
+
+package:
+  individually: true
+  include:
+    - dist/**
+  exclude:
+    - "**"
+
+functions:
+  index:
+    handler: dist/handler.handler
+    events:
+      - http:
+          cors: true
+          path: "/"
+          method: any
+      - http:
+          cors: true
+          path: "{proxy+}"
+          method: any
