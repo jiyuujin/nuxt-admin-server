@@ -539,6 +539,10 @@ module.exports = {
 
   plugins: [],
 
+  future: {
+    removeDeprecatedGapUtilities: true
+  },
+
   purge: {
     enabled: process.env.NODE_ENV === 'production',
     content: [
