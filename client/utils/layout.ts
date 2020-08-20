@@ -7,7 +7,7 @@ import { Menu } from '~/types/utils'
 export const MENU_LIST: Menu[] = [
   {
     value: 0,
-    text: '',
+    text: 'top',
     url: '/',
     src: '',
     flex: 3
