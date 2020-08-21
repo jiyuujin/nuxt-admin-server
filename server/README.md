@@ -1,34 +1,42 @@
 # server
 
-Please install NestJS because you use the `nest` command
+Please install NestJS because you use the `nest` command.
 
 ```bash
 npm install -g @nestjs/cli
 nest new server
 ```
 
-## Running the app
+## Run
 
 ```bash
 # development
-$ npm run start
+yarn start
 
-# watch mode
-$ npm run start:dev
+# watch
+yarn start:w
 
-# production mode
-$ npm run start:prod
+# production
+yarn start:prod
 ```
 
-### Test
+### Deploy to Lambda
+
+Use AWS Lambda.
 
 ```bash
-# unit tests
-$ npm run test
+yarn deploy
+```
 
-# e2e tests
-$ npm run test:e2e
+## Test
 
-# test coverage
-$ npm run test:cov
+```bash
+# unit test
+yarn test:unit
+
+# e2e test
+yarn test:e2e
+
+# coverage
+yarn test:cov
 ```

@@ -9,21 +9,21 @@ import * as express from 'express';
 let cachedServer: Server;
 
 async function bootstrapServer(): Promise<Server> {
-    const expressApp = express();
-    const adapter = new ExpressAdapter(expressApp);
-    const app = await NestFactory.create(AppModule, adapter);
-    app.enableCors();
-    await app.init();
-    return serverless.createServer(expressApp);
+  const expressApp = express();
+  const adapter = new ExpressAdapter(expressApp);
+  const app = await NestFactory.create(AppModule, adapter);
+  app.enableCors();
+  await app.init();
+  return serverless.createServer(expressApp);
 }
 
 export const handler: Handler = (event: any, context: Context) => {
-    if (!cachedServer) {
-        bootstrapServer().then(async server => {
-            cachedServer = server;
-            return serverless.proxy(server, event, context, 'PROMISE').promise;
-        });
-    }
+  if (!cachedServer) {
+    bootstrapServer().then(async server => {
+      cachedServer = server;
+      return serverless.proxy(server, event, context, 'PROMISE').promise;
+    });
+  }
 
-    return serverless.proxy(cachedServer, event, context, 'PROMISE').promise;
+  return serverless.proxy(cachedServer, event, context, 'PROMISE').promise;
 };
