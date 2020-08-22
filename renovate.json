@@ -28,6 +28,14 @@
       "labels": [
         "Package:Functions"
       ]
+    },
+    {
+      "paths": [
+        "server/**"
+      ],
+      "labels": [
+        "Package:Server"
+      ]
     }
   ],
   "schedule": [
