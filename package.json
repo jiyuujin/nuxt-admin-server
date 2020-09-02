@@ -48,7 +48,7 @@
     "@babel/preset-env": "7.11.5",
     "@nekohack/eslint-config-vue": "0.4.0",
     "@nuxt/types": "2.14.4",
-    "@nuxt/typescript-build": "2.0.2",
+    "@nuxt/typescript-build": "2.0.3",
     "@nuxt/typescript-runtime": "1.0.0",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/vue": "5.0.4",
