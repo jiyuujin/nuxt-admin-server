@@ -43,7 +43,7 @@
     "vuex-type-helper": "1.2.2"
   },
   "devDependencies": {
-    "@babel/core": "7.11.5",
+    "@babel/core": "7.11.6",
     "@babel/plugin-transform-runtime": "7.11.5",
     "@babel/preset-env": "7.11.5",
     "@nekohack/eslint-config-vue": "0.4.0",
