@@ -41,6 +41,7 @@
         <j-pagination
           :items="state.tips.item !== undefined ? state.tips.item : []"
           :current-page="state.activePage"
+          :per-page="state.perPage"
           @handlePage="applyPage"
         />
       </div>

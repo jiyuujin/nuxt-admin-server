@@ -6,6 +6,7 @@ import { getTimeFormat } from '~/utils/date'
 export default (props, ctx: SetupContext) => {
   const state = reactive({
     activePage: 1,
+    perPage: 20,
     contacts: {}
   })
 

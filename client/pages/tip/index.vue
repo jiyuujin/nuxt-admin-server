@@ -37,8 +37,6 @@
     <div style="padding: 8px 0;">
       <j-button text="Tipを追加" @handleClick="postTip" />
     </div>
-
-    <photo-upload />
   </main-template>
 </template>
 
@@ -48,14 +46,12 @@ import UserComposable from '~/composables/user'
 import TipComposable from '~/composables/tip'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
-const PhotoUpload = () => import('~/components/PhotoUpload.vue')
 const TagModal = () => import('~/components/TagModal/Index.vue')
 
 export default defineComponent({
   middleware: 'auth',
   components: {
     MainTemplate,
-    PhotoUpload,
     TagModal
   },
   setup(props: {}, ctx: SetupContext) {
