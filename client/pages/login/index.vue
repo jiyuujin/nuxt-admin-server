@@ -1,33 +1,52 @@
 <template>
   <main-template :user-status="userStatus">
     <div class="mb-8">
-      <div class="mx-12 font-bold">
+      <div class="mx-2 font-bold">
         最新のお知らせ
       </div>
-      <div class="p-4 mx-12 rounded-lg shadow-card border-gray-200">
-        <template v-for="issue in issues">
+      <div v-if="state.tips" class="flex flex-wrap flex-row">
+        <template v-for="item in state.tips.item">
           <div
-            :key="issue.id"
-            :class="
-              $device.isDesktop
-                ? 'flex justify-between items-center align-middle'
-                : 'flex flex-col'
-            "
+            v-if="item.page === state.activePage"
+            :key="item.id"
+            :class="$device.isDesktop ? 'w-2/4' : 'w-full'"
+            class="rounded-lg border-gray-400 shadow-card px-4 py-2 mb-2 h-32"
           >
-            <div :class="$device.isDesktop ? 'mb-2' : ''">
-              <div>{{ issue.repositoryName }}</div>
-              <a :href="issue.url" target="_blank" rel="noopener">
-                {{ issue.title }}
+            <template>
+              <a :href="item.data.url" target="_blank" rel="noopener">
+                <div
+                  :class="
+                    $device.isDesktop
+                      ? 'flex justify-start items-center align-middle'
+                      : 'flex flex-col'
+                  "
+                >
+                  <div :class="$device.isDesktop ? 'mb-2' : ''">
+                    <div class="font-bold">{{ titleText(item) }}</div>
+                    <div>
+                      <template v-for="tag in item.data.tags">
+                        <j-label
+                          :key="tag"
+                          :text="tagText(tag)"
+                          style="margin: 2px;"
+                        />
+                      </template>
+                    </div>
+                  </div>
+                </div>
               </a>
-            </div>
-            <div class="mb-2">
-              {{ issue.updatedAt }}
-            </div>
+            </template>
           </div>
         </template>
+        <j-pagination
+          :items="state.tips.item !== undefined ? state.tips.item : []"
+          :current-page="state.activePage"
+          :per-page="state.perPage"
+          @handlePage="applyPage"
+        />
       </div>
 
-      <div class="mx-12 font-bold">
+      <div class="mx-2 font-bold">
         アプリ一覧
       </div>
       <div>
@@ -47,7 +66,7 @@
         </template>
       </div>
 
-      <div class="flex flex-wrap justify-around pb-4 mx-12">
+      <div class="flex flex-wrap justify-around pb-4 mx-2">
         <div class="flex-1">
           <div class="font-bold">
             このアプリの情報
@@ -103,7 +122,7 @@
         </div>
       </div>
 
-      <div class="flex justify-end mx-12">
+      <div class="flex justify-end mx-2">
         <j-button text="問題を報告" @handleClick="report" />
       </div>
     </div>
@@ -113,12 +132,12 @@
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
 import UserComposable from '~/composables/user'
+import TipComposable from '~/composables/tip'
 import { useLayout } from '~/composables/layout'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const AppCard = () => import('~/components/Card/App.vue')
 
-import { fetchRepositories } from '~/services/githubService'
 import { products } from '~/utils/product'
 
 export default defineComponent({
@@ -126,16 +145,13 @@ export default defineComponent({
     MainTemplate,
     AppCard
   },
-  async asyncData() {
-    return {
-      issues: await fetchRepositories()
-    }
-  },
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
+    const tipModule = TipComposable(props, ctx)
     const { mode } = useLayout()
     return {
       ...userModule,
+      ...tipModule,
       mode,
       products: products,
       report() {

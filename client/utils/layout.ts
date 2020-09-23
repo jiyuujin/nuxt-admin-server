@@ -7,20 +7,34 @@ import { Menu } from '~/types/utils'
 export const MENU_LIST: Menu[] = [
   {
     value: 0,
-    text: '',
+    text: 'top',
     url: '/',
-    src: '',
+    src: 'nyanko.png',
     flex: 3
   },
   {
     value: 1,
+    text: 'contact',
+    url: '/contact',
+    src: 'nyanko.png',
+    flex: 3
+  },
+  {
+    value: 2,
     text: 'tip',
     url: '/tip',
     src: 'nyanko.png',
     flex: 3
   },
   {
-    value: 2,
+    value: 3,
+    text: 'photo',
+    url: '/photo',
+    src: 'nyanko.png',
+    flex: 3
+  },
+  {
+    value: 4,
     text: 'flight',
     url: '/flight',
     src: 'takeoff.png',
