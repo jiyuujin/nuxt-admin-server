@@ -27,7 +27,7 @@
     "apollo-link-http": "1.5.17",
     "chart.js": "2.9.3",
     "core-js": "3.6.5",
-    "dayjs": "1.9.0",
+    "dayjs": "1.9.1",
     "firebase": "7.21.1",
     "graphql": "15.3.0",
     "graphql-tag": "2.11.0",
