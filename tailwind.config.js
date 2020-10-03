@@ -540,7 +540,8 @@ module.exports = {
   plugins: [],
 
   future: {
-    removeDeprecatedGapUtilities: true
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true
   },
 
   purge: {
