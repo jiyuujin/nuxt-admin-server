@@ -3,10 +3,7 @@ name: Functions CI
 on:
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - release
 
 jobs:
   build:
