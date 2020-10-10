@@ -37,10 +37,10 @@ import ContactComposable from '~/composables/contact'
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 
 export default defineComponent({
-  middleware: 'auth',
   components: {
     MainTemplate
   },
+  middleware: 'auth',
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
     const contactModule = ContactComposable(props, ctx)

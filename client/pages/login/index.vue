@@ -1,9 +1,7 @@
 <template>
   <main-template :user-status="userStatus">
     <div class="mb-8">
-      <div class="mx-2 font-bold">
-        最新のお知らせ
-      </div>
+      <div class="mx-2 font-bold">最新のお知らせ</div>
       <div v-if="state.tips" class="flex flex-wrap flex-row">
         <template v-for="item in state.tips.item">
           <div
@@ -28,7 +26,7 @@
                         <j-label
                           :key="tag"
                           :text="tagText(tag)"
-                          style="margin: 2px;"
+                          style="margin: 2px"
                         />
                       </template>
                     </div>
@@ -46,9 +44,7 @@
         />
       </div>
 
-      <div class="mx-2 font-bold">
-        アプリ一覧
-      </div>
+      <div class="mx-2 font-bold">アプリ一覧</div>
       <div>
         <template v-for="product in products">
           <app-card
@@ -68,9 +64,7 @@
 
       <div class="flex flex-wrap justify-around pb-4 mx-2">
         <div class="flex-1">
-          <div class="font-bold">
-            このアプリの情報
-          </div>
+          <div class="font-bold">このアプリの情報</div>
           <div
             class="p-4 h-64 justify-between rounded-lg shadow-card border-gray-200"
           >
@@ -93,9 +87,7 @@
           </div>
         </div>
         <div class="flex-1">
-          <div class="font-bold">
-            ログイン
-          </div>
+          <div class="font-bold">ログイン</div>
           <div
             class="p-4 h-64 justify-between rounded-lg shadow-card border-gray-200"
           >

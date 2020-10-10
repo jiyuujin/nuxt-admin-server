@@ -20,7 +20,7 @@ type VCProps = {
 const VueChartPlugin: Plugin = () => {
   const { reactiveProp } = mixins
 
-  Vue.component<VCData, VCMethod, VCComputed, VCProps>('bar', {
+  Vue.component<VCData, VCMethod, VCComputed, VCProps>('Bar', {
     extends: Bar,
     mixins: [reactiveProp],
     props: {

@@ -1,7 +1,7 @@
 <template>
-  <div style="padding: 8px 0;">
+  <div style="padding: 8px 0">
     <input type="file" @change="onFileChange" />
-    <div v-if="state.content" style="margin-top: 12px;">
+    <div v-if="state.content" style="margin-top: 12px">
       アップロード結果:
       <div class="preview">
         <img :src="state.content" :alt="state.name" decoding="async" />
