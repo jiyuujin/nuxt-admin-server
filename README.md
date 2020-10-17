@@ -2,7 +2,7 @@
   <h2>Admin</h2>
 </div>
 
-<div align="center">
+<div align="left">
   <ul>
     <li>
       <a href="https://github.com/jiyuujin/reactnative_admin">ReactNative Admin</a>
