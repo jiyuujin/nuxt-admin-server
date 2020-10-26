@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "typescript": "4.0.3",
-    "firebase-functions-test": "0.2.2"
+    "firebase-functions-test": "0.2.3"
   },
   "engines": {
     "node": "10"
