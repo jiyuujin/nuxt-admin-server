@@ -73,7 +73,7 @@
     "sass": "1.27.0",
     "sass-loader": "10.0.4",
     "tailwindcss": "1.9.6",
-    "ts-jest": "26.4.2",
+    "ts-jest": "26.4.3",
     "vue-jest": "3.0.7"
   }
 }
