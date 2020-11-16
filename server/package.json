@@ -30,7 +30,7 @@
     "rxjs": "6.6.3"
   },
   "devDependencies": {
-    "@nestjs/cli": "7.5.2",
+    "@nestjs/cli": "7.5.3",
     "@nestjs/schematics": "7.2.1",
     "@nestjs/testing": "7.5.2",
     "@types/aws-serverless-express": "3.3.3",
