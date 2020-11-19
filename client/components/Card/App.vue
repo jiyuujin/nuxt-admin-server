@@ -13,13 +13,13 @@
         </div>
       </div>
       <div v-if="purchased" class="right">
-        <div class="price" style="margin: 0 4px;">
+        <div class="price" style="margin: 0 4px">
           {{ `${price}/年間` }}
         </div>
-        <j-tooltip :title="tooltip" style="margin: 0 4px;" />
+        <j-tooltip :title="tooltip" style="margin: 0 4px" />
         <j-button
           text="購入へ進む"
-          style="margin: 0 4px;"
+          style="margin: 0 4px"
           @handleClick="handleSubmitClickCallback"
         />
       </div>

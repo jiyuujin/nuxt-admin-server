@@ -17,12 +17,8 @@
         <div :style="state.modalWrapperStyle">
           <div class="modal-container">
             <div class="header">
-              <span class="header-title">
-                カテゴリー選択
-              </span>
-              <span class="header-close-btn" @click="cancel">
-                ×
-              </span>
+              <span class="header-title"> カテゴリー選択 </span>
+              <span class="header-close-btn" @click="cancel"> × </span>
             </div>
 
             <div class="content">
@@ -95,7 +91,7 @@
             <div class="footer">
               <j-button
                 text="キャンセル"
-                style="margin-right: 0.8rem;"
+                style="margin-right: 0.8rem"
                 @handleClick="cancel"
               />
               <j-button text="確定" fill @handleClick="submit" />

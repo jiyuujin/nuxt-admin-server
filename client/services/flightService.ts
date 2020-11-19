@@ -2,7 +2,7 @@ import { ItemDataList } from '~/types/database'
 import { connectCollection } from './collectionService'
 import { PAGE_SIZE } from './paginationService'
 import { isValidText } from '~/store/utils'
-import dayjs from "dayjs";
+import dayjs from 'dayjs'
 
 const collection = connectCollection('flights')
 

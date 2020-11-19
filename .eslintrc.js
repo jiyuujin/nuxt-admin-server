@@ -5,5 +5,9 @@ module.exports = {
   env: { node: true, es6: true },
   parserOptions: {
     parser: '@typescript-eslint/parser'
+  },
+  rules: {
+    'vue/no-v-for-template-key-on-child': 'off',
+    'vue/singleline-html-element-content-newline': 'off'
   }
 }

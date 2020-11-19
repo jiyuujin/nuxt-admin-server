@@ -1,8 +1,8 @@
 <template>
   <div class="switch">
     <label class="switch-label">
-      <input type="checkbox" id="btn-mode" @input="change">
-      <span class="switch-mode" id="icon-rotate" />
+      <input id="btn-mode" type="checkbox" @input="change" />
+      <span id="icon-rotate" class="switch-mode" />
     </label>
   </div>
 </template>
@@ -20,14 +20,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-input[type="checkbox"] {
+input[type='checkbox'] {
   display: none;
 }
 
 .switch {
   position: fixed;
-  top: .5em;
-  right: .5em;
+  top: 0.5em;
+  right: 0.5em;
   font-size: 60px;
 }
 
@@ -57,7 +57,7 @@ input[type="checkbox"] {
     position: absolute;
     right: 0;
     top: 0;
-    transform: scale(1,-1);
+    transform: scale(1, -1);
   }
 }
 </style>
