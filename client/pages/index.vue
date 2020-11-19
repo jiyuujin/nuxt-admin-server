@@ -29,18 +29,18 @@ const MainTemplate = () => import('~/components/MainTemplate.vue')
 import { fetchRepositories } from '~/services/githubService'
 
 export default defineComponent({
-  middleware: 'auth',
   components: {
     MainTemplate
+  },
+  middleware: 'auth',
+  setup(props: {}, ctx: SetupContext) {
+    const userModule = UserComposable(props, ctx)
+    return { ...userModule }
   },
   async asyncData() {
     return {
       issues: await fetchRepositories()
     }
-  },
-  setup(props: {}, ctx: SetupContext) {
-    const userModule = UserComposable(props, ctx)
-    return { ...userModule }
   }
 })
 </script>

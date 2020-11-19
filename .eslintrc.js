@@ -7,6 +7,9 @@ module.exports = {
     parser: '@typescript-eslint/parser'
   },
   rules: {
-    'vue/singleline-html-element-content-newline': 'off'
+    'vue/no-v-for-template-key-on-child': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/no-deprecated-slot-attribute': 'off',
+    'vue/no-deprecated-slot-scope-attribute': 'off'
   }
 }

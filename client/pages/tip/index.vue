@@ -49,11 +49,11 @@ const MainTemplate = () => import('~/components/MainTemplate.vue')
 const TagModal = () => import('~/components/TagModal/Index.vue')
 
 export default defineComponent({
-  middleware: 'auth',
   components: {
     MainTemplate,
     TagModal
   },
+  middleware: 'auth',
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
     const tipModule = TipComposable(props, ctx)

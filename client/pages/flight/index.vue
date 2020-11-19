@@ -112,11 +112,11 @@ const MainTemplate = () => import('~/components/MainTemplate.vue')
 const GoogleChart = () => import('~/components/GoogleChart.vue')
 
 export default defineComponent({
-  middleware: 'auth',
   components: {
     MainTemplate,
     GoogleChart
   },
+  middleware: 'auth',
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
     const flightModule = FlightComposable(props, ctx)

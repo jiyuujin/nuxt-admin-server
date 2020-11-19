@@ -61,14 +61,14 @@ export default defineComponent({
       required: true
     }
   },
+  setup(props: AccordionProps, ctx: SetupContext) {
+    const accordionModule = AccordionComposable(props, ctx)
+    return { ...accordionModule }
+  },
   data() {
     return {
       isOpened: false
     }
-  },
-  setup(props: AccordionProps, ctx: SetupContext) {
-    const accordionModule = AccordionComposable(props, ctx)
-    return { ...accordionModule }
   }
 })
 </script>
