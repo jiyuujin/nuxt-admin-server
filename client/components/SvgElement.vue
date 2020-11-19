@@ -1,5 +1,5 @@
 <template>
-  <component :is="svg" style="width: 16px; height: 16px;" />
+  <component :is="svg" style="width: 16px; height: 16px" />
 </template>
 
 <script lang="ts">

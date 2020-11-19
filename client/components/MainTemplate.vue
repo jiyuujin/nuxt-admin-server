@@ -2,21 +2,18 @@
   <div>
     <div v-if="userStatus" class="flex justify-between items-center py-4">
       <ul class="flex border-b">
-        <template v-for="menu in menus">
-          <li class="mr-1">
-            <nuxt-link
-              :key="menu.value"
-              :class="
-                $route.path === menu.url
-                  ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold'
-                  : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'
-              "
-              :to="menu.url"
-            >
-              {{ menu.text }}
-            </nuxt-link>
-          </li>
-        </template>
+        <li v-for="menu in menus" :key="menu.value" class="mr-1">
+          <nuxt-link
+            :class="
+              $route.path === menu.url
+                ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold'
+                : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'
+            "
+            :to="menu.url"
+          >
+            {{ menu.text }}
+          </nuxt-link>
+        </li>
       </ul>
       <j-button text="ログアウト" @handleClick="logout" />
     </div>

@@ -5,5 +5,8 @@ module.exports = {
   env: { node: true, es6: true },
   parserOptions: {
     parser: '@typescript-eslint/parser'
+  },
+  rules: {
+    'vue/singleline-html-element-content-newline': 'off'
   }
 }

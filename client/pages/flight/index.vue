@@ -1,7 +1,7 @@
 <template>
   <main-template :user-status="userStatus">
-    <div style="width: 100%; text-align: left;">
-      <div style="padding: 8px 0;">
+    <div style="width: 100%; text-align: left">
+      <div style="padding: 8px 0">
         <v-single-picker
           ref="single-picker"
           :show-dropdown="datePicker.showDropdown"
@@ -12,40 +12,40 @@
           @update="updateValues"
           @toggle="checkOpen"
         >
-          <div slot="input" slot-scope="picker" style="min-width: 350px;">
+          <div slot="input" slot-scope="picker" style="min-width: 350px">
             {{ picker }}
           </div>
         </v-single-picker>
       </div>
-      <div style="padding: 8px 0;">
+      <div style="padding: 8px 0">
         <j-select
           :options="airportOptions"
           :values="state.form.departure"
           @handleSelect="applyDeparture"
         />
       </div>
-      <div style="padding: 8px 0;">
+      <div style="padding: 8px 0">
         <j-select
           :options="airportOptions"
           :values="state.form.arrival"
           @handleSelect="applyArrival"
         />
       </div>
-      <div style="padding: 8px 0;">
+      <div style="padding: 8px 0">
         <j-select
           :options="airlineOptions"
           :values="state.form.airline"
           @handleSelect="applyAirline"
         />
       </div>
-      <div style="padding: 8px 0;">
+      <div style="padding: 8px 0">
         <j-select
           :options="boardingTypeOptions"
           :values="state.form.boardingType"
           @handleSelect="applyBoardingType"
         />
       </div>
-      <div style="padding: 8px 0;">
+      <div style="padding: 8px 0">
         <j-input
           :text="state.form.registration"
           placeholder="レジ"
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div style="padding: 8px 0;">
+    <div style="padding: 8px 0">
       <j-button text="Flightを追加" @handleClick="postFlight" />
     </div>
 
