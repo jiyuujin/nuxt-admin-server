@@ -9,7 +9,6 @@ import { fetchTips, addTip } from '~/services/tipService'
 import { fetchEvents } from '~/services/eventService'
 import { ItemDataList } from '~/types/database'
 import { CATEGORIES } from '~/utils/tip'
-import { getTimeFormat } from '~/utils/date'
 
 export default (props: {}, ctx: SetupContext) => {
   const state = reactive({
@@ -84,10 +83,6 @@ export default (props: {}, ctx: SetupContext) => {
     state.form.event = value
   }
 
-  const timeFormat = (t) => {
-    return getTimeFormat(t)
-  }
-
   const reset = () => {
     state.form.title = ''
     state.form.url = ''
@@ -116,7 +111,6 @@ export default (props: {}, ctx: SetupContext) => {
     applyDescription,
     applyTags,
     applyEvent,
-    timeFormat,
     reset,
     cancel,
     postTip

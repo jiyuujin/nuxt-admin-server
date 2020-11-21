@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
  * @returns {*}
  */
 export function getTimeFormat(time) {
-  return dayjs(time).format('YYYY年MM月DD日')
+  return dayjs(time).format('YYYY/MM/DD')
 }
 
 /**
