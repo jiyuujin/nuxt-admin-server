@@ -1,12 +1,18 @@
-import { SetupContext, reactive } from '@vue/composition-api'
+import { SetupContext, reactive, onMounted } from '@vue/composition-api'
 import firebase from 'firebase'
 
-import { addPhoto } from '~/services/photoService'
+import { fetchPhotos, addPhoto } from '~/services/photoService'
+import { ItemDataList } from '~/types/database'
 
 export default (props: {}, ctx: SetupContext) => {
   const state = reactive({
+    photos: {} as ItemDataList,
     name: '' as string,
     content: '' as string
+  })
+
+  onMounted(async () => {
+    Promise.all([(state.photos = await fetchPhotos())])
   })
 
   const reset = () => {

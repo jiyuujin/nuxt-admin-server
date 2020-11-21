@@ -1,49 +1,6 @@
 <template>
   <main-template :user-status="userStatus">
     <div class="mb-8">
-      <div class="mx-2 font-bold">最新のお知らせ</div>
-      <div v-if="state.tips" class="flex flex-wrap flex-row">
-        <template v-for="item in state.tips.item">
-          <div
-            v-if="item.page === state.activePage"
-            :key="item.id"
-            :class="$device.isDesktop ? 'w-2/4' : 'w-full'"
-            class="rounded-lg border-gray-400 shadow-card px-4 py-2 mb-2 h-32"
-          >
-            <template>
-              <a :href="item.data.url" target="_blank" rel="noopener">
-                <div
-                  :class="
-                    $device.isDesktop
-                      ? 'flex justify-start items-center align-middle'
-                      : 'flex flex-col'
-                  "
-                >
-                  <div :class="$device.isDesktop ? 'mb-2' : ''">
-                    <div class="font-bold">{{ titleText(item) }}</div>
-                    <div>
-                      <template v-for="tag in item.data.tags">
-                        <j-label
-                          :key="tag"
-                          :text="tagText(tag)"
-                          style="margin: 2px"
-                        />
-                      </template>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </template>
-          </div>
-        </template>
-        <j-pagination
-          :items="state.tips.item !== undefined ? state.tips.item : []"
-          :current-page="state.activePage"
-          :per-page="state.perPage"
-          @handlePage="applyPage"
-        />
-      </div>
-
       <div class="mx-2 font-bold">アプリ一覧</div>
       <div>
         <template v-for="product in products">
@@ -124,7 +81,6 @@
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
 import UserComposable from '~/composables/user'
-import TipComposable from '~/composables/tip'
 import { useLayout } from '~/composables/layout'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
@@ -139,11 +95,9 @@ export default defineComponent({
   },
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
-    const tipModule = TipComposable(props, ctx)
     const { mode } = useLayout()
     return {
       ...userModule,
-      ...tipModule,
       mode,
       products: products,
       report() {

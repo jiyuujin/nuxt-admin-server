@@ -1,25 +1,32 @@
 <template>
   <main-template :user-status="userStatus">
-    <photo-upload />
+    <input type="file" @change="onFileChange" />
+    <div v-if="state.content" style="margin-top: 12px">
+      アップロード結果:
+      <div class="preview">
+        <img :src="state.content" :alt="state.name" decoding="async" />
+      </div>
+    </div>
+    <j-button text="Photoを追加" @handleClick="postPhoto" />
   </main-template>
 </template>
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
 import UserComposable from '~/composables/user'
+import PhotoComposable from '~/composables/photo'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
-const PhotoUpload = () => import('~/components/PhotoUpload.vue')
 
 export default defineComponent({
   components: {
-    MainTemplate,
-    PhotoUpload
+    MainTemplate
   },
   middleware: 'auth',
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
-    return { ...userModule }
+    const photoModule = PhotoComposable(props, ctx)
+    return { ...userModule, ...photoModule }
   }
 })
 </script>
