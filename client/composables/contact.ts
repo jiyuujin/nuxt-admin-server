@@ -1,7 +1,6 @@
 import { SetupContext, reactive, onMounted } from '@vue/composition-api'
 
 import { fetchContacts } from '~/services/contactService'
-import { getTimeFormat } from '~/utils/date'
 
 export default (props, ctx: SetupContext) => {
   const state = reactive({
@@ -22,14 +21,9 @@ export default (props, ctx: SetupContext) => {
     state.activePage = value
   }
 
-  const timeFormat = (t) => {
-    return getTimeFormat(t)
-  }
-
   return {
     state,
     titleText,
-    applyPage,
-    timeFormat
+    applyPage
   }
 }

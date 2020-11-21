@@ -1,7 +1,14 @@
 import { SetupContext, reactive, onMounted } from '@vue/composition-api'
 import dayjs from 'dayjs'
 
-import { fetchFlights, addFlight, drawChart } from '~/services/flightService'
+import {
+  fetchFlights,
+  addFlight,
+  drawChart,
+  drawLocaleChart,
+  drawAirlineChart,
+  drawBoardingTypeChart
+} from '~/services/flightService'
 import { ItemDataList } from '~/types/database'
 import {
   AIRLINE_LIST,
@@ -12,7 +19,6 @@ import {
   getBoardingTypeName
 } from '~/utils/flight'
 import { getTimeFormat } from '~/utils/date'
-import { CHART_OPTIONS } from '~/utils/flight'
 
 export default (props: {}, ctx: SetupContext) => {
   const datePicker = reactive({
@@ -26,6 +32,9 @@ export default (props: {}, ctx: SetupContext) => {
     activePage: 1 as number,
     flights: {} as ItemDataList,
     chartData: [] as any,
+    localeChartData: [] as any,
+    airlineChartData: [] as any,
+    boardingTypeChartData: [] as any,
     chartOptions: {
       bars: 'horizontal'
     },
@@ -42,12 +51,17 @@ export default (props: {}, ctx: SetupContext) => {
   onMounted(async () => {
     state.flights = await fetchFlights()
     state.chartData = drawChart(state.flights.item)
+    state.localeChartData = drawLocaleChart(state.flights.item)
+    state.airlineChartData = drawAirlineChart(state.flights.item)
+    state.boardingTypeChartData = drawBoardingTypeChart(state.flights.item)
   })
 
-  const titleText = (item: any) => {
-    return `${getAirportName(item.data.departure)} - ${getAirportName(
-      item.data.arrival
-    )}`
+  const departureText = (value: number) => {
+    return getAirportName(value)
+  }
+
+  const arrivalText = (value: number) => {
+    return getAirportName(value)
   }
 
   const airlineText = (value: number) => {
@@ -121,8 +135,8 @@ export default (props: {}, ctx: SetupContext) => {
     airportOptions: AIRPORT_LIST,
     airlineOptions: AIRLINE_LIST,
     boardingTypeOptions: BOARDING_TYPE_LIST,
-    chartOptions: CHART_OPTIONS,
-    titleText,
+    departureText,
+    arrivalText,
     airlineText,
     descriptionText,
     timeFormat,
