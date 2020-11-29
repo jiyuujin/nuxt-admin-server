@@ -11,7 +11,7 @@ const GITHUB_API_V4: string = 'https://api.github.com/graphql'
 export default {
   srcDir: './client',
 
-  mode: 'spa',
+  mode: 'universal',
 
   head: {
     title: 'admin',

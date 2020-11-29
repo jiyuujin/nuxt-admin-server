@@ -13,8 +13,11 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
+
 import UserComposable from '~/composables/user'
 import PhotoComposable from '~/composables/photo'
+
+import { fetchPhotos } from '~/services/photoService'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 
@@ -27,6 +30,11 @@ export default defineComponent({
     const userModule = UserComposable(props, ctx)
     const photoModule = PhotoComposable(props, ctx)
     return { ...userModule, ...photoModule }
+  },
+  async asyncData() {
+    return {
+      photos: await fetchPhotos()
+    }
   }
 })
 </script>

@@ -1,14 +1,7 @@
-import { SetupContext, reactive, onMounted } from '@vue/composition-api'
+import { SetupContext, reactive } from '@vue/composition-api'
 import dayjs from 'dayjs'
 
-import {
-  fetchFlights,
-  addFlight,
-  drawChart,
-  drawLocaleChart,
-  drawAirlineChart,
-  drawBoardingTypeChart
-} from '~/services/flightService'
+import { addFlight } from '~/services/flightService'
 import { ItemDataList } from '~/types/database'
 import {
   AIRLINE_LIST,
@@ -46,14 +39,6 @@ export default (props: {}, ctx: SetupContext) => {
       boardingType: 0 as number,
       registration: '' as string
     }
-  })
-
-  onMounted(async () => {
-    state.flights = await fetchFlights()
-    state.chartData = drawChart(state.flights.item)
-    state.localeChartData = drawLocaleChart(state.flights.item)
-    state.airlineChartData = drawAirlineChart(state.flights.item)
-    state.boardingTypeChartData = drawBoardingTypeChart(state.flights.item)
   })
 
   const departureText = (value: number) => {
