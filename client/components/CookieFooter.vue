@@ -12,13 +12,10 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
-import CookieLaw from 'vue-cookie-law'
+
 import CookieComposable from '~/composables/cookie'
 
 export default defineComponent({
-  components: {
-    CookieLaw
-  },
   setup(props: {}, ctx: SetupContext) {
     const cookieModule = CookieComposable(props, ctx)
     return { ...cookieModule }
