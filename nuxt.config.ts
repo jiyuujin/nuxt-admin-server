@@ -118,6 +118,10 @@ export default {
     '~/plugins/picker.ts',
     '~/plugins/composition-api.ts',
     '~/plugins/vue-chart.ts'
+    // {
+    //   src: '~/plugins/vue-cookie.ts',
+    //   mode: 'client'
+    // },
     // '~/plugins/vue-toasted.ts'
   ],
 

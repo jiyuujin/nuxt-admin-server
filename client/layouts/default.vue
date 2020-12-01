@@ -2,21 +2,22 @@
   <div class="container mx-auto">
     <mode-change />
     <nuxt />
+    <!--
     <cookie-footer />
+    -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
+
 import { provideLayout } from '~/composables/layout'
 
 const ModeChange = () => import('~/components/ModeChange.vue')
-const CookieFooter = () => import('~/components/CookieFooter.vue')
 
 export default defineComponent({
   components: {
-    ModeChange,
-    CookieFooter
+    ModeChange
   },
   setup(props: {}, ctx: SetupContext) {
     provideLayout()
