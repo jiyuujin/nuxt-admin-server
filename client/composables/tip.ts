@@ -1,21 +1,13 @@
-import {
-  computed,
-  SetupContext,
-  reactive,
-  onMounted
-} from '@vue/composition-api'
+import { SetupContext, reactive } from '@vue/composition-api'
 
-import { fetchTips, addTip } from '~/services/tipService'
-import { fetchEvents } from '~/services/eventService'
-import { ItemDataList } from '~/types/database'
+import { addTip } from '~/services/tipService'
+
 import { CATEGORIES } from '~/utils/tip'
 
 export default (props: {}, ctx: SetupContext) => {
   const state = reactive({
     activePage: 1 as number,
     perPage: 20 as number,
-    tips: {} as ItemDataList,
-    events: {} as ItemDataList,
     form: {
       title: '' as string,
       url: '' as string,
@@ -23,26 +15,6 @@ export default (props: {}, ctx: SetupContext) => {
       tags: [] as number[],
       event: 0 as number
     }
-  })
-
-  const eventOptions = computed(() => {
-    let array: object[] = []
-    if (state.events.item !== undefined) {
-      state.events.item.forEach((item) => {
-        array.push({
-          value: item.data.id,
-          text: item.data.name
-        })
-      })
-    }
-    return array
-  })
-
-  onMounted(async () => {
-    Promise.all([
-      (state.events = await fetchEvents()),
-      (state.tips = await fetchTips())
-    ])
   })
 
   const titleText = (item: any) => {
@@ -102,7 +74,6 @@ export default (props: {}, ctx: SetupContext) => {
 
   return {
     state,
-    eventOptions,
     titleText,
     tagText,
     applyPage,

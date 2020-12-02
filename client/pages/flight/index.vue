@@ -56,11 +56,11 @@
       </div>
     </j-modal>
 
-    <template v-if="state.flights">
+    <template v-if="flights">
       <div :style="{ display: 'flex', flexWrap: 'wrap', width: '100%' }">
         <google-chart
           chart-type="ColumnChart"
-          :chart-data="state.chartData"
+          :chart-data="chartData"
           :chart-options="{
             width: 450,
             height: 300,
@@ -71,7 +71,7 @@
         />
         <google-chart
           chart-type="ColumnChart"
-          :chart-data="state.localeChartData"
+          :chart-data="localeChartData"
           :chart-options="{
             width: 450,
             height: 300,
@@ -83,7 +83,7 @@
         />
         <google-chart
           chart-type="ColumnChart"
-          :chart-data="state.airlineChartData"
+          :chart-data="airlineChartData"
           :chart-options="{
             width: 450,
             height: 300,
@@ -95,7 +95,7 @@
         />
         <google-chart
           chart-type="ColumnChart"
-          :chart-data="state.boardingTypeChartData"
+          :chart-data="boardingTypeChartData"
           :chart-options="{
             width: 450,
             height: 300,
@@ -112,8 +112,17 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
+
 import UserComposable from '~/composables/user'
 import FlightComposable from '~/composables/flight'
+
+import {
+  drawAirlineChart,
+  drawBoardingTypeChart,
+  drawChart,
+  drawLocaleChart,
+  fetchFlights
+} from '~/services/flightService'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const GoogleChart = () => import('~/components/GoogleChart.vue')
@@ -128,6 +137,16 @@ export default defineComponent({
     const userModule = UserComposable(props, ctx)
     const flightModule = FlightComposable(props, ctx)
     return { ...userModule, ...flightModule }
+  },
+  async asyncData() {
+    const flights = await fetchFlights()
+    return {
+      flights: flights,
+      chartData: drawChart(flights.item),
+      localeChartData: drawLocaleChart(flights.item),
+      airlineChartData: drawAirlineChart(flights.item),
+      boardingTypeChartData: drawBoardingTypeChart(flights.item)
+    }
   }
 })
 </script>

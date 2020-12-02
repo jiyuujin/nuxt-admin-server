@@ -43,11 +43,12 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext, ref } from '@vue/composition-api'
+
 import UserComposable from '~/composables/user'
 
-const MainTemplate = () => import('~/components/MainTemplate.vue')
-
 import { fetchRepositories } from '~/services/githubService'
+
+const MainTemplate = () => import('~/components/MainTemplate.vue')
 
 export default defineComponent({
   components: {

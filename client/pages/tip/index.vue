@@ -1,6 +1,6 @@
 <template>
   <main-template :user-status="userStatus">
-    <div v-if="state.events">
+    <div v-if="eventOptions">
       <div :style="{ padding: '8px 0' }">
         <j-input
           :text="state.form.title"
@@ -45,8 +45,12 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
+
 import UserComposable from '~/composables/user'
 import TipComposable from '~/composables/tip'
+
+import { fetchEvents } from '~/services/eventService'
+import { fetchTips } from '~/services/tipService'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const TagModal = () => import('~/components/TagModal/Index.vue')
@@ -61,6 +65,22 @@ export default defineComponent({
     const userModule = UserComposable(props, ctx)
     const tipModule = TipComposable(props, ctx)
     return { ...userModule, ...tipModule }
+  },
+  async asyncData() {
+    const events = await fetchEvents()
+    let options: object[] = []
+    if (events.item !== undefined) {
+      events.item.forEach((item) => {
+        options.push({
+          value: item.data.id,
+          text: item.data.name
+        })
+      })
+    }
+    return {
+      eventOptions: options,
+      tips: await fetchTips()
+    }
   }
 })
 </script>

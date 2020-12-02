@@ -1,16 +1,9 @@
-import { SetupContext, reactive, onMounted } from '@vue/composition-api'
-
-import { fetchContacts } from '~/services/contactService'
+import { SetupContext, reactive } from '@vue/composition-api'
 
 export default (props, ctx: SetupContext) => {
   const state = reactive({
     activePage: 1,
-    perPage: 20,
-    contacts: {}
-  })
-
-  onMounted(async () => {
-    state.contacts = await fetchContacts()
+    perPage: 20
   })
 
   const titleText = (item: any) => {
