@@ -34,7 +34,7 @@
     "graphql-tag": "2.11.0",
     "node-fetch": "2.6.1",
     "nuxt": "2.14.9",
-    "ts-node": "9.0.0",
+    "ts-node": "9.1.0",
     "vue-chartjs": "3.5.1",
     "vue-cookie-law": "1.13.3",
     "vue-google-charts": "0.3.3",
