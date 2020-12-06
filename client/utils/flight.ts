@@ -17,7 +17,9 @@ export const AIRPORT_LIST: List[] = [
   { value: 10, text: '神戸 / UKB' },
   { value: 11, text: '熊本 / KMJ' },
   { value: 12, text: '米子 / YGJ' },
-  { value: 13, text: '秋田 / AXT' }
+  { value: 13, text: '秋田 / AXT' },
+  { value: 14, text: 'バンコク / BKK' },
+  { value: 15, text: '台北 / TPE' }
 ]
 
 /**
@@ -35,7 +37,12 @@ export const AIRLINE_LIST: List[] = [
   { value: 8, text: 'ValillaAir' },
   { value: 9, text: 'SpringJapan' },
   { value: 10, text: 'AirasiaJapan' },
-  { value: 11, text: 'AmakusaAirline' }
+  { value: 11, text: 'AmakusaAirline' },
+  { value: 12, text: 'Thai Airways' },
+  { value: 13, text: 'China Airlines' },
+  { value: 14, text: 'Eva Airways' },
+  { value: 15, text: 'V Air' },
+  { value: 16, text: 'Tiger Air' }
 ]
 
 /**
@@ -58,7 +65,9 @@ export const BOARDING_TYPE_LIST: List[] = [
   { value: 13, text: 'Boeing787-10' },
   { value: 14, text: 'AirbusA350-9' },
   { value: 15, text: 'AirbusA320' },
-  { value: 16, text: 'AirbusA321' }
+  { value: 16, text: 'AirbusA321' },
+  { value: 17, text: 'Boeing747-4' },
+  { value: 18, text: 'Boeing747-8' }
 ]
 
 /**
