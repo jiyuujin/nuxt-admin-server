@@ -183,22 +183,20 @@ export const drawBoardingTypeChart = (item) => {
   chartData.push([
     '年',
     'Boeing737',
+    'Boeing747',
     'Boeing767',
     'Boeing777',
     'Boeing787',
-    'A320 + A321',
-    'Embraer',
-    'ATR'
+    'A320/A321'
   ])
   const list = years.map((y) => {
     // const list = filtered.filter((r) => r === String(y))
     let b3Num = 0
+    let b4Num = 0
     let b6Num = 0
     let b7Num = 0
     let b8Num = 0
     let a320Num = 0
-    let embraerNum = 0
-    let atrNum = 0
     item.map((d: any) => {
       if (dayjs(d.data.time).format('YYYY') === String(y)) {
         if (
@@ -208,6 +206,9 @@ export const drawBoardingTypeChart = (item) => {
           d.data.boardingType === 8
         ) {
           b3Num += 1
+        }
+        if (d.data.boardingType === 17 || d.data.boardingType === 18) {
+          b4Num += 1
         }
         if (d.data.boardingType === 4) {
           b6Num += 1
@@ -225,15 +226,9 @@ export const drawBoardingTypeChart = (item) => {
         if (d.data.boardingType === 15 || d.data.boardingType === 16) {
           a320Num += 1
         }
-        if (d.data.boardingType === 9 || d.data.boardingType === 10) {
-          embraerNum += 1
-        }
-        if (d.data.boardingType === 12) {
-          atrNum += 1
-        }
       }
     })
-    return [String(y), b3Num, b6Num, b7Num, b8Num, a320Num, embraerNum, atrNum]
+    return [String(y), b3Num, b4Num, b6Num, b7Num, b8Num, a320Num]
   })
   list.forEach((item) => {
     chartData.push([
@@ -243,8 +238,7 @@ export const drawBoardingTypeChart = (item) => {
       item[3],
       item[4],
       item[5],
-      item[6],
-      item[7]
+      item[6]
     ])
   })
 

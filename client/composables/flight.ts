@@ -97,7 +97,7 @@ export default (props: {}, ctx: SetupContext) => {
   }
 
   const reset = () => {
-    state.form.time = ''
+    state.form.time = dayjs().format('YYYY/MM/DD')
     state.form.departure = 0
     state.form.arrival = 0
     state.form.airline = 0
