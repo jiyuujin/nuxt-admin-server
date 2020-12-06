@@ -1,6 +1,11 @@
 <template>
   <main-template :user-status="userStatus">
-    <j-modal title="フライトを追加する" @confirm="postFlight" @cancel="cancel">
+    <modal
+      title="フライトを追加する"
+      is-confirmed
+      @confirm="postFlight"
+      @cancel="cancel"
+    >
       <div :style="{ padding: '8px' }">
         <div :style="{ padding: '8px 0' }">
           <v-single-picker
@@ -54,7 +59,7 @@
           />
         </div>
       </div>
-    </j-modal>
+    </modal>
 
     <template v-if="flights">
       <div :style="{ display: 'flex', flexWrap: 'wrap', width: '100%' }">
@@ -126,11 +131,13 @@ import {
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
 const GoogleChart = () => import('~/components/GoogleChart.vue')
+const Modal = () => import('~/components/Modal.vue')
 
 export default defineComponent({
   components: {
     MainTemplate,
-    GoogleChart
+    GoogleChart,
+    Modal
   },
   middleware: 'auth',
   setup(props: {}, ctx: SetupContext) {
