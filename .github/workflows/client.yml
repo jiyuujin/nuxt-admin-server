@@ -18,35 +18,35 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Cache node modules
-      uses: actions/cache@v1
-      env:
-        cache-name: _cache_npm_node12
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: _cache_npm_node12
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
-    - name: Test
-      run: |
-        npm install
-        npm run test:unit
-      env:
-        CI: true
+      - name: Test
+        run: |
+          npm install
+          npm run test:unit
+        env:
+          CI: true
 
-    - name: Transpile
-      run: |
-        npm install
-        npm run build --spa
-      env:
-        CI: true
+      - name: Transpile
+        run: |
+          npm install
+          npm run build
+        env:
+          CI: true
