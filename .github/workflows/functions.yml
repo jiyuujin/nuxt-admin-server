@@ -1,9 +1,8 @@
 name: Functions CI
 
 on:
-  push:
-    branches:
-      - release
+  schedule:
+    - cron: "5 3 * * 3"
 
 jobs:
   build:
