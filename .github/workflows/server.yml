@@ -43,6 +43,7 @@ jobs:
 
       - name: Transpile
         run: |
+          cd server
           npm run build
         env:
           CI: true
