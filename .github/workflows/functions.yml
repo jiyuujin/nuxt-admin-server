@@ -1,12 +1,8 @@
 name: Functions CI
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  schedule:
+    - cron: "5 3 * * 3"
 
 jobs:
   build:
