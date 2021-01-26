@@ -34,3 +34,4 @@ jobs:
         env:
           CI: true
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: "nuxt-admin-tokyo"
