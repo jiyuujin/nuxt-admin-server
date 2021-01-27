@@ -111,8 +111,8 @@ import {
   computed
 } from '@vue/composition-api'
 import { AccordionItemClass } from '~/types/utils'
-import { CATEGORIES } from '~/utils/tip'
-import { modalStyle, CategoryItems } from '~/utils/tip'
+import { CATEGORIES } from '~/utils/tag'
+import { modalStyle, CategoryItems } from '~/utils/tag'
 
 const Accordion = () => import('~/components/TagModal/Accordion.vue')
 

@@ -1,9 +1,5 @@
 import { List, AccordionItemClass } from '~/types/utils'
 
-/**
- * 技術カテゴリー
- * @type {*[]}
- */
 export const CATEGORIES: List[] = [
   {
     value: 0,
@@ -455,28 +451,6 @@ export const CategoryItems: AccordionItemClass[] = [
         ]
       }
     ]
-  }
-]
-
-/**
- * イベント地域
- */
-export const LOCALES: List[] = [
-  {
-    value: 0,
-    text: '指定無し'
-  },
-  {
-    value: 1,
-    text: '東京'
-  },
-  {
-    value: 2,
-    text: '大阪'
-  },
-  {
-    value: 3,
-    text: 'その他'
   }
 ]
 
