@@ -21,8 +21,8 @@ export const MENU_LIST: Menu[] = [
   },
   {
     value: 2,
-    text: 'tip',
-    url: '/tip',
+    text: 'tag',
+    url: '/tag',
     src: 'nyanko.png',
     flex: 3
   },
