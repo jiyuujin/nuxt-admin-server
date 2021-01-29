@@ -1,37 +1,28 @@
 <template>
-  <div class="card">
-    <div class="card-content">
-      <div class="left">
-        <img :src="icon" :alt="title" />
-        <div class="icon">
-          <div class="icon-title">
+  <div class="p-4 mb-2 mx-8 rounded-2xl shadow-card">
+    <div class="flex justify-between item-center mb-8">
+      <div class="flex flex-start item-center">
+        <img :src="icon" :alt="title" class="w-24 h-24" />
+        <div class="ml-4 text-left">
+          <div class="text-xl">
             {{ title }}
           </div>
-          <span v-for="tag in tags" :key="tag" class="icon-description">
-            <span class="tag">{{ tag }}</span>
+          <span v-for="tag in tags" :key="tag" class="text-sm">
+            <span class="p-2 mx-2 bg-gray-600 text-white rounded-2xl">
+              {{ tag }}
+            </span>
           </span>
         </div>
       </div>
-      <div v-if="purchased" class="right">
-        <div class="price" style="margin: 0 4px">
-          {{ `${price}/年間` }}
-        </div>
-        <j-tooltip :title="tooltip" style="margin: 0 4px" />
-        <j-button
-          text="購入へ進む"
-          style="margin: 0 4px"
-          @handleClick="handleSubmitClickCallback"
-        />
-      </div>
     </div>
-    <div class="card-promotion">
+    <div class="font-medium text-gray-700">
       {{ promotion }}
     </div>
-    <div class="card-rate">
+    <div class="text-gray-700">
       {{ rate }}
       <span :class="`rate rate${replace(rate)}`" />
     </div>
-    <div class="card-description">
+    <div class="text-gray-500">
       {{ description }}
     </div>
   </div>
@@ -44,10 +35,6 @@ type AppCardProps = {
   title: string
   icon: string
   tags: object[]
-  purchased: boolean
-  price: string
-  tooltip: string
-  handleSubmitClickCallback: Function
   promotion: string
   rate: string
   description: string
@@ -68,22 +55,6 @@ export default defineComponent({
       default: function () {
         return []
       }
-    },
-    purchased: {
-      type: Boolean,
-      default: false
-    },
-    price: {
-      type: String,
-      default: ''
-    },
-    tooltip: {
-      type: String,
-      default: ''
-    },
-    handleSubmitClickCallback: {
-      type: Function,
-      required: true
     },
     promotion: {
       type: String,
@@ -108,6 +79,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/card.scss';
 @import '@/assets/rate.scss';
 </style>
