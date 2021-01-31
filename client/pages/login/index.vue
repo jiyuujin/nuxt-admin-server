@@ -17,7 +17,9 @@
     -->
 
     <div class="mb-8">
-      <div class="p-4 h-64 flex flex-col justify-center item-center align-middle min-h-screen">
+      <div
+        class="p-4 h-64 flex flex-col justify-center item-center align-middle min-h-screen"
+      >
         <div class="my-4 flex justify-center item-center">
           <j-input
             placeholder="メールアドレス"
@@ -48,14 +50,14 @@ import UserComposable from '~/composables/user'
 import { useLayout } from '~/composables/layout'
 
 const MainTemplate = () => import('~/components/MainTemplate.vue')
-const AppCard = () => import('~/components/Card/App.vue')
+// const AppCard = () => import('~/components/Card/App.vue')
 
 import { products } from '~/utils/product'
 
 export default defineComponent({
   components: {
-    MainTemplate,
-    AppCard
+    MainTemplate
+    // AppCard
   },
   setup(props: {}, ctx: SetupContext) {
     const userModule = UserComposable(props, ctx)
