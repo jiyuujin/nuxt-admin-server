@@ -20,22 +20,60 @@
     </ul>
 
     <template v-if="isSelected === 0">
-      <div v-for="issue in issues" :key="issue.id">
-        <div class="px-4 py-2">
-          <a :href="issue.url" target="_blank" rel="noopener">
-            {{ issue.title }}
-          </a>
-        </div>
+      <div
+        class="px-4 py-2 flex flex-row flex-wrap justify-center item-center w-full"
+      >
+        <a
+          v-for="issue in issues"
+          :key="issue.id"
+          :href="issue.url"
+          target="_blank"
+          rel="noopener"
+          class="w-1/2 overflow-hidden flex flex-start py-4 text-xl"
+        >
+          <span
+            class="flex justify-center item-center align-middle w-16 h-16 m-2 border-solid border-1 border-card rounded-2xl text-reaction"
+          >
+            {{ issue.repositoryName.slice(0, 1).toUpperCase() }}
+          </span>
+          <div>
+            <div class="text-base font-bold overflow-hidden">
+              {{ issue.title }}
+            </div>
+            <div class="text-date overflow-hidden flex justify-between">
+              {{ dateFormat(issue.createdAt) }}
+            </div>
+          </div>
+        </a>
       </div>
     </template>
 
     <template v-if="isSelected === 1">
-      <div v-for="pullRequest in pullRequests" :key="pullRequest.id">
-        <div class="px-4 py-2">
-          <a :href="pullRequest.url" target="_blank" rel="noopener">
-            {{ pullRequest.title }}
-          </a>
-        </div>
+      <div
+        class="px-4 py-2 flex flex-row flex-wrap justify-center item-center w-full"
+      >
+        <a
+          v-for="pullRequest in pullRequests"
+          :key="pullRequest.id"
+          :href="pullRequest.url"
+          target="_blank"
+          rel="noopener"
+          class="w-1/2 overflow-hidden flex flex-start py-4 text-xl"
+        >
+          <span
+            class="flex justify-center item-center align-middle w-16 h-16 m-2 border-solid border-1 border-card rounded-2xl text-reaction"
+          >
+            {{ pullRequest.repositoryName.slice(0, 1).toUpperCase() }}
+          </span>
+          <div>
+            <div class="text-base font-bold overflow-hidden">
+              {{ pullRequest.title }}
+            </div>
+            <div class="text-date overflow-hidden flex justify-between">
+              {{ dateFormat(pullRequest.createdAt) }}
+            </div>
+          </div>
+        </a>
       </div>
     </template>
   </main-template>
@@ -43,6 +81,7 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext, ref } from '@vue/composition-api'
+import dayjs from 'dayjs'
 
 import UserComposable from '~/composables/user'
 
@@ -61,7 +100,10 @@ export default defineComponent({
     const select = (val: number) => {
       isSelected.value = val
     }
-    return { ...userModule, isSelected, select }
+    const dateFormat = (d: string) => {
+      return dayjs(d).format('YYYY/MM/DD HH:mm')
+    }
+    return { ...userModule, isSelected, select, dateFormat }
   },
   async asyncData() {
     const { issues, pullRequests } = await fetchRepositories()
