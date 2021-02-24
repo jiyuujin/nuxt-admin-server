@@ -50,7 +50,7 @@
     "@nekohack/eslint-config-vue": "1.0.0-beta.1",
     "@nuxt/types": "2.15.2",
     "@nuxt/typescript-build": "2.0.6",
-    "@nuxt/typescript-runtime": "2.0.1",
+    "@nuxt/typescript-runtime": "2.0.2",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/vue": "5.6.1",
     "@types/chart.js": "2.9.30",
