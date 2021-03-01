@@ -18,7 +18,7 @@
     "@nekohack/j-stylebook": "1.1.0",
     "@nuxtjs/apollo": "4.0.1-rc.5",
     "@nuxtjs/axios": "5.13.1",
-    "@nuxtjs/device": "2.0.0",
+    "@nuxtjs/device": "2.0.1",
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/pwa": "3.3.5",
     "@vue/composition-api": "0.6.7",
