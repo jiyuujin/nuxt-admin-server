@@ -73,7 +73,7 @@
     "jest-transform-stub": "2.0.0",
     "sass": "1.32.8",
     "sass-loader": "10.1.1",
-    "tailwindcss": "1.9.6",
+    "tailwindcss": "2.0.3",
     "ts-jest": "26.5.3",
     "vue-jest": "3.0.7"
   }
